@@ -416,50 +416,50 @@
                                        <div class="contenedor_general_formulario">
 
                                             <div class="contenedor_formulario1">
-                                                    <input id="input_nombre_administrador" type="text" class="input_text_administrador" placeholder="Nombre" value="">
+                                                    <input id="input_nombre_" type="text" class="input_text_administrador" placeholder="Nombre" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_apellidoP_administrador" type="text" class="input_text_administrador" placeholder="Apellido Paterno" value="">
+                                                    <input id="input_apellidoP_" type="text" class="input_text_administrador" placeholder="Apellido Paterno" value="">
                                                 </div>
                                             </div>                                        
                                             <div class="contenedor_general_formulario">
 
                                                 <div class="contenedor_formulario1">
-                                                    <input id="input_apellidoM_administrador" type="text" class="input_text_administrador" placeholder="Apellido Materno" value="">
+                                                    <input id="input_apellidoM_" type="text" class="input_text_administrador" placeholder="Apellido Materno" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_domicilo_administrador" type="text" class="input_text_administrador" placeholder="Domicilio" value="">
+                                                    <input id="input_domicilo_" type="text" class="input_text_administrador" placeholder="Domicilio" value="">
                                                 </div>
                                             </div>
 
                                             <div class="contenedor_general_formulario">
                                                 <div class="contenedor_formulario1">
-                                                    <input id="input_numero_exterior_administrador" type="text" class="input_text_administrador" placeholder="N° exterior" value="">
+                                                    <input id="input_numero_exterior_" type="text" class="input_text_administrador" placeholder="N° exterior" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_colonia_administrador" type="text" class="input_text_administrador" placeholder="Colonia" value="">
+                                                    <input id="input_colonia_" type="text" class="input_text_administrador" placeholder="Colonia" value="">
                                                 </div>
                                             </div>
 
                                             <div class="contenedor_general_formulario">
                                                 <div class="contenedor_formulario1">
-                                                    <input id="input_telefono_administrador" type="text" class="input_text_administrador" placeholder="Telefono" value="">
+                                                    <input id="input_telefono_" type="text" class="input_text_administrador" placeholder="Telefono" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_puesto_administrador" type="text" class="input_text_administrador" placeholder="Puesto" value="">
+                                                    <input id="input_puesto_" type="text" class="input_text_administrador" placeholder="Puesto" value="">
                                                 </div>
                                             </div> 
 
                                             <div class="contenedor_general_formulario">
                                                 <div class="contenedor_formulario1">
-                                                    <input id="input_correo_administrador" type="text" class="input_text_administrador" placeholder="Correo" value="">
+                                                    <input id="input_correo_" type="text" class="input_text_administrador" placeholder="Correo" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_contrasena_administrador" type="text" class="input_text_administrador" placeholder="Contraseña" value="">
+                                                    <input id="input_contrasena_" type="text" class="input_text_administrador" placeholder="Contraseña" value="">
                                                 </div>
                                             </div>
                                             <div class="contenedor_formulario_agregar">
-                                                <button class="boton" id="boton_agrega_administrador" onclick="agregar_administrador()">Dar de alta una nueva empresa</button>
+                                                <button class="boton" id="boton_agrega_administrador" onclick="">Dar de alta una nueva empresa</button>
                                             </div>
                                    </div>
                                </div>

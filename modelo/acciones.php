@@ -15,14 +15,14 @@ class Acciones
     {
         $servidor = new Servidor();
         $conexion = $servidor->conectar();
-        $sql_vericar = "SELECT correoAdministrador FROM administrador WHERE correoAdministrador=:correoAdministrador";
+        $sql_vericar = "SELECT correoAdministrador  FROM administrador WHERE correoAdministrador=:correoAdministrador";
         $existe = $conexion->prepare($sql_vericar);
         $existe->bindParam(":correoAdministrador",$correoAdministrador);
         $existe->execute();
         $activo = "1";
+        $tipo_usuario = "ADMINISTRADOR";
         $str_vacio = " ";
-        $tipo = "ADMINISTRADOR";
-
+        
         $numero = rand(100000,999999);
         $fecha = date("D/m/A H:i:s");
         $cifrado = sha1($contrasenaAdministrador);
@@ -30,6 +30,8 @@ class Acciones
 
         if($existe->rowCount()==0)
         {
+
+
             $sql = "INSERT INTO administrador
             (nombreAdministrador,
             apellidopAdministrador,
@@ -43,8 +45,10 @@ class Acciones
             contrasenaAdministrador,
             idSesion,
             activo,
-            tipo_usuario) 
-            VALUE(:nombreAdministrador,
+            tipo_usuario
+            ) 
+            VALUE(
+            :nombreAdministrador,
             :apellidopAdministrador,
             :apellidomAdministrador,
             :domicilioAdministrador,
@@ -55,7 +59,7 @@ class Acciones
             :correoAdministrador,
             :contrasenaAdministrador,
             :idSesion,
-            :activo
+            :activo,
             :tipo_usuario)";
 
             $parametro = $conexion->prepare($sql);
@@ -71,7 +75,8 @@ class Acciones
             $parametro->bindParam(":contrasenaAdministrador",$cifrado);
             $parametro->bindParam(":idSesion",$str_vacio);
             $parametro->bindParam(":activo",$activo);
-            $parametro->bindParam(":tipo_usuario",$tipo);
+            $parametro->bindParam(":tipo_usuario",$tipo_usuario);
+
             
             if($parametro->execute())
             {
@@ -84,12 +89,11 @@ class Acciones
         }
         else
         {
-            return "ya existe el usuario";
+            return "ya existe la usuario";
             // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
             // return $correoEmpleado;
         }
     }
-
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
     //////////////ACCIONES EMPLEADO///////////////////////
@@ -529,9 +533,14 @@ class Acciones
         $existe->bindParam(":rfcEmpresa",$rfcEmpresa);
         $existe->execute();
         $activo = "2";
-    
         $tipo_usuario = "EMPRESA";
         $str_vacio = " ";
+        $numero = rand(100000,999999);
+        $fecha = date("D/m/A H:i:s");
+        $cifrado = sha1($contrasenaEmpresa);
+        $cifrado = sha1($cifrado);
+
+
         if($existe->rowCount()==0)
         {
             $sql = "INSERT INTO empresas
@@ -580,7 +589,7 @@ class Acciones
             $parametro->bindParam(":estadoEmpresa",$estadoEmpresa);
             $parametro->bindParam(":telefonoEmpresa",$telefonoEmpresa);
             $parametro->bindParam(":correoEmpresa",$correoEmpresa);
-            $parametro->bindParam(":contrasenaEmpresa",$contrasenaEmpresa);
+            $parametro->bindParam(":contrasenaEmpresa",$cifrado);
             $parametro->bindParam(":idSesion",$str_vacio);
             $parametro->bindParam(":activo",$activo);
             $parametro->bindParam(":tipo_usuario",$tipo_usuario);

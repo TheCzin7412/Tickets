@@ -69,6 +69,7 @@ function limpiar_formulario_adn()
         elementos[i].value=""
     }
 }
+
 //Variables para desplazamiento del menus
 
 let contenedores = document.querySelectorAll(".seccion")
@@ -590,7 +591,7 @@ function agregar_administrador()
                 {
                     // console.log("200 Respuesta Exitosa");
                     console.log(ajax.responseText)
-                    limpiar_formulario_empleado()
+                    limpiar_formulario_adn()
                 }
                 if (ajax.status == 400) 
                 {
