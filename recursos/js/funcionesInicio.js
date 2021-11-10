@@ -141,6 +141,7 @@ function agregar_peticion_empresa()
             {
                 if (ajax.status == 200) 
                 {
+                    limpiar_formulario_empresas_peticion_login()
                     // console.log("200 Respuesta Exitosa");
                     console.log(ajax.responseText)
                 }
@@ -165,5 +166,60 @@ function agregar_peticion_empresa()
 
 // boton_inicio.addEventListener("click",inicio_sesion)
 
+
+let contenedores_login = document.querySelectorAll(".seccion_login")
+
+//INICIO DESPLAZAMIENTO ENTRE Inicio Session
+//Ocultar secciones del menu 
+function ocultarSeccionesLogin()
+{
+    for(let i = 0; i<contenedores_login.length;i++)
+    {
+        contenedores_login[i].style.display="none";
+    }
+}
+//Mostrar secciones del menu 
+function mostrarVistaLogin(elemento)
+{
+    ocultarSeccionesLogin()
+    let contenedor = document.getElementById(elemento)
+    contenedor.style.display="flex"
+}
+
+// mostrarVista(contenedores[0])
+//Desplazamiento secciones del menu en pagina principal 
+function mostrarSeccionLogin(event)
+{    
+    let elemento = event.target
+    let identificador = elemento.id
+    let regexIncioSession = /login/
+    let regexRegistrar = /inicioSesion/
+    //console.log(identificador)
+    if(regexIncioSession.test(identificador))
+    {
+        // console.log("coincide dashboard")
+        let nombre_elemento = "contenedor_formulario_login"
+        mostrarVistaLogin(nombre_elemento)
+    }
+    if(regexRegistrar.test(identificador))
+    {
+        // console.log("coincide ticket")
+        let nombre_elemento = "contenedor_formulario_registrar"
+        mostrarVistaLogin(nombre_elemento)
+    }
+    
+}
+
+/////TERMINO DESPLAZAMIENTO ENTRE Inicio Session
+
+
+function limpiar_formulario_empresas_peticion_login()
+{
+    let elementos = document.querySelectorAll(".input_text")
+    for(let i =0; i<elementos.length;i++)
+    {
+        elementos[i].value=""
+    }
+}
 
 

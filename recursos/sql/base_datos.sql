@@ -33,3 +33,19 @@ CREATE TABLE empresas(
 	activoEmpresa varchar(200),
 	tipousuarioEmpresa varchar(200)
 );
+CREATE TABLE administrador(
+	id int (11) PRIMARY KEY AUTO_INCREMENT,
+	nombreAdministrador varchar(200),
+	apellidopAdministrador varchar(200),
+	apellidomAdministrador varchar(200),
+	domicilioAdministrador varchar(200),
+	numeroextAdministrador varchar(200),
+	coloniaAdministrador varchar(200),
+	telefonoAdministrador varchar(200),
+	puestoAdministrador varchar(200),
+	correoAdministrador varchar(200),
+	contrasenaAdministrador varchar(200),
+	idSesion varchar(200),
+	activo varchar(200),
+	tipo_usuario varchar(200)
+)

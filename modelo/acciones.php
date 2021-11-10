@@ -6,6 +6,92 @@ class Acciones
 
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
+    //////////////ACCIONES administradores////////////////
+    //////////////////////////////////////////////////////
+
+
+    //////Agregar Empleado///////
+    public function agregar_Administrador($nombreAdministrador,$apellidopAdministrador,$apellidomAdministrador,$domicilioAdministrador,$numeroextAdministrador,$coloniaAdministrador,$telefonoAdministrador,$puestoAdministrador,$correoAdministrador,$contrasenaAdministrador)
+    {
+        $servidor = new Servidor();
+        $conexion = $servidor->conectar();
+        $sql_vericar = "SELECT correoAdministrador FROM administrador WHERE correoAdministrador=:correoAdministrador";
+        $existe = $conexion->prepare($sql_vericar);
+        $existe->bindParam(":correoAdministrador",$correoAdministrador);
+        $existe->execute();
+        $activo = "1";
+        $str_vacio = " ";
+        $tipo = "ADMINISTRADOR";
+
+        $numero = rand(100000,999999);
+        $fecha = date("D/m/A H:i:s");
+        $cifrado = sha1($contrasenaAdministrador);
+        $cifrado = sha1($cifrado);
+
+        if($existe->rowCount()==0)
+        {
+            $sql = "INSERT INTO administrador
+            (nombreAdministrador,
+            apellidopAdministrador,
+            apellidomAdministrador,
+            domicilioAdministrador,
+            numeroextAdministrador,
+            coloniaAdministrador,
+            telefonoAdministrador,
+            puestoAdministrador,
+            correoAdministrador,
+            contrasenaAdministrador,
+            idSesion,
+            activo,
+            tipo_usuario) 
+            VALUE(:nombreAdministrador,
+            :apellidopAdministrador,
+            :apellidomAdministrador,
+            :domicilioAdministrador,
+            :numeroextAdministrador,
+            :coloniaAdministrador,
+            :telefonoAdministrador,
+            :puestoAdministrador,
+            :correoAdministrador,
+            :contrasenaAdministrador,
+            :idSesion,
+            :activo
+            :tipo_usuario)";
+
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":nombreAdministrador",$nombreAdministrador);
+            $parametro->bindParam(":apellidopAdministrador",$apellidopAdministrador);
+            $parametro->bindParam(":apellidomAdministrador",$apellidomAdministrador);
+            $parametro->bindParam(":domicilioAdministrador",$domicilioAdministrador);
+            $parametro->bindParam(":numeroextAdministrador",$numeroextAdministrador);
+            $parametro->bindParam(":coloniaAdministrador",$coloniaAdministrador);
+            $parametro->bindParam(":telefonoAdministrador",$telefonoAdministrador);
+            $parametro->bindParam(":puestoAdministrador",$puestoAdministrador);
+            $parametro->bindParam(":correoAdministrador",$correoAdministrador);
+            $parametro->bindParam(":contrasenaAdministrador",$cifrado);
+            $parametro->bindParam(":idSesion",$str_vacio);
+            $parametro->bindParam(":activo",$activo);
+            $parametro->bindParam(":tipo_usuario",$tipo);
+            
+            if($parametro->execute())
+            {
+                return "listo";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        else
+        {
+            return "ya existe el usuario";
+            // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
+            // return $correoEmpleado;
+        }
+    }
+
+    //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
     //////////////ACCIONES EMPLEADO///////////////////////
     //////////////////////////////////////////////////////
 

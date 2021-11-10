@@ -265,7 +265,7 @@
                                        <h1 class="titulo_seccion">Listado de empresas activas</h1>
                                        <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de empleados</p>
+                                                <p>Cantidad de empresas</p>
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_activas" onchange="tomar_datos_empresas();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
@@ -413,33 +413,54 @@
    
                                    <div class="seccion_empresa" id="contenedor_agregar_empresas">
                                        <h1 class="titulo_seccion">Agregar nueva empresa</h1>
-                                       <div id="contenedor_form_agregar_empresa">
-                                           <div class="form_agregar_empresa1">
-                                               <input type="text" placeholder="Prueba">
-                                           </div>
-                                           <div class="form_agregar_empresa2">
-                                               <input type="text" placeholder="Prueba"> 
-                                           </div>
-                                           <div class="form_agregar_empresa1">
-                                               <input type="text" placeholder="Prueba">
-                                           </div>
-                                           <div class="form_agregar_empresa2">
-                                               <input type="text" placeholder="Prueba"> 
-                                           </div>
-                                           <div class="form_agregar_empresa1">
-                                               <input type="text" placeholder="Prueba">
-                                           </div>
-                                           <div class="form_agregar_empresa2">
-                                               <input type="text" placeholder="Prueba"> 
-                                           </div>
-                                           <div class="form_agregar_empresa1">
-                                               <input type="text" placeholder="Prueba">
-                                           </div>
-                                           <div class="form_agregar_empresa2">
-                                               <input type="text" placeholder="Prueba"> 
-                                           </div>
-                                           
-                                       </div>
+                                       <div class="contenedor_general_formulario">
+
+                                            <div class="contenedor_formulario1">
+                                                    <input id="input_nombre_administrador" type="text" class="input_text_administrador" placeholder="Nombre" value="">
+                                                </div>        
+                                                <div class="contenedor_formulario2">
+                                                    <input id="input_apellidoP_administrador" type="text" class="input_text_administrador" placeholder="Apellido Paterno" value="">
+                                                </div>
+                                            </div>                                        
+                                            <div class="contenedor_general_formulario">
+
+                                                <div class="contenedor_formulario1">
+                                                    <input id="input_apellidoM_administrador" type="text" class="input_text_administrador" placeholder="Apellido Materno" value="">
+                                                </div>        
+                                                <div class="contenedor_formulario2">
+                                                    <input id="input_domicilo_administrador" type="text" class="input_text_administrador" placeholder="Domicilio" value="">
+                                                </div>
+                                            </div>
+
+                                            <div class="contenedor_general_formulario">
+                                                <div class="contenedor_formulario1">
+                                                    <input id="input_numero_exterior_administrador" type="text" class="input_text_administrador" placeholder="N° exterior" value="">
+                                                </div>        
+                                                <div class="contenedor_formulario2">
+                                                    <input id="input_colonia_administrador" type="text" class="input_text_administrador" placeholder="Colonia" value="">
+                                                </div>
+                                            </div>
+
+                                            <div class="contenedor_general_formulario">
+                                                <div class="contenedor_formulario1">
+                                                    <input id="input_telefono_administrador" type="text" class="input_text_administrador" placeholder="Telefono" value="">
+                                                </div>        
+                                                <div class="contenedor_formulario2">
+                                                    <input id="input_puesto_administrador" type="text" class="input_text_administrador" placeholder="Puesto" value="">
+                                                </div>
+                                            </div> 
+
+                                            <div class="contenedor_general_formulario">
+                                                <div class="contenedor_formulario1">
+                                                    <input id="input_correo_administrador" type="text" class="input_text_administrador" placeholder="Correo" value="">
+                                                </div>        
+                                                <div class="contenedor_formulario2">
+                                                    <input id="input_contrasena_administrador" type="text" class="input_text_administrador" placeholder="Contraseña" value="">
+                                                </div>
+                                            </div>
+                                            <div class="contenedor_formulario_agregar">
+                                                <button class="boton" id="boton_agrega_administrador" onclick="agregar_administrador()">Dar de alta una nueva empresa</button>
+                                            </div>
                                    </div>
                                </div>
                            <!-- terminar contenedor Empresas -->
@@ -501,6 +522,9 @@
                                                    </tr>
                                                </thead>
                                                <tbody id="tabla_empleado_activo">
+                                                   <tr>
+                                                       <td><input type="text" value="1" ></td>
+                                                   </tr>
                                                </tbody>
                                             </table>
                                             <div class="contenedor_paginador">
@@ -519,7 +543,7 @@
                                                 <p>Cantidad de empleados</p>
                                                     <select name="" class="select_cantidad" id="cantidad_empleados_noactivos" onchange="tomar_datos_empleado_noactivos();"> 
                                                         <option value="5">5</option> 
-                                                        <option value="5">10</option>
+                                                        <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
                                             </div>
@@ -563,50 +587,241 @@
                                    
                                     <div class="seccion_empleado" id="contenedor_form_agregar_empleado">
                                        <h1 class="titulo_seccion">Agregar Empleados</h1>
-                                       <div id="contenedor_general_formulario">
-                                           <div class="contenedor_formulario_agregar">
-                                               <input id="input_nombre_empleado" type="text" class="input_text" placeholder="Nombre Empleado" value="">
-                                               <input id="input_apellidoP_empleado" type="text" class="input_text" placeholder="Apellido Paterno Empleado" value="">
-                                           </div>
-                                           <div class="contenedor_formulario_agregar">
-                                               <input id="input_apellidoM_empleado" type="text" class="input_text" placeholder="Apellido Materno Empleado" value="">
-                                               <input id="input_domicilo_empleado" type="text" class="input_text" placeholder="Domicilio Empleado" value="">
-                                           </div>
-                                           <div class="contenedor_formulario_agregar">
-                                               <input id="input_numero_exterior_empleado" type="text" class="input_text" placeholder="N° exterior" value="">
-                                               <input id="input_colonia_empleado" type="text" class="input_text" placeholder="Colonia" value="">
-                                           </div>
-                                           <div class="contenedor_formulario_agregar">
-                                               <input id="input_telefono_empleado" type="text" class="input_text" placeholder="Telefono Empleado" value="">
-                                               <input id="input_puesto_empleado" type="text" class="input_text" placeholder="Puesto Empleado" value="">
-                                           </div>
-                                           <div class="contenedor_formulario_agregar">
-                                               <input id="input_correo_empleado" type="text" class="input_text" placeholder="Correo Empleado" value="">
-                                               <input id="input_contrasena_empleado" type="text" class="input_text" placeholder="Contraseña Empleado" value="">
-                                           </div>
+                                       <div class="contenedor_general_formulario">
+
+                                        <div class="contenedor_formulario1">
+                                                <input id="input_nombre_empleado" type="text" class="input_text_empleado" placeholder="Nombre Empleado" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_apellidoP_empleado" type="text" class="input_text_empleado" placeholder="Apellido Paterno Empleado" value="">
+                                            </div>
+                                        </div>                                        
+                                        <div class="contenedor_general_formulario">
+                                        
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_apellidoM_empleado" type="text" class="input_text_empleado" placeholder="Apellido Materno Empleado" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_domicilo_empleado" type="text" class="input_text_empleado" placeholder="Domicilio Empleado" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="contenedor_general_formulario">
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_numero_exterior_empleado" type="text" class="input_text_empleado" placeholder="N° exterior" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_colonia_empleado" type="text" class="input_text_empleado" placeholder="Colonia" value="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="contenedor_general_formulario">
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_telefono_empleado" type="text" class="input_text_empleado" placeholder="Telefono Empleado" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_puesto_empleado" type="text" class="input_text_empleado" placeholder="Puesto Empleado" value="">
+                                            </div>
+                                        </div> 
+                                        
+                                        <div class="contenedor_general_formulario">
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_correo_empleado" type="text" class="input_text_empleado" placeholder="Correo Empleado" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_contrasena_empleado" type="text" class="input_text_empleado" placeholder="Contraseña Empleado" value="">
+                                            </div>
+                                        </div>
+
                                            <div class="contenedor_formulario_agregar">
                                                <select name="" id="select_tipo_empleado">
                                                    <option value="EMPLEADO">EMPLEADO</option>
                                                    <option value="OPERATIVO">OPERATIVO</option>
-                                                   <option value="ADMINISTRADOR">ADMINISTRADOR</option>
                                                </select>
                                            </div>
                                            <div class="contenedor_formulario_agregar">
                                                <button class="boton" id="boton_agrega_empleado" onclick="agregar_empleado()">Agregar Empleado</button>
                                            </div>
-                                       </div>    
-                                   </div>    
-                           </div>
+                                        
+                                        </div>
+                                    </div>    
                            <!-- terminar contenedor Empresas -->
-                           <div id="contenedor_administradores">
-                               <h1>Administradores</h1>
+                           <div class="seccion" id="contenedor_administradores">
+                                   <h1 class="titulo_seccion">Administradores</h1>
 
-                           </div>
+                                   <div class="contador_seccion" id="contenedor_contador_administradores">
+                                       <div id="c_boton_administradores_activo" class="seccion_contador" onclick="mostrarSeccionAdministradores(event);">
+                                           <img src="../recursos/img/activo.png" id="imagen_administradores_activo" class="imagen_contador">
+                                           <p id="parrafo_administradores_activo" class="parrafo_contador">Administradores activos</p>
+                                       </div>
+                                       <div id="c_boton_administradores_noactivos" class="seccion_contador" onclick="mostrarSeccionAdministradores(event);">
+                                           <img src="../recursos/img/empleadobaja.png" id="imagen_administradores_noactivos" class="imagen_contador">
+                                           <p id="parrafo_administradores_noactivos" class="parrafo_contador">Administradores baja</p>
+                                       </div>
+   
+                                       <div id="c_boton_administradores_agregar" class="seccion_contador" onclick="mostrarSeccionAdministradores(event);">
+                                           <img src="../recursos/img/agregarempleado.png" id="imagen_administradores_agregar" class="imagen_contador">
+                                           <p id="parrafo_administradores_agregar" class="parrafo_contador">Agregar administrador</p>
+                                       </div>
+                                   </div>
+   
+                                   <div class="seccion_administradores" id="contenedor_administradores_activos">
+                                       <h1 class="titulo_seccion">Listado de administradores activos</h1>
+                                       <div class="contenedor_busqueda">
+                                            <div class="Cantidad_lista">
+                                                <p>Cantidad de administradores</p>
+                                                    <select name="" class="select_cantidad" id="cantidad_administradores_activos" onchange="tomar_datos_empleado();"> 
+                                                        <option value="5">5</option> 
+                                                        <option value="10">10</option>
+                                                        <option value="15">20</option> 
+                                                    </select>
+                                            </div>
+                                            <div class="barra_buscadora_empleado">
+                                                    <p>Buscar:</p>
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                            </div>
+                                        </div>   
+                                       <div id="contenedor_tabla_administradores_activo">
+                                           <table class="tablas">
+                                               <thead>
+                                                   <tr>
+                                                   <th>ID</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellido Paterno</th>
+                                                    <th>Apellido Materno </th>
+                                                    <th>Domicilio</th>
+                                                    <th>N° Ext</th>
+                                                    <th>Colonia</th>
+                                                    <th>Telefono</th>
+                                                    <th>Puesto</th>
+                                                    <th>Correo</th>
+                                                    <th>Estatus</th>
+                                                    <th>Tipo Empleado</th>
+                                                    <th>Acciones</th>
+                                                   </tr>
+                                               </thead>
+                                               <tbody id="tabla_administradores_activo">
+                                               </tbody>
+                                            </table>
+                                            <div class="contenedor_paginador">
+                                                    <div class="controladores_paginador" id="boton_paginador_primeroAdmin">Primero</div>
+                                                    <div class="controladores_paginador" id="boton_paginador_anteriorAdmin">Anterior</div>
+                                                    <div class="controladores_paginador" id="boton_paginador_cantidadAdmin">1 de 1</div>
+                                                    <div class="controladores_paginador" id="boton_paginador_siguienteAdmin">Siguiente</div>
+                                                    <div class="controladores_paginador" id="boton_paginador_ultimoAdmin">Ultimo</div>
+                                            </div>
+                                       </div>
+                                   </div>
+                                   <div class="seccion_administradores" id="contenedor_administradores_noactivos">
+                                       <h1 class="titulo_seccion">Listado de administradores dados de baja</h1>
+                                       <div class="contenedor_busqueda">
+                                            <div class="Cantidad_lista">
+                                                <p>Cantidad de administradores</p>
+                                                    <select name="" class="select_cantidad" id="cantidad_administradores_noactivos" onchange="tomar_datos_empleado_noactivos();"> 
+                                                        <option value="5">5</option> 
+                                                        <option value="10">10</option>
+                                                        <option value="15">20</option> 
+                                                    </select>
+                                            </div>
+                                            <div class="barra_buscadora_empleado">
+                                                    <p>Buscar:</p>
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                            </div>
+                                        </div>   
+                                       <div id="contenedor_tabla_administradores_noactivo">
+                                            <table class="tablas">
+                                               <thead>
+                                                   <tr>
+                                                   <th>ID</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellido Paterno</th>
+                                                    <th>Apellido Materno </th>
+                                                    <th>Domicilio</th>
+                                                    <th>N° Ext</th>
+                                                    <th>Colonia</th>
+                                                    <th>Telefono</th>
+                                                    <th>Puesto</th>
+                                                    <th>Correo</th>
+                                                    <th>Estatus</th>
+                                                    <th>Tipo Empleado</th>
+                                                    <th>Acciones</th>
+                                                   </tr>
+                                               </thead>
+                                               <tbody id="tabla_empleado_noactivo">
+                                               </tbody>
+                                            </table>
+                                            <div class="contenedor_paginador">
+                                                <div class="controladores_paginador" id="boton_paginador_primeroNo">Primero</div>
+                                                <div class="controladores_paginador" id="boton_paginador_anteriorNo">Anterior</div>
+                                                <div class="controladores_paginador" id="boton_paginador_cantidadNo">1 de 1</div>
+                                                <div class="controladores_paginador" id="boton_paginador_siguienteNo">Siguiente</div>
+                                                <div class="controladores_paginador" id="boton_paginador_ultimoNo">Ultimo</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                   
+                                    <div class="seccion_administradores" id="contenedor_administradores_agregar">
+                                       <h1 class="titulo_seccion">Agregar nuevo administrador</h1>
+                                       <div class="contenedor_general_formulario">
+
+                                        <div class="contenedor_formulario1">
+                                                <input id="input_nombre_administrador" type="text" class="input_text_administrador" placeholder="Nombre" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_apellidoP_administrador" type="text" class="input_text_administrador" placeholder="Apellido Paterno" value="">
+                                            </div>
+                                        </div>                                        
+                                        <div class="contenedor_general_formulario">
+                                        
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_apellidoM_administrador" type="text" class="input_text_administrador" placeholder="Apellido Materno" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_domicilo_administrador" type="text" class="input_text_administrador" placeholder="Domicilio" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="contenedor_general_formulario">
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_numero_exterior_administrador" type="text" class="input_text_administrador" placeholder="N° exterior" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_colonia_administrador" type="text" class="input_text_administrador" placeholder="Colonia" value="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="contenedor_general_formulario">
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_telefono_administrador" type="text" class="input_text_administrador" placeholder="Telefono" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_puesto_administrador" type="text" class="input_text_administrador" placeholder="Puesto" value="">
+                                            </div>
+                                        </div> 
+                                        
+                                        <div class="contenedor_general_formulario">
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_correo_administrador" type="text" class="input_text_administrador" placeholder="Correo" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_contrasena_administrador" type="text" class="input_text_administrador" placeholder="Contraseña" value="">
+                                            </div>
+                                        </div>
+                                           <div class="contenedor_formulario_agregar">
+                                               <button class="boton" id="boton_agrega_administrador" onclick="agregar_administrador()">Agrega nuevo administrador</button>
+                                           </div>
+
+                                        </div>
+                                    </div>
                    </div>
                </div>
            </div>
    
        <script src="../recursos/js/funcionesPrincipal.js">
+       </script>
+       
+       <script src="../recursos/js/paginadorPrincipal.js">
        </script>
    
        </body>

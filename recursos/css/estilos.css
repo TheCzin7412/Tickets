@@ -40,13 +40,9 @@ gris 6E6D6A
         width: 100%;
         height: 100%;
     }
-    tr:nth-child(even)
-    {
-        background-color: #f2f2f2;
-    }
     th,td
     {
-        padding: 5px;
+        padding: 2px;
         width: auto;
         height: auto;
         border: solid 1px var(--colorNegro);
@@ -266,6 +262,14 @@ Dashboard realizacion de prueba
     align-items: center;
     margin-top: 10px;
 }
+#contenedor_contador_administradores{
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;   
+}
 .seccion_contador{
     cursor: pointer;
     display: flex;
@@ -335,6 +339,7 @@ Dashboard realizacion de prueba
 }
 
 #contenedor_tabla_peticion{
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
@@ -384,7 +389,33 @@ Dashboard realizacion de prueba
     font-size: var(--tamanoTexto);
     font-family: var(--tipogrfiaTexto);
 }
+.input_text_empleado
+{
+    width: 90%;
+    height: 30px;
+    border: solid 1px var(--colorGris);
+    padding-left: 10px;
+    font-size: var(--tamanoTexto);
+    font-family: var(--tipogrfiaTexto);
+    text-align: center;
+}
+.input_text_administrador
+{
+    width: 100%;
+    height: 30px;
+    border: solid 1px var(--colorGris);
+    padding-left: 10px;
+    font-size: var(--tamanoTexto);
+    font-family: var(--tipogrfiaTexto);
+    text-align: center;
+}
 .input_text:focus{
+    outline: none;
+    border-radius: 10px;
+    border: solid 2px var(--colorAzul);
+    transition: all .3s ease-in-out;
+}
+.input_text_empleado:focus{
     outline: none;
     border-radius: 10px;
     border: solid 2px var(--colorAzul);
@@ -413,6 +444,7 @@ Dashboard realizacion de prueba
 }
 #contenedor_tabla_empresas_activas
 {
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
@@ -431,6 +463,7 @@ Dashboard realizacion de prueba
 }
 #contenedor_tabla_empresas_noactivas
 {
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
@@ -449,6 +482,7 @@ Dashboard realizacion de prueba
 }
 #contenedor_tabla_peticion_empresas
 {
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
@@ -464,6 +498,8 @@ Dashboard realizacion de prueba
     width: 100%;
     height: 100%;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 #contenedor_form_agregar_empresa
 {
@@ -510,6 +546,12 @@ Dashboard realizacion de prueba
     height: 80%;
     margin-top: 10px;
 }
+.seccion_administradores{
+    display: none;
+    width: 100%;
+    height: 80%;
+    margin-top: 10px;
+}
 #contenedor_empleado_activas
 {
     display: flex;
@@ -519,6 +561,7 @@ Dashboard realizacion de prueba
 }
 #contenedor_tabla_empleado_activas
 {
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
@@ -527,6 +570,19 @@ Dashboard realizacion de prueba
     margin-top: 10px;
     overflow-x:auto;
     flex-direction: column;
+}
+#contenedor_tabla_administradores_activo
+{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    overflow-x:auto;
+    flex-direction: column;
+
 }
 #contenedor_empleado_noactivo
 {
@@ -537,6 +593,19 @@ Dashboard realizacion de prueba
 }
 #contenedor_tabla_empleado_noactivo
 {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+    overflow-x:auto;
+}
+#contenedor_tabla_administradores_noactivo
+{
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
@@ -555,27 +624,55 @@ Dashboard realizacion de prueba
     justify-content: flex-start;
     align-items: center;
 }
-#contenedor_general_formulario
+.contenedor_general_formulario
 {
     display: flex;
-    width: 90%;
-    height: 100%;
-    border: solid 1px var(--colorAzul);
+    padding: 5px;
+    width: 70%;
+    height: 10%;
     justify-content: space-around;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
 }
+.contenedor_formulario1
+{
+    display: flex;
+    width: 45%;
+    height: auto;
+    justify-content:flex-start;
+    align-items: flex-start;
+    
+}
+.contenedor_formulario2 
+{
+    display: flex;
+    width: 45%;
+    height: auto;
+    justify-content:flex-start;
+    align-items: flex-start;
+}
+#contenido_agregar_empleado{
+    display: flex;
+    padding: 50px;
+    width: 80%;
+    height: 70%;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    border: solid 2px var(--colorNegro);
+    border-radius: 25px;
+}
+
 
 .contenedor_formulario_agregar
 {
+    margin: 10px;
     display: flex;
-    width: 100%;
+    width: 60%;
     height: auto;
-    justify-content: space-around;
-    align-items: flex-start;
-    margin-top: 10px;
+    justify-content: center;
+    align-items: center;  
 }
-
 .boton_tabla
 {
     font-size: 15px;
@@ -583,6 +680,8 @@ Dashboard realizacion de prueba
 }
 .contenedor_paginador
 {
+    position: absolute;
+    bottom: 0;
     display: flex;
     width: 100%;
     height: auto;
@@ -590,7 +689,6 @@ Dashboard realizacion de prueba
     justify-content: center;
     align-items: center;
 }
-
 .controladores_paginador
 {
     cursor: pointer;
@@ -618,19 +716,19 @@ Dashboard realizacion de prueba
     margin: 5px;
 }
 .texto{
-    font-size: 10px;
+    font-size: 12px;
 }
 .contenedor_busqueda{
     display: flex;
+    margin: 10px;
     width: 100%;
     height: auto;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction:row;
 }
 .Cantidad_lista{
     display: flex;
-    width: 50%;
+    width: 100%;
     height: auto;
     justify-content: flex-start;
     align-items: flex-start;
@@ -639,7 +737,7 @@ Dashboard realizacion de prueba
 }
 .barra_buscadora_empleado{
     display: flex;
-    width: 50%;
+    width: 100%;
     height: auto;
     justify-content: space-around;
     align-items: flex-start;
@@ -673,6 +771,40 @@ Dashboard realizacion de prueba
     width: 100%;
     height: 100%;
     flex-direction: column;
+}
+.input_paginador
+{
+    background-color: var(--colorBlanco);
+    width: 100px;
+    height: auto;
+    font-size: 12px;
+    text-align: center;
+}
+#contenedor_administradores_activos{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+#contenedor_administradores_noactivos{
+    display: none;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+#contenedor_administradores_agregar{
+    display: none;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 
