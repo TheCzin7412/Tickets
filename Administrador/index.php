@@ -147,19 +147,29 @@
    
                                <!--Contenedor tabla de tickets no resueltos-->
                                <div class="seccion_tabla" id="contenedor_peticion">
-                                   <h1>Lista de peticiones de empresas</h1>
-                                   <div class="contenedor_busqueda">
+                                <h1>Lista de peticiones de empresas</h1>
+                                        <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de empresas</p>
+                                                <div class="lista1">
+                                                    <p>Cantidad de peticiones</p>
+                                                </div>
+                                                <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_peticiones_dashboard" onchange="tomar_datos_empresas_peticion_dashboard();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
+                                                </div>
                                             </div>
-                                            <div class="barra_buscadora_empleado">
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
                                                     <p>Buscar:</p>
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                </div>    
+                                                    
                                             </div>
                                         </div>
                                    <div id="contenedor_tabla_peticion">
@@ -263,20 +273,31 @@
                                    </div>
                                    <div class="seccion_empresa" id="contenedor_empresas_activas">
                                        <h1 class="titulo_seccion">Listado de empresas activas</h1>
+
                                        <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de empresas</p>
+                                                <div class="lista1">
+                                                    <p>Cantidad de empresas</p>
+                                                </div>
+                                                <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_activas" onchange="tomar_datos_empresas();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
+                                                </div>
                                             </div>
-                                            <div class="barra_buscadora_empleado">
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
                                                     <p>Buscar:</p>
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                </div>    
+                                                    
                                             </div>
-                                        </div>   
+                                        </div>  
                                        <div id="contenedor_tabla_empresas_activas">
                                            <table class="tablas">
                                                <thead>
@@ -313,18 +334,28 @@
    
                                    <div class="seccion_empresa" id="contenedor_empresas_noactivas">
                                        <h1 class="titulo_seccion">Listado de empresas dadas de baja</h1>
-                                       <div class="contenedor_busqueda">
+                                        <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de empleados</p>
+                                                <div class="lista1">
+                                                    <p>Cantidad de empresas</p>
+                                                </div>
+                                                <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_noactivos" onchange="tomar_datos_empresas_noactivas();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
+                                                </div>
                                             </div>
-                                            <div class="barra_buscadora_empleado">
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
                                                     <p>Buscar:</p>
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                </div>    
+                                                    
                                             </div>
                                         </div>   
                                        <div id="contenedor_tabla_empresas_noactivas">
@@ -365,16 +396,26 @@
                                        <h1 class="titulo_seccion">Peticion de empresas</h1>
                                         <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de empleados</p>
+                                                <div class="lista1">
+                                                    <p>Cantidad de peticiones</p>
+                                                </div>
+                                                <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_pendientes" onchange="tomar_datos_empresas_peticion();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
+                                                </div>
                                             </div>
-                                            <div class="barra_buscadora_empleado">
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
                                                     <p>Buscar:</p>
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                </div>    
+                                                    
                                             </div>
                                         </div>   
                                        <div id="contenedor_tabla_peticion_empresas">
@@ -413,53 +454,63 @@
    
                                    <div class="seccion_empresa" id="contenedor_agregar_empresas">
                                        <h1 class="titulo_seccion">Agregar nueva empresa</h1>
-                                       <div class="contenedor_general_formulario">
-
+                                       
+                                        <div class="contenedor_general_formulario">
                                             <div class="contenedor_formulario1">
-                                                    <input id="input_nombre_" type="text" class="input_text_administrador" placeholder="Nombre" value="">
-                                                </div>        
-                                                <div class="contenedor_formulario2">
-                                                    <input id="input_apellidoP_" type="text" class="input_text_administrador" placeholder="Apellido Paterno" value="">
-                                                </div>
-                                            </div>                                        
-                                            <div class="contenedor_general_formulario">
+                                                    <input id="input_rfcEmpresa" type="text" class="input_text_empresa" placeholder="RFC" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_nombreEmpresa" type="text" class="input_text_empresa"  placeholder="Nombre Empresa">
+                                            </div>
+                                        </div> 
 
+                                        <div class="contenedor_general_formulario">
+                                            <div class="contenedor_formulario1">
+                                                <input id="input_razonsocialEmpresa" type="text" class="input_text_empresa" placeholder="Razon Social" value="">
+                                            </div>        
+                                            <div class="contenedor_formulario2">
+                                                <input id="input_domicilioEmpresa" type="text" class="input_text_empresa"  placeholder="Domicilio">
+                                            </div>
+                                        </div>
+
+                                            <div class="contenedor_general_formulario">
                                                 <div class="contenedor_formulario1">
-                                                    <input id="input_apellidoM_" type="text" class="input_text_administrador" placeholder="Apellido Materno" value="">
+                                                    <input id="input_numerocalleEmpresa" type="text" class="input_text_empresa" placeholder="N° Ext Calle" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_domicilo_" type="text" class="input_text_administrador" placeholder="Domicilio" value="">
+                                                    <input id="input_coloniaEmpresa" type="text" class="input_text_empresa"  placeholder="Colonia">
                                                 </div>
                                             </div>
 
                                             <div class="contenedor_general_formulario">
                                                 <div class="contenedor_formulario1">
-                                                    <input id="input_numero_exterior_" type="text" class="input_text_administrador" placeholder="N° exterior" value="">
+                                                    <input id="input_cpEmpresa" type="text" class="input_text_empresa" placeholder="Codigo Postal" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_colonia_" type="text" class="input_text_administrador" placeholder="Colonia" value="">
-                                                </div>
-                                            </div>
-
-                                            <div class="contenedor_general_formulario">
-                                                <div class="contenedor_formulario1">
-                                                    <input id="input_telefono_" type="text" class="input_text_administrador" placeholder="Telefono" value="">
-                                                </div>        
-                                                <div class="contenedor_formulario2">
-                                                    <input id="input_puesto_" type="text" class="input_text_administrador" placeholder="Puesto" value="">
+                                                    <input id="input_municipioEmpresa" type="text" class="input_text_empresa"  placeholder="Municipio">
                                                 </div>
                                             </div> 
 
                                             <div class="contenedor_general_formulario">
                                                 <div class="contenedor_formulario1">
-                                                    <input id="input_correo_" type="text" class="input_text_administrador" placeholder="Correo" value="">
+                                                    <input id="input_estadoEmpresa" type="text" class="input_text_empresa" placeholder="Estado" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_contrasena_" type="text" class="input_text_administrador" placeholder="Contraseña" value="">
+                                                    <input id="input_telefonoEmpresa" type="text" class="input_text_empresa"  placeholder="Telefono">
                                                 </div>
                                             </div>
+
+                                            <div class="contenedor_general_formulario">
+                                                <div class="contenedor_formulario1">
+                                                    <input id="input_correoEmpresa" type="text" class="input_text_empresa" placeholder="Correo" value="">
+                                                </div>        
+                                                <div class="contenedor_formulario2">
+                                                    <input id="input_contrasenaEmpresa" type="password" class="input_text_empresa"  placeholder="Contraseña ">
+                                                </div>
+                                            </div>
+                                            
                                             <div class="contenedor_formulario_agregar">
-                                                <button class="boton" id="boton_agrega_administrador" onclick="">Dar de alta una nueva empresa</button>
+                                                <button class="boton" id="boton_agrega_empresa_dash" onclick="agregar_empresa_dashboard()">Dar de alta una nueva empresa</button>
                                             </div>
                                    </div>
                                </div>
@@ -490,23 +541,34 @@
                                        <h1 class="titulo_seccion">Listado de empleados activos</h1>
                                        <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de empleados</p>
+                                                <div class="lista1">
+                                                    <p>Cantidad de empleados</p>
+                                                </div>
+                                                <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empleados_activos" onchange="tomar_datos_empleado();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
+                                                </div>
                                             </div>
-                                            <div class="barra_buscadora_empleado">
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
                                                     <p>Buscar:</p>
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                </div>    
+                                                    
                                             </div>
-                                        </div>   
+                                        </div>
+   
                                        <div id="contenedor_tabla_empleado_activas">
                                            <table class="tablas">
                                                <thead>
                                                    <tr>
-                                                   <th>ID</th>
+                                                    <th>ID</th>
                                                     <th>Nombre</th>
                                                     <th>Apellido Paterno</th>
                                                     <th>Apellido Materno </th>
@@ -522,9 +584,6 @@
                                                    </tr>
                                                </thead>
                                                <tbody id="tabla_empleado_activo">
-                                                   <tr>
-                                                       <td><input type="text" value="1" ></td>
-                                                   </tr>
                                                </tbody>
                                             </table>
                                             <div class="contenedor_paginador">
@@ -540,18 +599,28 @@
                                        <h1 class="titulo_seccion">Listado de empleados dados de baja</h1>
                                        <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de empleados</p>
+                                                <div class="lista1">
+                                                    <p>Cantidad de empleados</p>
+                                                </div>
+                                                <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empleados_noactivos" onchange="tomar_datos_empleado_noactivos();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
+                                                </div>
                                             </div>
-                                            <div class="barra_buscadora_empleado">
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
                                                     <p>Buscar:</p>
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                </div>    
+                                                    
                                             </div>
-                                        </div>   
+                                        </div>  
                                        <div id="contenedor_tabla_empleado_noactivo">
                                             <table class="tablas">
                                                <thead>
@@ -669,18 +738,28 @@
                                        <h1 class="titulo_seccion">Listado de administradores activos</h1>
                                        <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de administradores</p>
-                                                    <select name="" class="select_cantidad" id="cantidad_administradores_activos" onchange="tomar_datos_empleado();"> 
+                                                <div class="lista1">
+                                                    <p>Cantidad de administradores</p>
+                                                </div>
+                                                <div class="lista2">
+                                                    <select name="" class="select_cantidad" id="cantidad_administradores_activos" onchange="tomar_datos_administradores_activos();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
+                                                </div>
                                             </div>
-                                            <div class="barra_buscadora_empleado">
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
                                                     <p>Buscar:</p>
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                </div>    
+                                                    
                                             </div>
-                                        </div>   
+                                        </div>  
                                        <div id="contenedor_tabla_administradores_activo">
                                            <table class="tablas">
                                                <thead>
@@ -716,18 +795,29 @@
                                        <h1 class="titulo_seccion">Listado de administradores dados de baja</h1>
                                        <div class="contenedor_busqueda">
                                             <div class="Cantidad_lista">
-                                                <p>Cantidad de administradores</p>
-                                                    <select name="" class="select_cantidad" id="cantidad_administradores_noactivos" onchange="tomar_datos_empleado_noactivos();"> 
+                                                <div class="lista1">
+                                                    <p>Cantidad de administradores</p>
+                                                </div>
+                                                <div class="lista2">
+                                                    <select name="" class="select_cantidad" id="cantidad_administradores_noactivos" onchange="tomar_datos_administradores_noactivos();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
                                                     </select>
+                                                </div>
                                             </div>
-                                            <div class="barra_buscadora_empleado">
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
                                                     <p>Buscar:</p>
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                </div>    
+                                                    
                                             </div>
-                                        </div>   
+                                        </div>  
+                                        
                                        <div id="contenedor_tabla_administradores_noactivo">
                                             <table class="tablas">
                                                <thead>
@@ -818,11 +908,8 @@
                </div>
            </div>
    
-       <script src="../recursos/js/funcionesPrincipal.js">
-       </script>
-       
-       <script src="../recursos/js/paginadorPrincipal.js">
-       </script>
-   
-       </body>
-   </html>
+       <script src="../recursos/js/funcionesPrincipal.js"></script>
+       <script src="../recursos/js/paginadorPrincipal.js"></script>
+
+    </body>
+</html>

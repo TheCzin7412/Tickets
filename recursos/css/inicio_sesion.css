@@ -15,7 +15,7 @@
     height: 60%;
     justify-content: space-around;
     border: solid 1px var(--colorAzul);
-    border-radius: 50px;
+    border-radius: 30px;
     align-items: center;
     flex-direction: column;
 }
@@ -26,7 +26,7 @@
     height: 60%;
     justify-content: space-around;
     border: solid 1px var(--colorAzul);
-    border-radius: 50px;
+    border-radius: 30px;
     align-items: center;
     flex-direction: column;
 }
@@ -47,10 +47,11 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 .opciones_login:hover{
     border: solid 2px var(--colorAzul);
-    border-radius: 50px;
+    border-radius: 10px;
     transition: all .04s ease-in-out;
 }
 .formulario_registro_inicio_sesion
@@ -60,4 +61,40 @@
     height: auto;
     justify-content: flex-start;
     align-items: center;
+}
+.input_text_login{
+    width: 90%;
+    height: 30px;
+    border: solid 1px var(--colorGris);
+    padding-left: 10px;
+    font-size: var(--tamanoTexto);
+    font-family: var(--tipogrfiaTexto);
+    text-align: center;
+}
+.input_text_login:focus{
+    outline: none;
+    border-radius: 10px;
+    border: solid 2px var(--colorAzul);
+    transition: all .3s ease-in-out;
+
+}
+#logo_inicio_sesion{
+    width: 250px;
+    object-fit: contain;
+}
+.boton_login
+{
+    width: 50%;
+    padding: 10px;
+    padding-left: 30px;   
+    padding-right: 30px;   
+    background: var(--colorAzul);
+    color: var(--colorBlanco);
+}.boton_login:hover
+{
+    border: solid 2px var(--colorAzul);
+    border-radius: 25px;
+    background: var(--colorBlanco);
+    color: var(--colorNegro);
+    transition: all .06s ease-in-out;
 }

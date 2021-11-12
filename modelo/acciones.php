@@ -521,9 +521,6 @@ class Acciones
         }
 
 
-
-
-
     public function agregar_peticion_empresa($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
     {
         $servidor = new Servidor();
@@ -533,6 +530,94 @@ class Acciones
         $existe->bindParam(":rfcEmpresa",$rfcEmpresa);
         $existe->execute();
         $activo = "2";
+        $tipo_usuario = "EMPRESA";
+        $str_vacio = " ";
+        $numero = rand(100000,999999);
+        $fecha = date("D/m/A H:i:s");
+        $cifrado = sha1($contrasenaEmpresa);
+        $cifrado = sha1($cifrado);
+
+
+        if($existe->rowCount()==0)
+        {
+            $sql = "INSERT INTO empresas
+            (rfcEmpresa,
+            nombreEmpresa,
+            razonsocialEmpresa,
+            domicilioEmpresa,
+            numerocalleEmpresa,
+            coloniaEmpresa,
+            cpEmpresa,
+            municipioEmpresa,
+            estadoEmpresa,
+            telefonoEmpresa,
+            correoEmpresa,
+            contrasenaEmpresa,
+            idSesion,
+            activo,
+            tipo_usuario
+            ) 
+            VALUE(
+            :rfcEmpresa,
+            :nombreEmpresa,
+            :razonsocialEmpresa,
+            :domicilioEmpresa,
+            :numerocalleEmpresa,
+            :coloniaEmpresa,
+            :cpEmpresa,
+            :municipioEmpresa,
+            :estadoEmpresa,
+            :telefonoEmpresa,
+            :correoEmpresa,
+            :contrasenaEmpresa,
+            :idSesion,
+            :activo,
+            :tipo_usuario)";
+
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
+            $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
+            $parametro->bindParam(":razonsocialEmpresa",$razonsocialEmpresa);
+            $parametro->bindParam(":domicilioEmpresa",$domicilioEmpresa);
+            $parametro->bindParam(":numerocalleEmpresa",$numerocalleEmpresa);
+            $parametro->bindParam(":coloniaEmpresa",$coloniaEmpresa);
+            $parametro->bindParam(":cpEmpresa",$cpEmpresa);
+            $parametro->bindParam(":municipioEmpresa",$municipioEmpresa);
+            $parametro->bindParam(":estadoEmpresa",$estadoEmpresa);
+            $parametro->bindParam(":telefonoEmpresa",$telefonoEmpresa);
+            $parametro->bindParam(":correoEmpresa",$correoEmpresa);
+            $parametro->bindParam(":contrasenaEmpresa",$cifrado);
+            $parametro->bindParam(":idSesion",$str_vacio);
+            $parametro->bindParam(":activo",$activo);
+            $parametro->bindParam(":tipo_usuario",$tipo_usuario);
+            
+            if($parametro->execute())
+            {
+                return "listo";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        else
+        {
+            return "ya existe la empresa";
+            // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
+            // return $correoEmpleado;
+        }
+    }
+
+
+    public function agregar_empresa_dashboard($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
+    {
+        $servidor = new Servidor();
+        $conexion = $servidor->conectar();
+        $sql_vericar = "SELECT rfcEmpresa  FROM empresas WHERE rfcEmpresa=:rfcEmpresa";
+        $existe = $conexion->prepare($sql_vericar);
+        $existe->bindParam(":rfcEmpresa",$rfcEmpresa);
+        $existe->execute();
+        $activo = "1";
         $tipo_usuario = "EMPRESA";
         $str_vacio = " ";
         $numero = rand(100000,999999);
@@ -625,123 +710,190 @@ class Acciones
     {
         $contraCifrada = sha1($contra);
         $contraCifrada = sha1($contraCifrada);
-        $sql = "SELECT correoEmpleado FROM empleado WHERE correoEmpleado=:correoEmpleado AND contrasenaEmpleado=:contrasenaEmpleado";
-        $modelo = new Servidor();
-        $conexion = $modelo->conectar();
-        $parametro = $conexion->prepare($sql);
-        $parametro->bindParam(":correoEmpleado",$correo);
-        $parametro->bindParam(":contrasenaEmpleado",$contraCifrada);
-        $parametro->execute();
-        $columnas = $parametro->rowCount();
         $randos= rand(100000,999999);
         $fecha = date("D/m/A H:i:s");
         $cifrado = sha1($correo.$fecha.$randos);
 
 
-        if($columnas==0)
+
+        $sql_admin = "SELECT correoAdministrador FROM administrador WHERE correoAdministrador=:correoAdministrador AND contrasenaAdministrador=:contrasenaAdministrador";
+        $modelo = new Servidor();
+        $conexion = $modelo->conectar();
+        $parametro_admin = $conexion->prepare($sql_admin);
+        $parametro_admin->bindParam(":correoAdministrador",$correo);
+        $parametro_admin->bindParam(":contrasenaAdministrador",$contraCifrada);
+        $parametro_admin->execute();
+        $columnas_admin = $parametro_admin->rowCount();
+
+
+        if($columnas_admin==0)
         {
-            $sql2 = "SELECT correoEmpresa FROM empresas WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
-            $parametro2 = $conexion->prepare($sql2);
-            $parametro2->bindParam(":correoEmpresa",$correo);
-            $parametro2->bindParam(":contrasenaEmpresa",$contraCifrada);
-            $parametro2->execute();
-            $columnas2 = $parametro2 ->rowCount();
-            if($columnas2==0)
+            $sql = "SELECT correoEmpleado FROM empleado WHERE correoEmpleado=:correoEmpleado AND contrasenaEmpleado=:contrasenaEmpleado";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":correoEmpleado",$correo);
+            $parametro->bindParam(":contrasenaEmpleado",$contraCifrada);
+            $parametro->execute();
+            $columnas = $parametro->rowCount();
+
+
+            if($columnas==0)
             {
-                return json_encode("No existe el usuario registrado");
+                $sql2 = "SELECT correoEmpresa FROM empresas WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
+                $parametro2 = $conexion->prepare($sql2);
+                $parametro2->bindParam(":correoEmpresa",$correo);
+                $parametro2->bindParam(":contrasenaEmpresa",$contraCifrada);
+                $parametro2->execute();
+                $columnas2 = $parametro2 ->rowCount();
+                if($columnas2==0)
+                {
+                    return json_encode("No existe el usuario registrado");
+                }
+                else
+                {
+                    $sql6 = "SELECT activo FROM empresas WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
+                    $parametro6 = $conexion->prepare($sql6);
+                    $parametro6->bindParam(":correoEmpresa",$correo);
+                    $parametro6->bindParam(":contrasenaEmpresa",$contraCifrada);
+                    $parametro6->execute();
+                    $datos1= $parametro6->fetchAll(PDO::FETCH_ASSOC);
+                    $estado_activo1 = $datos1[0]['activo'];
+                    if($estado_activo1==1)
+                    {
+                        $sql7 = "UPDATE empresas SET idSesion=:idSesion WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
+                        $parametro7 = $conexion->prepare($sql7);
+                        $parametro7->bindParam(":idSesion",$cifrado);
+                        $parametro7->bindParam(":correoEmpresa",$correo);
+                        $parametro7->bindParam(":contrasenaEmpresa",$contraCifrada);
+                        if($parametro7->execute())
+                        {
+                            $sql8 = "SELECT 
+                            id,
+                            rfcEmpresa,
+                            nombreEmpresa,
+                            razonsocialEmpresa,
+                            domicilioEmpresa,
+                            numerocalleEmpresa,
+                            coloniaEmpresa,
+                            cpEmpresa,
+                            municipioEmpresa,
+                            estadoEmpresa,
+                            telefonoEmpresa,
+                            correoEmpresa,
+                            idSesion,
+                            tipo_usuario FROM empresas WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
+                            $parametro8 = $conexion->prepare($sql8);
+                            $parametro8->bindParam(":correoEmpresa",$correo);
+                            $parametro->bindParam(":contrasenaEmpresa",$contraCifrada);
+                            if($parametro8->execute())
+                            {
+                                $datos1 = $parametro8->fetchAll(PDO::FETCH_ASSOC);
+                                $_SESSION['idSesion'] = $datos1[0]['idSesion'];
+                                $_SESSION['idUsuario'] = $datos1[0]['id'];
+        
+                                return json_encode($datos1);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return json_encode ("inicio bloqueado");
+                    }
+                }
             }
             else
             {
-                $sql6 = "SELECT activo FROM empresas WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
-                $parametro6 = $conexion->prepare($sql6);
-                $parametro6->bindParam(":correoEmpresa",$correo);
-                $parametro6->bindParam(":contrasenaEmpresa",$contraCifrada);
-                $parametro6->execute();
-                $datos1= $parametro6->fetchAll(PDO::FETCH_ASSOC);
-                $estado_activo1 = $datos1[0]['activo'];
-                if($estado_activo1==1)
+                
+                $sql3 = "SELECT activo FROM empleado WHERE correoEmpleado=:correoEmpleado AND contrasenaEmpleado=:contrasenaEmpleado";
+                $parametro3 = $conexion->prepare($sql3);
+                $parametro3->bindParam(":correoEmpleado",$correo);
+                $parametro3->bindParam(":contrasenaEmpleado",$contraCifrada);
+                $parametro3->execute();
+                $datos= $parametro3->fetchAll(PDO::FETCH_ASSOC);
+                $estado_activo = $datos[0]['activo'];
+                if($estado_activo==1)
                 {
-                    $sql7 = "UPDATE empresas SET idSesion=:idSesion WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
-                    $parametro7 = $conexion->prepare($sql7);
-                    $parametro7->bindParam(":idSesion",$cifrado);
-                    $parametro7->bindParam(":correoEmpresa",$correo);
-                    $parametro7->bindParam(":contrasenaEmpresa",$contraCifrada);
-                    if($parametro7->execute())
+                    $sql4 = "UPDATE empleado SET idSesion=:idSesion WHERE correoEmpleado=:correoEmpleado AND contrasenaEmpleado=:contrasenaEmpleado";
+                    $parametro4 = $conexion->prepare($sql4);
+                    $parametro4->bindParam(":idSesion",$cifrado);
+                    $parametro4->bindParam(":correoEmpleado",$correo);
+                    $parametro4->bindParam(":contrasenaEmpleado",$contraCifrada);
+                    if($parametro4->execute())
                     {
-                        $sql8 = "SELECT 
-                        id,
-                        rfcEmpresa,
-                        nombreEmpresa,
-                        razonsocialEmpresa,
-                        domicilioEmpresa,
-                        numerocalleEmpresa,
-                        coloniaEmpresa,
-                        cpEmpresa,
-                        municipioEmpresa,
-                        estadoEmpresa,
-                        telefonoEmpresa,
-                        correoEmpresa,
+                        $sql5 = "SELECT id,nombreEmpleado,
+                        apellidopEmpleado,
+                        apellidomEmpleado,
+                        domicilioEmpleado,
+                        numeroextEmpleado,
+                        coloniaEmpleado,
+                        telefonoEmpleado,
+                        puestoEmpleado,
+                        correoEmpleado,
                         idSesion,
-                        tipo_usuario FROM empresas WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
-                        $parametro8 = $conexion->prepare($sql8);
-                        $parametro8->bindParam(":correoEmpresa",$correo);
-                        $parametro->bindParam(":contrasenaEmpresa",$contraCifrada);
-                        if($parametro8->execute())
+                        tipo_usuario FROM empleado WHERE correoEmpleado=:correoEmpleado AND contrasenaEmpleado=:contrasenaEmpleado";
+                        $parametro5 = $conexion->prepare($sql5);
+                        $parametro5->bindParam(":correoEmpleado",$correo);
+                        $parametro5->bindParam(":contrasenaEmpleado",$contraCifrada);
+                        if($parametro5->execute())
                         {
-                            $datos1 = $parametro8->fetchAll(PDO::FETCH_ASSOC);
-                            $_SESSION['idSesion'] = $datos1[0]['idSesion'];
-                            $_SESSION['idUsuario'] = $datos1[0]['id'];
+                            $datos = $parametro5->fetchAll(PDO::FETCH_ASSOC);
+                            $_SESSION['idSesion'] = $datos[0]['idSesion'];
+                            $_SESSION['idUsuario'] = $datos[0]['id'];
     
-                            return json_encode($datos1);
+                            return json_encode($datos);
                         }
                     }
                 }
                 else
                 {
-                    return json_encode ("inicio bloqueado");
+                    return json_encode("Inicio bloqueado");
                 }
+                
             }
+
         }
         else
         {
-            
-            $sql3 = "SELECT activo FROM empleado WHERE correoEmpleado=:correoEmpleado AND contrasenaEmpleado=:contrasenaEmpleado";
-            $parametro3 = $conexion->prepare($sql3);
-            $parametro3->bindParam(":correoEmpleado",$correo);
-            $parametro3->bindParam(":contrasenaEmpleado",$contraCifrada);
-            $parametro3->execute();
-            $datos= $parametro3->fetchAll(PDO::FETCH_ASSOC);
-            $estado_activo = $datos[0]['activo'];
-            if($estado_activo==1)
+            $sql_admin1 = "SELECT activo FROM administrador WHERE correoAdministrador=:correoAdministrador AND contrasenaAdministrador=:contrasenaAdministrador";
+            $parametro_admin1 = $conexion->prepare($sql_admin1);
+            $parametro_admin1->bindParam(":correoAdministrador",$correo);
+            $parametro_admin1->bindParam(":contrasenaAdministrador",$contraCifrada);
+            $parametro_admin1->execute();
+            $datos_admin= $parametro_admin1->fetchAll(PDO::FETCH_ASSOC);
+            $estado_activo_admin = $datos_admin[0]['activo'];
+            if($estado_activo_admin==1)
             {
-                $sql4 = "UPDATE empleado SET idSesion=:idSesion WHERE correoEmpleado=:correoEmpleado AND contrasenaEmpleado=:contrasenaEmpleado";
-                $parametro4 = $conexion->prepare($sql4);
-                $parametro4->bindParam(":idSesion",$cifrado);
-                $parametro4->bindParam(":correoEmpleado",$correo);
-                $parametro4->bindParam(":contrasenaEmpleado",$contraCifrada);
-                if($parametro4->execute())
+                $sql_admin2 = "UPDATE administrador SET idSesion=:idSesion WHERE correoAdministrador=:correoAdministrador AND contrasenaAdministrador=:contrasenaAdministrador";
+                $parametro_admin2 = $conexion->prepare($sql_admin2);
+                $parametro_admin2->bindParam(":idSesion",$cifrado);
+                $parametro_admin2->bindParam(":correoAdministrador",$correo);
+                $parametro_admin2->bindParam(":contrasenaAdministrador",$contraCifrada);
+                if($parametro_admin2->execute())
                 {
-                    $sql5 = "SELECT id,nombreEmpleado,
-                    apellidopEmpleado,
-                    apellidomEmpleado,
-                    domicilioEmpleado,
-                    numeroextEmpleado,
-                    coloniaEmpleado,
-                    telefonoEmpleado,
-                    puestoEmpleado,
-                    correoEmpleado,
+                    $sql_admin3 = "SELECT 
+                    id,
+                    nombreAdministrador,
+                    apellidopAdministrador,
+                    apellidomAdministrador,
+                    domicilioAdministrador,
+                    numeroextAdministrador,
+                    coloniaAdministrador,
+                    telefonoAdministrador,
+                    puestoAdministrador,
+                    correoAdministrador,
                     idSesion,
-                    tipo_usuario FROM empleado WHERE correoEmpleado=:correoEmpleado AND contrasenaEmpleado=:contrasenaEmpleado";
-                    $parametro5 = $conexion->prepare($sql5);
-                    $parametro5->bindParam(":correoEmpleado",$correo);
-                    $parametro5->bindParam(":contrasenaEmpleado",$contraCifrada);
-                    if($parametro5->execute())
+                    tipo_usuario FROM administrador WHERE correoAdministrador=:correoAdministrador AND contrasenaAdministrador=:contrasenaAdministrador";
+                    $parametro_admin3 = $conexion->prepare($sql_admin3);
+                    $parametro_admin3->bindParam(":correoAdministrador",$correo);
+                    $parametro_admin3->bindParam(":contrasenaAdministrador",$contraCifrada);
+                    if($parametro_admin3->execute())
                     {
-                        $datos = $parametro5->fetchAll(PDO::FETCH_ASSOC);
-                        $_SESSION['idSesion'] = $datos[0]['idSesion'];
-                        $_SESSION['idUsuario'] = $datos[0]['id'];
+                        $datos_admin = $parametro_admin3->fetchAll(PDO::FETCH_ASSOC);
+                        $_SESSION['idSesion'] = $datos_admin[0]['idSesion'];
+                        $_SESSION['idUsuario'] = $datos_admin[0]['id'];
 
-                        return json_encode($datos);
+                        return json_encode($datos_admin);
                     }
                 }
             }
@@ -749,13 +901,13 @@ class Acciones
             {
                 return json_encode("Inicio bloqueado");
             }
-            
+
         }
     }
 
     public function checarSesion($id,$sesion)
     {
-        $sql = "SELECT idSesion FROM empleado WHERE idSesion=:idSesion AND id=:id";
+        $sql = "SELECT idSesion FROM administrador WHERE idSesion=:idSesion AND id=:id";
         $modelo = new Servidor();
         $conexion = $modelo->conectar();
         $parametro = $conexion->prepare($sql);
@@ -782,7 +934,148 @@ class Acciones
         }   
     }
     
+    public function editar_empleado($idUsuario,$idSesion,$id,$tipo,$valor)
+    {
+            $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro="";
 
-    
+                if($tipo=="nombre")
+                {
+                    $sql = "UPDATE empleado  SET nombreEmpleado=:nombre WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":nombre",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="apellidoP")
+                {
+                    $sql = "UPDATE empleado  SET apellidopEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="apellidoM")
+                {
+                    $sql = "UPDATE empleado  SET apellidomEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="domicilio")
+                {
+                    $sql = "UPDATE empleado  SET domicilioEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="numExt")
+                {
+                    $sql = "UPDATE empleado  SET numeroextEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="colonia")
+                {
+                    $sql = "UPDATE empleado  SET coloniaEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="telefono")
+                {
+                    $sql = "UPDATE empleado  SET telefonoEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="puesto")
+                {
+                    $sql = "UPDATE empleado  SET puestoEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="correo")
+                {
+                    $sql = "UPDATE empleado  SET correoEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+            }
+            else
+            {
+                return "error";
+            }
+
+    }
+
+    public function  eliminar_usuario($idUsuario,$idSesion,$id)
+    {
+
+        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "DELETE FROM empleado WHERE id=:id";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":id",$id);
+            if($parametro->execute())
+            {
+                return "listo";
+            }
+            else
+            {
+                return "error 400";
+            }
+        }
+        else
+        {
+            return "error";
+        }
+    }
+
 }
 ?>

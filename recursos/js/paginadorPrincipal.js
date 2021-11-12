@@ -291,7 +291,7 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
                         let imagen_editar2 = document.createElement("img")
                         imagen_editar2.setAttribute("src","../recursos/img/editar.png")
                         imagen_editar2.setAttribute("class","img_accion")
-                        imagen_editar2.setAttribute("onclick","usuario(event);")
+                        imagen_editar2.setAttribute("onclick","editar_empleado(event);")
                         columna_editar.appendChild(imagen_editar2)
 
                         // columna_editar.setAttribute("class","boton_tabla")
@@ -1215,7 +1215,7 @@ function tomar_datos_empleado_noactivos()
                     // console.log("200 Respuesta Exitosa");
                     //console.log(ajax.responseText)
                     datos_empleadosNO = JSON.parse(ajax.responseText)
-                    // console.log(datos)
+                    // console.log(datos_empleadosNO)
                     paginador_empleadoNo(datos_empleadosNO,pagina_actual_empleados_activosNO,cantidad_vistasNO,boton_anteriorNO,boton_siguienteNO,boton_primeroNO,boton_ultimoNO,cuerpoNO,indicador_paginaNO)
 
                 }
@@ -1261,6 +1261,7 @@ boton_ultimoNO.addEventListener("click", function(){
 })
 
 function paginador_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+    
 
     var cuerpo = "";
     cuerpo_paginador.innerHTML = "";
@@ -1302,17 +1303,27 @@ function paginador_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
 
     var numero_clase=1;
 
-    
+    if(arreglo_rutas=="error 400")
+    {
+        // alert("no hay datos")
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+        pagina_paginador.innerHTML="1 de 1";
+        cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="13">NO HAY DATOS</td></tr>'
+    }
+    else
+    {
+
     for (inicio; inicio < final; inicio++) 
     {
+        console.log(arreglo_rutas)
+
         if (arreglo_rutas[inicio]!=undefined) 
         {
-            if(arreglo_rutas[inicio]=="error 400")
-            {
-                cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="13">NO HAY DATOS</td></tr>'
-            }
-            else
-            {
+            
+            
 
                 //crear columnas por cada json con arreglo_rutas[inicio]
                        
@@ -1476,7 +1487,7 @@ function paginador_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
                         let imagen_editar2 = document.createElement("img")
                         imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
                         imagen_editar2.setAttribute("class","img_accion")
-                        imagen_editar2.setAttribute("onclick","(event);")
+                        imagen_editar2.setAttribute("onclick","eliminar_empleado(event);")
                         columna_editar.appendChild(imagen_editar2)
 
                         // columna_editar.setAttribute("class","boton_tabla")
@@ -1485,7 +1496,7 @@ function paginador_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
 
                         fila.appendChild(columna_editar)
                         cuerpo_paginador.appendChild(fila)    
-            }	
+            	
             // console.log(arreglo_rutas[inicio]);
             var paso = true;
             if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
@@ -1493,6 +1504,7 @@ function paginador_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
         }
     }
     pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
 }
 function paginador_siguiente_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
     // pagina_actual++;

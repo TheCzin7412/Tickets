@@ -63,7 +63,8 @@ function inicio_sesion()
                 {
                     console.log("404 Página no encontrada");
                 }
-                if (ajax.status == 500) {
+                if (ajax.status == 500) 
+                {
                     console.log("500 Error interno de servidor");
                 }
             }            

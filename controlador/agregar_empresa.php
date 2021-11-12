@@ -15,9 +15,8 @@ $telefonoEmpresa = $_POST['telefonoEmpresa'];
 $correoEmpresa = $_POST['correoEmpresa'];
 $contrasenaEmpresa = $_POST['contrasenaEmpresa'];
 
-
 $modelo = new Acciones();
-$registrar_peticion_empresa = $modelo->agregar_empresas_admin($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa);
+$registrar_peticion_empresa = $modelo->agregar_empresa_dashboard($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa);
 echo $registrar_peticion_empresa;
 //var_dump($registrar_empleado);
 
