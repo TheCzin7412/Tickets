@@ -116,8 +116,20 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
 
     var numero_clase=1;
 
-    console.log(inicio)
-    console.log(final)
+    //console.log(inicio)
+    //console.log(final)
+    if(arreglo_rutas=="error 400")
+    {
+        // alert("no hay datos")
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+        pagina_paginador.innerHTML="1 de 1";
+        cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="13">NO HAY DATOS</td></tr>'
+    }
+    else
+    {
     for (inicio; inicio < final; inicio++) 
     {
         if (arreglo_rutas[inicio]!=undefined) 
@@ -148,6 +160,8 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
 
                         let cadena_id = "id_"+id
                         fila.setAttribute("id",id)
+
+                        
 
                         let columna_id = document.createElement("td")
                         columna_id.setAttribute("class","texto")
@@ -269,17 +283,12 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
                         columna_activo.innerHTML = activo
                         fila.appendChild(columna_activo)
 
+
                         let columna_tipo_usuario = document.createElement("td")
-                        columna_tipo_usuario.setAttribute("class","texto")                        
-                        let input_tipo_usuario = document.createElement("input")
-                        input_tipo_usuario.setAttribute("type","text")
-                        input_tipo_usuario.setAttribute("value",tipo_usuario)
-                        input_tipo_usuario.setAttribute("class","input_paginador")
-                        input_tipo_usuario.setAttribute("disabled","true")
-                        
-                        columna_tipo_usuario.appendChild(input_tipo_usuario)
-                        //columna_tipo_usuario.innerHTML = tipo_usuario
+                        columna_tipo_usuario.setAttribute("class","texto")
+                        columna_tipo_usuario.innerHTML = tipo_usuario
                         fila.appendChild(columna_tipo_usuario)
+
 
                         let columna_editar = document.createElement("td")
                         let imagen_editar = document.createElement("img")
@@ -308,6 +317,7 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
         }
     }
     pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+    }
 }
 function paginador_siguiente_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
     // pagina_actual++;
@@ -367,6 +377,8 @@ function paginador_siguiente_empleado(arreglo_rutas,pagina_actual,cantidad_vista
                         let cadena_id = "id_"+id
                         fila.setAttribute("id",id)
 
+                        
+
                         let columna_id = document.createElement("td")
                         columna_id.setAttribute("class","texto")
                         let input_id = document.createElement("input")
@@ -487,17 +499,12 @@ function paginador_siguiente_empleado(arreglo_rutas,pagina_actual,cantidad_vista
                         columna_activo.innerHTML = activo
                         fila.appendChild(columna_activo)
 
+
                         let columna_tipo_usuario = document.createElement("td")
-                        columna_tipo_usuario.setAttribute("class","texto")                        
-                        let input_tipo_usuario = document.createElement("input")
-                        input_tipo_usuario.setAttribute("type","text")
-                        input_tipo_usuario.setAttribute("value",tipo_usuario)
-                        input_tipo_usuario.setAttribute("class","input_paginador")
-                        input_tipo_usuario.setAttribute("disabled","true")
-                        
-                        columna_tipo_usuario.appendChild(input_tipo_usuario)
-                        //columna_tipo_usuario.innerHTML = tipo_usuario
+                        columna_tipo_usuario.setAttribute("class","texto")
+                        columna_tipo_usuario.innerHTML = tipo_usuario
                         fila.appendChild(columna_tipo_usuario)
+
 
                         let columna_editar = document.createElement("td")
                         let imagen_editar = document.createElement("img")
@@ -509,7 +516,7 @@ function paginador_siguiente_empleado(arreglo_rutas,pagina_actual,cantidad_vista
                         let imagen_editar2 = document.createElement("img")
                         imagen_editar2.setAttribute("src","../recursos/img/editar.png")
                         imagen_editar2.setAttribute("class","img_accion")
-                        imagen_editar2.setAttribute("onclick","desactivar_usuario(event);")
+                        imagen_editar2.setAttribute("onclick","editar_empleado(event);")
                         columna_editar.appendChild(imagen_editar2)
 
                         // columna_editar.setAttribute("class","boton_tabla")
@@ -517,7 +524,7 @@ function paginador_siguiente_empleado(arreglo_rutas,pagina_actual,cantidad_vista
                         // columna_editar.innerHTML = "activar"
 
                         fila.appendChild(columna_editar)
-                        cuerpo_paginador.appendChild(fila)
+                        cuerpo_paginador.appendChild(fila)    
                             
             // console.log(arreglo_rutas[inicio]);
             var paso = true;
@@ -805,6 +812,8 @@ if (arreglo_rutas[inicio]!=undefined)
     let cadena_id = "id_"+id
     fila.setAttribute("id",id)
 
+    
+
     let columna_id = document.createElement("td")
     columna_id.setAttribute("class","texto")
     let input_id = document.createElement("input")
@@ -925,17 +934,12 @@ if (arreglo_rutas[inicio]!=undefined)
     columna_activo.innerHTML = activo
     fila.appendChild(columna_activo)
 
+
     let columna_tipo_usuario = document.createElement("td")
-    columna_tipo_usuario.setAttribute("class","texto")                        
-    let input_tipo_usuario = document.createElement("input")
-    input_tipo_usuario.setAttribute("type","text")
-    input_tipo_usuario.setAttribute("value",tipo_usuario)
-    input_tipo_usuario.setAttribute("class","input_paginador")
-    input_tipo_usuario.setAttribute("disabled","true")
-    
-    columna_tipo_usuario.appendChild(input_tipo_usuario)
-    //columna_tipo_usuario.innerHTML = tipo_usuario
+    columna_tipo_usuario.setAttribute("class","texto")
+    columna_tipo_usuario.innerHTML = tipo_usuario
     fila.appendChild(columna_tipo_usuario)
+
 
     let columna_editar = document.createElement("td")
     let imagen_editar = document.createElement("img")
@@ -947,7 +951,7 @@ if (arreglo_rutas[inicio]!=undefined)
     let imagen_editar2 = document.createElement("img")
     imagen_editar2.setAttribute("src","../recursos/img/editar.png")
     imagen_editar2.setAttribute("class","img_accion")
-    imagen_editar2.setAttribute("onclick","desactivar_usuario(event);")
+    imagen_editar2.setAttribute("onclick","editar_empleado(event);")
     columna_editar.appendChild(imagen_editar2)
 
     // columna_editar.setAttribute("class","boton_tabla")
@@ -1004,7 +1008,6 @@ for (inicio; inicio < final; inicio++)
 {
 if (arreglo_rutas[inicio]!=undefined) 
 {
-                        // arreglos
                         let id = arreglo_rutas[inicio].id
                         let nombreEmpleado = arreglo_rutas[inicio].nombreEmpleado
                         let apellidopEmpleado = arreglo_rutas[inicio].apellidopEmpleado
@@ -1022,6 +1025,8 @@ if (arreglo_rutas[inicio]!=undefined)
 
                         let cadena_id = "id_"+id
                         fila.setAttribute("id",id)
+
+                        
 
                         let columna_id = document.createElement("td")
                         columna_id.setAttribute("class","texto")
@@ -1143,17 +1148,12 @@ if (arreglo_rutas[inicio]!=undefined)
                         columna_activo.innerHTML = activo
                         fila.appendChild(columna_activo)
 
+
                         let columna_tipo_usuario = document.createElement("td")
-                        columna_tipo_usuario.setAttribute("class","texto")                        
-                        let input_tipo_usuario = document.createElement("input")
-                        input_tipo_usuario.setAttribute("type","text")
-                        input_tipo_usuario.setAttribute("value",tipo_usuario)
-                        input_tipo_usuario.setAttribute("class","input_paginador")
-                        input_tipo_usuario.setAttribute("disabled","true")
-                        
-                        columna_tipo_usuario.appendChild(input_tipo_usuario)
-                        //columna_tipo_usuario.innerHTML = tipo_usuario
+                        columna_tipo_usuario.setAttribute("class","texto")
+                        columna_tipo_usuario.innerHTML = tipo_usuario
                         fila.appendChild(columna_tipo_usuario)
+
 
                         let columna_editar = document.createElement("td")
                         let imagen_editar = document.createElement("img")
@@ -1165,7 +1165,7 @@ if (arreglo_rutas[inicio]!=undefined)
                         let imagen_editar2 = document.createElement("img")
                         imagen_editar2.setAttribute("src","../recursos/img/editar.png")
                         imagen_editar2.setAttribute("class","img_accion")
-                        imagen_editar2.setAttribute("onclick","desactivar_usuario(event);")
+                        imagen_editar2.setAttribute("onclick","editar_empleado(event);")
                         columna_editar.appendChild(imagen_editar2)
 
                         // columna_editar.setAttribute("class","boton_tabla")
@@ -1173,7 +1173,7 @@ if (arreglo_rutas[inicio]!=undefined)
                         // columna_editar.innerHTML = "activar"
 
                         fila.appendChild(columna_editar)
-                        cuerpo_paginador.appendChild(fila)    
+                        cuerpo_paginador.appendChild(fila)     
 
     var paso = true;
     if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
@@ -1318,7 +1318,7 @@ function paginador_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
 
     for (inicio; inicio < final; inicio++) 
     {
-        console.log(arreglo_rutas)
+        //console.log(arreglo_rutas)
 
         if (arreglo_rutas[inicio]!=undefined) 
         {
@@ -2372,7 +2372,6 @@ pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
 }
 
 
-//funciones para tomar empleados activos
 var datos_empresas
 var boton_primeroEmpresas = document.getElementById("boton_paginador_primeroEmpresas")
 var boton_anteriorEmpresas = document.getElementById("boton_paginador_anteriorEmpresas")
@@ -2381,7 +2380,7 @@ var boton_ultimoEmpresas = document.getElementById("boton_paginador_ultimoEmpres
 var cuerpoEmpresas = document.getElementById("tabla_empresas_activas")
 var indicador_paginaEmpresas= document.getElementById("boton_paginador_cantidadEmpresas")
 var cantidad_vistasEmpresas
-var pagina_actual_empresas_activos 
+var pagina_actual_empresas_activos = 1
 
 function tomar_datos_empresas()
 {
@@ -2423,22 +2422,26 @@ function tomar_datos_empresas()
 }
 
 // agregar evento a botones de paginacion
+
 boton_siguienteEmpresas.addEventListener("click", function(){
     pagina_actual_empresas_activos++
     paginador_siguiente_empresas(datos_empresas,pagina_actual_empresas_activos,cantidad_vistasEmpresas,boton_anteriorEmpresas,boton_siguienteEmpresas,boton_primeroEmpresas,boton_ultimoEmpresas,cuerpoEmpresas,indicador_paginaEmpresas)
 })
+
 boton_anteriorEmpresas.addEventListener("click", function(){
     pagina_actual_empresas_activos--
     paginador_anterior_empresas(datos_empresas,pagina_actual_empresas_activos,cantidad_vistasEmpresas,boton_anteriorEmpresas,boton_siguienteEmpresas,boton_primeroEmpresas,boton_ultimoEmpresas,cuerpoEmpresas,indicador_paginaEmpresas)
 })
+
 boton_primeroEmpresas.addEventListener("click", function(){
     pagina_actual_empresas_activos = 1 
     paginador_primera_empresas(datos_empresas,pagina_actual_empresas_activos,cantidad_vistasEmpresas,boton_anteriorEmpresas,boton_siguienteEmpresas,boton_primeroEmpresas,boton_ultimoEmpresas,cuerpoEmpresas,indicador_paginaEmpresas)
 })
+
 boton_ultimoEmpresas.addEventListener("click", function(){
 
-    var tamano = datos_empresas.length;
-    var numero_paginas=tamano/cantidad_vistasEmpresas;
+    var tama = datos_empresas.length;
+    var numero_paginas=tama/cantidad_vistasEmpresas;
     numero_paginas=Math.ceil(numero_paginas);
     pagina_actual_empresas_activos = numero_paginas
     paginador_ultima_empresas(datos_empresas,pagina_actual_empresas_activos,cantidad_vistasEmpresas,boton_anteriorEmpresas,boton_siguienteEmpresas,boton_primeroEmpresas,boton_ultimoEmpresas,cuerpoEmpresas,indicador_paginaEmpresas)
@@ -2485,8 +2488,19 @@ function paginador_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
     }
 
     var numero_clase=1;
+    if(arreglo_rutas=="error 400")
+    {
+        // alert("no hay datos")
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+        pagina_paginador.innerHTML="1 de 1";
+        cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="15">NO HAY DATOS</td></tr>'
+    }
+    else
+    {
 
-    
     for (inicio; inicio < final; inicio++) 
     {
         if (arreglo_rutas[inicio]!=undefined) 
@@ -2671,9 +2685,9 @@ function paginador_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/modificar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/editar.png")
                 imagen_editar2.setAttribute("class","img_accion")
-                imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
+                imagen_editar2.setAttribute("onclick","editar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
                 fila.appendChild(columna_editar)
                 cuerpo_paginador.appendChild(fila) 
@@ -2685,6 +2699,7 @@ function paginador_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
         }
     }
     pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
 }
 function paginador_siguiente_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
     // pagina_actual++;
@@ -2726,182 +2741,182 @@ function paginador_siguiente_empresas(arreglo_rutas,pagina_actual,cantidad_vista
         if (arreglo_rutas[inicio]!=undefined) 
         {
             let id = arreglo_rutas[inicio].id
-                let rfcEmpresa = arreglo_rutas[inicio].rfcEmpresa
-                let nombreEmpresa = arreglo_rutas[inicio].nombreEmpresa
-                let razonsocialEmpresa = arreglo_rutas[inicio].razonsocialEmpresa
-                let domicilioEmpresa = arreglo_rutas[inicio].domicilioEmpresa
-                let numerocalleEmpresa = arreglo_rutas[inicio].numerocalleEmpresa
-                let coloniaEmpresa = arreglo_rutas[inicio].coloniaEmpresa
-                let cpEmpresa = arreglo_rutas[inicio].cpEmpresa
-                let municipioEmpresa = arreglo_rutas[inicio].municipioEmpresa
-                let estadoEmpresa = arreglo_rutas[inicio].estadoEmpresa
-                let telefonoEmpresa  = arreglo_rutas[inicio].telefonoEmpresa
-                let correoEmpresa = arreglo_rutas[inicio].correoEmpresa
-                let activo  = arreglo_rutas[inicio].activo
-                let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
-                
-                    let fila = document.createElement("tr")
-                
-                let cadena_id = "id_"+id
-                fila.setAttribute("id",id)
-                
-                let columna_id = document.createElement("td")
-                columna_id.setAttribute("class","texto")
-                let input_id = document.createElement("input")
-                input_id.setAttribute("type","text")
-                input_id.setAttribute("value",id)
-                input_id.setAttribute("class","input_paginador")
-                input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
-                fila.appendChild(columna_id)
-                
-                let columna_rfcEmpresa = document.createElement("td")
-                columna_rfcEmpresa.setAttribute("class","texto")
-                let input_rfcEmpresa = document.createElement("input")
-                input_rfcEmpresa.setAttribute("type","text")
-                input_rfcEmpresa.setAttribute("value",rfcEmpresa)
-                input_rfcEmpresa.setAttribute("class","input_paginador")
-                input_rfcEmpresa.setAttribute("disabled","true")
-                columna_rfcEmpresa.appendChild(input_rfcEmpresa)
-                //columna_rfcEmpresa.innerHTML = rfcEmpresa
-                fila.appendChild(columna_rfcEmpresa)
-                
-                let columna_nombreEmpresa = document.createElement("td")
-                columna_nombreEmpresa.setAttribute("class","texto")
-                let input_nombreEmpresa = document.createElement("input")
-                input_nombreEmpresa.setAttribute("type","text")
-                input_nombreEmpresa.setAttribute("value",nombreEmpresa)
-                input_nombreEmpresa.setAttribute("class","input_paginador")
-                input_nombreEmpresa.setAttribute("disabled","true")
-                columna_nombreEmpresa.appendChild(input_nombreEmpresa)
-                //columna_nombreEmpresa.innerHTML = nombreEmpresa
-                fila.appendChild(columna_nombreEmpresa)
-                
-                let columna_razonsocialEmpresa = document.createElement("td")
-                columna_razonsocialEmpresa.setAttribute("class","texto")
-                let input_razonsocialEmpresa = document.createElement("input")
-                input_razonsocialEmpresa.setAttribute("type","text")
-                input_razonsocialEmpresa.setAttribute("value",razonsocialEmpresa)
-                input_razonsocialEmpresa.setAttribute("class","input_paginador")
-                input_razonsocialEmpresa.setAttribute("disabled","true")
-                columna_razonsocialEmpresa.appendChild(input_razonsocialEmpresa)
-                //columna_razonsocialEmpresa.innerHTML = razonsocialEmpresa
-                fila.appendChild(columna_razonsocialEmpresa)
-                
-                let columna_domicilioEmpresa = document.createElement("td")
-                columna_domicilioEmpresa.setAttribute("class","texto")
-                let input_domicilioEmpresa = document.createElement("input")
-                input_domicilioEmpresa.setAttribute("type","text")
-                input_domicilioEmpresa.setAttribute("value",domicilioEmpresa)
-                input_domicilioEmpresa.setAttribute("class","input_paginador")
-                input_domicilioEmpresa.setAttribute("disabled","true")
-                columna_domicilioEmpresa.appendChild(input_domicilioEmpresa)
-                //columna_domicilioEmpresa.innerHTML = domicilioEmpresa
-                fila.appendChild(columna_domicilioEmpresa)
-                
-                let columna_numerocalleEmpresa = document.createElement("td")
-                columna_numerocalleEmpresa.setAttribute("class","texto")
-                let input_numerocalleEmpresa = document.createElement("input")
-                input_numerocalleEmpresa.setAttribute("type","text")
-                input_numerocalleEmpresa.setAttribute("value",numerocalleEmpresa)
-                input_numerocalleEmpresa.setAttribute("class","input_paginador")
-                input_numerocalleEmpresa.setAttribute("disabled","true")
-                columna_numerocalleEmpresa.appendChild(input_numerocalleEmpresa)
-                //columna_numerocalleEmpresa.innerHTML = numerocalleEmpresa
-                fila.appendChild(columna_numerocalleEmpresa)
-                
-                let columna_coloniaEmpresa = document.createElement("td")
-                columna_coloniaEmpresa.setAttribute("class","texto")
-                let input_coloniaEmpresa = document.createElement("input")
-                input_coloniaEmpresa.setAttribute("type","text")
-                input_coloniaEmpresa.setAttribute("value",coloniaEmpresa)
-                input_coloniaEmpresa.setAttribute("class","input_paginador")
-                input_coloniaEmpresa.setAttribute("disabled","true")
-                columna_coloniaEmpresa.appendChild(input_coloniaEmpresa)
-                //columna_coloniaEmpresa.innerHTML = coloniaEmpresa
-                fila.appendChild(columna_coloniaEmpresa)
-                
-                let columna_cpEmpresa = document.createElement("td")
-                columna_cpEmpresa.setAttribute("class","texto")
-                let input_cpEmpresa = document.createElement("input")
-                input_cpEmpresa.setAttribute("type","text")
-                input_cpEmpresa.setAttribute("value",cpEmpresa)
-                input_cpEmpresa.setAttribute("class","input_paginador")
-                input_cpEmpresa.setAttribute("disabled","true")
-                columna_cpEmpresa.appendChild(input_cpEmpresa)
-                //columna_cpEmpresa.innerHTML = cpEmpresa
-                fila.appendChild(columna_cpEmpresa)
-                
-                let columna_municipioEmpresa = document.createElement("td")
-                columna_municipioEmpresa.setAttribute("class","texto")
-                let input_municipioEmpresa = document.createElement("input")
-                input_municipioEmpresa.setAttribute("type","text")
-                input_municipioEmpresa.setAttribute("value",municipioEmpresa)
-                input_municipioEmpresa.setAttribute("class","input_paginador")
-                input_municipioEmpresa.setAttribute("disabled","true")
-                columna_municipioEmpresa.appendChild(input_municipioEmpresa)
-                //columna_municipioEmpresa.innerHTML = municipioEmpresa
-                fila.appendChild(columna_municipioEmpresa)
-                
-                let columna_estadoEmpresa = document.createElement("td")
-                columna_estadoEmpresa.setAttribute("class","texto")
-                let input_estadoEmpresa = document.createElement("input")
-                input_estadoEmpresa.setAttribute("type","text")
-                input_estadoEmpresa.setAttribute("value",estadoEmpresa)
-                input_estadoEmpresa.setAttribute("class","input_paginador")
-                input_estadoEmpresa.setAttribute("disabled","true")
-                columna_estadoEmpresa.appendChild(input_estadoEmpresa)
-                //columna_estadoEmpresa.innerHTML = estadoEmpresa
-                fila.appendChild(columna_estadoEmpresa)
-                
-                let columna_telefonoEmpresa = document.createElement("td")
-                columna_telefonoEmpresa.setAttribute("class","texto")
-                let input_telefonoEmpresa = document.createElement("input")
-                input_telefonoEmpresa.setAttribute("type","text")
-                input_telefonoEmpresa.setAttribute("value",telefonoEmpresa)
-                input_telefonoEmpresa.setAttribute("class","input_paginador")
-                input_telefonoEmpresa.setAttribute("disabled","true")
-                columna_telefonoEmpresa.appendChild(input_telefonoEmpresa)
-                //columna_telefonoEmpresa.innerHTML = telefonoEmpresa
-                fila.appendChild(columna_telefonoEmpresa)
-                
-                
-                let columna_correoEmpresa = document.createElement("td")
-                columna_correoEmpresa.setAttribute("class","texto")
-                let input_correoEmpresa = document.createElement("input")
-                input_correoEmpresa.setAttribute("type","text")
-                input_correoEmpresa.setAttribute("value",correoEmpresa)
-                input_correoEmpresa.setAttribute("class","input_paginador")
-                input_correoEmpresa.setAttribute("disabled","true")
-                columna_correoEmpresa.appendChild(input_correoEmpresa)
-                //columna_correoEmpresa.innerHTML = correoEmpresa
-                fila.appendChild(columna_correoEmpresa)
-                
-                let columna_activo = document.createElement("td")
-                columna_activo.setAttribute("class","texto")
-                columna_activo.innerHTML = activo
-                fila.appendChild(columna_activo)
-                
-                let columna_tipo_usuario = document.createElement("td")
-                columna_tipo_usuario.setAttribute("class","texto")
-                columna_tipo_usuario.innerHTML = tipo_usuario
-                fila.appendChild(columna_tipo_usuario)
-                
-                let columna_editar = document.createElement("td")
-                let imagen_editar = document.createElement("img")
-                imagen_editar.setAttribute("src","../recursos/img/baja.png")
-                imagen_editar.setAttribute("class","img_accion")
-                imagen_editar.setAttribute("onclick","desactivar_empresas(event);")
-                columna_editar.appendChild(imagen_editar)
-                
-                let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/modificar.png")
-                imagen_editar2.setAttribute("class","img_accion")
-                imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
-                columna_editar.appendChild(imagen_editar2)
-                fila.appendChild(columna_editar)
-                cuerpo_paginador.appendChild(fila)
+            let rfcEmpresa = arreglo_rutas[inicio].rfcEmpresa
+            let nombreEmpresa = arreglo_rutas[inicio].nombreEmpresa
+            let razonsocialEmpresa = arreglo_rutas[inicio].razonsocialEmpresa
+            let domicilioEmpresa = arreglo_rutas[inicio].domicilioEmpresa
+            let numerocalleEmpresa = arreglo_rutas[inicio].numerocalleEmpresa
+            let coloniaEmpresa = arreglo_rutas[inicio].coloniaEmpresa
+            let cpEmpresa = arreglo_rutas[inicio].cpEmpresa
+            let municipioEmpresa = arreglo_rutas[inicio].municipioEmpresa
+            let estadoEmpresa = arreglo_rutas[inicio].estadoEmpresa
+            let telefonoEmpresa  = arreglo_rutas[inicio].telefonoEmpresa
+            let correoEmpresa = arreglo_rutas[inicio].correoEmpresa
+            let activo  = arreglo_rutas[inicio].activo
+            let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+            
+                let fila = document.createElement("tr")
+            
+            let cadena_id = "id_"+id
+            fila.setAttribute("id",id)
+            
+            let columna_id = document.createElement("td")
+            columna_id.setAttribute("class","texto")
+            let input_id = document.createElement("input")
+            input_id.setAttribute("type","text")
+            input_id.setAttribute("value",id)
+            input_id.setAttribute("class","input_paginador")
+            input_id.setAttribute("disabled","true")
+            columna_id.appendChild(input_id)
+            //columna_id.innerHTML = id
+            fila.appendChild(columna_id)
+            
+            let columna_rfcEmpresa = document.createElement("td")
+            columna_rfcEmpresa.setAttribute("class","texto")
+            let input_rfcEmpresa = document.createElement("input")
+            input_rfcEmpresa.setAttribute("type","text")
+            input_rfcEmpresa.setAttribute("value",rfcEmpresa)
+            input_rfcEmpresa.setAttribute("class","input_paginador")
+            input_rfcEmpresa.setAttribute("disabled","true")
+            columna_rfcEmpresa.appendChild(input_rfcEmpresa)
+            //columna_rfcEmpresa.innerHTML = rfcEmpresa
+            fila.appendChild(columna_rfcEmpresa)
+            
+            let columna_nombreEmpresa = document.createElement("td")
+            columna_nombreEmpresa.setAttribute("class","texto")
+            let input_nombreEmpresa = document.createElement("input")
+            input_nombreEmpresa.setAttribute("type","text")
+            input_nombreEmpresa.setAttribute("value",nombreEmpresa)
+            input_nombreEmpresa.setAttribute("class","input_paginador")
+            input_nombreEmpresa.setAttribute("disabled","true")
+            columna_nombreEmpresa.appendChild(input_nombreEmpresa)
+            //columna_nombreEmpresa.innerHTML = nombreEmpresa
+            fila.appendChild(columna_nombreEmpresa)
+            
+            let columna_razonsocialEmpresa = document.createElement("td")
+            columna_razonsocialEmpresa.setAttribute("class","texto")
+            let input_razonsocialEmpresa = document.createElement("input")
+            input_razonsocialEmpresa.setAttribute("type","text")
+            input_razonsocialEmpresa.setAttribute("value",razonsocialEmpresa)
+            input_razonsocialEmpresa.setAttribute("class","input_paginador")
+            input_razonsocialEmpresa.setAttribute("disabled","true")
+            columna_razonsocialEmpresa.appendChild(input_razonsocialEmpresa)
+            //columna_razonsocialEmpresa.innerHTML = razonsocialEmpresa
+            fila.appendChild(columna_razonsocialEmpresa)
+            
+            let columna_domicilioEmpresa = document.createElement("td")
+            columna_domicilioEmpresa.setAttribute("class","texto")
+            let input_domicilioEmpresa = document.createElement("input")
+            input_domicilioEmpresa.setAttribute("type","text")
+            input_domicilioEmpresa.setAttribute("value",domicilioEmpresa)
+            input_domicilioEmpresa.setAttribute("class","input_paginador")
+            input_domicilioEmpresa.setAttribute("disabled","true")
+            columna_domicilioEmpresa.appendChild(input_domicilioEmpresa)
+            //columna_domicilioEmpresa.innerHTML = domicilioEmpresa
+            fila.appendChild(columna_domicilioEmpresa)
+            
+            let columna_numerocalleEmpresa = document.createElement("td")
+            columna_numerocalleEmpresa.setAttribute("class","texto")
+            let input_numerocalleEmpresa = document.createElement("input")
+            input_numerocalleEmpresa.setAttribute("type","text")
+            input_numerocalleEmpresa.setAttribute("value",numerocalleEmpresa)
+            input_numerocalleEmpresa.setAttribute("class","input_paginador")
+            input_numerocalleEmpresa.setAttribute("disabled","true")
+            columna_numerocalleEmpresa.appendChild(input_numerocalleEmpresa)
+            //columna_numerocalleEmpresa.innerHTML = numerocalleEmpresa
+            fila.appendChild(columna_numerocalleEmpresa)
+            
+            let columna_coloniaEmpresa = document.createElement("td")
+            columna_coloniaEmpresa.setAttribute("class","texto")
+            let input_coloniaEmpresa = document.createElement("input")
+            input_coloniaEmpresa.setAttribute("type","text")
+            input_coloniaEmpresa.setAttribute("value",coloniaEmpresa)
+            input_coloniaEmpresa.setAttribute("class","input_paginador")
+            input_coloniaEmpresa.setAttribute("disabled","true")
+            columna_coloniaEmpresa.appendChild(input_coloniaEmpresa)
+            //columna_coloniaEmpresa.innerHTML = coloniaEmpresa
+            fila.appendChild(columna_coloniaEmpresa)
+            
+            let columna_cpEmpresa = document.createElement("td")
+            columna_cpEmpresa.setAttribute("class","texto")
+            let input_cpEmpresa = document.createElement("input")
+            input_cpEmpresa.setAttribute("type","text")
+            input_cpEmpresa.setAttribute("value",cpEmpresa)
+            input_cpEmpresa.setAttribute("class","input_paginador")
+            input_cpEmpresa.setAttribute("disabled","true")
+            columna_cpEmpresa.appendChild(input_cpEmpresa)
+            //columna_cpEmpresa.innerHTML = cpEmpresa
+            fila.appendChild(columna_cpEmpresa)
+            
+            let columna_municipioEmpresa = document.createElement("td")
+            columna_municipioEmpresa.setAttribute("class","texto")
+            let input_municipioEmpresa = document.createElement("input")
+            input_municipioEmpresa.setAttribute("type","text")
+            input_municipioEmpresa.setAttribute("value",municipioEmpresa)
+            input_municipioEmpresa.setAttribute("class","input_paginador")
+            input_municipioEmpresa.setAttribute("disabled","true")
+            columna_municipioEmpresa.appendChild(input_municipioEmpresa)
+            //columna_municipioEmpresa.innerHTML = municipioEmpresa
+            fila.appendChild(columna_municipioEmpresa)
+            
+            let columna_estadoEmpresa = document.createElement("td")
+            columna_estadoEmpresa.setAttribute("class","texto")
+            let input_estadoEmpresa = document.createElement("input")
+            input_estadoEmpresa.setAttribute("type","text")
+            input_estadoEmpresa.setAttribute("value",estadoEmpresa)
+            input_estadoEmpresa.setAttribute("class","input_paginador")
+            input_estadoEmpresa.setAttribute("disabled","true")
+            columna_estadoEmpresa.appendChild(input_estadoEmpresa)
+            //columna_estadoEmpresa.innerHTML = estadoEmpresa
+            fila.appendChild(columna_estadoEmpresa)
+            
+            let columna_telefonoEmpresa = document.createElement("td")
+            columna_telefonoEmpresa.setAttribute("class","texto")
+            let input_telefonoEmpresa = document.createElement("input")
+            input_telefonoEmpresa.setAttribute("type","text")
+            input_telefonoEmpresa.setAttribute("value",telefonoEmpresa)
+            input_telefonoEmpresa.setAttribute("class","input_paginador")
+            input_telefonoEmpresa.setAttribute("disabled","true")
+            columna_telefonoEmpresa.appendChild(input_telefonoEmpresa)
+            //columna_telefonoEmpresa.innerHTML = telefonoEmpresa
+            fila.appendChild(columna_telefonoEmpresa)
+            
+            
+            let columna_correoEmpresa = document.createElement("td")
+            columna_correoEmpresa.setAttribute("class","texto")
+            let input_correoEmpresa = document.createElement("input")
+            input_correoEmpresa.setAttribute("type","text")
+            input_correoEmpresa.setAttribute("value",correoEmpresa)
+            input_correoEmpresa.setAttribute("class","input_paginador")
+            input_correoEmpresa.setAttribute("disabled","true")
+            columna_correoEmpresa.appendChild(input_correoEmpresa)
+            //columna_correoEmpresa.innerHTML = correoEmpresa
+            fila.appendChild(columna_correoEmpresa)
+            
+            let columna_activo = document.createElement("td")
+            columna_activo.setAttribute("class","texto")
+            columna_activo.innerHTML = activo
+            fila.appendChild(columna_activo)
+            
+            let columna_tipo_usuario = document.createElement("td")
+            columna_tipo_usuario.setAttribute("class","texto")
+            columna_tipo_usuario.innerHTML = tipo_usuario
+            fila.appendChild(columna_tipo_usuario)
+            
+            let columna_editar = document.createElement("td")
+            let imagen_editar = document.createElement("img")
+            imagen_editar.setAttribute("src","../recursos/img/baja.png")
+            imagen_editar.setAttribute("class","img_accion")
+            imagen_editar.setAttribute("onclick","desactivar_empresas(event);")
+            columna_editar.appendChild(imagen_editar)
+            
+            let imagen_editar2 = document.createElement("img")
+            imagen_editar2.setAttribute("src","../recursos/img/editar.png")
+            imagen_editar2.setAttribute("class","img_accion")
+            imagen_editar2.setAttribute("onclick","editar_empresas(event);")
+            columna_editar.appendChild(imagen_editar2)
+            fila.appendChild(columna_editar)
+            cuerpo_paginador.appendChild(fila) 
 
         var paso = true;
         if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
@@ -2950,183 +2965,182 @@ function paginador_anterior_empresas(arreglo_rutas,pagina_actual,cantidad_vistas
     if (arreglo_rutas[inicio]!=undefined) 
     {
         let id = arreglo_rutas[inicio].id
-                let rfcEmpresa = arreglo_rutas[inicio].rfcEmpresa
-                let nombreEmpresa = arreglo_rutas[inicio].nombreEmpresa
-                let razonsocialEmpresa = arreglo_rutas[inicio].razonsocialEmpresa
-                let domicilioEmpresa = arreglo_rutas[inicio].domicilioEmpresa
-                let numerocalleEmpresa = arreglo_rutas[inicio].numerocalleEmpresa
-                let coloniaEmpresa = arreglo_rutas[inicio].coloniaEmpresa
-                let cpEmpresa = arreglo_rutas[inicio].cpEmpresa
-                let municipioEmpresa = arreglo_rutas[inicio].municipioEmpresa
-                let estadoEmpresa = arreglo_rutas[inicio].estadoEmpresa
-                let telefonoEmpresa  = arreglo_rutas[inicio].telefonoEmpresa
-                let correoEmpresa = arreglo_rutas[inicio].correoEmpresa
-                let activo  = arreglo_rutas[inicio].activo
-                let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
-                
-                    let fila = document.createElement("tr")
-                
-                let cadena_id = "id_"+id
-                fila.setAttribute("id",id)
-                
-                let columna_id = document.createElement("td")
-                columna_id.setAttribute("class","texto")
-                let input_id = document.createElement("input")
-                input_id.setAttribute("type","text")
-                input_id.setAttribute("value",id)
-                input_id.setAttribute("class","input_paginador")
-                input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
-                fila.appendChild(columna_id)
-                
-                let columna_rfcEmpresa = document.createElement("td")
-                columna_rfcEmpresa.setAttribute("class","texto")
-                let input_rfcEmpresa = document.createElement("input")
-                input_rfcEmpresa.setAttribute("type","text")
-                input_rfcEmpresa.setAttribute("value",rfcEmpresa)
-                input_rfcEmpresa.setAttribute("class","input_paginador")
-                input_rfcEmpresa.setAttribute("disabled","true")
-                columna_rfcEmpresa.appendChild(input_rfcEmpresa)
-                //columna_rfcEmpresa.innerHTML = rfcEmpresa
-                fila.appendChild(columna_rfcEmpresa)
-                
-                let columna_nombreEmpresa = document.createElement("td")
-                columna_nombreEmpresa.setAttribute("class","texto")
-                let input_nombreEmpresa = document.createElement("input")
-                input_nombreEmpresa.setAttribute("type","text")
-                input_nombreEmpresa.setAttribute("value",nombreEmpresa)
-                input_nombreEmpresa.setAttribute("class","input_paginador")
-                input_nombreEmpresa.setAttribute("disabled","true")
-                columna_nombreEmpresa.appendChild(input_nombreEmpresa)
-                //columna_nombreEmpresa.innerHTML = nombreEmpresa
-                fila.appendChild(columna_nombreEmpresa)
-                
-                let columna_razonsocialEmpresa = document.createElement("td")
-                columna_razonsocialEmpresa.setAttribute("class","texto")
-                let input_razonsocialEmpresa = document.createElement("input")
-                input_razonsocialEmpresa.setAttribute("type","text")
-                input_razonsocialEmpresa.setAttribute("value",razonsocialEmpresa)
-                input_razonsocialEmpresa.setAttribute("class","input_paginador")
-                input_razonsocialEmpresa.setAttribute("disabled","true")
-                columna_razonsocialEmpresa.appendChild(input_razonsocialEmpresa)
-                //columna_razonsocialEmpresa.innerHTML = razonsocialEmpresa
-                fila.appendChild(columna_razonsocialEmpresa)
-                
-                let columna_domicilioEmpresa = document.createElement("td")
-                columna_domicilioEmpresa.setAttribute("class","texto")
-                let input_domicilioEmpresa = document.createElement("input")
-                input_domicilioEmpresa.setAttribute("type","text")
-                input_domicilioEmpresa.setAttribute("value",domicilioEmpresa)
-                input_domicilioEmpresa.setAttribute("class","input_paginador")
-                input_domicilioEmpresa.setAttribute("disabled","true")
-                columna_domicilioEmpresa.appendChild(input_domicilioEmpresa)
-                //columna_domicilioEmpresa.innerHTML = domicilioEmpresa
-                fila.appendChild(columna_domicilioEmpresa)
-                
-                let columna_numerocalleEmpresa = document.createElement("td")
-                columna_numerocalleEmpresa.setAttribute("class","texto")
-                let input_numerocalleEmpresa = document.createElement("input")
-                input_numerocalleEmpresa.setAttribute("type","text")
-                input_numerocalleEmpresa.setAttribute("value",numerocalleEmpresa)
-                input_numerocalleEmpresa.setAttribute("class","input_paginador")
-                input_numerocalleEmpresa.setAttribute("disabled","true")
-                columna_numerocalleEmpresa.appendChild(input_numerocalleEmpresa)
-                //columna_numerocalleEmpresa.innerHTML = numerocalleEmpresa
-                fila.appendChild(columna_numerocalleEmpresa)
-                
-                let columna_coloniaEmpresa = document.createElement("td")
-                columna_coloniaEmpresa.setAttribute("class","texto")
-                let input_coloniaEmpresa = document.createElement("input")
-                input_coloniaEmpresa.setAttribute("type","text")
-                input_coloniaEmpresa.setAttribute("value",coloniaEmpresa)
-                input_coloniaEmpresa.setAttribute("class","input_paginador")
-                input_coloniaEmpresa.setAttribute("disabled","true")
-                columna_coloniaEmpresa.appendChild(input_coloniaEmpresa)
-                //columna_coloniaEmpresa.innerHTML = coloniaEmpresa
-                fila.appendChild(columna_coloniaEmpresa)
-                
-                let columna_cpEmpresa = document.createElement("td")
-                columna_cpEmpresa.setAttribute("class","texto")
-                let input_cpEmpresa = document.createElement("input")
-                input_cpEmpresa.setAttribute("type","text")
-                input_cpEmpresa.setAttribute("value",cpEmpresa)
-                input_cpEmpresa.setAttribute("class","input_paginador")
-                input_cpEmpresa.setAttribute("disabled","true")
-                columna_cpEmpresa.appendChild(input_cpEmpresa)
-                //columna_cpEmpresa.innerHTML = cpEmpresa
-                fila.appendChild(columna_cpEmpresa)
-                
-                let columna_municipioEmpresa = document.createElement("td")
-                columna_municipioEmpresa.setAttribute("class","texto")
-                let input_municipioEmpresa = document.createElement("input")
-                input_municipioEmpresa.setAttribute("type","text")
-                input_municipioEmpresa.setAttribute("value",municipioEmpresa)
-                input_municipioEmpresa.setAttribute("class","input_paginador")
-                input_municipioEmpresa.setAttribute("disabled","true")
-                columna_municipioEmpresa.appendChild(input_municipioEmpresa)
-                //columna_municipioEmpresa.innerHTML = municipioEmpresa
-                fila.appendChild(columna_municipioEmpresa)
-                
-                let columna_estadoEmpresa = document.createElement("td")
-                columna_estadoEmpresa.setAttribute("class","texto")
-                let input_estadoEmpresa = document.createElement("input")
-                input_estadoEmpresa.setAttribute("type","text")
-                input_estadoEmpresa.setAttribute("value",estadoEmpresa)
-                input_estadoEmpresa.setAttribute("class","input_paginador")
-                input_estadoEmpresa.setAttribute("disabled","true")
-                columna_estadoEmpresa.appendChild(input_estadoEmpresa)
-                //columna_estadoEmpresa.innerHTML = estadoEmpresa
-                fila.appendChild(columna_estadoEmpresa)
-                
-                let columna_telefonoEmpresa = document.createElement("td")
-                columna_telefonoEmpresa.setAttribute("class","texto")
-                let input_telefonoEmpresa = document.createElement("input")
-                input_telefonoEmpresa.setAttribute("type","text")
-                input_telefonoEmpresa.setAttribute("value",telefonoEmpresa)
-                input_telefonoEmpresa.setAttribute("class","input_paginador")
-                input_telefonoEmpresa.setAttribute("disabled","true")
-                columna_telefonoEmpresa.appendChild(input_telefonoEmpresa)
-                //columna_telefonoEmpresa.innerHTML = telefonoEmpresa
-                fila.appendChild(columna_telefonoEmpresa)
-                
-                
-                let columna_correoEmpresa = document.createElement("td")
-                columna_correoEmpresa.setAttribute("class","texto")
-                let input_correoEmpresa = document.createElement("input")
-                input_correoEmpresa.setAttribute("type","text")
-                input_correoEmpresa.setAttribute("value",correoEmpresa)
-                input_correoEmpresa.setAttribute("class","input_paginador")
-                input_correoEmpresa.setAttribute("disabled","true")
-                columna_correoEmpresa.appendChild(input_correoEmpresa)
-                //columna_correoEmpresa.innerHTML = correoEmpresa
-                fila.appendChild(columna_correoEmpresa)
-                
-                let columna_activo = document.createElement("td")
-                columna_activo.setAttribute("class","texto")
-                columna_activo.innerHTML = activo
-                fila.appendChild(columna_activo)
-                
-                let columna_tipo_usuario = document.createElement("td")
-                columna_tipo_usuario.setAttribute("class","texto")
-                columna_tipo_usuario.innerHTML = tipo_usuario
-                fila.appendChild(columna_tipo_usuario)
-                
-                let columna_editar = document.createElement("td")
-                let imagen_editar = document.createElement("img")
-                imagen_editar.setAttribute("src","../recursos/img/baja.png")
-                imagen_editar.setAttribute("class","img_accion")
-                imagen_editar.setAttribute("onclick","desactivar_empresas(event);")
-                columna_editar.appendChild(imagen_editar)
-                
-                let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/modificar.png")
-                imagen_editar2.setAttribute("class","img_accion")
-                imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
-                columna_editar.appendChild(imagen_editar2)
-                fila.appendChild(columna_editar)
-                cuerpo_paginador.appendChild(fila)
-
+        let rfcEmpresa = arreglo_rutas[inicio].rfcEmpresa
+        let nombreEmpresa = arreglo_rutas[inicio].nombreEmpresa
+        let razonsocialEmpresa = arreglo_rutas[inicio].razonsocialEmpresa
+        let domicilioEmpresa = arreglo_rutas[inicio].domicilioEmpresa
+        let numerocalleEmpresa = arreglo_rutas[inicio].numerocalleEmpresa
+        let coloniaEmpresa = arreglo_rutas[inicio].coloniaEmpresa
+        let cpEmpresa = arreglo_rutas[inicio].cpEmpresa
+        let municipioEmpresa = arreglo_rutas[inicio].municipioEmpresa
+        let estadoEmpresa = arreglo_rutas[inicio].estadoEmpresa
+        let telefonoEmpresa  = arreglo_rutas[inicio].telefonoEmpresa
+        let correoEmpresa = arreglo_rutas[inicio].correoEmpresa
+        let activo  = arreglo_rutas[inicio].activo
+        let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+        
+            let fila = document.createElement("tr")
+        
+        let cadena_id = "id_"+id
+        fila.setAttribute("id",id)
+        
+        let columna_id = document.createElement("td")
+        columna_id.setAttribute("class","texto")
+        let input_id = document.createElement("input")
+        input_id.setAttribute("type","text")
+        input_id.setAttribute("value",id)
+        input_id.setAttribute("class","input_paginador")
+        input_id.setAttribute("disabled","true")
+        columna_id.appendChild(input_id)
+        //columna_id.innerHTML = id
+        fila.appendChild(columna_id)
+        
+        let columna_rfcEmpresa = document.createElement("td")
+        columna_rfcEmpresa.setAttribute("class","texto")
+        let input_rfcEmpresa = document.createElement("input")
+        input_rfcEmpresa.setAttribute("type","text")
+        input_rfcEmpresa.setAttribute("value",rfcEmpresa)
+        input_rfcEmpresa.setAttribute("class","input_paginador")
+        input_rfcEmpresa.setAttribute("disabled","true")
+        columna_rfcEmpresa.appendChild(input_rfcEmpresa)
+        //columna_rfcEmpresa.innerHTML = rfcEmpresa
+        fila.appendChild(columna_rfcEmpresa)
+        
+        let columna_nombreEmpresa = document.createElement("td")
+        columna_nombreEmpresa.setAttribute("class","texto")
+        let input_nombreEmpresa = document.createElement("input")
+        input_nombreEmpresa.setAttribute("type","text")
+        input_nombreEmpresa.setAttribute("value",nombreEmpresa)
+        input_nombreEmpresa.setAttribute("class","input_paginador")
+        input_nombreEmpresa.setAttribute("disabled","true")
+        columna_nombreEmpresa.appendChild(input_nombreEmpresa)
+        //columna_nombreEmpresa.innerHTML = nombreEmpresa
+        fila.appendChild(columna_nombreEmpresa)
+        
+        let columna_razonsocialEmpresa = document.createElement("td")
+        columna_razonsocialEmpresa.setAttribute("class","texto")
+        let input_razonsocialEmpresa = document.createElement("input")
+        input_razonsocialEmpresa.setAttribute("type","text")
+        input_razonsocialEmpresa.setAttribute("value",razonsocialEmpresa)
+        input_razonsocialEmpresa.setAttribute("class","input_paginador")
+        input_razonsocialEmpresa.setAttribute("disabled","true")
+        columna_razonsocialEmpresa.appendChild(input_razonsocialEmpresa)
+        //columna_razonsocialEmpresa.innerHTML = razonsocialEmpresa
+        fila.appendChild(columna_razonsocialEmpresa)
+        
+        let columna_domicilioEmpresa = document.createElement("td")
+        columna_domicilioEmpresa.setAttribute("class","texto")
+        let input_domicilioEmpresa = document.createElement("input")
+        input_domicilioEmpresa.setAttribute("type","text")
+        input_domicilioEmpresa.setAttribute("value",domicilioEmpresa)
+        input_domicilioEmpresa.setAttribute("class","input_paginador")
+        input_domicilioEmpresa.setAttribute("disabled","true")
+        columna_domicilioEmpresa.appendChild(input_domicilioEmpresa)
+        //columna_domicilioEmpresa.innerHTML = domicilioEmpresa
+        fila.appendChild(columna_domicilioEmpresa)
+        
+        let columna_numerocalleEmpresa = document.createElement("td")
+        columna_numerocalleEmpresa.setAttribute("class","texto")
+        let input_numerocalleEmpresa = document.createElement("input")
+        input_numerocalleEmpresa.setAttribute("type","text")
+        input_numerocalleEmpresa.setAttribute("value",numerocalleEmpresa)
+        input_numerocalleEmpresa.setAttribute("class","input_paginador")
+        input_numerocalleEmpresa.setAttribute("disabled","true")
+        columna_numerocalleEmpresa.appendChild(input_numerocalleEmpresa)
+        //columna_numerocalleEmpresa.innerHTML = numerocalleEmpresa
+        fila.appendChild(columna_numerocalleEmpresa)
+        
+        let columna_coloniaEmpresa = document.createElement("td")
+        columna_coloniaEmpresa.setAttribute("class","texto")
+        let input_coloniaEmpresa = document.createElement("input")
+        input_coloniaEmpresa.setAttribute("type","text")
+        input_coloniaEmpresa.setAttribute("value",coloniaEmpresa)
+        input_coloniaEmpresa.setAttribute("class","input_paginador")
+        input_coloniaEmpresa.setAttribute("disabled","true")
+        columna_coloniaEmpresa.appendChild(input_coloniaEmpresa)
+        //columna_coloniaEmpresa.innerHTML = coloniaEmpresa
+        fila.appendChild(columna_coloniaEmpresa)
+        
+        let columna_cpEmpresa = document.createElement("td")
+        columna_cpEmpresa.setAttribute("class","texto")
+        let input_cpEmpresa = document.createElement("input")
+        input_cpEmpresa.setAttribute("type","text")
+        input_cpEmpresa.setAttribute("value",cpEmpresa)
+        input_cpEmpresa.setAttribute("class","input_paginador")
+        input_cpEmpresa.setAttribute("disabled","true")
+        columna_cpEmpresa.appendChild(input_cpEmpresa)
+        //columna_cpEmpresa.innerHTML = cpEmpresa
+        fila.appendChild(columna_cpEmpresa)
+        
+        let columna_municipioEmpresa = document.createElement("td")
+        columna_municipioEmpresa.setAttribute("class","texto")
+        let input_municipioEmpresa = document.createElement("input")
+        input_municipioEmpresa.setAttribute("type","text")
+        input_municipioEmpresa.setAttribute("value",municipioEmpresa)
+        input_municipioEmpresa.setAttribute("class","input_paginador")
+        input_municipioEmpresa.setAttribute("disabled","true")
+        columna_municipioEmpresa.appendChild(input_municipioEmpresa)
+        //columna_municipioEmpresa.innerHTML = municipioEmpresa
+        fila.appendChild(columna_municipioEmpresa)
+        
+        let columna_estadoEmpresa = document.createElement("td")
+        columna_estadoEmpresa.setAttribute("class","texto")
+        let input_estadoEmpresa = document.createElement("input")
+        input_estadoEmpresa.setAttribute("type","text")
+        input_estadoEmpresa.setAttribute("value",estadoEmpresa)
+        input_estadoEmpresa.setAttribute("class","input_paginador")
+        input_estadoEmpresa.setAttribute("disabled","true")
+        columna_estadoEmpresa.appendChild(input_estadoEmpresa)
+        //columna_estadoEmpresa.innerHTML = estadoEmpresa
+        fila.appendChild(columna_estadoEmpresa)
+        
+        let columna_telefonoEmpresa = document.createElement("td")
+        columna_telefonoEmpresa.setAttribute("class","texto")
+        let input_telefonoEmpresa = document.createElement("input")
+        input_telefonoEmpresa.setAttribute("type","text")
+        input_telefonoEmpresa.setAttribute("value",telefonoEmpresa)
+        input_telefonoEmpresa.setAttribute("class","input_paginador")
+        input_telefonoEmpresa.setAttribute("disabled","true")
+        columna_telefonoEmpresa.appendChild(input_telefonoEmpresa)
+        //columna_telefonoEmpresa.innerHTML = telefonoEmpresa
+        fila.appendChild(columna_telefonoEmpresa)
+        
+        
+        let columna_correoEmpresa = document.createElement("td")
+        columna_correoEmpresa.setAttribute("class","texto")
+        let input_correoEmpresa = document.createElement("input")
+        input_correoEmpresa.setAttribute("type","text")
+        input_correoEmpresa.setAttribute("value",correoEmpresa)
+        input_correoEmpresa.setAttribute("class","input_paginador")
+        input_correoEmpresa.setAttribute("disabled","true")
+        columna_correoEmpresa.appendChild(input_correoEmpresa)
+        //columna_correoEmpresa.innerHTML = correoEmpresa
+        fila.appendChild(columna_correoEmpresa)
+        
+        let columna_activo = document.createElement("td")
+        columna_activo.setAttribute("class","texto")
+        columna_activo.innerHTML = activo
+        fila.appendChild(columna_activo)
+        
+        let columna_tipo_usuario = document.createElement("td")
+        columna_tipo_usuario.setAttribute("class","texto")
+        columna_tipo_usuario.innerHTML = tipo_usuario
+        fila.appendChild(columna_tipo_usuario)
+        
+        let columna_editar = document.createElement("td")
+        let imagen_editar = document.createElement("img")
+        imagen_editar.setAttribute("src","../recursos/img/baja.png")
+        imagen_editar.setAttribute("class","img_accion")
+        imagen_editar.setAttribute("onclick","desactivar_empresas(event);")
+        columna_editar.appendChild(imagen_editar)
+        
+        let imagen_editar2 = document.createElement("img")
+        imagen_editar2.setAttribute("src","../recursos/img/editar.png")
+        imagen_editar2.setAttribute("class","img_accion")
+        imagen_editar2.setAttribute("onclick","editar_empresas(event);")
+        columna_editar.appendChild(imagen_editar2)
+        fila.appendChild(columna_editar)
+        cuerpo_paginador.appendChild(fila) 
         var paso = true;
         if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
         if (numero_clase==2&&paso==true){numero_clase=1;}
@@ -3174,183 +3188,183 @@ function paginador_primera_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,
     if (arreglo_rutas[inicio]!=undefined) 
     {
         let id = arreglo_rutas[inicio].id
-                let rfcEmpresa = arreglo_rutas[inicio].rfcEmpresa
-                let nombreEmpresa = arreglo_rutas[inicio].nombreEmpresa
-                let razonsocialEmpresa = arreglo_rutas[inicio].razonsocialEmpresa
-                let domicilioEmpresa = arreglo_rutas[inicio].domicilioEmpresa
-                let numerocalleEmpresa = arreglo_rutas[inicio].numerocalleEmpresa
-                let coloniaEmpresa = arreglo_rutas[inicio].coloniaEmpresa
-                let cpEmpresa = arreglo_rutas[inicio].cpEmpresa
-                let municipioEmpresa = arreglo_rutas[inicio].municipioEmpresa
-                let estadoEmpresa = arreglo_rutas[inicio].estadoEmpresa
-                let telefonoEmpresa  = arreglo_rutas[inicio].telefonoEmpresa
-                let correoEmpresa = arreglo_rutas[inicio].correoEmpresa
-                let activo  = arreglo_rutas[inicio].activo
-                let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
-                
-                    let fila = document.createElement("tr")
-                
-                let cadena_id = "id_"+id
-                fila.setAttribute("id",id)
-                
-                let columna_id = document.createElement("td")
-                columna_id.setAttribute("class","texto")
-                let input_id = document.createElement("input")
-                input_id.setAttribute("type","text")
-                input_id.setAttribute("value",id)
-                input_id.setAttribute("class","input_paginador")
-                input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
-                fila.appendChild(columna_id)
-                
-                let columna_rfcEmpresa = document.createElement("td")
-                columna_rfcEmpresa.setAttribute("class","texto")
-                let input_rfcEmpresa = document.createElement("input")
-                input_rfcEmpresa.setAttribute("type","text")
-                input_rfcEmpresa.setAttribute("value",rfcEmpresa)
-                input_rfcEmpresa.setAttribute("class","input_paginador")
-                input_rfcEmpresa.setAttribute("disabled","true")
-                columna_rfcEmpresa.appendChild(input_rfcEmpresa)
-                //columna_rfcEmpresa.innerHTML = rfcEmpresa
-                fila.appendChild(columna_rfcEmpresa)
-                
-                let columna_nombreEmpresa = document.createElement("td")
-                columna_nombreEmpresa.setAttribute("class","texto")
-                let input_nombreEmpresa = document.createElement("input")
-                input_nombreEmpresa.setAttribute("type","text")
-                input_nombreEmpresa.setAttribute("value",nombreEmpresa)
-                input_nombreEmpresa.setAttribute("class","input_paginador")
-                input_nombreEmpresa.setAttribute("disabled","true")
-                columna_nombreEmpresa.appendChild(input_nombreEmpresa)
-                //columna_nombreEmpresa.innerHTML = nombreEmpresa
-                fila.appendChild(columna_nombreEmpresa)
-                
-                let columna_razonsocialEmpresa = document.createElement("td")
-                columna_razonsocialEmpresa.setAttribute("class","texto")
-                let input_razonsocialEmpresa = document.createElement("input")
-                input_razonsocialEmpresa.setAttribute("type","text")
-                input_razonsocialEmpresa.setAttribute("value",razonsocialEmpresa)
-                input_razonsocialEmpresa.setAttribute("class","input_paginador")
-                input_razonsocialEmpresa.setAttribute("disabled","true")
-                columna_razonsocialEmpresa.appendChild(input_razonsocialEmpresa)
-                //columna_razonsocialEmpresa.innerHTML = razonsocialEmpresa
-                fila.appendChild(columna_razonsocialEmpresa)
-                
-                let columna_domicilioEmpresa = document.createElement("td")
-                columna_domicilioEmpresa.setAttribute("class","texto")
-                let input_domicilioEmpresa = document.createElement("input")
-                input_domicilioEmpresa.setAttribute("type","text")
-                input_domicilioEmpresa.setAttribute("value",domicilioEmpresa)
-                input_domicilioEmpresa.setAttribute("class","input_paginador")
-                input_domicilioEmpresa.setAttribute("disabled","true")
-                columna_domicilioEmpresa.appendChild(input_domicilioEmpresa)
-                //columna_domicilioEmpresa.innerHTML = domicilioEmpresa
-                fila.appendChild(columna_domicilioEmpresa)
-                
-                let columna_numerocalleEmpresa = document.createElement("td")
-                columna_numerocalleEmpresa.setAttribute("class","texto")
-                let input_numerocalleEmpresa = document.createElement("input")
-                input_numerocalleEmpresa.setAttribute("type","text")
-                input_numerocalleEmpresa.setAttribute("value",numerocalleEmpresa)
-                input_numerocalleEmpresa.setAttribute("class","input_paginador")
-                input_numerocalleEmpresa.setAttribute("disabled","true")
-                columna_numerocalleEmpresa.appendChild(input_numerocalleEmpresa)
-                //columna_numerocalleEmpresa.innerHTML = numerocalleEmpresa
-                fila.appendChild(columna_numerocalleEmpresa)
-                
-                let columna_coloniaEmpresa = document.createElement("td")
-                columna_coloniaEmpresa.setAttribute("class","texto")
-                let input_coloniaEmpresa = document.createElement("input")
-                input_coloniaEmpresa.setAttribute("type","text")
-                input_coloniaEmpresa.setAttribute("value",coloniaEmpresa)
-                input_coloniaEmpresa.setAttribute("class","input_paginador")
-                input_coloniaEmpresa.setAttribute("disabled","true")
-                columna_coloniaEmpresa.appendChild(input_coloniaEmpresa)
-                //columna_coloniaEmpresa.innerHTML = coloniaEmpresa
-                fila.appendChild(columna_coloniaEmpresa)
-                
-                let columna_cpEmpresa = document.createElement("td")
-                columna_cpEmpresa.setAttribute("class","texto")
-                let input_cpEmpresa = document.createElement("input")
-                input_cpEmpresa.setAttribute("type","text")
-                input_cpEmpresa.setAttribute("value",cpEmpresa)
-                input_cpEmpresa.setAttribute("class","input_paginador")
-                input_cpEmpresa.setAttribute("disabled","true")
-                columna_cpEmpresa.appendChild(input_cpEmpresa)
-                //columna_cpEmpresa.innerHTML = cpEmpresa
-                fila.appendChild(columna_cpEmpresa)
-                
-                let columna_municipioEmpresa = document.createElement("td")
-                columna_municipioEmpresa.setAttribute("class","texto")
-                let input_municipioEmpresa = document.createElement("input")
-                input_municipioEmpresa.setAttribute("type","text")
-                input_municipioEmpresa.setAttribute("value",municipioEmpresa)
-                input_municipioEmpresa.setAttribute("class","input_paginador")
-                input_municipioEmpresa.setAttribute("disabled","true")
-                columna_municipioEmpresa.appendChild(input_municipioEmpresa)
-                //columna_municipioEmpresa.innerHTML = municipioEmpresa
-                fila.appendChild(columna_municipioEmpresa)
-                
-                let columna_estadoEmpresa = document.createElement("td")
-                columna_estadoEmpresa.setAttribute("class","texto")
-                let input_estadoEmpresa = document.createElement("input")
-                input_estadoEmpresa.setAttribute("type","text")
-                input_estadoEmpresa.setAttribute("value",estadoEmpresa)
-                input_estadoEmpresa.setAttribute("class","input_paginador")
-                input_estadoEmpresa.setAttribute("disabled","true")
-                columna_estadoEmpresa.appendChild(input_estadoEmpresa)
-                //columna_estadoEmpresa.innerHTML = estadoEmpresa
-                fila.appendChild(columna_estadoEmpresa)
-                
-                let columna_telefonoEmpresa = document.createElement("td")
-                columna_telefonoEmpresa.setAttribute("class","texto")
-                let input_telefonoEmpresa = document.createElement("input")
-                input_telefonoEmpresa.setAttribute("type","text")
-                input_telefonoEmpresa.setAttribute("value",telefonoEmpresa)
-                input_telefonoEmpresa.setAttribute("class","input_paginador")
-                input_telefonoEmpresa.setAttribute("disabled","true")
-                columna_telefonoEmpresa.appendChild(input_telefonoEmpresa)
-                //columna_telefonoEmpresa.innerHTML = telefonoEmpresa
-                fila.appendChild(columna_telefonoEmpresa)
-                
-                
-                let columna_correoEmpresa = document.createElement("td")
-                columna_correoEmpresa.setAttribute("class","texto")
-                let input_correoEmpresa = document.createElement("input")
-                input_correoEmpresa.setAttribute("type","text")
-                input_correoEmpresa.setAttribute("value",correoEmpresa)
-                input_correoEmpresa.setAttribute("class","input_paginador")
-                input_correoEmpresa.setAttribute("disabled","true")
-                columna_correoEmpresa.appendChild(input_correoEmpresa)
-                //columna_correoEmpresa.innerHTML = correoEmpresa
-                fila.appendChild(columna_correoEmpresa)
-                
-                let columna_activo = document.createElement("td")
-                columna_activo.setAttribute("class","texto")
-                columna_activo.innerHTML = activo
-                fila.appendChild(columna_activo)
-                
-                let columna_tipo_usuario = document.createElement("td")
-                columna_tipo_usuario.setAttribute("class","texto")
-                columna_tipo_usuario.innerHTML = tipo_usuario
-                fila.appendChild(columna_tipo_usuario)
-                
-                let columna_editar = document.createElement("td")
-                let imagen_editar = document.createElement("img")
-                imagen_editar.setAttribute("src","../recursos/img/baja.png")
-                imagen_editar.setAttribute("class","img_accion")
-                imagen_editar.setAttribute("onclick","desactivar_empresas(event);")
-                columna_editar.appendChild(imagen_editar)
-                
-                let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/modificar.png")
-                imagen_editar2.setAttribute("class","img_accion")
-                imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
-                columna_editar.appendChild(imagen_editar2)
-                fila.appendChild(columna_editar)
-                cuerpo_paginador.appendChild(fila)
+        let rfcEmpresa = arreglo_rutas[inicio].rfcEmpresa
+        let nombreEmpresa = arreglo_rutas[inicio].nombreEmpresa
+        let razonsocialEmpresa = arreglo_rutas[inicio].razonsocialEmpresa
+        let domicilioEmpresa = arreglo_rutas[inicio].domicilioEmpresa
+        let numerocalleEmpresa = arreglo_rutas[inicio].numerocalleEmpresa
+        let coloniaEmpresa = arreglo_rutas[inicio].coloniaEmpresa
+        let cpEmpresa = arreglo_rutas[inicio].cpEmpresa
+        let municipioEmpresa = arreglo_rutas[inicio].municipioEmpresa
+        let estadoEmpresa = arreglo_rutas[inicio].estadoEmpresa
+        let telefonoEmpresa  = arreglo_rutas[inicio].telefonoEmpresa
+        let correoEmpresa = arreglo_rutas[inicio].correoEmpresa
+        let activo  = arreglo_rutas[inicio].activo
+        let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
         
+            let fila = document.createElement("tr")
+        
+        let cadena_id = "id_"+id
+        fila.setAttribute("id",id)
+        
+        let columna_id = document.createElement("td")
+        columna_id.setAttribute("class","texto")
+        let input_id = document.createElement("input")
+        input_id.setAttribute("type","text")
+        input_id.setAttribute("value",id)
+        input_id.setAttribute("class","input_paginador")
+        input_id.setAttribute("disabled","true")
+        columna_id.appendChild(input_id)
+        //columna_id.innerHTML = id
+        fila.appendChild(columna_id)
+        
+        let columna_rfcEmpresa = document.createElement("td")
+        columna_rfcEmpresa.setAttribute("class","texto")
+        let input_rfcEmpresa = document.createElement("input")
+        input_rfcEmpresa.setAttribute("type","text")
+        input_rfcEmpresa.setAttribute("value",rfcEmpresa)
+        input_rfcEmpresa.setAttribute("class","input_paginador")
+        input_rfcEmpresa.setAttribute("disabled","true")
+        columna_rfcEmpresa.appendChild(input_rfcEmpresa)
+        //columna_rfcEmpresa.innerHTML = rfcEmpresa
+        fila.appendChild(columna_rfcEmpresa)
+        
+        let columna_nombreEmpresa = document.createElement("td")
+        columna_nombreEmpresa.setAttribute("class","texto")
+        let input_nombreEmpresa = document.createElement("input")
+        input_nombreEmpresa.setAttribute("type","text")
+        input_nombreEmpresa.setAttribute("value",nombreEmpresa)
+        input_nombreEmpresa.setAttribute("class","input_paginador")
+        input_nombreEmpresa.setAttribute("disabled","true")
+        columna_nombreEmpresa.appendChild(input_nombreEmpresa)
+        //columna_nombreEmpresa.innerHTML = nombreEmpresa
+        fila.appendChild(columna_nombreEmpresa)
+        
+        let columna_razonsocialEmpresa = document.createElement("td")
+        columna_razonsocialEmpresa.setAttribute("class","texto")
+        let input_razonsocialEmpresa = document.createElement("input")
+        input_razonsocialEmpresa.setAttribute("type","text")
+        input_razonsocialEmpresa.setAttribute("value",razonsocialEmpresa)
+        input_razonsocialEmpresa.setAttribute("class","input_paginador")
+        input_razonsocialEmpresa.setAttribute("disabled","true")
+        columna_razonsocialEmpresa.appendChild(input_razonsocialEmpresa)
+        //columna_razonsocialEmpresa.innerHTML = razonsocialEmpresa
+        fila.appendChild(columna_razonsocialEmpresa)
+        
+        let columna_domicilioEmpresa = document.createElement("td")
+        columna_domicilioEmpresa.setAttribute("class","texto")
+        let input_domicilioEmpresa = document.createElement("input")
+        input_domicilioEmpresa.setAttribute("type","text")
+        input_domicilioEmpresa.setAttribute("value",domicilioEmpresa)
+        input_domicilioEmpresa.setAttribute("class","input_paginador")
+        input_domicilioEmpresa.setAttribute("disabled","true")
+        columna_domicilioEmpresa.appendChild(input_domicilioEmpresa)
+        //columna_domicilioEmpresa.innerHTML = domicilioEmpresa
+        fila.appendChild(columna_domicilioEmpresa)
+        
+        let columna_numerocalleEmpresa = document.createElement("td")
+        columna_numerocalleEmpresa.setAttribute("class","texto")
+        let input_numerocalleEmpresa = document.createElement("input")
+        input_numerocalleEmpresa.setAttribute("type","text")
+        input_numerocalleEmpresa.setAttribute("value",numerocalleEmpresa)
+        input_numerocalleEmpresa.setAttribute("class","input_paginador")
+        input_numerocalleEmpresa.setAttribute("disabled","true")
+        columna_numerocalleEmpresa.appendChild(input_numerocalleEmpresa)
+        //columna_numerocalleEmpresa.innerHTML = numerocalleEmpresa
+        fila.appendChild(columna_numerocalleEmpresa)
+        
+        let columna_coloniaEmpresa = document.createElement("td")
+        columna_coloniaEmpresa.setAttribute("class","texto")
+        let input_coloniaEmpresa = document.createElement("input")
+        input_coloniaEmpresa.setAttribute("type","text")
+        input_coloniaEmpresa.setAttribute("value",coloniaEmpresa)
+        input_coloniaEmpresa.setAttribute("class","input_paginador")
+        input_coloniaEmpresa.setAttribute("disabled","true")
+        columna_coloniaEmpresa.appendChild(input_coloniaEmpresa)
+        //columna_coloniaEmpresa.innerHTML = coloniaEmpresa
+        fila.appendChild(columna_coloniaEmpresa)
+        
+        let columna_cpEmpresa = document.createElement("td")
+        columna_cpEmpresa.setAttribute("class","texto")
+        let input_cpEmpresa = document.createElement("input")
+        input_cpEmpresa.setAttribute("type","text")
+        input_cpEmpresa.setAttribute("value",cpEmpresa)
+        input_cpEmpresa.setAttribute("class","input_paginador")
+        input_cpEmpresa.setAttribute("disabled","true")
+        columna_cpEmpresa.appendChild(input_cpEmpresa)
+        //columna_cpEmpresa.innerHTML = cpEmpresa
+        fila.appendChild(columna_cpEmpresa)
+        
+        let columna_municipioEmpresa = document.createElement("td")
+        columna_municipioEmpresa.setAttribute("class","texto")
+        let input_municipioEmpresa = document.createElement("input")
+        input_municipioEmpresa.setAttribute("type","text")
+        input_municipioEmpresa.setAttribute("value",municipioEmpresa)
+        input_municipioEmpresa.setAttribute("class","input_paginador")
+        input_municipioEmpresa.setAttribute("disabled","true")
+        columna_municipioEmpresa.appendChild(input_municipioEmpresa)
+        //columna_municipioEmpresa.innerHTML = municipioEmpresa
+        fila.appendChild(columna_municipioEmpresa)
+        
+        let columna_estadoEmpresa = document.createElement("td")
+        columna_estadoEmpresa.setAttribute("class","texto")
+        let input_estadoEmpresa = document.createElement("input")
+        input_estadoEmpresa.setAttribute("type","text")
+        input_estadoEmpresa.setAttribute("value",estadoEmpresa)
+        input_estadoEmpresa.setAttribute("class","input_paginador")
+        input_estadoEmpresa.setAttribute("disabled","true")
+        columna_estadoEmpresa.appendChild(input_estadoEmpresa)
+        //columna_estadoEmpresa.innerHTML = estadoEmpresa
+        fila.appendChild(columna_estadoEmpresa)
+        
+        let columna_telefonoEmpresa = document.createElement("td")
+        columna_telefonoEmpresa.setAttribute("class","texto")
+        let input_telefonoEmpresa = document.createElement("input")
+        input_telefonoEmpresa.setAttribute("type","text")
+        input_telefonoEmpresa.setAttribute("value",telefonoEmpresa)
+        input_telefonoEmpresa.setAttribute("class","input_paginador")
+        input_telefonoEmpresa.setAttribute("disabled","true")
+        columna_telefonoEmpresa.appendChild(input_telefonoEmpresa)
+        //columna_telefonoEmpresa.innerHTML = telefonoEmpresa
+        fila.appendChild(columna_telefonoEmpresa)
+        
+        
+        let columna_correoEmpresa = document.createElement("td")
+        columna_correoEmpresa.setAttribute("class","texto")
+        let input_correoEmpresa = document.createElement("input")
+        input_correoEmpresa.setAttribute("type","text")
+        input_correoEmpresa.setAttribute("value",correoEmpresa)
+        input_correoEmpresa.setAttribute("class","input_paginador")
+        input_correoEmpresa.setAttribute("disabled","true")
+        columna_correoEmpresa.appendChild(input_correoEmpresa)
+        //columna_correoEmpresa.innerHTML = correoEmpresa
+        fila.appendChild(columna_correoEmpresa)
+        
+        let columna_activo = document.createElement("td")
+        columna_activo.setAttribute("class","texto")
+        columna_activo.innerHTML = activo
+        fila.appendChild(columna_activo)
+        
+        let columna_tipo_usuario = document.createElement("td")
+        columna_tipo_usuario.setAttribute("class","texto")
+        columna_tipo_usuario.innerHTML = tipo_usuario
+        fila.appendChild(columna_tipo_usuario)
+        
+        let columna_editar = document.createElement("td")
+        let imagen_editar = document.createElement("img")
+        imagen_editar.setAttribute("src","../recursos/img/baja.png")
+        imagen_editar.setAttribute("class","img_accion")
+        imagen_editar.setAttribute("onclick","desactivar_empresas(event);")
+        columna_editar.appendChild(imagen_editar)
+        
+        let imagen_editar2 = document.createElement("img")
+        imagen_editar2.setAttribute("src","../recursos/img/editar.png")
+        imagen_editar2.setAttribute("class","img_accion")
+        imagen_editar2.setAttribute("onclick","editar_empresas(event);")
+        columna_editar.appendChild(imagen_editar2)
+        fila.appendChild(columna_editar)
+        cuerpo_paginador.appendChild(fila) 
+
         var paso = true;
         if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
         if (numero_clase==2&&paso==true){numero_clase=1;}
@@ -3397,7 +3411,7 @@ function paginador_ultima_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,b
     if (arreglo_rutas[inicio]!=undefined) 
     {
     // arreglos
-    let id = arreglo_rutas[inicio].id
+                   let id = arreglo_rutas[inicio].id
                 let rfcEmpresa = arreglo_rutas[inicio].rfcEmpresa
                 let nombreEmpresa = arreglo_rutas[inicio].nombreEmpresa
                 let razonsocialEmpresa = arreglo_rutas[inicio].razonsocialEmpresa
@@ -3568,12 +3582,12 @@ function paginador_ultima_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,b
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/modificar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/editar.png")
                 imagen_editar2.setAttribute("class","img_accion")
-                imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
+                imagen_editar2.setAttribute("onclick","editar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
                 fila.appendChild(columna_editar)
-                cuerpo_paginador.appendChild(fila)
+                cuerpo_paginador.appendChild(fila) 
 
         var paso = true;
         if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
@@ -3703,8 +3717,19 @@ function paginador_empresasNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
     }
 
     var numero_clase=1;
+    if(arreglo_rutas=="error 400")
+    {
+        // alert("no hay datos")
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+        pagina_paginador.innerHTML="1 de 1";
+        cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="15">NO HAY DATOS</td></tr>'
+    }
+    else
+    {
 
-    
     for (inicio; inicio < final; inicio++) 
     {
         if (arreglo_rutas[inicio]!=undefined) 
@@ -3891,7 +3916,7 @@ function paginador_empresasNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
                 let imagen_editar2 = document.createElement("img")
                 imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
                 imagen_editar2.setAttribute("class","img_accion")
-                imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
+                imagen_editar2.setAttribute("onclick","eliminar_empresa(event);")
                 columna_editar.appendChild(imagen_editar2)
                 fila.appendChild(columna_editar)
                 cuerpo_paginador.appendChild(fila) 
@@ -3903,6 +3928,7 @@ function paginador_empresasNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
         }
     }
     pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
 }
 function paginador_siguiente_empresasNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
     // pagina_actual++;
@@ -4116,7 +4142,7 @@ function paginador_siguiente_empresasNo(arreglo_rutas,pagina_actual,cantidad_vis
             let imagen_editar2 = document.createElement("img")
             imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
             imagen_editar2.setAttribute("class","img_accion")
-            imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
+            imagen_editar2.setAttribute("onclick","eliminar_empresa(event);")
             columna_editar.appendChild(imagen_editar2)
             fila.appendChild(columna_editar)
             cuerpo_paginador.appendChild(fila) 
@@ -4340,7 +4366,7 @@ function paginador_anterior_empresasNo(arreglo_rutas,pagina_actual,cantidad_vist
                 let imagen_editar2 = document.createElement("img")
                 imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
                 imagen_editar2.setAttribute("class","img_accion")
-                imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
+                imagen_editar2.setAttribute("onclick","eliminar_empresa(event);")
                 columna_editar.appendChild(imagen_editar2)
                 fila.appendChild(columna_editar)
                 cuerpo_paginador.appendChild(fila) 
@@ -4564,7 +4590,7 @@ function paginador_primera_empresasNo(arreglo_rutas,pagina_actual,cantidad_vista
         let imagen_editar2 = document.createElement("img")
         imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
         imagen_editar2.setAttribute("class","img_accion")
-        imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
+        imagen_editar2.setAttribute("onclick","eliminar_empresa(event);")
         columna_editar.appendChild(imagen_editar2)
         fila.appendChild(columna_editar)
         cuerpo_paginador.appendChild(fila) 
@@ -4788,7 +4814,7 @@ function paginador_ultima_empresasNo(arreglo_rutas,pagina_actual,cantidad_vistas
     let imagen_editar2 = document.createElement("img")
     imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
     imagen_editar2.setAttribute("class","img_accion")
-    imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
+    imagen_editar2.setAttribute("onclick","eliminar_empresa(event);")
     columna_editar.appendChild(imagen_editar2)
     fila.appendChild(columna_editar)
     cuerpo_paginador.appendChild(fila) 
@@ -4851,9 +4877,7 @@ function tomar_datos_empresas_peticion()
             }            
         }   
 }
-
 // agregar evento a botones de paginacion
-
 boton_siguienteEmpresasPendientes.addEventListener("click", function(){
     pagina_actual_empresas_Pendientes++
     paginador_siguiente_empresasPendientes(datos_empresasPendientes,pagina_actual_empresas_Pendientes,cantidad_vistasEmpresasPendientes,boton_anteriorEmpresasPendientes,boton_siguienteEmpresasPendientes,boton_primeroEmpresasPendientes,boton_ultimoEmpresasPendientes,cuerpoEmpresasPendientes,indicador_paginaEmpresasPendientes)
@@ -4919,8 +4943,19 @@ function paginador_empresasPendientes(arreglo_rutas,pagina_actual,cantidad_vista
     }
 
     var numero_clase=1;
+    if(arreglo_rutas=="error 400")
+    {
+        // alert("no hay datos")
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+        pagina_paginador.innerHTML="1 de 1";
+        cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="15">NO HAY DATOS</td></tr>'
+    }
+    else
+    {
 
-    
     for (inicio; inicio < final; inicio++) 
     {
         if (arreglo_rutas[inicio]!=undefined) 
@@ -5105,7 +5140,7 @@ function paginador_empresasPendientes(arreglo_rutas,pagina_actual,cantidad_vista
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -5119,6 +5154,7 @@ function paginador_empresasPendientes(arreglo_rutas,pagina_actual,cantidad_vista
         }
     }
     pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
 }
 function paginador_siguiente_empresasPendientes(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
     // pagina_actual++;
@@ -5330,7 +5366,7 @@ function paginador_siguiente_empresasPendientes(arreglo_rutas,pagina_actual,cant
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -5553,7 +5589,7 @@ function paginador_anterior_empresasPendientes(arreglo_rutas,pagina_actual,canti
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -5777,7 +5813,7 @@ function paginador_primera_empresasPendientes(arreglo_rutas,pagina_actual,cantid
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -6001,7 +6037,7 @@ function paginador_ultima_empresasPendientes(arreglo_rutas,pagina_actual,cantida
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -6133,8 +6169,19 @@ function paginador_empresasPendientesDash(arreglo_rutas,pagina_actual,cantidad_v
     }
 
     var numero_clase=1;
+    if(arreglo_rutas=="error 400")
+    {
+        // alert("no hay datos")
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+        pagina_paginador.innerHTML="1 de 1";
+        cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="15">NO HAY DATOS</td></tr>'
+    }
+    else
+    {
 
-    
     for (inicio; inicio < final; inicio++) 
     {
         if (arreglo_rutas[inicio]!=undefined) 
@@ -6319,7 +6366,7 @@ function paginador_empresasPendientesDash(arreglo_rutas,pagina_actual,cantidad_v
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -6333,6 +6380,7 @@ function paginador_empresasPendientesDash(arreglo_rutas,pagina_actual,cantidad_v
         }
     }
     pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
 }
 function paginador_siguiente_empresasPendientesDash(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
     // pagina_actual++;
@@ -6544,7 +6592,7 @@ function paginador_siguiente_empresasPendientesDash(arreglo_rutas,pagina_actual,
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -6767,7 +6815,7 @@ function paginador_anterior_empresasPendientesDash(arreglo_rutas,pagina_actual,c
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -6991,7 +7039,7 @@ function paginador_primera_empresasPendientesDash(arreglo_rutas,pagina_actual,ca
         columna_editar.appendChild(imagen_editar)
         
         let imagen_editar2 = document.createElement("img")
-        imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+        imagen_editar2.setAttribute("src","../recursos/img/baja.png")
         imagen_editar2.setAttribute("class","img_accion")
         imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
         columna_editar.appendChild(imagen_editar2)
@@ -7215,7 +7263,7 @@ function paginador_ultima_empresasPendientesDash(arreglo_rutas,pagina_actual,can
                 columna_editar.appendChild(imagen_editar)
                 
                 let imagen_editar2 = document.createElement("img")
-                imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                imagen_editar2.setAttribute("src","../recursos/img/baja.png")
                 imagen_editar2.setAttribute("class","img_accion")
                 imagen_editar2.setAttribute("onclick","desactivar_empresas(event);")
                 columna_editar.appendChild(imagen_editar2)
@@ -7230,3 +7278,2375 @@ function paginador_ultima_empresasPendientesDash(arreglo_rutas,pagina_actual,can
 // cuerpo_elemento_paginador.innerHTML=cuerpo;
 pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
 }
+
+
+
+//funciones para tomar empleados activos
+var datos_admin
+var boton_primeroAdmin = document.getElementById("boton_paginador_primeroAdmin")
+var boton_anteriorAdmin = document.getElementById("boton_paginador_anteriorAdmin")
+var boton_siguienteAdmin = document.getElementById("boton_paginador_siguienteAdmin")
+var boton_ultimoAdmin = document.getElementById("boton_paginador_ultimoAdmin")
+var cuerpoAdmin = document.getElementById("tabla_administradores_activo")
+var indicador_paginaAdmin= document.getElementById("boton_paginador_cantidadAdmin")
+var cantidad_vistasAdmin
+var pagina_actual_Admin_activos 
+
+function tomar_datos_administradores()
+{
+    let contenedor = document.getElementById("tabla_administradores_activo")
+    cantidad_vistasAdmin = document.getElementById("cantidad_administradores_activos").value
+    pagina_actual_Admin_activos = 1
+    // alert(cantidad_vistas)   
+
+    contenedor.innerHTML = ""
+    let ajax = new XMLHttpRequest()
+       ajax.open("POST","../controlador/tomar_adn_activos.php")
+       ajax.send()
+       ajax.onreadystatechange =function () 
+       {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    //console.log(ajax.responseText)
+                    datos_admin = JSON.parse(ajax.responseText)
+                    // console.log(datos)
+                    paginador_admin(datos_admin,pagina_actual_Admin_activos,cantidad_vistasAdmin,boton_anteriorAdmin,boton_siguienteAdmin,boton_primeroAdmin,boton_ultimoAdmin,cuerpoAdmin,indicador_paginaAdmin)
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }   
+}
+
+// agregar evento a botones de paginacion
+
+boton_siguienteAdmin.addEventListener("click", function(){
+    pagina_actual_Admin_activos++
+    paginador_siguiente_admin(datos_admin,pagina_actual_Admin_activos,cantidad_vistasAdmin,boton_anteriorAdmin,boton_siguienteAdmin,boton_primeroAdmin,boton_ultimoAdmin,cuerpoAdmin,indicador_paginaAdmin)
+})
+
+boton_anteriorAdmin.addEventListener("click", function(){
+    pagina_actual_Admin_activos--
+    paginador_anterior_admin(datos_admin,pagina_actual_Admin_activos,cantidad_vistasAdmin,boton_anteriorAdmin,boton_siguienteAdmin,boton_primeroAdmin,boton_ultimoAdmin,cuerpoAdmin,indicador_paginaAdmin)
+})
+
+boton_primeroAdmin.addEventListener("click", function(){
+    pagina_actual_Admin_activos = 1 
+    paginador_primera_admin(datos_admin,pagina_actual_Admin_activos,cantidad_vistasAdmin,boton_anteriorAdmin,boton_siguienteAdmin,boton_primeroAdmin,boton_ultimoAdmin,cuerpoAdmin,indicador_paginaAdmin)
+})
+
+boton_ultimoAdmin.addEventListener("click", function(){
+
+    var tamano = datos_admin.length;
+    var numero_paginas=tamano/cantidad_vistasAdmin;
+    numero_paginas=Math.ceil(numero_paginas);
+    pagina_actual_Admin_activos = numero_paginas
+
+    paginador_ultima_admin(datos_admin,pagina_actual_Admin_activos,cantidad_vistasAdmin,boton_anteriorAdmin,boton_siguienteAdmin,boton_primeroAdmin,boton_ultimoAdmin,cuerpoAdmin,indicador_paginaAdmin)
+})
+
+function paginador_admin(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+
+    var cuerpo = "";
+    cuerpo_paginador.innerHTML = "";
+    var tamano = arreglo_rutas.length;
+    var inicio=pagina_actual-1;
+    inicio=inicio*cantidad_vistas;
+    var final=pagina_actual*cantidad_vistas;
+    var numero_paginas=tamano/cantidad_vistas;
+    numero_paginas=Math.ceil(numero_paginas);
+
+    if (numero_paginas==0) 
+    {
+        numero_paginas=1;
+    }
+    if (pagina_actual==1)
+    {
+
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+
+    }
+    else
+    {
+
+        btn_atras.style="visibility:visible;";
+        btn_primera.style="visibility:visible;";
+        
+    }
+
+    if (pagina_actual==numero_paginas) 
+    {
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+    }
+    else{
+        btn_adelante.style="visibility:visible;";
+        btn_ultima.style="visibility:visible;";
+    }
+
+    var numero_clase=1;
+
+    //console.log(inicio)
+    //console.log(final)
+    if(arreglo_rutas=="error 400")
+    {
+        // alert("no hay datos")
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+        pagina_paginador.innerHTML="1 de 1";
+        cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="13">NO HAY DATOS</td></tr>'
+    }
+    else
+    {
+    for (inicio; inicio < final; inicio++) 
+    {
+        if (arreglo_rutas[inicio]!=undefined) 
+        {
+            if(arreglo_rutas[inicio]=="error 400")
+            {
+                cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="13">NO HAY DATOS</td></tr>'
+            }
+            else
+            {
+
+                //crear columnas por cada json con arreglo_rutas[inicio]
+                       
+                        let id = arreglo_rutas[inicio].id
+                        let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+                        let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+                        let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+                        let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+                        let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+                        let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+                        let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+                        let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+                        let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+                        let activo  = arreglo_rutas[inicio].activo
+                        let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+                            let fila = document.createElement("tr")
+
+                        let cadena_id = "id_"+id
+                        fila.setAttribute("id",id)
+
+                        
+
+                        let columna_id = document.createElement("td")
+                        columna_id.setAttribute("class","texto")
+                        let input_id = document.createElement("input")
+                        input_id.setAttribute("type","text")
+                        input_id.setAttribute("value",id)
+                        input_id.setAttribute("class","input_paginador")
+                        input_id.setAttribute("disabled","true")
+                        columna_id.appendChild(input_id)
+                        // columna_id.innerHTML = id
+                        fila.appendChild(columna_id)
+
+                        let columna_nombre = document.createElement("td")
+                        columna_nombre.setAttribute("class","texto")
+                        let input_nombre = document.createElement("input")
+                        input_nombre.setAttribute("type","text")
+                        input_nombre.setAttribute("value",nombreAdministrador)
+                        input_nombre.setAttribute("class","input_paginador")
+                        input_nombre.setAttribute("disabled","true")
+                        columna_nombre.appendChild(input_nombre)
+                        //columna_nombre.innerHTML = nombreAdministrador
+                        fila.appendChild(columna_nombre)
+
+                        let columna_apellidop = document.createElement("td")
+                        columna_apellidop.setAttribute("class","texto")
+
+                        let input_apellidop = document.createElement("input")
+                        input_apellidop.setAttribute("type","text")
+                        input_apellidop.setAttribute("value",apellidopAdministrador)
+                        input_apellidop.setAttribute("class","input_paginador")
+                        input_apellidop.setAttribute("disabled","true")
+                        columna_apellidop.appendChild(input_apellidop)
+                        //columna_apellidop.innerHTML = apellidopAdministrador
+                        fila.appendChild(columna_apellidop)
+
+
+                        let columna_apellidom = document.createElement("td")
+                        columna_apellidom.setAttribute("class","texto")
+                        let input_apellidom = document.createElement("input")
+                        input_apellidom.setAttribute("type","text")
+                        input_apellidom.setAttribute("value",apellidomAdministrador)
+                        input_apellidom.setAttribute("class","input_paginador")
+                        input_apellidom.setAttribute("disabled","true")
+                        columna_apellidom.appendChild(input_apellidom)
+                        //columna_apellidom.innerHTML = apellidomAdministrador
+                        fila.appendChild(columna_apellidom)
+
+                        let columna_domicilio = document.createElement("td")
+                        columna_domicilio.setAttribute("class","texto")
+                        let input_domicilio = document.createElement("input")
+                        input_domicilio.setAttribute("type","text")
+                        input_domicilio.setAttribute("value",domicilioAdministrador)
+                        input_domicilio.setAttribute("class","input_paginador")
+                        input_domicilio.setAttribute("disabled","true")
+                        columna_domicilio.appendChild(input_domicilio)
+                        //columna_domicilio.innerHTML = domicilioAdministrador
+                        fila.appendChild(columna_domicilio)
+
+                        let columna_numeroext = document.createElement("td")
+                        columna_numeroext.setAttribute("class","texto")
+                        let input_numeroext = document.createElement("input")
+                        input_numeroext.setAttribute("type","text")
+                        input_numeroext.setAttribute("value",numeroextAdministrador)
+                        input_numeroext.setAttribute("class","input_paginador")
+                        input_numeroext.setAttribute("disabled","true")
+                        columna_numeroext.appendChild(input_numeroext)
+                        //columna_numeroext.innerHTML = numeroextAdministrador
+                        fila.appendChild(columna_numeroext)
+
+
+
+                        let columna_colonia = document.createElement("td")
+                        columna_colonia.setAttribute("class","texto")
+                        let input_colonia = document.createElement("input")
+                        input_colonia.setAttribute("type","text")
+                        input_colonia.setAttribute("value",coloniaAdministrador)
+                        input_colonia.setAttribute("class","input_paginador")
+                        input_colonia.setAttribute("disabled","true")
+                        columna_colonia.appendChild(input_colonia)
+                        //columna_colonia.innerHTML = coloniaAdministrador
+                        fila.appendChild(columna_colonia)
+
+                        
+                        let columna_telefono = document.createElement("td")
+                        columna_telefono.setAttribute("class","texto")
+                        let input_telefono = document.createElement("input")
+                        input_telefono.setAttribute("type","text")
+                        input_telefono.setAttribute("value",telefonoAdministrador)
+                        input_telefono.setAttribute("class","input_paginador")
+                        input_telefono.setAttribute("disabled","true")
+                        columna_telefono.appendChild(input_telefono)
+                        //columna_telefono.innerHTML = telefonoAdministrador
+                        fila.appendChild(columna_telefono)
+                        
+                        let columna_puesto = document.createElement("td")
+                        columna_puesto.setAttribute("class","texto")
+                        let input_puesto = document.createElement("input")
+                        input_puesto.setAttribute("type","text")
+                        input_puesto.setAttribute("value",puestoAdministrador)
+                        input_puesto.setAttribute("class","input_paginador")
+                        input_puesto.setAttribute("disabled","true")
+                        columna_puesto.appendChild(input_puesto)
+                        //columna_puesto.innerHTML = puestoAdministrador
+                        fila.appendChild(columna_puesto)
+
+                        let columna_correo = document.createElement("td")
+                        columna_correo.setAttribute("class","texto")
+                        let input_correo = document.createElement("input")
+                        input_correo.setAttribute("type","text")
+                        input_correo.setAttribute("value",correoAdministrador)
+                        input_correo.setAttribute("class","input_paginador")
+                        input_correo.setAttribute("disabled","true")
+                        columna_correo.appendChild(input_correo)
+                        //columna_correo.innerHTML = correoAdministrador
+                        fila.appendChild(columna_correo)
+
+                        let columna_activo = document.createElement("td")
+                        columna_activo.setAttribute("class","texto")
+                        columna_activo.innerHTML = activo
+                        fila.appendChild(columna_activo)
+
+
+                        let columna_tipo_usuario = document.createElement("td")
+                        columna_tipo_usuario.setAttribute("class","texto")
+                        columna_tipo_usuario.innerHTML = tipo_usuario
+                        fila.appendChild(columna_tipo_usuario)
+
+
+                        let columna_editar = document.createElement("td")
+                        let imagen_editar = document.createElement("img")
+                        imagen_editar.setAttribute("src","../recursos/img/baja.png")
+                        imagen_editar.setAttribute("class","img_accion")
+                        imagen_editar.setAttribute("onclick","desactivar_adn(event);")
+                        columna_editar.appendChild(imagen_editar)
+
+                        let imagen_editar2 = document.createElement("img")
+                        imagen_editar2.setAttribute("src","../recursos/img/editar.png")
+                        imagen_editar2.setAttribute("class","img_accion")
+                        imagen_editar2.setAttribute("onclick","editar_adn(event);")
+                        columna_editar.appendChild(imagen_editar2)
+
+                        // columna_editar.setAttribute("class","boton_tabla")
+                        // // columna_editar.setAttribute("style","cursor:pointer;")
+                        // columna_editar.innerHTML = "activar"
+
+                        fila.appendChild(columna_editar)
+                        cuerpo_paginador.appendChild(fila)    
+            }	
+            // console.log(arreglo_rutas[inicio]);
+            var paso = true;
+            if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+            if (numero_clase==2&&paso==true){numero_clase=1;}
+        }
+    }
+    pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+    }
+}
+function paginador_siguiente_admin(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+    // pagina_actual++;
+    var cuerpo = "";
+    cuerpo_paginador.innerHTML = "";
+
+    var tamano = arreglo_rutas.length;
+    var inicio=pagina_actual-1;
+    inicio=inicio*cantidad_vistas;
+    var final=pagina_actual*cantidad_vistas;
+    var numero_paginas=tamano/cantidad_vistas;
+    numero_paginas=Math.ceil(numero_paginas);
+
+
+    if (pagina_actual==1)
+    {
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+    }
+    else{
+        btn_atras.style="visibility:visible;";
+        btn_primera.style="visibility:visible;";
+    }
+
+    if (pagina_actual==numero_paginas) 
+    {
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+    }
+    else{
+        btn_adelante.style="visibility:visible;";
+        btn_ultima.style="visibility:visible;";
+    }
+
+    console.log(inicio)
+    console.log(final)
+    var numero_clase=1;
+    for (inicio; inicio < final; inicio++) 
+    {
+        if (arreglo_rutas[inicio]!=undefined) 
+        {
+            let id = arreglo_rutas[inicio].id
+            let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+            let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+            let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+            let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+            let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+            let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+            let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+            let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+            let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+            let activo  = arreglo_rutas[inicio].activo
+            let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+                let fila = document.createElement("tr")
+
+            let cadena_id = "id_"+id
+            fila.setAttribute("id",id)
+
+            
+
+            let columna_id = document.createElement("td")
+            columna_id.setAttribute("class","texto")
+            let input_id = document.createElement("input")
+            input_id.setAttribute("type","text")
+            input_id.setAttribute("value",id)
+            input_id.setAttribute("class","input_paginador")
+            input_id.setAttribute("disabled","true")
+            columna_id.appendChild(input_id)
+            // columna_id.innerHTML = id
+            fila.appendChild(columna_id)
+
+            let columna_nombre = document.createElement("td")
+            columna_nombre.setAttribute("class","texto")
+            let input_nombre = document.createElement("input")
+            input_nombre.setAttribute("type","text")
+            input_nombre.setAttribute("value",nombreAdministrador)
+            input_nombre.setAttribute("class","input_paginador")
+            input_nombre.setAttribute("disabled","true")
+            columna_nombre.appendChild(input_nombre)
+            //columna_nombre.innerHTML = nombreAdministrador
+            fila.appendChild(columna_nombre)
+
+            let columna_apellidop = document.createElement("td")
+            columna_apellidop.setAttribute("class","texto")
+
+            let input_apellidop = document.createElement("input")
+            input_apellidop.setAttribute("type","text")
+            input_apellidop.setAttribute("value",apellidopAdministrador)
+            input_apellidop.setAttribute("class","input_paginador")
+            input_apellidop.setAttribute("disabled","true")
+            columna_apellidop.appendChild(input_apellidop)
+            //columna_apellidop.innerHTML = apellidopAdministrador
+            fila.appendChild(columna_apellidop)
+
+
+            let columna_apellidom = document.createElement("td")
+            columna_apellidom.setAttribute("class","texto")
+            let input_apellidom = document.createElement("input")
+            input_apellidom.setAttribute("type","text")
+            input_apellidom.setAttribute("value",apellidomAdministrador)
+            input_apellidom.setAttribute("class","input_paginador")
+            input_apellidom.setAttribute("disabled","true")
+            columna_apellidom.appendChild(input_apellidom)
+            //columna_apellidom.innerHTML = apellidomAdministrador
+            fila.appendChild(columna_apellidom)
+
+            let columna_domicilio = document.createElement("td")
+            columna_domicilio.setAttribute("class","texto")
+            let input_domicilio = document.createElement("input")
+            input_domicilio.setAttribute("type","text")
+            input_domicilio.setAttribute("value",domicilioAdministrador)
+            input_domicilio.setAttribute("class","input_paginador")
+            input_domicilio.setAttribute("disabled","true")
+            columna_domicilio.appendChild(input_domicilio)
+            //columna_domicilio.innerHTML = domicilioAdministrador
+            fila.appendChild(columna_domicilio)
+
+            let columna_numeroext = document.createElement("td")
+            columna_numeroext.setAttribute("class","texto")
+            let input_numeroext = document.createElement("input")
+            input_numeroext.setAttribute("type","text")
+            input_numeroext.setAttribute("value",numeroextAdministrador)
+            input_numeroext.setAttribute("class","input_paginador")
+            input_numeroext.setAttribute("disabled","true")
+            columna_numeroext.appendChild(input_numeroext)
+            //columna_numeroext.innerHTML = numeroextAdministrador
+            fila.appendChild(columna_numeroext)
+
+
+
+            let columna_colonia = document.createElement("td")
+            columna_colonia.setAttribute("class","texto")
+            let input_colonia = document.createElement("input")
+            input_colonia.setAttribute("type","text")
+            input_colonia.setAttribute("value",coloniaAdministrador)
+            input_colonia.setAttribute("class","input_paginador")
+            input_colonia.setAttribute("disabled","true")
+            columna_colonia.appendChild(input_colonia)
+            //columna_colonia.innerHTML = coloniaAdministrador
+            fila.appendChild(columna_colonia)
+
+            
+            let columna_telefono = document.createElement("td")
+            columna_telefono.setAttribute("class","texto")
+            let input_telefono = document.createElement("input")
+            input_telefono.setAttribute("type","text")
+            input_telefono.setAttribute("value",telefonoAdministrador)
+            input_telefono.setAttribute("class","input_paginador")
+            input_telefono.setAttribute("disabled","true")
+            columna_telefono.appendChild(input_telefono)
+            //columna_telefono.innerHTML = telefonoAdministrador
+            fila.appendChild(columna_telefono)
+            
+            let columna_puesto = document.createElement("td")
+            columna_puesto.setAttribute("class","texto")
+            let input_puesto = document.createElement("input")
+            input_puesto.setAttribute("type","text")
+            input_puesto.setAttribute("value",puestoAdministrador)
+            input_puesto.setAttribute("class","input_paginador")
+            input_puesto.setAttribute("disabled","true")
+            columna_puesto.appendChild(input_puesto)
+            //columna_puesto.innerHTML = puestoAdministrador
+            fila.appendChild(columna_puesto)
+
+            let columna_correo = document.createElement("td")
+            columna_correo.setAttribute("class","texto")
+            let input_correo = document.createElement("input")
+            input_correo.setAttribute("type","text")
+            input_correo.setAttribute("value",correoAdministrador)
+            input_correo.setAttribute("class","input_paginador")
+            input_correo.setAttribute("disabled","true")
+            columna_correo.appendChild(input_correo)
+            //columna_correo.innerHTML = correoAdministrador
+            fila.appendChild(columna_correo)
+
+            let columna_activo = document.createElement("td")
+            columna_activo.setAttribute("class","texto")
+            columna_activo.innerHTML = activo
+            fila.appendChild(columna_activo)
+
+
+            let columna_tipo_usuario = document.createElement("td")
+            columna_tipo_usuario.setAttribute("class","texto")
+            columna_tipo_usuario.innerHTML = tipo_usuario
+            fila.appendChild(columna_tipo_usuario)
+
+
+            let columna_editar = document.createElement("td")
+            let imagen_editar = document.createElement("img")
+            imagen_editar.setAttribute("src","../recursos/img/baja.png")
+            imagen_editar.setAttribute("class","img_accion")
+            imagen_editar.setAttribute("onclick","desactivar_adn(event);")
+            columna_editar.appendChild(imagen_editar)
+
+            let imagen_editar2 = document.createElement("img")
+            imagen_editar2.setAttribute("src","../recursos/img/editar.png")
+            imagen_editar2.setAttribute("class","img_accion")
+            imagen_editar2.setAttribute("onclick","editar_adn(event);")
+            columna_editar.appendChild(imagen_editar2)
+
+            // columna_editar.setAttribute("class","boton_tabla")
+            // // columna_editar.setAttribute("style","cursor:pointer;")
+            // columna_editar.innerHTML = "activar"
+
+            fila.appendChild(columna_editar)
+            cuerpo_paginador.appendChild(fila)    
+                            
+            // console.log(arreglo_rutas[inicio]);
+            var paso = true;
+            if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+            if (numero_clase==2&&paso==true){numero_clase=1;}
+        }
+    }
+
+    // cuerpo_paginador.innerHTML=cuerpo;
+    pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+    
+}
+function paginador_anterior_admin(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador)
+{
+// pagina_actual--;
+var cuerpo = "";
+cuerpo_paginador.innerHTML = "";
+var tamano = arreglo_rutas.length;
+var inicio=pagina_actual-1;
+inicio=inicio*cantidad_vistas;
+var final=pagina_actual*cantidad_vistas;
+var numero_paginas=tamano/cantidad_vistas;
+numero_paginas=Math.ceil(numero_paginas);
+if (pagina_actual==1)
+{
+btn_atras.style="visibility:hidden;";
+btn_primera.style="visibility:hidden;";
+}
+else{
+btn_atras.style="visibility:visible;";
+btn_primera.style="visibility:visible;";
+}
+
+if (pagina_actual==numero_paginas) 
+{
+btn_adelante.style="visibility:hidden;";
+btn_ultima.style="visibility:hidden;";
+}
+else{
+btn_adelante.style="visibility:visible;";
+btn_ultima.style="visibility:visible;";
+}
+console.log(inicio)
+console.log(final)
+
+var numero_clase=1;
+for (inicio; inicio < final; inicio++) 
+{
+if (arreglo_rutas[inicio]!=undefined) 
+{
+    let id = arreglo_rutas[inicio].id
+    let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+    let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+    let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+    let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+    let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+    let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+    let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+    let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+    let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+    let activo  = arreglo_rutas[inicio].activo
+    let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+        let fila = document.createElement("tr")
+
+    let cadena_id = "id_"+id
+    fila.setAttribute("id",id)
+
+    
+
+    let columna_id = document.createElement("td")
+    columna_id.setAttribute("class","texto")
+    let input_id = document.createElement("input")
+    input_id.setAttribute("type","text")
+    input_id.setAttribute("value",id)
+    input_id.setAttribute("class","input_paginador")
+    input_id.setAttribute("disabled","true")
+    columna_id.appendChild(input_id)
+    // columna_id.innerHTML = id
+    fila.appendChild(columna_id)
+
+    let columna_nombre = document.createElement("td")
+    columna_nombre.setAttribute("class","texto")
+    let input_nombre = document.createElement("input")
+    input_nombre.setAttribute("type","text")
+    input_nombre.setAttribute("value",nombreAdministrador)
+    input_nombre.setAttribute("class","input_paginador")
+    input_nombre.setAttribute("disabled","true")
+    columna_nombre.appendChild(input_nombre)
+    //columna_nombre.innerHTML = nombreAdministrador
+    fila.appendChild(columna_nombre)
+
+    let columna_apellidop = document.createElement("td")
+    columna_apellidop.setAttribute("class","texto")
+
+    let input_apellidop = document.createElement("input")
+    input_apellidop.setAttribute("type","text")
+    input_apellidop.setAttribute("value",apellidopAdministrador)
+    input_apellidop.setAttribute("class","input_paginador")
+    input_apellidop.setAttribute("disabled","true")
+    columna_apellidop.appendChild(input_apellidop)
+    //columna_apellidop.innerHTML = apellidopAdministrador
+    fila.appendChild(columna_apellidop)
+
+
+    let columna_apellidom = document.createElement("td")
+    columna_apellidom.setAttribute("class","texto")
+    let input_apellidom = document.createElement("input")
+    input_apellidom.setAttribute("type","text")
+    input_apellidom.setAttribute("value",apellidomAdministrador)
+    input_apellidom.setAttribute("class","input_paginador")
+    input_apellidom.setAttribute("disabled","true")
+    columna_apellidom.appendChild(input_apellidom)
+    //columna_apellidom.innerHTML = apellidomAdministrador
+    fila.appendChild(columna_apellidom)
+
+    let columna_domicilio = document.createElement("td")
+    columna_domicilio.setAttribute("class","texto")
+    let input_domicilio = document.createElement("input")
+    input_domicilio.setAttribute("type","text")
+    input_domicilio.setAttribute("value",domicilioAdministrador)
+    input_domicilio.setAttribute("class","input_paginador")
+    input_domicilio.setAttribute("disabled","true")
+    columna_domicilio.appendChild(input_domicilio)
+    //columna_domicilio.innerHTML = domicilioAdministrador
+    fila.appendChild(columna_domicilio)
+
+    let columna_numeroext = document.createElement("td")
+    columna_numeroext.setAttribute("class","texto")
+    let input_numeroext = document.createElement("input")
+    input_numeroext.setAttribute("type","text")
+    input_numeroext.setAttribute("value",numeroextAdministrador)
+    input_numeroext.setAttribute("class","input_paginador")
+    input_numeroext.setAttribute("disabled","true")
+    columna_numeroext.appendChild(input_numeroext)
+    //columna_numeroext.innerHTML = numeroextAdministrador
+    fila.appendChild(columna_numeroext)
+
+
+
+    let columna_colonia = document.createElement("td")
+    columna_colonia.setAttribute("class","texto")
+    let input_colonia = document.createElement("input")
+    input_colonia.setAttribute("type","text")
+    input_colonia.setAttribute("value",coloniaAdministrador)
+    input_colonia.setAttribute("class","input_paginador")
+    input_colonia.setAttribute("disabled","true")
+    columna_colonia.appendChild(input_colonia)
+    //columna_colonia.innerHTML = coloniaAdministrador
+    fila.appendChild(columna_colonia)
+
+    
+    let columna_telefono = document.createElement("td")
+    columna_telefono.setAttribute("class","texto")
+    let input_telefono = document.createElement("input")
+    input_telefono.setAttribute("type","text")
+    input_telefono.setAttribute("value",telefonoAdministrador)
+    input_telefono.setAttribute("class","input_paginador")
+    input_telefono.setAttribute("disabled","true")
+    columna_telefono.appendChild(input_telefono)
+    //columna_telefono.innerHTML = telefonoAdministrador
+    fila.appendChild(columna_telefono)
+    
+    let columna_puesto = document.createElement("td")
+    columna_puesto.setAttribute("class","texto")
+    let input_puesto = document.createElement("input")
+    input_puesto.setAttribute("type","text")
+    input_puesto.setAttribute("value",puestoAdministrador)
+    input_puesto.setAttribute("class","input_paginador")
+    input_puesto.setAttribute("disabled","true")
+    columna_puesto.appendChild(input_puesto)
+    //columna_puesto.innerHTML = puestoAdministrador
+    fila.appendChild(columna_puesto)
+
+    let columna_correo = document.createElement("td")
+    columna_correo.setAttribute("class","texto")
+    let input_correo = document.createElement("input")
+    input_correo.setAttribute("type","text")
+    input_correo.setAttribute("value",correoAdministrador)
+    input_correo.setAttribute("class","input_paginador")
+    input_correo.setAttribute("disabled","true")
+    columna_correo.appendChild(input_correo)
+    //columna_correo.innerHTML = correoAdministrador
+    fila.appendChild(columna_correo)
+
+    let columna_activo = document.createElement("td")
+    columna_activo.setAttribute("class","texto")
+    columna_activo.innerHTML = activo
+    fila.appendChild(columna_activo)
+
+
+    let columna_tipo_usuario = document.createElement("td")
+    columna_tipo_usuario.setAttribute("class","texto")
+    columna_tipo_usuario.innerHTML = tipo_usuario
+    fila.appendChild(columna_tipo_usuario)
+
+
+    let columna_editar = document.createElement("td")
+    let imagen_editar = document.createElement("img")
+    imagen_editar.setAttribute("src","../recursos/img/baja.png")
+    imagen_editar.setAttribute("class","img_accion")
+    imagen_editar.setAttribute("onclick","desactivar_adn(event);")
+    columna_editar.appendChild(imagen_editar)
+
+    let imagen_editar2 = document.createElement("img")
+    imagen_editar2.setAttribute("src","../recursos/img/editar.png")
+    imagen_editar2.setAttribute("class","img_accion")
+    imagen_editar2.setAttribute("onclick","editar_adn(event);")
+    columna_editar.appendChild(imagen_editar2)
+
+    // columna_editar.setAttribute("class","boton_tabla")
+    // // columna_editar.setAttribute("style","cursor:pointer;")
+    // columna_editar.innerHTML = "activar"
+
+    fila.appendChild(columna_editar)
+    cuerpo_paginador.appendChild(fila)  
+
+    var paso = true;
+    if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+    if (numero_clase==2&&paso==true){numero_clase=1;}
+}
+}
+
+// cuerpo_elemento_paginador.innerHTML=cuerpo;
+pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
+function paginador_primera_admin(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+
+cuerpo_paginador.innerHTML = "";
+var cuerpo = "";
+pagina_actual=1;
+var tamano = arreglo_rutas.length;
+var inicio=pagina_actual-1;
+inicio=inicio*cantidad_vistas;
+var final=pagina_actual*cantidad_vistas;
+var numero_paginas=tamano/cantidad_vistas;
+numero_paginas=Math.ceil(numero_paginas);
+
+if (pagina_actual==1)
+{
+btn_atras.style="visibility:hidden;";
+btn_primera.style="visibility:hidden;";
+}
+else{
+btn_atras.style="visibility:visible;";
+btn_primera.style="visibility:visible;";
+}
+
+if (pagina_actual==numero_paginas) 
+{
+btn_adelante.style="visibility:hidden;";
+btn_ultima.style="visibility:hidden;";
+}
+else{
+btn_adelante.style="visibility:visible;";
+btn_ultima.style="visibility:visible;";
+}
+
+console.log(inicio)
+console.log(final)
+
+var numero_clase=1;
+for (inicio; inicio < final; inicio++) 
+{
+if (arreglo_rutas[inicio]!=undefined) 
+{
+    let id = arreglo_rutas[inicio].id
+    let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+    let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+    let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+    let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+    let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+    let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+    let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+    let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+    let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+    let activo  = arreglo_rutas[inicio].activo
+    let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+        let fila = document.createElement("tr")
+
+    let cadena_id = "id_"+id
+    fila.setAttribute("id",id)
+
+    
+
+    let columna_id = document.createElement("td")
+    columna_id.setAttribute("class","texto")
+    let input_id = document.createElement("input")
+    input_id.setAttribute("type","text")
+    input_id.setAttribute("value",id)
+    input_id.setAttribute("class","input_paginador")
+    input_id.setAttribute("disabled","true")
+    columna_id.appendChild(input_id)
+    // columna_id.innerHTML = id
+    fila.appendChild(columna_id)
+
+    let columna_nombre = document.createElement("td")
+    columna_nombre.setAttribute("class","texto")
+    let input_nombre = document.createElement("input")
+    input_nombre.setAttribute("type","text")
+    input_nombre.setAttribute("value",nombreAdministrador)
+    input_nombre.setAttribute("class","input_paginador")
+    input_nombre.setAttribute("disabled","true")
+    columna_nombre.appendChild(input_nombre)
+    //columna_nombre.innerHTML = nombreAdministrador
+    fila.appendChild(columna_nombre)
+
+    let columna_apellidop = document.createElement("td")
+    columna_apellidop.setAttribute("class","texto")
+
+    let input_apellidop = document.createElement("input")
+    input_apellidop.setAttribute("type","text")
+    input_apellidop.setAttribute("value",apellidopAdministrador)
+    input_apellidop.setAttribute("class","input_paginador")
+    input_apellidop.setAttribute("disabled","true")
+    columna_apellidop.appendChild(input_apellidop)
+    //columna_apellidop.innerHTML = apellidopAdministrador
+    fila.appendChild(columna_apellidop)
+
+
+    let columna_apellidom = document.createElement("td")
+    columna_apellidom.setAttribute("class","texto")
+    let input_apellidom = document.createElement("input")
+    input_apellidom.setAttribute("type","text")
+    input_apellidom.setAttribute("value",apellidomAdministrador)
+    input_apellidom.setAttribute("class","input_paginador")
+    input_apellidom.setAttribute("disabled","true")
+    columna_apellidom.appendChild(input_apellidom)
+    //columna_apellidom.innerHTML = apellidomAdministrador
+    fila.appendChild(columna_apellidom)
+
+    let columna_domicilio = document.createElement("td")
+    columna_domicilio.setAttribute("class","texto")
+    let input_domicilio = document.createElement("input")
+    input_domicilio.setAttribute("type","text")
+    input_domicilio.setAttribute("value",domicilioAdministrador)
+    input_domicilio.setAttribute("class","input_paginador")
+    input_domicilio.setAttribute("disabled","true")
+    columna_domicilio.appendChild(input_domicilio)
+    //columna_domicilio.innerHTML = domicilioAdministrador
+    fila.appendChild(columna_domicilio)
+
+    let columna_numeroext = document.createElement("td")
+    columna_numeroext.setAttribute("class","texto")
+    let input_numeroext = document.createElement("input")
+    input_numeroext.setAttribute("type","text")
+    input_numeroext.setAttribute("value",numeroextAdministrador)
+    input_numeroext.setAttribute("class","input_paginador")
+    input_numeroext.setAttribute("disabled","true")
+    columna_numeroext.appendChild(input_numeroext)
+    //columna_numeroext.innerHTML = numeroextAdministrador
+    fila.appendChild(columna_numeroext)
+
+
+
+    let columna_colonia = document.createElement("td")
+    columna_colonia.setAttribute("class","texto")
+    let input_colonia = document.createElement("input")
+    input_colonia.setAttribute("type","text")
+    input_colonia.setAttribute("value",coloniaAdministrador)
+    input_colonia.setAttribute("class","input_paginador")
+    input_colonia.setAttribute("disabled","true")
+    columna_colonia.appendChild(input_colonia)
+    //columna_colonia.innerHTML = coloniaAdministrador
+    fila.appendChild(columna_colonia)
+
+    
+    let columna_telefono = document.createElement("td")
+    columna_telefono.setAttribute("class","texto")
+    let input_telefono = document.createElement("input")
+    input_telefono.setAttribute("type","text")
+    input_telefono.setAttribute("value",telefonoAdministrador)
+    input_telefono.setAttribute("class","input_paginador")
+    input_telefono.setAttribute("disabled","true")
+    columna_telefono.appendChild(input_telefono)
+    //columna_telefono.innerHTML = telefonoAdministrador
+    fila.appendChild(columna_telefono)
+    
+    let columna_puesto = document.createElement("td")
+    columna_puesto.setAttribute("class","texto")
+    let input_puesto = document.createElement("input")
+    input_puesto.setAttribute("type","text")
+    input_puesto.setAttribute("value",puestoAdministrador)
+    input_puesto.setAttribute("class","input_paginador")
+    input_puesto.setAttribute("disabled","true")
+    columna_puesto.appendChild(input_puesto)
+    //columna_puesto.innerHTML = puestoAdministrador
+    fila.appendChild(columna_puesto)
+
+    let columna_correo = document.createElement("td")
+    columna_correo.setAttribute("class","texto")
+    let input_correo = document.createElement("input")
+    input_correo.setAttribute("type","text")
+    input_correo.setAttribute("value",correoAdministrador)
+    input_correo.setAttribute("class","input_paginador")
+    input_correo.setAttribute("disabled","true")
+    columna_correo.appendChild(input_correo)
+    //columna_correo.innerHTML = correoAdministrador
+    fila.appendChild(columna_correo)
+
+    let columna_activo = document.createElement("td")
+    columna_activo.setAttribute("class","texto")
+    columna_activo.innerHTML = activo
+    fila.appendChild(columna_activo)
+
+
+    let columna_tipo_usuario = document.createElement("td")
+    columna_tipo_usuario.setAttribute("class","texto")
+    columna_tipo_usuario.innerHTML = tipo_usuario
+    fila.appendChild(columna_tipo_usuario)
+
+
+    let columna_editar = document.createElement("td")
+    let imagen_editar = document.createElement("img")
+    imagen_editar.setAttribute("src","../recursos/img/baja.png")
+    imagen_editar.setAttribute("class","img_accion")
+    imagen_editar.setAttribute("onclick","desactivar_adn(event);")
+    columna_editar.appendChild(imagen_editar)
+
+    let imagen_editar2 = document.createElement("img")
+    imagen_editar2.setAttribute("src","../recursos/img/editar.png")
+    imagen_editar2.setAttribute("class","img_accion")
+    imagen_editar2.setAttribute("onclick","editar_adn(event);")
+    columna_editar.appendChild(imagen_editar2)
+
+    // columna_editar.setAttribute("class","boton_tabla")
+    // // columna_editar.setAttribute("style","cursor:pointer;")
+    // columna_editar.innerHTML = "activar"
+
+    fila.appendChild(columna_editar)
+    cuerpo_paginador.appendChild(fila)  
+
+    var paso = true;
+    if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+    if (numero_clase==2&&paso==true){numero_clase=1;}
+}
+}
+// cuerpo_paginador.innerHTML=cuerpo;
+pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
+function paginador_ultima_admin(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+var cuerpo = "";
+cuerpo_paginador.innerHTML="";
+var tamano = arreglo_rutas.length;
+var numero_paginas=tamano/cantidad_vistas;
+numero_paginas=Math.ceil(numero_paginas);
+pagina_actual=numero_paginas;
+var inicio=pagina_actual-1;
+inicio=inicio*cantidad_vistas;
+var final=pagina_actual*cantidad_vistas;
+
+
+if (pagina_actual==1)
+{
+btn_atras.style="visibility:hidden;";
+btn_primera.style="visibility:hidden;";
+}
+else{
+btn_atras.style="visibility:visible;";
+btn_primera.style="visibility:visible;";
+}
+
+if (pagina_actual==numero_paginas) 
+{
+btn_adelante.style="visibility:hidden;";
+btn_ultima.style="visibility:hidden;";
+}
+else{
+btn_adelante.style="visibility:visible;";
+btn_ultima.style="visibility:visible;";
+}
+
+console.log(inicio)
+console.log(final)
+var numero_clase=1;
+for (inicio; inicio < final; inicio++) 
+{
+if (arreglo_rutas[inicio]!=undefined) 
+{
+    let id = arreglo_rutas[inicio].id
+    let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+    let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+    let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+    let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+    let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+    let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+    let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+    let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+    let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+    let activo  = arreglo_rutas[inicio].activo
+    let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+        let fila = document.createElement("tr")
+
+    let cadena_id = "id_"+id
+    fila.setAttribute("id",id)
+
+    
+
+    let columna_id = document.createElement("td")
+    columna_id.setAttribute("class","texto")
+    let input_id = document.createElement("input")
+    input_id.setAttribute("type","text")
+    input_id.setAttribute("value",id)
+    input_id.setAttribute("class","input_paginador")
+    input_id.setAttribute("disabled","true")
+    columna_id.appendChild(input_id)
+    // columna_id.innerHTML = id
+    fila.appendChild(columna_id)
+
+    let columna_nombre = document.createElement("td")
+    columna_nombre.setAttribute("class","texto")
+    let input_nombre = document.createElement("input")
+    input_nombre.setAttribute("type","text")
+    input_nombre.setAttribute("value",nombreAdministrador)
+    input_nombre.setAttribute("class","input_paginador")
+    input_nombre.setAttribute("disabled","true")
+    columna_nombre.appendChild(input_nombre)
+    //columna_nombre.innerHTML = nombreAdministrador
+    fila.appendChild(columna_nombre)
+
+    let columna_apellidop = document.createElement("td")
+    columna_apellidop.setAttribute("class","texto")
+
+    let input_apellidop = document.createElement("input")
+    input_apellidop.setAttribute("type","text")
+    input_apellidop.setAttribute("value",apellidopAdministrador)
+    input_apellidop.setAttribute("class","input_paginador")
+    input_apellidop.setAttribute("disabled","true")
+    columna_apellidop.appendChild(input_apellidop)
+    //columna_apellidop.innerHTML = apellidopAdministrador
+    fila.appendChild(columna_apellidop)
+
+
+    let columna_apellidom = document.createElement("td")
+    columna_apellidom.setAttribute("class","texto")
+    let input_apellidom = document.createElement("input")
+    input_apellidom.setAttribute("type","text")
+    input_apellidom.setAttribute("value",apellidomAdministrador)
+    input_apellidom.setAttribute("class","input_paginador")
+    input_apellidom.setAttribute("disabled","true")
+    columna_apellidom.appendChild(input_apellidom)
+    //columna_apellidom.innerHTML = apellidomAdministrador
+    fila.appendChild(columna_apellidom)
+
+    let columna_domicilio = document.createElement("td")
+    columna_domicilio.setAttribute("class","texto")
+    let input_domicilio = document.createElement("input")
+    input_domicilio.setAttribute("type","text")
+    input_domicilio.setAttribute("value",domicilioAdministrador)
+    input_domicilio.setAttribute("class","input_paginador")
+    input_domicilio.setAttribute("disabled","true")
+    columna_domicilio.appendChild(input_domicilio)
+    //columna_domicilio.innerHTML = domicilioAdministrador
+    fila.appendChild(columna_domicilio)
+
+    let columna_numeroext = document.createElement("td")
+    columna_numeroext.setAttribute("class","texto")
+    let input_numeroext = document.createElement("input")
+    input_numeroext.setAttribute("type","text")
+    input_numeroext.setAttribute("value",numeroextAdministrador)
+    input_numeroext.setAttribute("class","input_paginador")
+    input_numeroext.setAttribute("disabled","true")
+    columna_numeroext.appendChild(input_numeroext)
+    //columna_numeroext.innerHTML = numeroextAdministrador
+    fila.appendChild(columna_numeroext)
+
+
+
+    let columna_colonia = document.createElement("td")
+    columna_colonia.setAttribute("class","texto")
+    let input_colonia = document.createElement("input")
+    input_colonia.setAttribute("type","text")
+    input_colonia.setAttribute("value",coloniaAdministrador)
+    input_colonia.setAttribute("class","input_paginador")
+    input_colonia.setAttribute("disabled","true")
+    columna_colonia.appendChild(input_colonia)
+    //columna_colonia.innerHTML = coloniaAdministrador
+    fila.appendChild(columna_colonia)
+
+    
+    let columna_telefono = document.createElement("td")
+    columna_telefono.setAttribute("class","texto")
+    let input_telefono = document.createElement("input")
+    input_telefono.setAttribute("type","text")
+    input_telefono.setAttribute("value",telefonoAdministrador)
+    input_telefono.setAttribute("class","input_paginador")
+    input_telefono.setAttribute("disabled","true")
+    columna_telefono.appendChild(input_telefono)
+    //columna_telefono.innerHTML = telefonoAdministrador
+    fila.appendChild(columna_telefono)
+    
+    let columna_puesto = document.createElement("td")
+    columna_puesto.setAttribute("class","texto")
+    let input_puesto = document.createElement("input")
+    input_puesto.setAttribute("type","text")
+    input_puesto.setAttribute("value",puestoAdministrador)
+    input_puesto.setAttribute("class","input_paginador")
+    input_puesto.setAttribute("disabled","true")
+    columna_puesto.appendChild(input_puesto)
+    //columna_puesto.innerHTML = puestoAdministrador
+    fila.appendChild(columna_puesto)
+
+    let columna_correo = document.createElement("td")
+    columna_correo.setAttribute("class","texto")
+    let input_correo = document.createElement("input")
+    input_correo.setAttribute("type","text")
+    input_correo.setAttribute("value",correoAdministrador)
+    input_correo.setAttribute("class","input_paginador")
+    input_correo.setAttribute("disabled","true")
+    columna_correo.appendChild(input_correo)
+    //columna_correo.innerHTML = correoAdministrador
+    fila.appendChild(columna_correo)
+
+    let columna_activo = document.createElement("td")
+    columna_activo.setAttribute("class","texto")
+    columna_activo.innerHTML = activo
+    fila.appendChild(columna_activo)
+
+
+    let columna_tipo_usuario = document.createElement("td")
+    columna_tipo_usuario.setAttribute("class","texto")
+    columna_tipo_usuario.innerHTML = tipo_usuario
+    fila.appendChild(columna_tipo_usuario)
+
+
+    let columna_editar = document.createElement("td")
+    let imagen_editar = document.createElement("img")
+    imagen_editar.setAttribute("src","../recursos/img/baja.png")
+    imagen_editar.setAttribute("class","img_accion")
+    imagen_editar.setAttribute("onclick","desactivar_adn(event);")
+    columna_editar.appendChild(imagen_editar)
+
+    let imagen_editar2 = document.createElement("img")
+    imagen_editar2.setAttribute("src","../recursos/img/editar.png")
+    imagen_editar2.setAttribute("class","img_accion")
+    imagen_editar2.setAttribute("onclick","editar_adn(event);")
+    columna_editar.appendChild(imagen_editar2)
+
+    // columna_editar.setAttribute("class","boton_tabla")
+    // // columna_editar.setAttribute("style","cursor:pointer;")
+    // columna_editar.innerHTML = "activar"
+
+    fila.appendChild(columna_editar)
+    cuerpo_paginador.appendChild(fila)      
+
+    var paso = true;
+    if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+    if (numero_clase==2&&paso==true){numero_clase=1;}
+}
+}
+// cuerpo_elemento_paginador.innerHTML=cuerpo;
+pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
+
+
+//funciones para tomar empleados activos
+var datos_adminNo
+var boton_primeroAdminNo = document.getElementById("boton_paginador_primeroAdminNo")
+var boton_anteriorAdminNo = document.getElementById("boton_paginador_anteriorAdminNo")
+var boton_siguienteAdminNo = document.getElementById("boton_paginador_siguienteAdminNo")
+var boton_ultimoAdminNo = document.getElementById("boton_paginador_ultimoAdminNo")
+var cuerpoAdminNo = document.getElementById("tabla_administradores_noactivo")
+var indicador_paginaAdminNo= document.getElementById("boton_paginador_cantidadAdminNo")
+var cantidad_vistasAdminNo
+var pagina_actual_Admin_Noactivos 
+
+function tomar_datos_administradores_noactivos()
+{
+    let contenedor = document.getElementById("tabla_administradores_noactivo")
+    cantidad_vistasAdminNo = document.getElementById("cantidad_administradores_noactivos").value
+    pagina_actual_Admin_Noactivos = 1
+    // alert(cantidad_vistas)   
+
+    contenedor.innerHTML = ""
+    let ajax = new XMLHttpRequest()
+       ajax.open("POST","../controlador/tomar_adn_noactivos.php")
+       ajax.send()
+       ajax.onreadystatechange =function () 
+       {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    //console.log(ajax.responseText)
+                    datos_adminNo = JSON.parse(ajax.responseText)
+                    // console.log(datos)
+                    paginador_adminNo(datos_adminNo,pagina_actual_Admin_Noactivos,cantidad_vistasAdminNo,boton_anteriorAdminNo,boton_siguienteAdminNo,boton_primeroAdminNo,boton_ultimoAdminNo,cuerpoAdminNo,indicador_paginaAdminNo)
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }   
+}
+
+// agregar evento a botones de paginacion
+
+boton_siguienteAdminNo.addEventListener("click", function(){
+    pagina_actual_Admin_Noactivos++
+    paginador_siguiente_adminNo(datos_adminNo,pagina_actual_Admin_Noactivos,cantidad_vistasAdminNo,boton_anteriorAdminNo,boton_siguienteAdminNo,boton_primeroAdminNo,boton_ultimoAdminNo,cuerpoAdminNo,indicador_paginaAdminNo)
+})
+
+boton_anteriorAdminNo.addEventListener("click", function(){
+    pagina_actual_Admin_Noactivos--
+    paginador_anterior_adminNo(datos_adminNo,pagina_actual_Admin_Noactivos,cantidad_vistasAdminNo,boton_anteriorAdminNo,boton_siguienteAdminNo,boton_primeroAdminNo,boton_ultimoAdminNo,cuerpoAdminNo,indicador_paginaAdminNo)
+})
+
+boton_primeroAdminNo.addEventListener("click", function(){
+    pagina_actual_Admin_Noactivos = 1 
+    paginador_primera_adminNo(datos_adminNo,pagina_actual_Admin_Noactivos,cantidad_vistasAdminNo,boton_anteriorAdminNo,boton_siguienteAdminNo,boton_primeroAdminNo,boton_ultimoAdminNo,cuerpoAdminNo,indicador_paginaAdminNo)
+})
+
+boton_ultimoAdminNo.addEventListener("click", function(){
+
+    var tamano = datos_adminNo.length;
+    var numero_paginas=tamano/cantidad_vistasAdminNo;
+    numero_paginas=Math.ceil(numero_paginas);
+    pagina_actual_Admin_Noactivos = numero_paginas
+
+    paginador_ultima_adminNo(datos_adminNo,pagina_actual_Admin_Noactivos,cantidad_vistasAdminNo,boton_anteriorAdminNo,boton_siguienteAdminNo,boton_primeroAdminNo,boton_ultimoAdminNo,cuerpoAdminNo,indicador_paginaAdminNo)
+})
+
+function paginador_adminNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+
+    var cuerpo = "";
+    cuerpo_paginador.innerHTML = "";
+    var tamano = arreglo_rutas.length;
+    var inicio=pagina_actual-1;
+    inicio=inicio*cantidad_vistas;
+    var final=pagina_actual*cantidad_vistas;
+    var numero_paginas=tamano/cantidad_vistas;
+    numero_paginas=Math.ceil(numero_paginas);
+
+    if (numero_paginas==0) 
+    {
+        numero_paginas=1;
+    }
+    if (pagina_actual==1)
+    {
+
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+
+    }
+    else
+    {
+
+        btn_atras.style="visibility:visible;";
+        btn_primera.style="visibility:visible;";
+        
+    }
+
+    if (pagina_actual==numero_paginas) 
+    {
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+    }
+    else{
+        btn_adelante.style="visibility:visible;";
+        btn_ultima.style="visibility:visible;";
+    }
+
+    var numero_clase=1;
+
+    //console.log(inicio)
+    //console.log(final)
+    if(arreglo_rutas=="error 400")
+    {
+        // alert("no hay datos")
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+        pagina_paginador.innerHTML="1 de 1";
+        cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="13">NO HAY DATOS</td></tr>'
+    }
+    else
+    {
+    for (inicio; inicio < final; inicio++) 
+    {
+        if (arreglo_rutas[inicio]!=undefined) 
+        {
+            if(arreglo_rutas[inicio]=="error 400")
+            {
+                cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="13">NO HAY DATOS</td></tr>'
+            }
+            else
+            {
+
+                //crear columnas por cada json con arreglo_rutas[inicio]
+                       
+                        let id = arreglo_rutas[inicio].id
+                        let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+                        let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+                        let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+                        let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+                        let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+                        let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+                        let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+                        let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+                        let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+                        let activo  = arreglo_rutas[inicio].activo
+                        let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+                            let fila = document.createElement("tr")
+
+                        let cadena_id = "id_"+id
+                        fila.setAttribute("id",id)
+
+                        
+
+                        let columna_id = document.createElement("td")
+                        columna_id.setAttribute("class","texto")
+                        let input_id = document.createElement("input")
+                        input_id.setAttribute("type","text")
+                        input_id.setAttribute("value",id)
+                        input_id.setAttribute("class","input_paginador")
+                        input_id.setAttribute("disabled","true")
+                        columna_id.appendChild(input_id)
+                        // columna_id.innerHTML = id
+                        fila.appendChild(columna_id)
+
+                        let columna_nombre = document.createElement("td")
+                        columna_nombre.setAttribute("class","texto")
+                        let input_nombre = document.createElement("input")
+                        input_nombre.setAttribute("type","text")
+                        input_nombre.setAttribute("value",nombreAdministrador)
+                        input_nombre.setAttribute("class","input_paginador")
+                        input_nombre.setAttribute("disabled","true")
+                        columna_nombre.appendChild(input_nombre)
+                        //columna_nombre.innerHTML = nombreAdministrador
+                        fila.appendChild(columna_nombre)
+
+                        let columna_apellidop = document.createElement("td")
+                        columna_apellidop.setAttribute("class","texto")
+
+                        let input_apellidop = document.createElement("input")
+                        input_apellidop.setAttribute("type","text")
+                        input_apellidop.setAttribute("value",apellidopAdministrador)
+                        input_apellidop.setAttribute("class","input_paginador")
+                        input_apellidop.setAttribute("disabled","true")
+                        columna_apellidop.appendChild(input_apellidop)
+                        //columna_apellidop.innerHTML = apellidopAdministrador
+                        fila.appendChild(columna_apellidop)
+
+
+                        let columna_apellidom = document.createElement("td")
+                        columna_apellidom.setAttribute("class","texto")
+                        let input_apellidom = document.createElement("input")
+                        input_apellidom.setAttribute("type","text")
+                        input_apellidom.setAttribute("value",apellidomAdministrador)
+                        input_apellidom.setAttribute("class","input_paginador")
+                        input_apellidom.setAttribute("disabled","true")
+                        columna_apellidom.appendChild(input_apellidom)
+                        //columna_apellidom.innerHTML = apellidomAdministrador
+                        fila.appendChild(columna_apellidom)
+
+                        let columna_domicilio = document.createElement("td")
+                        columna_domicilio.setAttribute("class","texto")
+                        let input_domicilio = document.createElement("input")
+                        input_domicilio.setAttribute("type","text")
+                        input_domicilio.setAttribute("value",domicilioAdministrador)
+                        input_domicilio.setAttribute("class","input_paginador")
+                        input_domicilio.setAttribute("disabled","true")
+                        columna_domicilio.appendChild(input_domicilio)
+                        //columna_domicilio.innerHTML = domicilioAdministrador
+                        fila.appendChild(columna_domicilio)
+
+                        let columna_numeroext = document.createElement("td")
+                        columna_numeroext.setAttribute("class","texto")
+                        let input_numeroext = document.createElement("input")
+                        input_numeroext.setAttribute("type","text")
+                        input_numeroext.setAttribute("value",numeroextAdministrador)
+                        input_numeroext.setAttribute("class","input_paginador")
+                        input_numeroext.setAttribute("disabled","true")
+                        columna_numeroext.appendChild(input_numeroext)
+                        //columna_numeroext.innerHTML = numeroextAdministrador
+                        fila.appendChild(columna_numeroext)
+
+
+
+                        let columna_colonia = document.createElement("td")
+                        columna_colonia.setAttribute("class","texto")
+                        let input_colonia = document.createElement("input")
+                        input_colonia.setAttribute("type","text")
+                        input_colonia.setAttribute("value",coloniaAdministrador)
+                        input_colonia.setAttribute("class","input_paginador")
+                        input_colonia.setAttribute("disabled","true")
+                        columna_colonia.appendChild(input_colonia)
+                        //columna_colonia.innerHTML = coloniaAdministrador
+                        fila.appendChild(columna_colonia)
+
+                        
+                        let columna_telefono = document.createElement("td")
+                        columna_telefono.setAttribute("class","texto")
+                        let input_telefono = document.createElement("input")
+                        input_telefono.setAttribute("type","text")
+                        input_telefono.setAttribute("value",telefonoAdministrador)
+                        input_telefono.setAttribute("class","input_paginador")
+                        input_telefono.setAttribute("disabled","true")
+                        columna_telefono.appendChild(input_telefono)
+                        //columna_telefono.innerHTML = telefonoAdministrador
+                        fila.appendChild(columna_telefono)
+                        
+                        let columna_puesto = document.createElement("td")
+                        columna_puesto.setAttribute("class","texto")
+                        let input_puesto = document.createElement("input")
+                        input_puesto.setAttribute("type","text")
+                        input_puesto.setAttribute("value",puestoAdministrador)
+                        input_puesto.setAttribute("class","input_paginador")
+                        input_puesto.setAttribute("disabled","true")
+                        columna_puesto.appendChild(input_puesto)
+                        //columna_puesto.innerHTML = puestoAdministrador
+                        fila.appendChild(columna_puesto)
+
+                        let columna_correo = document.createElement("td")
+                        columna_correo.setAttribute("class","texto")
+                        let input_correo = document.createElement("input")
+                        input_correo.setAttribute("type","text")
+                        input_correo.setAttribute("value",correoAdministrador)
+                        input_correo.setAttribute("class","input_paginador")
+                        input_correo.setAttribute("disabled","true")
+                        columna_correo.appendChild(input_correo)
+                        //columna_correo.innerHTML = correoAdministrador
+                        fila.appendChild(columna_correo)
+
+                        let columna_activo = document.createElement("td")
+                        columna_activo.setAttribute("class","texto")
+                        columna_activo.innerHTML = activo
+                        fila.appendChild(columna_activo)
+
+
+                        let columna_tipo_usuario = document.createElement("td")
+                        columna_tipo_usuario.setAttribute("class","texto")
+                        columna_tipo_usuario.innerHTML = tipo_usuario
+                        fila.appendChild(columna_tipo_usuario)
+
+
+                        let columna_editar = document.createElement("td")
+                        let imagen_editar = document.createElement("img")
+                        imagen_editar.setAttribute("src","../recursos/img/alta.png")
+                        imagen_editar.setAttribute("class","img_accion")
+                        imagen_editar.setAttribute("onclick","activar_adn(event);")
+                        columna_editar.appendChild(imagen_editar)
+
+                        let imagen_editar2 = document.createElement("img")
+                        imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+                        imagen_editar2.setAttribute("class","img_accion")
+                        imagen_editar2.setAttribute("onclick","eliminar_adn(event);")
+                        columna_editar.appendChild(imagen_editar2)
+
+                        // columna_editar.setAttribute("class","boton_tabla")
+                        // // columna_editar.setAttribute("style","cursor:pointer;")
+                        // columna_editar.innerHTML = "activar"
+
+                        fila.appendChild(columna_editar)
+                        cuerpo_paginador.appendChild(fila)    
+            }	
+            // console.log(arreglo_rutas[inicio]);
+            var paso = true;
+            if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+            if (numero_clase==2&&paso==true){numero_clase=1;}
+        }
+    }
+    pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+    }
+}
+function paginador_siguiente_adminNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+    // pagina_actual++;
+    var cuerpo = "";
+    cuerpo_paginador.innerHTML = "";
+
+    var tamano = arreglo_rutas.length;
+    var inicio=pagina_actual-1;
+    inicio=inicio*cantidad_vistas;
+    var final=pagina_actual*cantidad_vistas;
+    var numero_paginas=tamano/cantidad_vistas;
+    numero_paginas=Math.ceil(numero_paginas);
+
+
+    if (pagina_actual==1)
+    {
+        btn_atras.style="visibility:hidden;";
+        btn_primera.style="visibility:hidden;";
+    }
+    else{
+        btn_atras.style="visibility:visible;";
+        btn_primera.style="visibility:visible;";
+    }
+
+    if (pagina_actual==numero_paginas) 
+    {
+        btn_adelante.style="visibility:hidden;";
+        btn_ultima.style="visibility:hidden;";
+    }
+    else{
+        btn_adelante.style="visibility:visible;";
+        btn_ultima.style="visibility:visible;";
+    }
+
+    console.log(inicio)
+    console.log(final)
+    var numero_clase=1;
+    for (inicio; inicio < final; inicio++) 
+    {
+        if (arreglo_rutas[inicio]!=undefined) 
+        {
+            let id = arreglo_rutas[inicio].id
+            let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+            let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+            let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+            let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+            let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+            let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+            let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+            let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+            let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+            let activo  = arreglo_rutas[inicio].activo
+            let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+                let fila = document.createElement("tr")
+
+            let cadena_id = "id_"+id
+            fila.setAttribute("id",id)
+
+            
+
+            let columna_id = document.createElement("td")
+            columna_id.setAttribute("class","texto")
+            let input_id = document.createElement("input")
+            input_id.setAttribute("type","text")
+            input_id.setAttribute("value",id)
+            input_id.setAttribute("class","input_paginador")
+            input_id.setAttribute("disabled","true")
+            columna_id.appendChild(input_id)
+            // columna_id.innerHTML = id
+            fila.appendChild(columna_id)
+
+            let columna_nombre = document.createElement("td")
+            columna_nombre.setAttribute("class","texto")
+            let input_nombre = document.createElement("input")
+            input_nombre.setAttribute("type","text")
+            input_nombre.setAttribute("value",nombreAdministrador)
+            input_nombre.setAttribute("class","input_paginador")
+            input_nombre.setAttribute("disabled","true")
+            columna_nombre.appendChild(input_nombre)
+            //columna_nombre.innerHTML = nombreAdministrador
+            fila.appendChild(columna_nombre)
+
+            let columna_apellidop = document.createElement("td")
+            columna_apellidop.setAttribute("class","texto")
+
+            let input_apellidop = document.createElement("input")
+            input_apellidop.setAttribute("type","text")
+            input_apellidop.setAttribute("value",apellidopAdministrador)
+            input_apellidop.setAttribute("class","input_paginador")
+            input_apellidop.setAttribute("disabled","true")
+            columna_apellidop.appendChild(input_apellidop)
+            //columna_apellidop.innerHTML = apellidopAdministrador
+            fila.appendChild(columna_apellidop)
+
+
+            let columna_apellidom = document.createElement("td")
+            columna_apellidom.setAttribute("class","texto")
+            let input_apellidom = document.createElement("input")
+            input_apellidom.setAttribute("type","text")
+            input_apellidom.setAttribute("value",apellidomAdministrador)
+            input_apellidom.setAttribute("class","input_paginador")
+            input_apellidom.setAttribute("disabled","true")
+            columna_apellidom.appendChild(input_apellidom)
+            //columna_apellidom.innerHTML = apellidomAdministrador
+            fila.appendChild(columna_apellidom)
+
+            let columna_domicilio = document.createElement("td")
+            columna_domicilio.setAttribute("class","texto")
+            let input_domicilio = document.createElement("input")
+            input_domicilio.setAttribute("type","text")
+            input_domicilio.setAttribute("value",domicilioAdministrador)
+            input_domicilio.setAttribute("class","input_paginador")
+            input_domicilio.setAttribute("disabled","true")
+            columna_domicilio.appendChild(input_domicilio)
+            //columna_domicilio.innerHTML = domicilioAdministrador
+            fila.appendChild(columna_domicilio)
+
+            let columna_numeroext = document.createElement("td")
+            columna_numeroext.setAttribute("class","texto")
+            let input_numeroext = document.createElement("input")
+            input_numeroext.setAttribute("type","text")
+            input_numeroext.setAttribute("value",numeroextAdministrador)
+            input_numeroext.setAttribute("class","input_paginador")
+            input_numeroext.setAttribute("disabled","true")
+            columna_numeroext.appendChild(input_numeroext)
+            //columna_numeroext.innerHTML = numeroextAdministrador
+            fila.appendChild(columna_numeroext)
+
+
+
+            let columna_colonia = document.createElement("td")
+            columna_colonia.setAttribute("class","texto")
+            let input_colonia = document.createElement("input")
+            input_colonia.setAttribute("type","text")
+            input_colonia.setAttribute("value",coloniaAdministrador)
+            input_colonia.setAttribute("class","input_paginador")
+            input_colonia.setAttribute("disabled","true")
+            columna_colonia.appendChild(input_colonia)
+            //columna_colonia.innerHTML = coloniaAdministrador
+            fila.appendChild(columna_colonia)
+
+            
+            let columna_telefono = document.createElement("td")
+            columna_telefono.setAttribute("class","texto")
+            let input_telefono = document.createElement("input")
+            input_telefono.setAttribute("type","text")
+            input_telefono.setAttribute("value",telefonoAdministrador)
+            input_telefono.setAttribute("class","input_paginador")
+            input_telefono.setAttribute("disabled","true")
+            columna_telefono.appendChild(input_telefono)
+            //columna_telefono.innerHTML = telefonoAdministrador
+            fila.appendChild(columna_telefono)
+            
+            let columna_puesto = document.createElement("td")
+            columna_puesto.setAttribute("class","texto")
+            let input_puesto = document.createElement("input")
+            input_puesto.setAttribute("type","text")
+            input_puesto.setAttribute("value",puestoAdministrador)
+            input_puesto.setAttribute("class","input_paginador")
+            input_puesto.setAttribute("disabled","true")
+            columna_puesto.appendChild(input_puesto)
+            //columna_puesto.innerHTML = puestoAdministrador
+            fila.appendChild(columna_puesto)
+
+            let columna_correo = document.createElement("td")
+            columna_correo.setAttribute("class","texto")
+            let input_correo = document.createElement("input")
+            input_correo.setAttribute("type","text")
+            input_correo.setAttribute("value",correoAdministrador)
+            input_correo.setAttribute("class","input_paginador")
+            input_correo.setAttribute("disabled","true")
+            columna_correo.appendChild(input_correo)
+            //columna_correo.innerHTML = correoAdministrador
+            fila.appendChild(columna_correo)
+
+            let columna_activo = document.createElement("td")
+            columna_activo.setAttribute("class","texto")
+            columna_activo.innerHTML = activo
+            fila.appendChild(columna_activo)
+
+
+            let columna_tipo_usuario = document.createElement("td")
+            columna_tipo_usuario.setAttribute("class","texto")
+            columna_tipo_usuario.innerHTML = tipo_usuario
+            fila.appendChild(columna_tipo_usuario)
+
+
+            let columna_editar = document.createElement("td")
+            let imagen_editar = document.createElement("img")
+            imagen_editar.setAttribute("src","../recursos/img/alta.png")
+            imagen_editar.setAttribute("class","img_accion")
+            imagen_editar.setAttribute("onclick","activar_adn(event);")
+            columna_editar.appendChild(imagen_editar)
+
+            let imagen_editar2 = document.createElement("img")
+            imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+            imagen_editar2.setAttribute("class","img_accion")
+            imagen_editar2.setAttribute("onclick","eliminar_adn(event);")
+            columna_editar.appendChild(imagen_editar2)
+
+            // columna_editar.setAttribute("class","boton_tabla")
+            // // columna_editar.setAttribute("style","cursor:pointer;")
+            // columna_editar.innerHTML = "activar"
+
+            fila.appendChild(columna_editar)
+            cuerpo_paginador.appendChild(fila)    
+                            
+            // console.log(arreglo_rutas[inicio]);
+            var paso = true;
+            if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+            if (numero_clase==2&&paso==true){numero_clase=1;}
+        }
+    }
+
+    // cuerpo_paginador.innerHTML=cuerpo;
+    pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+    
+}
+function paginador_anterior_adminNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador)
+{
+// pagina_actual--;
+var cuerpo = "";
+cuerpo_paginador.innerHTML = "";
+var tamano = arreglo_rutas.length;
+var inicio=pagina_actual-1;
+inicio=inicio*cantidad_vistas;
+var final=pagina_actual*cantidad_vistas;
+var numero_paginas=tamano/cantidad_vistas;
+numero_paginas=Math.ceil(numero_paginas);
+if (pagina_actual==1)
+{
+btn_atras.style="visibility:hidden;";
+btn_primera.style="visibility:hidden;";
+}
+else{
+btn_atras.style="visibility:visible;";
+btn_primera.style="visibility:visible;";
+}
+
+if (pagina_actual==numero_paginas) 
+{
+btn_adelante.style="visibility:hidden;";
+btn_ultima.style="visibility:hidden;";
+}
+else{
+btn_adelante.style="visibility:visible;";
+btn_ultima.style="visibility:visible;";
+}
+console.log(inicio)
+console.log(final)
+
+var numero_clase=1;
+for (inicio; inicio < final; inicio++) 
+{
+if (arreglo_rutas[inicio]!=undefined) 
+{
+    let id = arreglo_rutas[inicio].id
+    let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+    let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+    let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+    let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+    let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+    let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+    let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+    let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+    let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+    let activo  = arreglo_rutas[inicio].activo
+    let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+        let fila = document.createElement("tr")
+
+    let cadena_id = "id_"+id
+    fila.setAttribute("id",id)
+
+    
+
+    let columna_id = document.createElement("td")
+    columna_id.setAttribute("class","texto")
+    let input_id = document.createElement("input")
+    input_id.setAttribute("type","text")
+    input_id.setAttribute("value",id)
+    input_id.setAttribute("class","input_paginador")
+    input_id.setAttribute("disabled","true")
+    columna_id.appendChild(input_id)
+    // columna_id.innerHTML = id
+    fila.appendChild(columna_id)
+
+    let columna_nombre = document.createElement("td")
+    columna_nombre.setAttribute("class","texto")
+    let input_nombre = document.createElement("input")
+    input_nombre.setAttribute("type","text")
+    input_nombre.setAttribute("value",nombreAdministrador)
+    input_nombre.setAttribute("class","input_paginador")
+    input_nombre.setAttribute("disabled","true")
+    columna_nombre.appendChild(input_nombre)
+    //columna_nombre.innerHTML = nombreAdministrador
+    fila.appendChild(columna_nombre)
+
+    let columna_apellidop = document.createElement("td")
+    columna_apellidop.setAttribute("class","texto")
+
+    let input_apellidop = document.createElement("input")
+    input_apellidop.setAttribute("type","text")
+    input_apellidop.setAttribute("value",apellidopAdministrador)
+    input_apellidop.setAttribute("class","input_paginador")
+    input_apellidop.setAttribute("disabled","true")
+    columna_apellidop.appendChild(input_apellidop)
+    //columna_apellidop.innerHTML = apellidopAdministrador
+    fila.appendChild(columna_apellidop)
+
+
+    let columna_apellidom = document.createElement("td")
+    columna_apellidom.setAttribute("class","texto")
+    let input_apellidom = document.createElement("input")
+    input_apellidom.setAttribute("type","text")
+    input_apellidom.setAttribute("value",apellidomAdministrador)
+    input_apellidom.setAttribute("class","input_paginador")
+    input_apellidom.setAttribute("disabled","true")
+    columna_apellidom.appendChild(input_apellidom)
+    //columna_apellidom.innerHTML = apellidomAdministrador
+    fila.appendChild(columna_apellidom)
+
+    let columna_domicilio = document.createElement("td")
+    columna_domicilio.setAttribute("class","texto")
+    let input_domicilio = document.createElement("input")
+    input_domicilio.setAttribute("type","text")
+    input_domicilio.setAttribute("value",domicilioAdministrador)
+    input_domicilio.setAttribute("class","input_paginador")
+    input_domicilio.setAttribute("disabled","true")
+    columna_domicilio.appendChild(input_domicilio)
+    //columna_domicilio.innerHTML = domicilioAdministrador
+    fila.appendChild(columna_domicilio)
+
+    let columna_numeroext = document.createElement("td")
+    columna_numeroext.setAttribute("class","texto")
+    let input_numeroext = document.createElement("input")
+    input_numeroext.setAttribute("type","text")
+    input_numeroext.setAttribute("value",numeroextAdministrador)
+    input_numeroext.setAttribute("class","input_paginador")
+    input_numeroext.setAttribute("disabled","true")
+    columna_numeroext.appendChild(input_numeroext)
+    //columna_numeroext.innerHTML = numeroextAdministrador
+    fila.appendChild(columna_numeroext)
+
+
+
+    let columna_colonia = document.createElement("td")
+    columna_colonia.setAttribute("class","texto")
+    let input_colonia = document.createElement("input")
+    input_colonia.setAttribute("type","text")
+    input_colonia.setAttribute("value",coloniaAdministrador)
+    input_colonia.setAttribute("class","input_paginador")
+    input_colonia.setAttribute("disabled","true")
+    columna_colonia.appendChild(input_colonia)
+    //columna_colonia.innerHTML = coloniaAdministrador
+    fila.appendChild(columna_colonia)
+
+    
+    let columna_telefono = document.createElement("td")
+    columna_telefono.setAttribute("class","texto")
+    let input_telefono = document.createElement("input")
+    input_telefono.setAttribute("type","text")
+    input_telefono.setAttribute("value",telefonoAdministrador)
+    input_telefono.setAttribute("class","input_paginador")
+    input_telefono.setAttribute("disabled","true")
+    columna_telefono.appendChild(input_telefono)
+    //columna_telefono.innerHTML = telefonoAdministrador
+    fila.appendChild(columna_telefono)
+    
+    let columna_puesto = document.createElement("td")
+    columna_puesto.setAttribute("class","texto")
+    let input_puesto = document.createElement("input")
+    input_puesto.setAttribute("type","text")
+    input_puesto.setAttribute("value",puestoAdministrador)
+    input_puesto.setAttribute("class","input_paginador")
+    input_puesto.setAttribute("disabled","true")
+    columna_puesto.appendChild(input_puesto)
+    //columna_puesto.innerHTML = puestoAdministrador
+    fila.appendChild(columna_puesto)
+
+    let columna_correo = document.createElement("td")
+    columna_correo.setAttribute("class","texto")
+    let input_correo = document.createElement("input")
+    input_correo.setAttribute("type","text")
+    input_correo.setAttribute("value",correoAdministrador)
+    input_correo.setAttribute("class","input_paginador")
+    input_correo.setAttribute("disabled","true")
+    columna_correo.appendChild(input_correo)
+    //columna_correo.innerHTML = correoAdministrador
+    fila.appendChild(columna_correo)
+
+    let columna_activo = document.createElement("td")
+    columna_activo.setAttribute("class","texto")
+    columna_activo.innerHTML = activo
+    fila.appendChild(columna_activo)
+
+
+    let columna_tipo_usuario = document.createElement("td")
+    columna_tipo_usuario.setAttribute("class","texto")
+    columna_tipo_usuario.innerHTML = tipo_usuario
+    fila.appendChild(columna_tipo_usuario)
+
+
+        let columna_editar = document.createElement("td")
+    let imagen_editar = document.createElement("img")
+    imagen_editar.setAttribute("src","../recursos/img/alta.png")
+    imagen_editar.setAttribute("class","img_accion")
+    imagen_editar.setAttribute("onclick","activar_adn(event);")
+    columna_editar.appendChild(imagen_editar)
+
+    let imagen_editar2 = document.createElement("img")
+    imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+    imagen_editar2.setAttribute("class","img_accion")
+    imagen_editar2.setAttribute("onclick","eliminar_adn(event);")
+    columna_editar.appendChild(imagen_editar2)
+
+    // columna_editar.setAttribute("class","boton_tabla")
+    // // columna_editar.setAttribute("style","cursor:pointer;")
+    // columna_editar.innerHTML = "activar"
+
+    fila.appendChild(columna_editar)
+    cuerpo_paginador.appendChild(fila)  
+
+    var paso = true;
+    if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+    if (numero_clase==2&&paso==true){numero_clase=1;}
+}
+}
+
+// cuerpo_elemento_paginador.innerHTML=cuerpo;
+pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
+function paginador_primera_adminNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+
+cuerpo_paginador.innerHTML = "";
+var cuerpo = "";
+pagina_actual=1;
+var tamano = arreglo_rutas.length;
+var inicio=pagina_actual-1;
+inicio=inicio*cantidad_vistas;
+var final=pagina_actual*cantidad_vistas;
+var numero_paginas=tamano/cantidad_vistas;
+numero_paginas=Math.ceil(numero_paginas);
+
+if (pagina_actual==1)
+{
+btn_atras.style="visibility:hidden;";
+btn_primera.style="visibility:hidden;";
+}
+else{
+btn_atras.style="visibility:visible;";
+btn_primera.style="visibility:visible;";
+}
+
+if (pagina_actual==numero_paginas) 
+{
+btn_adelante.style="visibility:hidden;";
+btn_ultima.style="visibility:hidden;";
+}
+else{
+btn_adelante.style="visibility:visible;";
+btn_ultima.style="visibility:visible;";
+}
+
+console.log(inicio)
+console.log(final)
+
+var numero_clase=1;
+for (inicio; inicio < final; inicio++) 
+{
+if (arreglo_rutas[inicio]!=undefined) 
+{
+    let id = arreglo_rutas[inicio].id
+    let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+    let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+    let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+    let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+    let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+    let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+    let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+    let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+    let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+    let activo  = arreglo_rutas[inicio].activo
+    let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+        let fila = document.createElement("tr")
+
+    let cadena_id = "id_"+id
+    fila.setAttribute("id",id)
+
+    
+
+    let columna_id = document.createElement("td")
+    columna_id.setAttribute("class","texto")
+    let input_id = document.createElement("input")
+    input_id.setAttribute("type","text")
+    input_id.setAttribute("value",id)
+    input_id.setAttribute("class","input_paginador")
+    input_id.setAttribute("disabled","true")
+    columna_id.appendChild(input_id)
+    // columna_id.innerHTML = id
+    fila.appendChild(columna_id)
+
+    let columna_nombre = document.createElement("td")
+    columna_nombre.setAttribute("class","texto")
+    let input_nombre = document.createElement("input")
+    input_nombre.setAttribute("type","text")
+    input_nombre.setAttribute("value",nombreAdministrador)
+    input_nombre.setAttribute("class","input_paginador")
+    input_nombre.setAttribute("disabled","true")
+    columna_nombre.appendChild(input_nombre)
+    //columna_nombre.innerHTML = nombreAdministrador
+    fila.appendChild(columna_nombre)
+
+    let columna_apellidop = document.createElement("td")
+    columna_apellidop.setAttribute("class","texto")
+
+    let input_apellidop = document.createElement("input")
+    input_apellidop.setAttribute("type","text")
+    input_apellidop.setAttribute("value",apellidopAdministrador)
+    input_apellidop.setAttribute("class","input_paginador")
+    input_apellidop.setAttribute("disabled","true")
+    columna_apellidop.appendChild(input_apellidop)
+    //columna_apellidop.innerHTML = apellidopAdministrador
+    fila.appendChild(columna_apellidop)
+
+
+    let columna_apellidom = document.createElement("td")
+    columna_apellidom.setAttribute("class","texto")
+    let input_apellidom = document.createElement("input")
+    input_apellidom.setAttribute("type","text")
+    input_apellidom.setAttribute("value",apellidomAdministrador)
+    input_apellidom.setAttribute("class","input_paginador")
+    input_apellidom.setAttribute("disabled","true")
+    columna_apellidom.appendChild(input_apellidom)
+    //columna_apellidom.innerHTML = apellidomAdministrador
+    fila.appendChild(columna_apellidom)
+
+    let columna_domicilio = document.createElement("td")
+    columna_domicilio.setAttribute("class","texto")
+    let input_domicilio = document.createElement("input")
+    input_domicilio.setAttribute("type","text")
+    input_domicilio.setAttribute("value",domicilioAdministrador)
+    input_domicilio.setAttribute("class","input_paginador")
+    input_domicilio.setAttribute("disabled","true")
+    columna_domicilio.appendChild(input_domicilio)
+    //columna_domicilio.innerHTML = domicilioAdministrador
+    fila.appendChild(columna_domicilio)
+
+    let columna_numeroext = document.createElement("td")
+    columna_numeroext.setAttribute("class","texto")
+    let input_numeroext = document.createElement("input")
+    input_numeroext.setAttribute("type","text")
+    input_numeroext.setAttribute("value",numeroextAdministrador)
+    input_numeroext.setAttribute("class","input_paginador")
+    input_numeroext.setAttribute("disabled","true")
+    columna_numeroext.appendChild(input_numeroext)
+    //columna_numeroext.innerHTML = numeroextAdministrador
+    fila.appendChild(columna_numeroext)
+
+
+
+    let columna_colonia = document.createElement("td")
+    columna_colonia.setAttribute("class","texto")
+    let input_colonia = document.createElement("input")
+    input_colonia.setAttribute("type","text")
+    input_colonia.setAttribute("value",coloniaAdministrador)
+    input_colonia.setAttribute("class","input_paginador")
+    input_colonia.setAttribute("disabled","true")
+    columna_colonia.appendChild(input_colonia)
+    //columna_colonia.innerHTML = coloniaAdministrador
+    fila.appendChild(columna_colonia)
+
+    
+    let columna_telefono = document.createElement("td")
+    columna_telefono.setAttribute("class","texto")
+    let input_telefono = document.createElement("input")
+    input_telefono.setAttribute("type","text")
+    input_telefono.setAttribute("value",telefonoAdministrador)
+    input_telefono.setAttribute("class","input_paginador")
+    input_telefono.setAttribute("disabled","true")
+    columna_telefono.appendChild(input_telefono)
+    //columna_telefono.innerHTML = telefonoAdministrador
+    fila.appendChild(columna_telefono)
+    
+    let columna_puesto = document.createElement("td")
+    columna_puesto.setAttribute("class","texto")
+    let input_puesto = document.createElement("input")
+    input_puesto.setAttribute("type","text")
+    input_puesto.setAttribute("value",puestoAdministrador)
+    input_puesto.setAttribute("class","input_paginador")
+    input_puesto.setAttribute("disabled","true")
+    columna_puesto.appendChild(input_puesto)
+    //columna_puesto.innerHTML = puestoAdministrador
+    fila.appendChild(columna_puesto)
+
+    let columna_correo = document.createElement("td")
+    columna_correo.setAttribute("class","texto")
+    let input_correo = document.createElement("input")
+    input_correo.setAttribute("type","text")
+    input_correo.setAttribute("value",correoAdministrador)
+    input_correo.setAttribute("class","input_paginador")
+    input_correo.setAttribute("disabled","true")
+    columna_correo.appendChild(input_correo)
+    //columna_correo.innerHTML = correoAdministrador
+    fila.appendChild(columna_correo)
+
+    let columna_activo = document.createElement("td")
+    columna_activo.setAttribute("class","texto")
+    columna_activo.innerHTML = activo
+    fila.appendChild(columna_activo)
+
+
+    let columna_tipo_usuario = document.createElement("td")
+    columna_tipo_usuario.setAttribute("class","texto")
+    columna_tipo_usuario.innerHTML = tipo_usuario
+    fila.appendChild(columna_tipo_usuario)
+
+
+    let columna_editar = document.createElement("td")
+    let imagen_editar = document.createElement("img")
+    imagen_editar.setAttribute("src","../recursos/img/alta.png")
+    imagen_editar.setAttribute("class","img_accion")
+    imagen_editar.setAttribute("onclick","activar_adn(event);")
+    columna_editar.appendChild(imagen_editar)
+
+    let imagen_editar2 = document.createElement("img")
+    imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+    imagen_editar2.setAttribute("class","img_accion")
+    imagen_editar2.setAttribute("onclick","eliminar_adn(event);")
+    columna_editar.appendChild(imagen_editar2)
+
+    // columna_editar.setAttribute("class","boton_tabla")
+    // // columna_editar.setAttribute("style","cursor:pointer;")
+    // columna_editar.innerHTML = "activar"
+
+    fila.appendChild(columna_editar)
+    cuerpo_paginador.appendChild(fila)  
+
+    var paso = true;
+    if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+    if (numero_clase==2&&paso==true){numero_clase=1;}
+}
+}
+// cuerpo_paginador.innerHTML=cuerpo;
+pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
+function paginador_ultima_adminNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,btn_adelante,btn_primera,btn_ultima,cuerpo_paginador,pagina_paginador){
+var cuerpo = "";
+cuerpo_paginador.innerHTML="";
+var tamano = arreglo_rutas.length;
+var numero_paginas=tamano/cantidad_vistas;
+numero_paginas=Math.ceil(numero_paginas);
+pagina_actual=numero_paginas;
+var inicio=pagina_actual-1;
+inicio=inicio*cantidad_vistas;
+var final=pagina_actual*cantidad_vistas;
+
+
+if (pagina_actual==1)
+{
+btn_atras.style="visibility:hidden;";
+btn_primera.style="visibility:hidden;";
+}
+else{
+btn_atras.style="visibility:visible;";
+btn_primera.style="visibility:visible;";
+}
+
+if (pagina_actual==numero_paginas) 
+{
+btn_adelante.style="visibility:hidden;";
+btn_ultima.style="visibility:hidden;";
+}
+else{
+btn_adelante.style="visibility:visible;";
+btn_ultima.style="visibility:visible;";
+}
+
+console.log(inicio)
+console.log(final)
+var numero_clase=1;
+for (inicio; inicio < final; inicio++) 
+{
+if (arreglo_rutas[inicio]!=undefined) 
+{
+    let id = arreglo_rutas[inicio].id
+    let nombreAdministrador = arreglo_rutas[inicio].nombreAdministrador
+    let apellidopAdministrador = arreglo_rutas[inicio].apellidopAdministrador
+    let apellidomAdministrador = arreglo_rutas[inicio].apellidomAdministrador
+    let domicilioAdministrador = arreglo_rutas[inicio].domicilioAdministrador
+    let numeroextAdministrador = arreglo_rutas[inicio].numeroextAdministrador
+    let coloniaAdministrador = arreglo_rutas[inicio].coloniaAdministrador
+    let telefonoAdministrador = arreglo_rutas[inicio].telefonoAdministrador
+    let puestoAdministrador = arreglo_rutas[inicio].puestoAdministrador
+    let correoAdministrador = arreglo_rutas[inicio].correoAdministrador
+    let activo  = arreglo_rutas[inicio].activo
+    let tipo_usuario = arreglo_rutas[inicio].tipo_usuario
+
+        let fila = document.createElement("tr")
+
+    let cadena_id = "id_"+id
+    fila.setAttribute("id",id)
+
+    
+
+    let columna_id = document.createElement("td")
+    columna_id.setAttribute("class","texto")
+    let input_id = document.createElement("input")
+    input_id.setAttribute("type","text")
+    input_id.setAttribute("value",id)
+    input_id.setAttribute("class","input_paginador")
+    input_id.setAttribute("disabled","true")
+    columna_id.appendChild(input_id)
+    // columna_id.innerHTML = id
+    fila.appendChild(columna_id)
+
+    let columna_nombre = document.createElement("td")
+    columna_nombre.setAttribute("class","texto")
+    let input_nombre = document.createElement("input")
+    input_nombre.setAttribute("type","text")
+    input_nombre.setAttribute("value",nombreAdministrador)
+    input_nombre.setAttribute("class","input_paginador")
+    input_nombre.setAttribute("disabled","true")
+    columna_nombre.appendChild(input_nombre)
+    //columna_nombre.innerHTML = nombreAdministrador
+    fila.appendChild(columna_nombre)
+
+    let columna_apellidop = document.createElement("td")
+    columna_apellidop.setAttribute("class","texto")
+
+    let input_apellidop = document.createElement("input")
+    input_apellidop.setAttribute("type","text")
+    input_apellidop.setAttribute("value",apellidopAdministrador)
+    input_apellidop.setAttribute("class","input_paginador")
+    input_apellidop.setAttribute("disabled","true")
+    columna_apellidop.appendChild(input_apellidop)
+    //columna_apellidop.innerHTML = apellidopAdministrador
+    fila.appendChild(columna_apellidop)
+
+
+    let columna_apellidom = document.createElement("td")
+    columna_apellidom.setAttribute("class","texto")
+    let input_apellidom = document.createElement("input")
+    input_apellidom.setAttribute("type","text")
+    input_apellidom.setAttribute("value",apellidomAdministrador)
+    input_apellidom.setAttribute("class","input_paginador")
+    input_apellidom.setAttribute("disabled","true")
+    columna_apellidom.appendChild(input_apellidom)
+    //columna_apellidom.innerHTML = apellidomAdministrador
+    fila.appendChild(columna_apellidom)
+
+    let columna_domicilio = document.createElement("td")
+    columna_domicilio.setAttribute("class","texto")
+    let input_domicilio = document.createElement("input")
+    input_domicilio.setAttribute("type","text")
+    input_domicilio.setAttribute("value",domicilioAdministrador)
+    input_domicilio.setAttribute("class","input_paginador")
+    input_domicilio.setAttribute("disabled","true")
+    columna_domicilio.appendChild(input_domicilio)
+    //columna_domicilio.innerHTML = domicilioAdministrador
+    fila.appendChild(columna_domicilio)
+
+    let columna_numeroext = document.createElement("td")
+    columna_numeroext.setAttribute("class","texto")
+    let input_numeroext = document.createElement("input")
+    input_numeroext.setAttribute("type","text")
+    input_numeroext.setAttribute("value",numeroextAdministrador)
+    input_numeroext.setAttribute("class","input_paginador")
+    input_numeroext.setAttribute("disabled","true")
+    columna_numeroext.appendChild(input_numeroext)
+    //columna_numeroext.innerHTML = numeroextAdministrador
+    fila.appendChild(columna_numeroext)
+
+
+
+    let columna_colonia = document.createElement("td")
+    columna_colonia.setAttribute("class","texto")
+    let input_colonia = document.createElement("input")
+    input_colonia.setAttribute("type","text")
+    input_colonia.setAttribute("value",coloniaAdministrador)
+    input_colonia.setAttribute("class","input_paginador")
+    input_colonia.setAttribute("disabled","true")
+    columna_colonia.appendChild(input_colonia)
+    //columna_colonia.innerHTML = coloniaAdministrador
+    fila.appendChild(columna_colonia)
+
+    
+    let columna_telefono = document.createElement("td")
+    columna_telefono.setAttribute("class","texto")
+    let input_telefono = document.createElement("input")
+    input_telefono.setAttribute("type","text")
+    input_telefono.setAttribute("value",telefonoAdministrador)
+    input_telefono.setAttribute("class","input_paginador")
+    input_telefono.setAttribute("disabled","true")
+    columna_telefono.appendChild(input_telefono)
+    //columna_telefono.innerHTML = telefonoAdministrador
+    fila.appendChild(columna_telefono)
+    
+    let columna_puesto = document.createElement("td")
+    columna_puesto.setAttribute("class","texto")
+    let input_puesto = document.createElement("input")
+    input_puesto.setAttribute("type","text")
+    input_puesto.setAttribute("value",puestoAdministrador)
+    input_puesto.setAttribute("class","input_paginador")
+    input_puesto.setAttribute("disabled","true")
+    columna_puesto.appendChild(input_puesto)
+    //columna_puesto.innerHTML = puestoAdministrador
+    fila.appendChild(columna_puesto)
+
+    let columna_correo = document.createElement("td")
+    columna_correo.setAttribute("class","texto")
+    let input_correo = document.createElement("input")
+    input_correo.setAttribute("type","text")
+    input_correo.setAttribute("value",correoAdministrador)
+    input_correo.setAttribute("class","input_paginador")
+    input_correo.setAttribute("disabled","true")
+    columna_correo.appendChild(input_correo)
+    //columna_correo.innerHTML = correoAdministrador
+    fila.appendChild(columna_correo)
+
+    let columna_activo = document.createElement("td")
+    columna_activo.setAttribute("class","texto")
+    columna_activo.innerHTML = activo
+    fila.appendChild(columna_activo)
+
+
+    let columna_tipo_usuario = document.createElement("td")
+    columna_tipo_usuario.setAttribute("class","texto")
+    columna_tipo_usuario.innerHTML = tipo_usuario
+    fila.appendChild(columna_tipo_usuario)
+
+
+    let columna_editar = document.createElement("td")
+    let imagen_editar = document.createElement("img")
+    imagen_editar.setAttribute("src","../recursos/img/alta.png")
+    imagen_editar.setAttribute("class","img_accion")
+    imagen_editar.setAttribute("onclick","activar_adn(event);")
+    columna_editar.appendChild(imagen_editar)
+
+    let imagen_editar2 = document.createElement("img")
+    imagen_editar2.setAttribute("src","../recursos/img/eliminar.png")
+    imagen_editar2.setAttribute("class","img_accion")
+    imagen_editar2.setAttribute("onclick","eliminar_adn(event);")
+    columna_editar.appendChild(imagen_editar2)
+
+    // columna_editar.setAttribute("class","boton_tabla")
+    // // columna_editar.setAttribute("style","cursor:pointer;")
+    // columna_editar.innerHTML = "activar"
+
+    fila.appendChild(columna_editar)
+    cuerpo_paginador.appendChild(fila)      
+
+    var paso = true;
+    if (numero_clase==1&&paso==true){numero_clase=2; paso =false;}
+    if (numero_clase==2&&paso==true){numero_clase=1;}
+}
+}
+// cuerpo_elemento_paginador.innerHTML=cuerpo;
+pagina_paginador.innerHTML= pagina_actual+" de "+numero_paginas;
+}
+
+
+

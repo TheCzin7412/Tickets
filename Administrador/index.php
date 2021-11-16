@@ -167,7 +167,7 @@
                                                     <p>Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..."onkeypress="buscar_empresas_peticion_dash(event);">       
                                                 </div>    
                                                     
                                             </div>
@@ -293,7 +293,7 @@
                                                     <p>Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empresas(event);">       
                                                 </div>    
                                                     
                                             </div>
@@ -353,7 +353,7 @@
                                                     <p>Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empresasNo(event);">       
                                                 </div>    
                                                     
                                             </div>
@@ -413,7 +413,7 @@
                                                     <p>Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empresas_peticion(event);">       
                                                 </div>    
                                                     
                                             </div>
@@ -558,7 +558,7 @@
                                                     <p>Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empleado(event);">       
                                                 </div>    
                                                     
                                             </div>
@@ -616,7 +616,7 @@
                                                     <p>Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empleadoNO(event);">       
                                                 </div>    
                                                     
                                             </div>
@@ -742,7 +742,7 @@
                                                     <p>Cantidad de administradores</p>
                                                 </div>
                                                 <div class="lista2">
-                                                    <select name="" class="select_cantidad" id="cantidad_administradores_activos" onchange="tomar_datos_administradores_activos();"> 
+                                                    <select name="" class="select_cantidad" id="cantidad_administradores_activos" onchange="tomar_datos_administradores();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
                                                         <option value="15">20</option> 
@@ -755,7 +755,7 @@
                                                     <p>Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_adn(event);">       
                                                 </div>    
                                                     
                                             </div>
@@ -812,7 +812,7 @@
                                                     <p>Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
-                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar...">       
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..."  onkeypress="buscar_AdnNO(event);">       
                                                 </div>    
                                                     
                                             </div>
@@ -837,15 +837,15 @@
                                                     <th>Acciones</th>
                                                    </tr>
                                                </thead>
-                                               <tbody id="tabla_empleado_noactivo">
+                                               <tbody id="tabla_administradores_noactivo">
                                                </tbody>
                                             </table>
                                             <div class="contenedor_paginador">
-                                                <div class="controladores_paginador" id="boton_paginador_primeroNo">Primero</div>
-                                                <div class="controladores_paginador" id="boton_paginador_anteriorNo">Anterior</div>
-                                                <div class="controladores_paginador" id="boton_paginador_cantidadNo">1 de 1</div>
-                                                <div class="controladores_paginador" id="boton_paginador_siguienteNo">Siguiente</div>
-                                                <div class="controladores_paginador" id="boton_paginador_ultimoNo">Ultimo</div>
+                                                <div class="controladores_paginador" id="boton_paginador_primeroAdminNo">Primero</div>
+                                                <div class="controladores_paginador" id="boton_paginador_anteriorAdminNo">Anterior</div>
+                                                <div class="controladores_paginador" id="boton_paginador_cantidadAdminNo">1 de 1</div>
+                                                <div class="controladores_paginador" id="boton_paginador_siguienteAdminNo">Siguiente</div>
+                                                <div class="controladores_paginador" id="boton_paginador_ultimoAdminNo">Ultimo</div>
                                             </div>
                                         </div>
                                     </div>

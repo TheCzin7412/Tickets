@@ -46,10 +46,24 @@
 // ignorar este fragmento de codigo hasta nuevo aviso
 // ########################################################
 
+
+var navegador = window.navigator.vendor || window.navigator.userAgent
+
+
 window.onload= function()
 {
-  let elemento = getCookie("vista-actual")
-    mostrarVista(elemento)
+    if(navegador.includes("Mozilla"))
+    {
+        let elemento = getCookie("vista-actual")
+        mostrarVista(elemento)
+    }
+    if(navegador.includes("Google"))
+    {
+        let cookies = document.cookie
+        // console.log(cookies)
+        datos_totales = cookies.split(";")
+        // console.log(datos_totales)
+    }
 }
 
 
@@ -99,6 +113,44 @@ function mostrarVista(elemento)
 }
 
 // mostrarVista(contenedores[0])
+
+// crear cookie
+
+function crearCookie(metodo,url,datos)
+{
+    let ajax = new XMLHttpRequest()
+
+       ajax.open(metodo,url)
+
+       ajax.send(datos)
+
+       ajax.onreadystatechange =function () 
+       {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                    // respuesta = ajax.responseText
+                    // return respuesta
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) 
+                {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+}
+
 //Desplazamiento secciones del menu en pagina principal 
 function mostrarSeccion(event)
 {    
@@ -109,20 +161,48 @@ function mostrarSeccion(event)
     let regexEmpresa = /empresas/
     let regexEmpleado = /empleado/
     let regexAdministrador = /administrador/
+
+    
+    
+    // console.log(navegador)
+
     //console.log(identificador)
     if(regexDashboard.test(identificador))
     {
         // console.log("coincide dashboard")
         let nombre_elemento = "contenedor_dashboard"
         mostrarVista(nombre_elemento)
-        setCookie("vista-actual",nombre_elemento,1)
+        
+        if(navegador.includes("Mozilla"))
+        {
+            // alert("Es mozilla")
+            setCookie("vista-actual",nombre_elemento,1)
+        }
+        if(navegador.includes("Google"))
+        {
+            // alert("Es Google")
+            let datos = new FormData()
+            datos.append("valor",nombre_elemento);
+            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        }
     }
     if(regexTicket.test(identificador))
     {
         // console.log("coincide ticket")
         let nombre_elemento = "contenedor_tickets"
         mostrarVista(nombre_elemento)
-        setCookie("vista-actual",nombre_elemento,1)
+        if(navegador.includes("Mozilla"))
+        {
+            // alert("Es mozilla")
+            setCookie("vista-actual",nombre_elemento,1)
+        }
+        if(navegador.includes("Google"))
+        {
+            // alert("Es Google")
+            let datos = new FormData()
+            datos.append("valor",nombre_elemento);
+            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        }
 
     }
     if(regexEmpresa.test(identificador))
@@ -131,23 +211,60 @@ function mostrarSeccion(event)
         let nombre_elemento = "contenedor_empresas"
         mostrarVista(nombre_elemento)
         tomar_datos_empresas()
-        setCookie("vista-actual",nombre_elemento,1)
-
+        if(navegador.includes("Mozilla"))
+        {
+            // alert("Es mozilla")
+            setCookie("vista-actual",nombre_elemento,1)
+        }
+        if(navegador.includes("Google"))
+        {
+            // alert("Es Google")
+            let datos = new FormData()
+            datos.append("valor",nombre_elemento);
+            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        }
+        
     }
     if(regexEmpleado.test(identificador))
     {
         //console.log("coincide empleado")
         let nombre_elemento = "contenedor_empleado"
         mostrarVista(nombre_elemento)
-        setCookie("vista-actual",nombre_elemento,1)
+        
         tomar_datos_empleado()
+
+        if(navegador.includes("Mozilla"))
+        {
+            // alert("Es mozilla")
+            setCookie("vista-actual",nombre_elemento,1)
+        }
+        if(navegador.includes("Google"))
+        {
+            // alert("Es Google")
+            let datos = new FormData()
+            datos.append("valor",nombre_elemento);
+            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        }
     }
     if(regexAdministrador.test(identificador))
     {
         //console.log("coincide empleado")
         let nombre_elemento = "contenedor_administradores"
         mostrarVista(nombre_elemento)
-        setCookie("vista-actual",nombre_elemento,1)
+        tomar_datos_administradores()
+
+        if(navegador.includes("Mozilla"))
+        {
+            // alert("Es mozilla")
+            setCookie("vista-actual",nombre_elemento,1)
+        }
+        if(navegador.includes("Google"))
+        {
+            // alert("Es Google")
+            let datos = new FormData()
+            datos.append("valor",nombre_elemento);
+            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        }
         
 
     }
@@ -423,14 +540,14 @@ function mostrarSeccionAdministradores(event)
         // console.log("coincide dashboard")
         let nombre_elemento = "contenedor_administradores_activos"
         mostrarVistaAdministradores(nombre_elemento)
-        tomar_datos_empleado()
+        tomar_datos_administradores()
     }
     if(regexAdministradoresNoActiva.test(identificador))
     {
         // console.log("coincide ticket")
         let nombre_elemento = "contenedor_administradores_noactivos"
         mostrarVistaAdministradores(nombre_elemento)
-        tomar_datos_empleado_noactivos()
+        tomar_datos_administradores_noactivos()
     }
     if(regexAdministradoresAgregar.test(identificador))
     {
@@ -609,9 +726,111 @@ function agregar_administrador()
     }
 }
 
-
 //funcion para desactivar empleado
 
+function desactivar_adn(event)
+{
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_objetivo = padre.id
+    // alert(padre)
+    // console.log(elemento)    
+    let estado  = "0"
+    let datos = new FormData()
+    datos.append("id_empleado",id_objetivo)
+    datos.append("estado",estado)
+
+    let confirmacion = confirm("¿Esta seguro de desactivar este administrador?")
+    // confirmacion = false
+    if(confirmacion)
+    {
+        let ajax = new XMLHttpRequest()
+
+    ajax.open("POST","../controlador/desactivar_adn.php")
+
+    ajax.send(datos)
+
+    ajax.onreadystatechange =function () 
+    {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                    let elementId =id_objetivo
+                    let node=document.getElementById(elementId);
+                    node.parentNode.removeChild(node);        
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+    }
+    
+    console.log(padre)
+}
+/////// Activar Empleado
+function activar_adn(event)
+{
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_objetivo = padre.id
+    let estado  = "1"
+
+    let datos = new FormData()
+    datos.append("id_empleado",id_objetivo)
+    datos.append("estado",estado)
+
+    let confirmacion = confirm("¿Esta seguro de activar nuevamente este administrador?")
+    if(confirmacion)
+    {
+        let ajax = new XMLHttpRequest()
+
+    ajax.open("POST","../controlador/activar_adn.php")
+
+    ajax.send(datos)
+
+    ajax.onreadystatechange =function () 
+    {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                    let elementId =id_objetivo
+                    let node=document.getElementById(elementId);
+                    node.parentNode.removeChild(node);        
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+    }
+    
+    console.log(padre)
+}
+
+//funcion para desactivar empleado
 function desactivar_empleado(event)
 {
     let elemento = event.target
@@ -713,6 +932,8 @@ function activar_empleado(event)
     
     console.log(padre)
 }
+
+
 //funcion para desactivar empresas
 function desactivar_empresas(event)
 {
@@ -762,7 +983,6 @@ function desactivar_empresas(event)
     
     console.log(padre)
 }
-
 /////// Activar empresas
 function activar_empresas(event)
 {
@@ -813,6 +1033,94 @@ function activar_empresas(event)
     
     console.log(padre)
 }
+
+var boton_agrega_empresas_adn= document.getElementById("boton_agrega_empresa_dash")
+
+function agregar_empresa_dashboard()
+{
+    
+    var input_rfcEmpresa = document.getElementById("input_rfcEmpresa").value.trim()
+    var input_nombreEmpresa = document.getElementById("input_nombreEmpresa").value.trim()
+    var input_razonsocialEmpresa = document.getElementById("input_razonsocialEmpresa").value.trim()
+    var input_domicilioEmpresa = document.getElementById("input_domicilioEmpresa").value.trim()
+    var input_numerocalleEmpresa = document.getElementById("input_numerocalleEmpresa").value.trim()
+    var input_coloniaEmpresa = document.getElementById("input_coloniaEmpresa").value.trim()
+    var input_cpEmpresa = document.getElementById("input_cpEmpresa").value.trim()
+    var input_municipioEmpresa = document.getElementById("input_municipioEmpresa").value.trim()
+    var input_estadoEmpresa = document.getElementById("input_estadoEmpresa").value.trim()
+    var input_telefonoEmpresa = document.getElementById("input_telefonoEmpresa").value.trim()
+    var input_correoEmpresa = document.getElementById("input_correoEmpresa").value.trim()
+    var input_contrasenaEmpresa = document.getElementById("input_contrasenaEmpresa").value.trim()
+
+
+    if( 
+        input_rfcEmpresa.length ==0 ||
+        input_nombreEmpresa.length ==0 ||
+        input_razonsocialEmpresa.length ==0 ||
+        input_domicilioEmpresa.length ==0 ||
+        input_numerocalleEmpresa.length ==0 ||
+        input_coloniaEmpresa.length ==0 ||
+        input_cpEmpresa.length ==0 ||
+        input_municipioEmpresa.length ==0 ||
+        input_estadoEmpresa.length ==0 ||
+        input_telefonoEmpresa.length ==0 ||
+        input_correoEmpresa.length ==0 ||
+        input_contrasenaEmpresa.length ==0 
+    ) 
+    {
+        alert("Los campos se encuentran vacio, favor de ingresar todos los datos...")
+    }
+    else
+    {
+    let datos = new FormData()
+
+    datos.append("rfcEmpresa",input_rfcEmpresa)
+    datos.append("nombreEmpresa",input_nombreEmpresa)
+    datos.append("razonsocialEmpresa",input_razonsocialEmpresa)
+    datos.append("domicilioEmpresa",input_domicilioEmpresa)
+    datos.append("numerocalleEmpresa",input_numerocalleEmpresa)
+    datos.append("coloniaEmpresa",input_coloniaEmpresa)
+    datos.append("cpEmpresa",input_cpEmpresa)
+    datos.append("municipioEmpresa",input_municipioEmpresa)
+    datos.append("estadoEmpresa",input_estadoEmpresa)
+    datos.append("telefonoEmpresa",input_telefonoEmpresa)
+    datos.append("correoEmpresa",input_correoEmpresa)
+    datos.append("contrasenaEmpresa",input_contrasenaEmpresa)
+
+
+
+    console.log(datos)
+    let ajax = new XMLHttpRequest()
+
+    ajax.open("POST","../controlador/agregar_empresa.php")
+
+    ajax.send(datos)
+
+    ajax.onreadystatechange =function () 
+    {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+    }
+}
+
 
 function setCookie(nombreCookie, contenido, fechaFinal) 
 {
@@ -865,10 +1173,7 @@ var telefono
 var puesto
 var correo
 
-
 var id_input
-
-
 
 function editar_empleado(event)
 { 
@@ -1058,6 +1363,629 @@ function editar_empleado(event)
     console.log(array_editados_empleados)
 }
 
+// var respuesta
+
+function enviarDatos(metodo,url,datos)
+{
+    let ajax = new XMLHttpRequest()
+
+       ajax.open(metodo,url)
+
+       ajax.send(datos)
+
+       ajax.onreadystatechange =function () 
+       {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                    // respuesta = ajax.responseText
+                    // return respuesta
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) 
+                {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+}
+
+
+
+var array_editar_empresas = []
+var array_editados_empresas = []
+var checar_editar_empresas = true
+
+var rfcEmpresa2
+var nombreEmpresa2
+var razonsocialEmpresa2
+var domicilioEmpresa2
+var numerocalleEmpresa2
+var coloniaEmpresa2
+var cpEmpresa2
+var municipioEmpresa2
+var estadoEmpresa2
+var telefonoEmpresa2
+var correoEmpresa2
+
+
+var rfcEmpresa
+var nombreEmpresa
+var razonsocialEmpresa
+var domicilioEmpresa
+var numerocalleEmpresa
+var coloniaEmpresa
+var cpEmpresa
+var municipioEmpresa
+var estadoEmpresa
+var telefonoEmpresa
+var correoEmpresa
+
+var id_input_empresas
+
+function editar_empresas(event)
+{ 
+    let elemento=event.target
+    let padre = elemento.parentNode.parentNode
+    let hijos = padre.children
+
+    // console.log(hijos)
+    if(checar_editar_empresas)
+    {
+        // let nombre_input = hijos[1].children[0].value
+        id_input_empresas = hijos[0].children[0].value
+        rfcEmpresa =hijos[1].children[0].value.trim()
+        nombreEmpresa = hijos[2].children[0].value.trim()
+        razonsocialEmpresa =hijos[3].children[0].value.trim()
+        domicilioEmpresa =hijos[4].children[0].value.trim()
+        numerocalleEmpresa = hijos[5].children[0].value.trim()
+        coloniaEmpresa = hijos[6].children[0].value.trim()
+        cpEmpresa = hijos[7].children[0].value.trim()
+        municipioEmpresa = hijos[8].children[0].value.trim()
+        estadoEmpresa = hijos[9].children[0].value.trim()
+        telefonoEmpresa = hijos[10].children[0].value.trim()
+        correoEmpresa = hijos[11].children[0].value.trim()
+
+
+        console.log("primera coincidencia")
+        console.log(nombreEmpresa)
+        console.log("------------")
+
+
+        for(let i=0; i<hijos.length;i++)
+        {
+            let inputs = hijos[i].children
+            let numero_input= inputs.length
+            if(numero_input==1)
+            {
+                let valorID = inputs[0].value.trim()
+                // let valorNombre inputs[1]
+                inputs[0].style.border= "solid 2px red"
+                inputs[0].disabled=false
+                // console.log(inputs) 
+                // array_editar_empleados.push(valor)
+            }
+            if(numero_input==2)
+            {
+                let hijos_editar = hijos[i].children
+                hijos_editar[1].src = "../recursos/img/alta.png"
+                console.log(hijos_editar)
+            }
+        }
+        checar_editar_empresas=false
+    }
+    else
+    {
+        rfcEmpresa2 =hijos[1].children[0].value.trim()
+        nombreEmpresa2 = hijos[2].children[0].value.trim()
+        razonsocialEmpresa2 =hijos[3].children[0].value.trim()
+        domicilioEmpresa2 =hijos[4].children[0].value.trim()
+        numerocalleEmpresa2 = hijos[5].children[0].value.trim()
+        coloniaEmpresa2 = hijos[6].children[0].value.trim()
+        cpEmpresa2 = hijos[7].children[0].value.trim()
+        municipioEmpresa2 = hijos[8].children[0].value.trim()
+        estadoEmpresa2 = hijos[9].children[0].value.trim()
+        telefonoEmpresa2 = hijos[10].children[0].value.trim()
+        correoEmpresa2 = hijos[11].children[0].value.trim()
+
+        console.log("Segunda coincidencia")
+        console.log(nombreEmpresa)
+        console.log("------------")
+
+        for(let i=0; i<hijos.length;i++)
+        {
+            let inputs = hijos[i].children
+            let numero_input= inputs.length
+            if(numero_input==1)
+            {
+                let valor = inputs[0].value
+                inputs[0].style.border= "none"
+                inputs[0].disabled=true
+                // console.log(valor) 
+                // array_editados_empleados.push(valor)
+            }
+            if(numero_input==2)
+            {
+                let hijos_editar = hijos[i].children
+                hijos_editar[1].src = "../recursos/img/editar.png"
+                console.log(hijos_editar)
+            }
+        }
+
+        if(rfcEmpresa!=rfcEmpresa2)
+        {
+            console.log("se edito RFC")
+
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","rfcEmpresa")
+            info.append("valor",rfcEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+
+        }
+        if(nombreEmpresa!=nombreEmpresa2)
+        {
+            console.log("se edito nombre empresa")
+            
+            let info = new FormData()
+            info.append("id",id_input_empresas)
+            info.append("tipo","nombreEmpresa")
+            info.append("valor",nombreEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(razonsocialEmpresa!=razonsocialEmpresa2)
+        {
+            console.log("se edito  razon social")
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","razonsocialEmpresa")
+            info.append("valor",razonsocialEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(domicilioEmpresa!=domicilioEmpresa2)
+        {
+            console.log("se edito domicilio empresa")
+
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","domicilioEmpresa")
+            info.append("valor",domicilioEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(numerocalleEmpresa!=numerocalleEmpresa2)
+        {
+            console.log("se edito numExt empresa")
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","numerocalleEmpresa")
+            info.append("valor",numerocalleEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(coloniaEmpresa!=coloniaEmpresa2)
+        {
+            console.log("se edito colonia empresa")
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","coloniaEmpresa")
+            info.append("valor",coloniaEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(cpEmpresa!=cpEmpresa2)
+        {
+            console.log("se edito CP")
+
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","cpEmpresa")
+            info.append("valor",cpEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(municipioEmpresa!=municipioEmpresa2)
+        {
+            console.log("se edito municipio")
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","municipioEmpresa")
+            info.append("valor",municipioEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(estadoEmpresa!=estadoEmpresa2)
+        {
+            console.log("se edito estado")
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","estadoEmpresa")
+            info.append("valor",estadoEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(telefonoEmpresa!=telefonoEmpresa2)
+        {
+            console.log("se edito telefono empresa")
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","telefonoEmpresa")
+            info.append("valor",telefonoEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        if(correoEmpresa!=correoEmpresa2)
+        {
+            console.log("se edito correo")
+            let info = new FormData()
+
+            info.append("id",id_input_empresas)
+            info.append("tipo","correoEmpresa")
+            info.append("valor",correoEmpresa2)
+            enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
+        }
+        tomar_datos_empresas()
+        checar_editar_empresas=true
+    }
+    //console.log(array_editar_empresas)
+    //console.log(array_editados_empresas)
+}
+
+
+
+var array_editar_admin = []
+var array_editados_admin = []
+var checar_editar_admin = true
+
+var nombreAdministrador2
+var apellidoPAdministrador2
+var apellidoMAdministrador2
+var domicilioAdministrador2
+var numExtAdministrador2
+var coloniaAdministrador2
+var telefonoAdministrador2
+var puestoAdministrador2
+var correoAdministrador2
+
+var nombreAdministrador
+var apellidoPAdministrador
+var apellidoMAdministrador
+var domicilioAdministrador
+var numExtAdministrador
+var coloniaAdministrador
+var telefonoAdministrador
+var puestoAdministrador
+var correoAdministrador
+
+var id_input_administrador
+
+function editar_adn(event)
+{ 
+    
+
+    let elemento=event.target
+    let padre = elemento.parentNode.parentNode
+    let hijos = padre.children
+
+    
+    // console.log(hijos)
+    if(checar_editar_admin)
+    {
+        // let nombre_input = hijos[1].children[0].value
+        id_input_administrador = hijos[0].children[0].value
+        nombreAdministrador =hijos[1].children[0].value.trim()
+        apellidoPAdministrador = hijos[2].children[0].value.trim()
+        apellidoMAdministrador =hijos[3].children[0].value.trim()
+        domicilioAdministrador =hijos[4].children[0].value.trim()
+        numExtAdministrador = hijos[5].children[0].value.trim()
+        coloniaAdministrador = hijos[6].children[0].value.trim()
+        telefonoAdministrador = hijos[7].children[0].value.trim()
+        puestoAdministrador = hijos[8].children[0].value.trim()
+        correoAdministrador = hijos[9].children[0].value.trim()
+
+        console.log("primera coincidencia")
+        console.log(nombreAdministrador)
+        console.log("------------")
+
+
+        for(let i=0; i<hijos.length;i++)
+        {
+            let inputs = hijos[i].children
+            let numero_input= inputs.length
+            if(numero_input==1)
+            {
+                let valorID = inputs[0].value.trim()
+                // let valorNombre inputs[1]
+                inputs[0].style.border= "solid 2px red"
+                inputs[0].disabled=false
+                // console.log(inputs) 
+                // array_editar_empleados.push(valor)
+            }
+            if(numero_input==2)
+            {
+                let hijos_editar = hijos[i].children
+                hijos_editar[1].src = "../recursos/img/alta.png"
+                console.log(hijos_editar)
+            }
+        }
+        checar_editar_admin=false
+    }
+    else
+    {
+        nombreAdministrador2 =hijos[1].children[0].value.trim()
+        apellidoPAdministrador2 = hijos[2].children[0].value.trim()
+        apellidoMAdministrador2 =hijos[3].children[0].value.trim()
+        domicilioAdministrador2 =hijos[4].children[0].value.trim()
+        numExtAdministrador2 = hijos[5].children[0].value.trim()
+        coloniaAdministrador2 = hijos[6].children[0].value.trim()
+        telefonoAdministrador2 = hijos[7].children[0].value.trim()
+        puestoAdministrador2 = hijos[8].children[0].value.trim()
+        correoAdministrador2 = hijos[9].children[0].value.trim()
+
+        console.log("Segunda coincidencia")
+        console.log(nombreAdministrador2)
+        console.log("------------")
+
+        for(let i=0; i<hijos.length;i++)
+        {
+            let inputs = hijos[i].children
+            let numero_input= inputs.length
+            if(numero_input==1)
+            {
+                let valor = inputs[0].value
+                inputs[0].style.border= "none"
+                inputs[0].disabled=true
+                // console.log(valor) 
+                // array_editados_empleados.push(valor)
+            }
+            if(numero_input==2)
+            {
+                let hijos_editar = hijos[i].children
+                hijos_editar[1].src = "../recursos/img/editar.png"
+                console.log(hijos_editar)
+            }
+        }
+
+        if(nombreAdministrador!=nombreAdministrador2)
+        {
+            console.log("se edito nombre")
+
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","nombreAdministrador")
+            info.append("valor",nombreAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+
+        }
+        if(apellidoPAdministrador!=apellidoPAdministrador2)
+        {
+            console.log("se edito apellido P")
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","apellidoPAdministrador")
+            info.append("valor",apellidoPAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+        }
+        if(apellidoMAdministrador!=apellidoMAdministrador2)
+        {
+            console.log("se edito apellido M")
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","apellidoMAdministrador")
+            info.append("valor",apellidoMAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+        }
+        if(domicilioAdministrador!=domicilioAdministrador2)
+        {
+            console.log("se edito domicilio")
+
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","domicilioAdministrador")
+            info.append("valor",domicilioAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+        }
+        if(numExtAdministrador!=numExtAdministrador2)
+        {
+            console.log("se edito numExtAdministrador")
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","numExtAdministrador")
+            info.append("valor",numExtAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+        }
+        if(coloniaAdministrador!=coloniaAdministrador2)
+        {
+            console.log("se edito coloniaAdministrador")
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","coloniaAdministrador")
+            info.append("valor",coloniaAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+        }
+        if(telefonoAdministrador!=telefonoAdministrador2)
+        {
+            console.log("se edito telefonoAdministrador")
+
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","telefonoAdministrador")
+            info.append("valor",telefonoAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+        }
+        if(puestoAdministrador!=puestoAdministrador2)
+        {
+            console.log("se edito puestoAdministrador")
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","puestoAdministrador")
+            info.append("valor",puestoAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+        }
+        if(correoAdministrador!=correoAdministrador2)
+        {
+            console.log("se edito correoAdministrador")
+            let info = new FormData()
+
+            info.append("id",id_input_administrador)
+            info.append("tipo","correoAdministrador")
+            info.append("valor",correoAdministrador2)
+            enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
+        }
+        tomar_datos_administradores()
+        checar_editar_admin=true
+    }
+    console.log(array_editar_admin)
+    console.log(array_editados_admin)
+}
+
+// var respuesta
+
+function enviarDatosAdmin(metodo,url,datos)
+{
+    let ajax = new XMLHttpRequest()
+
+       ajax.open(metodo,url)
+
+       ajax.send(datos)
+
+       ajax.onreadystatechange =function () 
+       {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                    // respuesta = ajax.responseText
+                    // return respuesta
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) 
+                {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+}
+
+
+// var respuesta
+
+function enviarDatosEmpresas(metodo,url,datos)
+{
+    let ajax = new XMLHttpRequest()
+
+       ajax.open(metodo,url)
+
+       ajax.send(datos)
+
+       ajax.onreadystatechange =function () 
+       {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                    // respuesta = ajax.responseText
+                    // return respuesta
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) 
+                {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+}
+
+function eliminar_empresa(event)
+{   
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_objetivo = padre.id
+    // alert(padre)
+    // console.log(id_objetivo)    
+    // let estado  = "0"
+    let datos = new FormData()
+    datos.append("id_empresa",id_objetivo)
+    // datos.append("estado",estado)
+    let confirmacion = confirm("¿Esta seguro de elimiar a este empresa de la base de datos?"+"\nSe borrar toda la informacion deporvida!!!!" )
+    // confirmacion = false
+    if(confirmacion)
+    {
+        let ajax = new XMLHttpRequest()
+
+    ajax.open("POST","../controlador/eliminar_empresa.php")
+
+    ajax.send(datos)
+
+    ajax.onreadystatechange =function () 
+    {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                    let elementId =id_objetivo
+                    let node=document.getElementById(elementId);
+                    node.parentNode.removeChild(node);  
+                    // tomar_datos_empleado_noactivos()      
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+    }
+    
+    console.log(padre)
+
+}
 
 function eliminar_empleado(event)
 {   
@@ -1112,107 +2040,24 @@ function eliminar_empleado(event)
 
 }
 
-
-
-
-// var respuesta
-
-function enviarDatos(metodo,url,datos)
-{
-    let ajax = new XMLHttpRequest()
-
-       ajax.open(metodo,url)
-
-       ajax.send(datos)
-
-       ajax.onreadystatechange =function () 
-       {
-            if (ajax.readyState == 4) 
-            {
-                if (ajax.status == 200) 
-                {
-                    // console.log("200 Respuesta Exitosa");
-                    console.log(ajax.responseText)
-                    // respuesta = ajax.responseText
-                    // return respuesta
-                }
-                if (ajax.status == 400) 
-                {
-                    console.log("400 El servidor no entendió la petición");
-                }
-                if (ajax.status == 404)
-                {
-                    console.log("404 Página no encontrada");
-                }
-                if (ajax.status == 500) 
-                {
-                    console.log("500 Error interno de servidor");
-                }
-            }            
-        }
-}
-
-
-
-var boton_agrega_empresas_adn= document.getElementById("boton_agrega_empresa_dash")
-
-function agregar_empresa_dashboard()
-{
-    
-    var input_rfcEmpresa = document.getElementById("input_rfcEmpresa").value.trim()
-    var input_nombreEmpresa = document.getElementById("input_nombreEmpresa").value.trim()
-    var input_razonsocialEmpresa = document.getElementById("input_razonsocialEmpresa").value.trim()
-    var input_domicilioEmpresa = document.getElementById("input_domicilioEmpresa").value.trim()
-    var input_numerocalleEmpresa = document.getElementById("input_numerocalleEmpresa").value.trim()
-    var input_coloniaEmpresa = document.getElementById("input_coloniaEmpresa").value.trim()
-    var input_cpEmpresa = document.getElementById("input_cpEmpresa").value.trim()
-    var input_municipioEmpresa = document.getElementById("input_municipioEmpresa").value.trim()
-    var input_estadoEmpresa = document.getElementById("input_estadoEmpresa").value.trim()
-    var input_telefonoEmpresa = document.getElementById("input_telefonoEmpresa").value.trim()
-    var input_correoEmpresa = document.getElementById("input_correoEmpresa").value.trim()
-    var input_contrasenaEmpresa = document.getElementById("input_contrasenaEmpresa").value.trim()
-
-
-    if( 
-        input_rfcEmpresa.length ==0 ||
-        input_nombreEmpresa.length ==0 ||
-        input_razonsocialEmpresa.length ==0 ||
-        input_domicilioEmpresa.length ==0 ||
-        input_numerocalleEmpresa.length ==0 ||
-        input_coloniaEmpresa.length ==0 ||
-        input_cpEmpresa.length ==0 ||
-        input_municipioEmpresa.length ==0 ||
-        input_estadoEmpresa.length ==0 ||
-        input_telefonoEmpresa.length ==0 ||
-        input_correoEmpresa.length ==0 ||
-        input_contrasenaEmpresa.length ==0 
-    ) 
-    {
-        alert("Los campos se encuentran vacio, favor de ingresar todos los datos...")
-    }
-    else
-    {
+function eliminar_adn(event)
+{   
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_objetivo = padre.id
+    // alert(padre)
+    // console.log(id_objetivo)    
+    // let estado  = "0"
     let datos = new FormData()
+    datos.append("id_adn",id_objetivo)
+    // datos.append("estado",estado)
+    let confirmacion = confirm("¿Esta seguro de elimiar a este administrador de la base de datos?"+"\nSe borrar toda la informacion deporvida!!!!" )
+    // confirmacion = false
+    if(confirmacion)
+    {
+        let ajax = new XMLHttpRequest()
 
-    datos.append("rfcEmpresa",input_rfcEmpresa)
-    datos.append("nombreEmpresa",input_nombreEmpresa)
-    datos.append("razonsocialEmpresa",input_razonsocialEmpresa)
-    datos.append("domicilioEmpresa",input_domicilioEmpresa)
-    datos.append("numerocalleEmpresa",input_numerocalleEmpresa)
-    datos.append("coloniaEmpresa",input_coloniaEmpresa)
-    datos.append("cpEmpresa",input_cpEmpresa)
-    datos.append("municipioEmpresa",input_municipioEmpresa)
-    datos.append("estadoEmpresa",input_estadoEmpresa)
-    datos.append("telefonoEmpresa",input_telefonoEmpresa)
-    datos.append("correoEmpresa",input_correoEmpresa)
-    datos.append("contrasenaEmpresa",input_contrasenaEmpresa)
-
-
-
-    console.log(datos)
-    let ajax = new XMLHttpRequest()
-
-    ajax.open("POST","../controlador/agregar_empresa.php")
+    ajax.open("POST","../controlador/eliminar_adn.php")
 
     ajax.send(datos)
 
@@ -1224,6 +2069,10 @@ function agregar_empresa_dashboard()
                 {
                     // console.log("200 Respuesta Exitosa");
                     console.log(ajax.responseText)
+                    let elementId =id_objetivo
+                    let node=document.getElementById(elementId);
+                    node.parentNode.removeChild(node);  
+                    // tomar_datos_empleado_noactivos()      
                 }
                 if (ajax.status == 400) 
                 {
@@ -1239,5 +2088,980 @@ function agregar_empresa_dashboard()
             }            
         }
     }
+    
+    console.log(padre)
+
 }
+
+
+
+var datos_filtrados = []
+function buscar_empleado(event)
+{
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_empleados)
+                {
+
+                    console.log(objeto)
+                    let nombreE = objeto.nombreEmpleado.toLowerCase()
+                    let apellidoM = objeto.apellidomEmpleado.toLowerCase()
+                    let apellidoP = objeto.apellidopEmpleado.toLowerCase()
+                    let domicilioE = objeto.domicilioEmpleado.toLowerCase()
+                    let numeroextE = objeto.numeroextEmpleado.toLowerCase()
+                    let coloniaE = objeto.coloniaEmpleado.toLowerCase()
+                    let telefonoE = objeto.telefonoEmpleado.toLowerCase()
+                    let puestoE = objeto.correoEmpleado.toLowerCase()
+                    let correoE = objeto.correoEmpleado.toLowerCase()
+                    let tipo = objeto.tipo_usuario.toLowerCase()
+
+                    if(nombreE.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(apellidoM.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(apellidoP.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }
+                    if(domicilioE.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(numeroextE.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(coloniaE.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(telefonoE.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(puestoE.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }
+                    if(correoE.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(tipo.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }  
+                }
+                console.log(datos_filtrados)
+                if(datos_filtrados.length>0)
+                {
+                    // datos_empleados = datos_filtrados
+                    paginador_empleado(datos_filtrados,pagina_actual_empleados_activos,cantidad_vistas,boton_anterior,boton_siguiente,boton_primero,boton_ultimo,cuerpo,indicador_pagina)
+                }
+            }
+            else
+            {
+                tomar_datos_empleado()
+            }
+        }
+}
+var datos_filtradosNo = []
+function buscar_empleadoNO(event)
+{
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_empleadosNO)
+                {
+
+                    console.log(objeto)
+                    let nombreE = objeto.nombreEmpleado.toLowerCase()
+                    let apellidoM = objeto.apellidomEmpleado.toLowerCase()
+                    let apellidoP = objeto.apellidopEmpleado.toLowerCase()
+                    let domicilioE = objeto.domicilioEmpleado.toLowerCase()
+                    let numeroextE = objeto.numeroextEmpleado.toLowerCase()
+                    let coloniaE = objeto.coloniaEmpleado.toLowerCase()
+                    let telefonoE = objeto.telefonoEmpleado.toLowerCase()
+                    let puestoE = objeto.correoEmpleado.toLowerCase()
+                    let correoE = objeto.correoEmpleado.toLowerCase()
+                    let tipo = objeto.tipo_usuario.toLowerCase()
+
+                    if(nombreE.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    } 
+                    if(apellidoM.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    } 
+                    if(apellidoP.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    }
+                    if(domicilioE.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    } 
+                    if(numeroextE.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    } 
+                    if(coloniaE.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    } 
+                    if(telefonoE.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    } 
+                    if(puestoE.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    }
+                    if(correoE.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    } 
+                    if(tipo.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosNo.includes(objeto))
+                        {
+                            datos_filtradosNo.push(objeto)
+                        }
+                    }  
+                }
+                console.log(datos_filtradosNo)
+                if(datos_filtradosNo.length>0)
+                {
+                    // datos_empleados = datos_filtradosNo
+                    paginador_empleadoNo(datos_filtradosNo,pagina_actual_empleados_activosNO,cantidad_vistasNO,boton_anteriorNO,boton_siguienteNO,boton_primeroNO,boton_ultimoNO,cuerpoNO,indicador_paginaNO)                
+                }
+            }
+            else
+            {
+                tomar_datos_empleado_noactivos()
+            }
+        }
+}
+
+var datos_filtradosEmpresa = []
+function buscar_empresas(event)
+{
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_empresas)
+                {
+
+                    console.log(objeto)
+                    let rfcEmpresa = objeto.rfcEmpresa.toLowerCase()
+                    let nombreEmpresa = objeto.nombreEmpresa.toLowerCase()
+                    let razonsocialEmpresa = objeto.razonsocialEmpresa.toLowerCase()
+                    let domicilioEmpresa = objeto.domicilioEmpresa.toLowerCase()
+                    let numerocalleEmpresa = objeto.numerocalleEmpresa.toLowerCase()
+                    let coloniaEmpresa = objeto.coloniaEmpresa.toLowerCase()
+                    let cpEmpresa = objeto.cpEmpresa.toLowerCase()
+                    let municipioEmpresa = objeto.municipioEmpresa.toLowerCase()
+                    let estadoEmpresa = objeto.estadoEmpresa.toLowerCase()
+                    let telefonoEmpresa = objeto.telefonoEmpresa.toLowerCase()
+                    let correoEmpresa = objeto.correoEmpresa.toLowerCase()
+                    let tipo_usuario = objeto.tipo_usuario.toLowerCase()
+
+                   if(rfcEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    } 
+                    if(nombreEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    } 
+                    if(razonsocialEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    }
+                    if(domicilioEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    } 
+                    if(numerocalleEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    } 
+                    if(coloniaEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    } 
+                    if(cpEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    } 
+                    if(municipioEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    }
+                    if(estadoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    } 
+                    if(telefonoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    }
+                    if(correoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    }  
+                    if(tipo_usuario.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresa.includes(objeto))
+                        {
+                            datos_filtradosEmpresa.push(objeto)
+                        }
+                    }    
+                }
+                console.log(datos_filtradosEmpresa)
+                if(datos_filtradosEmpresa.length>0)
+                {
+                    // datos_empleados = datos_filtradosEmpresa
+                    paginador_empresas(datos_filtradosEmpresa,pagina_actual_empresas_activos,cantidad_vistasEmpresas,boton_anteriorEmpresas,boton_siguienteEmpresas,boton_primeroEmpresas,boton_ultimoEmpresas,cuerpoEmpresas,indicador_paginaEmpresas)
+                }
+            }
+            else
+            {
+                tomar_datos_empresas()
+            }
+        }
+}
+
+var datos_filtradosEmpresaNo = []
+function buscar_empresasNo(event)
+{
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_empresasNo)
+                {
+
+                    console.log(objeto)
+                    let rfcEmpresa = objeto.rfcEmpresa.toLowerCase()
+                    let nombreEmpresa = objeto.nombreEmpresa.toLowerCase()
+                    let razonsocialEmpresa = objeto.razonsocialEmpresa.toLowerCase()
+                    let domicilioEmpresa = objeto.domicilioEmpresa.toLowerCase()
+                    let numerocalleEmpresa = objeto.numerocalleEmpresa.toLowerCase()
+                    let coloniaEmpresa = objeto.coloniaEmpresa.toLowerCase()
+                    let cpEmpresa = objeto.cpEmpresa.toLowerCase()
+                    let municipioEmpresa = objeto.municipioEmpresa.toLowerCase()
+                    let estadoEmpresa = objeto.estadoEmpresa.toLowerCase()
+                    let telefonoEmpresa = objeto.telefonoEmpresa.toLowerCase()
+                    let correoEmpresa = objeto.correoEmpresa.toLowerCase()
+                    let tipo_usuario = objeto.tipo_usuario.toLowerCase()
+
+                   if(rfcEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    } 
+                    if(nombreEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    } 
+                    if(razonsocialEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    }
+                    if(domicilioEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    } 
+                    if(numerocalleEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    } 
+                    if(coloniaEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    } 
+                    if(cpEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    } 
+                    if(municipioEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    }
+                    if(estadoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    } 
+                    if(telefonoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    }
+                    if(correoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    }  
+                    if(tipo_usuario.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosEmpresaNo.includes(objeto))
+                        {
+                            datos_filtradosEmpresaNo.push(objeto)
+                        }
+                    }    
+                }
+                console.log(datos_filtradosEmpresaNo)
+                if(datos_filtradosEmpresaNo.length>0)
+                {
+                    // datos_empleados = datos_filtradosEmpresaNo
+                    paginador_empresasNo(datos_filtradosEmpresaNo,pagina_actual_empresas_noactivos,cantidad_vistasEmpresasNo,boton_anteriorEmpresasNo,boton_siguienteEmpresasNo,boton_primeroEmpresasNo,boton_ultimoEmpresasNo,cuerpoEmpresasNo,indicador_paginaEmpresasNo)
+                }
+            }
+            else
+            {
+                tomar_datos_empresas_noactivas()
+            }
+        }
+}
+
+var datos_filtradosPeticion= []
+function buscar_empresas_peticion(event)
+{
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_empresasPendientes)
+                {
+
+                    console.log(objeto)
+                    let rfcEmpresa = objeto.rfcEmpresa.toLowerCase()
+                    let nombreEmpresa = objeto.nombreEmpresa.toLowerCase()
+                    let razonsocialEmpresa = objeto.razonsocialEmpresa.toLowerCase()
+                    let domicilioEmpresa = objeto.domicilioEmpresa.toLowerCase()
+                    let numerocalleEmpresa = objeto.numerocalleEmpresa.toLowerCase()
+                    let coloniaEmpresa = objeto.coloniaEmpresa.toLowerCase()
+                    let cpEmpresa = objeto.cpEmpresa.toLowerCase()
+                    let municipioEmpresa = objeto.municipioEmpresa.toLowerCase()
+                    let estadoEmpresa = objeto.estadoEmpresa.toLowerCase()
+                    let telefonoEmpresa = objeto.telefonoEmpresa.toLowerCase()
+                    let correoEmpresa = objeto.correoEmpresa.toLowerCase()
+                    let tipo_usuario = objeto.tipo_usuario.toLowerCase()
+
+                   if(rfcEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    } 
+                    if(nombreEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    } 
+                    if(razonsocialEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    }
+                    if(domicilioEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    } 
+                    if(numerocalleEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    } 
+                    if(coloniaEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    } 
+                    if(cpEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    } 
+                    if(municipioEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    }
+                    if(estadoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    } 
+                    if(telefonoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    }
+                    if(correoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    }  
+                    if(tipo_usuario.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticion.includes(objeto))
+                        {
+                            datos_filtradosPeticion.push(objeto)
+                        }
+                    }    
+                }
+                console.log(datos_filtradosPeticion)
+                if(datos_filtradosPeticion.length>0)
+                {
+                    // datos_empleados = datos_filtradosPeticion
+                    paginador_empresasPendientes(datos_filtradosPeticion,pagina_actual_empresas_Pendientes,cantidad_vistasEmpresasPendientes,boton_anteriorEmpresasPendientes,boton_siguienteEmpresasPendientes,boton_primeroEmpresasPendientes,boton_ultimoEmpresasPendientes,cuerpoEmpresasPendientes,indicador_paginaEmpresasPendientes)
+                }
+            }
+            else
+            {
+                tomar_datos_empresas_peticion()
+            }
+        }
+}
+
+var datos_filtradosPeticionDash = []
+function buscar_empresas_peticion_dash(event)
+{
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_empresasPendientesDash)
+                {
+
+                    console.log(objeto)
+                    let rfcEmpresa = objeto.rfcEmpresa.toLowerCase()
+                    let nombreEmpresa = objeto.nombreEmpresa.toLowerCase()
+                    let razonsocialEmpresa = objeto.razonsocialEmpresa.toLowerCase()
+                    let domicilioEmpresa = objeto.domicilioEmpresa.toLowerCase()
+                    let numerocalleEmpresa = objeto.numerocalleEmpresa.toLowerCase()
+                    let coloniaEmpresa = objeto.coloniaEmpresa.toLowerCase()
+                    let cpEmpresa = objeto.cpEmpresa.toLowerCase()
+                    let municipioEmpresa = objeto.municipioEmpresa.toLowerCase()
+                    let estadoEmpresa = objeto.estadoEmpresa.toLowerCase()
+                    let telefonoEmpresa = objeto.telefonoEmpresa.toLowerCase()
+                    let correoEmpresa = objeto.correoEmpresa.toLowerCase()
+                    let tipo_usuario = objeto.tipo_usuario.toLowerCase()
+
+                   if(rfcEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    } 
+                    if(nombreEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    } 
+                    if(razonsocialEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    }
+                    if(domicilioEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    } 
+                    if(numerocalleEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    } 
+                    if(coloniaEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    } 
+                    if(cpEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    } 
+                    if(municipioEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    }
+                    if(estadoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    } 
+                    if(telefonoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    }
+                    if(correoEmpresa.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    }  
+                    if(tipo_usuario.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosPeticionDash.includes(objeto))
+                        {
+                            datos_filtradosPeticionDash.push(objeto)
+                        }
+                    }    
+                }
+                console.log(datos_filtradosPeticionDash)
+                if(datos_filtradosPeticionDash.length>0)
+                {
+                    // datos_empleados = datos_filtradosPeticionDash
+                    paginador_empresasPendientesDash(datos_filtradosPeticionDash,pagina_actual_empresas_PendientesDash,cantidad_vistasEmpresasPendientesDash,boton_anteriorEmpresasPendientesDash,boton_siguienteEmpresasPendientesDash,boton_primeroEmpresasPendientesDash,boton_ultimoEmpresasPendientesDash,cuerpoEmpresasPendientesDash,indicador_paginaEmpresasPendientesDash)
+                }
+            }
+            else
+            {
+                tomar_datos_empresas_peticion_dashboard()
+            }
+        }
+}
+
+
+var datos_filtradosAdn = []
+function buscar_adn(event)
+{
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_admin)
+                {
+
+                    console.log(objeto)
+                    let nombreAdministrador = objeto.nombreAdministrador.toLowerCase()
+                    let apellidomAdministrador = objeto.apellidomAdministrador.toLowerCase()
+                    let apellidopAdministrador = objeto.apellidopAdministrador.toLowerCase()
+                    let domicilioAdministrador = objeto.domicilioAdministrador.toLowerCase()
+                    let numeroextAdministrador = objeto.numeroextAdministrador.toLowerCase()
+                    let coloniaAdministrador = objeto.coloniaAdministrador.toLowerCase()
+                    let telefonoAdministrador = objeto.telefonoAdministrador.toLowerCase()
+                    let puestoAdministrador = objeto.puestoAdministrador.toLowerCase()
+                    let correoAdministrador = objeto.correoAdministrador.toLowerCase()
+                    let tipo = objeto.tipo_usuario.toLowerCase()
+
+                    if(nombreAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    } 
+                    if(apellidomAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    } 
+                    if(apellidopAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    }
+                    if(domicilioAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    } 
+                    if(numeroextAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    } 
+                    if(coloniaAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    } 
+                    if(telefonoAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    } 
+                    if(puestoAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    }
+                    if(correoAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    } 
+                    if(tipo.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdn.includes(objeto))
+                        {
+                            datos_filtradosAdn.push(objeto)
+                        }
+                    }  
+                }
+                console.log(datos_filtradosAdn)
+                if(datos_filtradosAdn.length>0)
+                {
+                    // datos_empleados = datos_filtradosAdn
+                    paginador_admin(datos_filtradosAdn,pagina_actual_Admin_activos,cantidad_vistasAdmin,boton_anteriorAdmin,boton_siguienteAdmin,boton_primeroAdmin,boton_ultimoAdmin,cuerpoAdmin,indicador_paginaAdmin)
+                }
+            }
+            else
+            {
+                tomar_datos_administradores()
+            }
+        }
+}
+
+var datos_filtradosAdnNO = []
+function buscar_AdnNO(event)
+{
+    let codigo_tecla = event.keyCode
+    //console.log(datos_adminNo)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_adminNo)
+                {
+
+                    console.log(objeto)
+                    let nombreAdministrador = objeto.nombreAdministrador.toLowerCase()
+                    let apellidomAdministrador = objeto.apellidomAdministrador.toLowerCase()
+                    let apellidopAdministrador = objeto.apellidopAdministrador.toLowerCase()
+                    let domicilioAdministrador = objeto.domicilioAdministrador.toLowerCase()
+                    let numeroextAdministrador = objeto.numeroextAdministrador.toLowerCase()
+                    let coloniaAdministrador = objeto.coloniaAdministrador.toLowerCase()
+                    let telefonoAdministrador = objeto.telefonoAdministrador.toLowerCase()
+                    let puestoAdministrador = objeto.puestoAdministrador.toLowerCase()
+                    let correoAdministrador = objeto.correoAdministrador.toLowerCase()
+                    let tipo = objeto.tipo_usuario.toLowerCase()
+
+                    if(nombreAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    } 
+                    if(apellidomAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    } 
+                    if(apellidopAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    }
+                    if(domicilioAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    } 
+                    if(numeroextAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    } 
+                    if(coloniaAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    } 
+                    if(telefonoAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    } 
+                    if(puestoAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    }
+                    if(correoAdministrador.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    } 
+                    if(tipo.includes(valor_buscar))
+                    {
+                        if(!datos_filtradosAdnNO.includes(objeto))
+                        {
+                            datos_filtradosAdnNO.push(objeto)
+                        }
+                    }  
+                }
+                console.log(datos_filtradosAdnNO)
+                if(datos_filtradosAdnNO.length>0)
+                {
+                    // datos_empleados = datos_filtradosAdnNO
+                    paginador_adminNo(datos_filtradosAdnNO,pagina_actual_Admin_Noactivos,cantidad_vistasAdminNo,boton_anteriorAdminNo,boton_siguienteAdminNo,boton_primeroAdminNo,boton_ultimoAdminNo,cuerpoAdminNo,indicador_paginaAdminNo)
+                }
+            }
+            else
+            {
+                tomar_datos_administradores_noactivos()
+            }
+        }
+}
+
+
 

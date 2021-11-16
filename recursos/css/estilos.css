@@ -11,7 +11,7 @@ gris 6E6D6A
     --colorGris: #6E6D6A;
     --colorBlanco:#FFFFFF;
 
-    --tamanoTitulo:22px;
+    --tamanoTitulo:18px;
     --tamanoTexto:15px;
 
     --tipografiaTitulo:'Bebas';
@@ -56,9 +56,7 @@ gris 6E6D6A
     tbody
     {
         font-family: var(--tipogrfiaTexto);
-
     }
-
     h1 
     {
         font-size: 20px;
@@ -111,6 +109,10 @@ gris 6E6D6A
     justify-content: flex-end;
     align-items: center;
 }
+.txt{
+    width: 100%;
+
+}
 .texto
 {
     font-size: 20px;
@@ -136,6 +138,7 @@ gris 6E6D6A
     display: flex;
     width: 15%;
     height: 100%;
+    margin-right: 15px;
     flex-direction: column;
 }
 
@@ -154,6 +157,7 @@ gris 6E6D6A
     padding: 10px;
     justify-content: flex-start;
     align-items: center;
+    
 }
 
 .boton_control:hover
@@ -172,7 +176,7 @@ gris 6E6D6A
 .texto_menu
 {
     width: auto;
-    font-size: var(--tamanoTexto);
+    font-size: 13px;
 }
 
 #contenedor_dashboard

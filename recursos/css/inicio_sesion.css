@@ -85,9 +85,9 @@
 .boton_login
 {
     width: 50%;
+    height: auto;
     padding: 10px;
-    padding-left: 30px;   
-    padding-right: 30px;   
+    margin-bottom: 15px;
     background: var(--colorAzul);
     color: var(--colorBlanco);
 }.boton_login:hover

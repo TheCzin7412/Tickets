@@ -3,7 +3,6 @@ var boton_registro_iniciosesion = document.getElementById("boton_registro_inicio
 
 function inicio_sesion()
 {
-    
     var input_correo = document.getElementById("input_correo").value.trim()
     var input_contra = document.getElementById("input_contra").value.trim()
 
@@ -74,7 +73,14 @@ function inicio_sesion()
 
 
 
-
+function limpiar_formulario_agrega_peticion_login()
+{
+    let elementos = document.querySelectorAll(".input_text_empresa")
+    for(let i =0; i<elementos.length;i++)
+    {
+        elementos[i].value=""
+    }
+}
 
 function agregar_peticion_empresa()
 {
@@ -142,7 +148,7 @@ function agregar_peticion_empresa()
             {
                 if (ajax.status == 200) 
                 {
-                    limpiar_formulario_empresas_peticion_login()
+                    limpiar_formulario_agrega_peticion_login()
                     // console.log("200 Respuesta Exitosa");
                     console.log(ajax.responseText)
                 }
