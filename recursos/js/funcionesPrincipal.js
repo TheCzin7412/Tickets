@@ -1188,7 +1188,7 @@ function editar_empleado(event)
     if(checar_editar_usuarios)
     {
         // let nombre_input = hijos[1].children[0].value
-        id_input = hijos[0].children[0].value
+        id_input = hijos[0].innerHTML
         nombre =hijos[1].children[0].value.trim()
         apellidoP = hijos[2].children[0].value.trim()
         apellidoM =hijos[3].children[0].value.trim()
@@ -1328,7 +1328,6 @@ function editar_empleado(event)
         if(telefono!=telefono2)
         {
             console.log("se edito telefono")
-
             let info = new FormData()
 
             info.append("id",id_input)
@@ -1356,8 +1355,8 @@ function editar_empleado(event)
             info.append("valor",correo2)
             enviarDatos("POST","../controlador/editar_empleado.php",info)
         }
-        tomar_datos_empleado()
         checar_editar_usuarios=true
+        tomar_datos_empleado()
     }
     console.log(array_editar_empleados)
     console.log(array_editados_empleados)
@@ -1442,8 +1441,9 @@ function editar_empresas(event)
     // console.log(hijos)
     if(checar_editar_empresas)
     {
+
         // let nombre_input = hijos[1].children[0].value
-        id_input_empresas = hijos[0].children[0].value
+        id_input_empresas = hijos[0].innerHTML
         rfcEmpresa =hijos[1].children[0].value.trim()
         nombreEmpresa = hijos[2].children[0].value.trim()
         razonsocialEmpresa =hijos[3].children[0].value.trim()
@@ -1636,11 +1636,48 @@ function editar_empresas(event)
             info.append("valor",correoEmpresa2)
             enviarDatosEmpresas("POST","../controlador/editar_empresas.php",info)
         }
-        tomar_datos_empresas()
         checar_editar_empresas=true
+        tomar_datos_empresas()
+
     }
     //console.log(array_editar_empresas)
     //console.log(array_editados_empresas)
+}
+// var respuesta
+
+function enviarDatosEmpresas(metodo,url,datos)
+{
+    let ajax = new XMLHttpRequest()
+
+       ajax.open(metodo,url)
+
+       ajax.send(datos)
+
+       ajax.onreadystatechange =function () 
+       {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                    // respuesta = ajax.responseText
+                    // return respuesta
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) 
+                {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
 }
 
 
@@ -1684,7 +1721,7 @@ function editar_adn(event)
     if(checar_editar_admin)
     {
         // let nombre_input = hijos[1].children[0].value
-        id_input_administrador = hijos[0].children[0].value
+        id_input_administrador = hijos[0].innerHTML
         nombreAdministrador =hijos[1].children[0].value.trim()
         apellidoPAdministrador = hijos[2].children[0].value.trim()
         apellidoMAdministrador =hijos[3].children[0].value.trim()
@@ -1852,8 +1889,9 @@ function editar_adn(event)
             info.append("valor",correoAdministrador2)
             enviarDatosAdmin("POST","../controlador/editar_adn.php",info)
         }
-        tomar_datos_administradores()
         checar_editar_admin=true
+        tomar_datos_administradores()
+
     }
     console.log(array_editar_admin)
     console.log(array_editados_admin)
@@ -1897,42 +1935,7 @@ function enviarDatosAdmin(metodo,url,datos)
 }
 
 
-// var respuesta
 
-function enviarDatosEmpresas(metodo,url,datos)
-{
-    let ajax = new XMLHttpRequest()
-
-       ajax.open(metodo,url)
-
-       ajax.send(datos)
-
-       ajax.onreadystatechange =function () 
-       {
-            if (ajax.readyState == 4) 
-            {
-                if (ajax.status == 200) 
-                {
-                    // console.log("200 Respuesta Exitosa");
-                    console.log(ajax.responseText)
-                    // respuesta = ajax.responseText
-                    // return respuesta
-                }
-                if (ajax.status == 400) 
-                {
-                    console.log("400 El servidor no entendió la petición");
-                }
-                if (ajax.status == 404)
-                {
-                    console.log("404 Página no encontrada");
-                }
-                if (ajax.status == 500) 
-                {
-                    console.log("500 Error interno de servidor");
-                }
-            }            
-        }
-}
 
 function eliminar_empresa(event)
 {   
@@ -2095,9 +2098,10 @@ function eliminar_adn(event)
 
 
 
-var datos_filtrados = []
 function buscar_empleado(event)
 {
+    var datos_filtrados = []
+
     let codigo_tecla = event.keyCode
     // console.log(datos_empleados)
         if(codigo_tecla==13)
@@ -2194,11 +2198,13 @@ function buscar_empleado(event)
                         }
                     }  
                 }
-                console.log(datos_filtrados)
+
+                
                 if(datos_filtrados.length>0)
                 {
-                    // datos_empleados = datos_filtrados
-                    paginador_empleado(datos_filtrados,pagina_actual_empleados_activos,cantidad_vistas,boton_anterior,boton_siguiente,boton_primero,boton_ultimo,cuerpo,indicador_pagina)
+                    datos_empleados = datos_filtrados
+                    pagina_actual_empleados_activos = 1
+                    paginador_empleado(datos_empleados,pagina_actual_empleados_activos,cantidad_vistas,boton_anterior,boton_siguiente,boton_primero,boton_ultimo,cuerpo,indicador_pagina)
                 }
             }
             else
@@ -2207,9 +2213,9 @@ function buscar_empleado(event)
             }
         }
 }
-var datos_filtradosNo = []
 function buscar_empleadoNO(event)
 {
+    var datos_filtradosNo = []
     let codigo_tecla = event.keyCode
     // console.log(datos_empleados)
         if(codigo_tecla==13)
@@ -2309,8 +2315,9 @@ function buscar_empleadoNO(event)
                 console.log(datos_filtradosNo)
                 if(datos_filtradosNo.length>0)
                 {
-                    // datos_empleados = datos_filtradosNo
-                    paginador_empleadoNo(datos_filtradosNo,pagina_actual_empleados_activosNO,cantidad_vistasNO,boton_anteriorNO,boton_siguienteNO,boton_primeroNO,boton_ultimoNO,cuerpoNO,indicador_paginaNO)                
+                    datos_empleados = datos_filtradosNo
+                    pagina_actual_empleados_activos = 1
+                    paginador_empleadoNo(datos_empleados,pagina_actual_empleados_activosNO,cantidad_vistasNO,boton_anteriorNO,boton_siguienteNO,boton_primeroNO,boton_ultimoNO,cuerpoNO,indicador_paginaNO)                
                 }
             }
             else
@@ -2320,9 +2327,9 @@ function buscar_empleadoNO(event)
         }
 }
 
-var datos_filtradosEmpresa = []
 function buscar_empresas(event)
 {
+    var datos_filtradosEmpresa = []
     let codigo_tecla = event.keyCode
     // console.log(datos_empleados)
         if(codigo_tecla==13)
@@ -2438,8 +2445,9 @@ function buscar_empresas(event)
                 console.log(datos_filtradosEmpresa)
                 if(datos_filtradosEmpresa.length>0)
                 {
-                    // datos_empleados = datos_filtradosEmpresa
-                    paginador_empresas(datos_filtradosEmpresa,pagina_actual_empresas_activos,cantidad_vistasEmpresas,boton_anteriorEmpresas,boton_siguienteEmpresas,boton_primeroEmpresas,boton_ultimoEmpresas,cuerpoEmpresas,indicador_paginaEmpresas)
+                    datos_empleados = datos_filtradosEmpresa
+                    pagina_actual_empresas_activos = 1
+                    paginador_empresas(datos_empleados,pagina_actual_empresas_activos,cantidad_vistasEmpresas,boton_anteriorEmpresas,boton_siguienteEmpresas,boton_primeroEmpresas,boton_ultimoEmpresas,cuerpoEmpresas,indicador_paginaEmpresas)
                 }
             }
             else
@@ -2449,9 +2457,9 @@ function buscar_empresas(event)
         }
 }
 
-var datos_filtradosEmpresaNo = []
 function buscar_empresasNo(event)
 {
+    var datos_filtradosEmpresaNo = []
     let codigo_tecla = event.keyCode
     // console.log(datos_empleados)
         if(codigo_tecla==13)
@@ -2567,8 +2575,9 @@ function buscar_empresasNo(event)
                 console.log(datos_filtradosEmpresaNo)
                 if(datos_filtradosEmpresaNo.length>0)
                 {
-                    // datos_empleados = datos_filtradosEmpresaNo
-                    paginador_empresasNo(datos_filtradosEmpresaNo,pagina_actual_empresas_noactivos,cantidad_vistasEmpresasNo,boton_anteriorEmpresasNo,boton_siguienteEmpresasNo,boton_primeroEmpresasNo,boton_ultimoEmpresasNo,cuerpoEmpresasNo,indicador_paginaEmpresasNo)
+                    datos_empleados = datos_filtradosEmpresaNo
+                    pagina_actual_empresas_noactivos = 1
+                    paginador_empresasNo(datos_empleados,pagina_actual_empresas_noactivos,cantidad_vistasEmpresasNo,boton_anteriorEmpresasNo,boton_siguienteEmpresasNo,boton_primeroEmpresasNo,boton_ultimoEmpresasNo,cuerpoEmpresasNo,indicador_paginaEmpresasNo)
                 }
             }
             else
@@ -2578,9 +2587,10 @@ function buscar_empresasNo(event)
         }
 }
 
-var datos_filtradosPeticion= []
 function buscar_empresas_peticion(event)
 {
+    var datos_filtradosPeticion= []
+
     let codigo_tecla = event.keyCode
     // console.log(datos_empleados)
         if(codigo_tecla==13)
@@ -2696,8 +2706,9 @@ function buscar_empresas_peticion(event)
                 console.log(datos_filtradosPeticion)
                 if(datos_filtradosPeticion.length>0)
                 {
-                    // datos_empleados = datos_filtradosPeticion
-                    paginador_empresasPendientes(datos_filtradosPeticion,pagina_actual_empresas_Pendientes,cantidad_vistasEmpresasPendientes,boton_anteriorEmpresasPendientes,boton_siguienteEmpresasPendientes,boton_primeroEmpresasPendientes,boton_ultimoEmpresasPendientes,cuerpoEmpresasPendientes,indicador_paginaEmpresasPendientes)
+                    datos_empleados = datos_filtradosPeticion
+                    pagina_actual_empresas_Pendientes = 1
+                    paginador_empresasPendientes(datos_empleados,pagina_actual_empresas_Pendientes,cantidad_vistasEmpresasPendientes,boton_anteriorEmpresasPendientes,boton_siguienteEmpresasPendientes,boton_primeroEmpresasPendientes,boton_ultimoEmpresasPendientes,cuerpoEmpresasPendientes,indicador_paginaEmpresasPendientes)
                 }
             }
             else
@@ -2707,9 +2718,9 @@ function buscar_empresas_peticion(event)
         }
 }
 
-var datos_filtradosPeticionDash = []
 function buscar_empresas_peticion_dash(event)
 {
+    var datos_filtradosPeticionDash = []
     let codigo_tecla = event.keyCode
     // console.log(datos_empleados)
         if(codigo_tecla==13)
@@ -2825,8 +2836,9 @@ function buscar_empresas_peticion_dash(event)
                 console.log(datos_filtradosPeticionDash)
                 if(datos_filtradosPeticionDash.length>0)
                 {
-                    // datos_empleados = datos_filtradosPeticionDash
-                    paginador_empresasPendientesDash(datos_filtradosPeticionDash,pagina_actual_empresas_PendientesDash,cantidad_vistasEmpresasPendientesDash,boton_anteriorEmpresasPendientesDash,boton_siguienteEmpresasPendientesDash,boton_primeroEmpresasPendientesDash,boton_ultimoEmpresasPendientesDash,cuerpoEmpresasPendientesDash,indicador_paginaEmpresasPendientesDash)
+                    datos_empleados = datos_filtradosPeticionDash
+                    pagina_actual_empresas_PendientesDash = 1
+                    paginador_empresasPendientesDash(datos_empleados,pagina_actual_empresas_PendientesDash,cantidad_vistasEmpresasPendientesDash,boton_anteriorEmpresasPendientesDash,boton_siguienteEmpresasPendientesDash,boton_primeroEmpresasPendientesDash,boton_ultimoEmpresasPendientesDash,cuerpoEmpresasPendientesDash,indicador_paginaEmpresasPendientesDash)
                 }
             }
             else
@@ -2837,9 +2849,9 @@ function buscar_empresas_peticion_dash(event)
 }
 
 
-var datos_filtradosAdn = []
 function buscar_adn(event)
 {
+    var datos_filtradosAdn = []
     let codigo_tecla = event.keyCode
     // console.log(datos_empleados)
         if(codigo_tecla==13)
@@ -2939,8 +2951,9 @@ function buscar_adn(event)
                 console.log(datos_filtradosAdn)
                 if(datos_filtradosAdn.length>0)
                 {
-                    // datos_empleados = datos_filtradosAdn
-                    paginador_admin(datos_filtradosAdn,pagina_actual_Admin_activos,cantidad_vistasAdmin,boton_anteriorAdmin,boton_siguienteAdmin,boton_primeroAdmin,boton_ultimoAdmin,cuerpoAdmin,indicador_paginaAdmin)
+                    datos_empleados = datos_filtradosAdn
+                    pagina_actual_Admin_activos = 1
+                    paginador_admin(datos_empleados,pagina_actual_Admin_activos,cantidad_vistasAdmin,boton_anteriorAdmin,boton_siguienteAdmin,boton_primeroAdmin,boton_ultimoAdmin,cuerpoAdmin,indicador_paginaAdmin)
                 }
             }
             else
@@ -2950,9 +2963,9 @@ function buscar_adn(event)
         }
 }
 
-var datos_filtradosAdnNO = []
 function buscar_AdnNO(event)
 {
+    var datos_filtradosAdnNO = []
     let codigo_tecla = event.keyCode
     //console.log(datos_adminNo)
         if(codigo_tecla==13)
@@ -3052,8 +3065,9 @@ function buscar_AdnNO(event)
                 console.log(datos_filtradosAdnNO)
                 if(datos_filtradosAdnNO.length>0)
                 {
-                    // datos_empleados = datos_filtradosAdnNO
-                    paginador_adminNo(datos_filtradosAdnNO,pagina_actual_Admin_Noactivos,cantidad_vistasAdminNo,boton_anteriorAdminNo,boton_siguienteAdminNo,boton_primeroAdminNo,boton_ultimoAdminNo,cuerpoAdminNo,indicador_paginaAdminNo)
+                    datos_empleados = datos_filtradosAdnNO
+                    pagina_actual_Admin_Noactivos = 1
+                    paginador_adminNo(datos_empleados,pagina_actual_Admin_Noactivos,cantidad_vistasAdminNo,boton_anteriorAdminNo,boton_siguienteAdminNo,boton_primeroAdminNo,boton_ultimoAdminNo,cuerpoAdminNo,indicador_paginaAdminNo)
                 }
             }
             else

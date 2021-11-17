@@ -283,7 +283,7 @@
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_activas" onchange="tomar_datos_empresas();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">20</option> 
+                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -343,7 +343,7 @@
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_noactivos" onchange="tomar_datos_empresas_noactivas();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">20</option> 
+                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>

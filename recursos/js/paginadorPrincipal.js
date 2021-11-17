@@ -113,12 +113,10 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
         btn_adelante.style="visibility:visible;";
         btn_ultima.style="visibility:visible;";
     }
-
     var numero_clase=1;
-
     //console.log(inicio)
     //console.log(final)
-    if(arreglo_rutas=="error 400")
+    if(arreglo_rutas=="error 400" || arreglo_rutas.length==0)
     {
         // alert("no hay datos")
         btn_atras.style="visibility:hidden;";
@@ -136,6 +134,7 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
         {
             if(arreglo_rutas[inicio]=="error 400")
             {
+                console.log("esta vacioooo")
                 cuerpo_paginador.innerHTML='<tr><td style="text-align: center;" colspan="13">NO HAY DATOS</td></tr>'
             }
             else
@@ -170,8 +169,8 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        // columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -182,7 +181,7 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
                         input_nombre.setAttribute("class","input_paginador")
                         input_nombre.setAttribute("disabled","true")
                         columna_nombre.appendChild(input_nombre)
-                        //columna_nombre.innerHTML = nombreEmpleado
+                        // columna_nombre.innerHTML = nombreEmpleado
                         fila.appendChild(columna_nombre)
 
                         let columna_apellidop = document.createElement("td")
@@ -306,7 +305,6 @@ function paginador_empleado(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
                         // columna_editar.setAttribute("class","boton_tabla")
                         // // columna_editar.setAttribute("style","cursor:pointer;")
                         // columna_editar.innerHTML = "activar"
-
                         fila.appendChild(columna_editar)
                         cuerpo_paginador.appendChild(fila)    
             }	
@@ -379,6 +377,7 @@ function paginador_siguiente_empleado(arreglo_rutas,pagina_actual,cantidad_vista
 
                         
 
+                        
                         let columna_id = document.createElement("td")
                         columna_id.setAttribute("class","texto")
                         let input_id = document.createElement("input")
@@ -386,8 +385,8 @@ function paginador_siguiente_empleado(arreglo_rutas,pagina_actual,cantidad_vista
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        // columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -593,6 +592,7 @@ if (arreglo_rutas[inicio]!=undefined)
                         let cadena_id = "id_"+id
                         fila.setAttribute("id",id)
 
+                        
                         let columna_id = document.createElement("td")
                         columna_id.setAttribute("class","texto")
                         let input_id = document.createElement("input")
@@ -600,8 +600,8 @@ if (arreglo_rutas[inicio]!=undefined)
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        // columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -814,6 +814,7 @@ if (arreglo_rutas[inicio]!=undefined)
 
     
 
+
     let columna_id = document.createElement("td")
     columna_id.setAttribute("class","texto")
     let input_id = document.createElement("input")
@@ -821,8 +822,8 @@ if (arreglo_rutas[inicio]!=undefined)
     input_id.setAttribute("value",id)
     input_id.setAttribute("class","input_paginador")
     input_id.setAttribute("disabled","true")
-    columna_id.appendChild(input_id)
-    // columna_id.innerHTML = id
+    // columna_id.appendChild(input_id)
+    columna_id.innerHTML = id
     fila.appendChild(columna_id)
 
     let columna_nombre = document.createElement("td")
@@ -1028,6 +1029,7 @@ if (arreglo_rutas[inicio]!=undefined)
 
                         
 
+                       
                         let columna_id = document.createElement("td")
                         columna_id.setAttribute("class","texto")
                         let input_id = document.createElement("input")
@@ -1035,8 +1037,8 @@ if (arreglo_rutas[inicio]!=undefined)
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        // columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -1352,8 +1354,8 @@ function paginador_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        //columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -1570,8 +1572,8 @@ function paginador_siguiente_empleadoNo(arreglo_rutas,pagina_actual,cantidad_vis
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        //columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -1785,9 +1787,10 @@ if (arreglo_rutas[inicio]!=undefined)
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        //columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
+
 
                         let columna_nombre = document.createElement("td")
                         columna_nombre.setAttribute("class","texto")
@@ -2001,8 +2004,8 @@ if (arreglo_rutas[inicio]!=undefined)
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        //columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -2217,8 +2220,8 @@ let id = arreglo_rutas[inicio].id
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        //columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -2541,8 +2544,8 @@ function paginador_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atra
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -2767,8 +2770,8 @@ function paginador_siguiente_empresas(arreglo_rutas,pagina_actual,cantidad_vista
             input_id.setAttribute("value",id)
             input_id.setAttribute("class","input_paginador")
             input_id.setAttribute("disabled","true")
-            columna_id.appendChild(input_id)
-            //columna_id.innerHTML = id
+            //columna_id.appendChild(input_id)
+            columna_id.innerHTML = id
             fila.appendChild(columna_id)
             
             let columna_rfcEmpresa = document.createElement("td")
@@ -2991,8 +2994,8 @@ function paginador_anterior_empresas(arreglo_rutas,pagina_actual,cantidad_vistas
         input_id.setAttribute("value",id)
         input_id.setAttribute("class","input_paginador")
         input_id.setAttribute("disabled","true")
-        columna_id.appendChild(input_id)
-        //columna_id.innerHTML = id
+        //columna_id.appendChild(input_id)
+        columna_id.innerHTML = id
         fila.appendChild(columna_id)
         
         let columna_rfcEmpresa = document.createElement("td")
@@ -3214,8 +3217,8 @@ function paginador_primera_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,
         input_id.setAttribute("value",id)
         input_id.setAttribute("class","input_paginador")
         input_id.setAttribute("disabled","true")
-        columna_id.appendChild(input_id)
-        //columna_id.innerHTML = id
+        //columna_id.appendChild(input_id)
+        columna_id.innerHTML = id
         fila.appendChild(columna_id)
         
         let columna_rfcEmpresa = document.createElement("td")
@@ -3438,8 +3441,8 @@ function paginador_ultima_empresas(arreglo_rutas,pagina_actual,cantidad_vistas,b
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -3770,8 +3773,8 @@ function paginador_empresasNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_at
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -3990,15 +3993,15 @@ function paginador_siguiente_empresasNo(arreglo_rutas,pagina_actual,cantidad_vis
             fila.setAttribute("id",id)
             
             let columna_id = document.createElement("td")
-            columna_id.setAttribute("class","texto")
-            let input_id = document.createElement("input")
-            input_id.setAttribute("type","text")
-            input_id.setAttribute("value",id)
-            input_id.setAttribute("class","input_paginador")
-            input_id.setAttribute("disabled","true")
-            columna_id.appendChild(input_id)
-            //columna_id.innerHTML = id
-            fila.appendChild(columna_id)
+                columna_id.setAttribute("class","texto")
+                let input_id = document.createElement("input")
+                input_id.setAttribute("type","text")
+                input_id.setAttribute("value",id)
+                input_id.setAttribute("class","input_paginador")
+                input_id.setAttribute("disabled","true")
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
+                fila.appendChild(columna_id)
             
             let columna_rfcEmpresa = document.createElement("td")
             columna_rfcEmpresa.setAttribute("class","texto")
@@ -4220,8 +4223,8 @@ function paginador_anterior_empresasNo(arreglo_rutas,pagina_actual,cantidad_vist
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -4444,10 +4447,10 @@ function paginador_primera_empresasNo(arreglo_rutas,pagina_actual,cantidad_vista
         input_id.setAttribute("value",id)
         input_id.setAttribute("class","input_paginador")
         input_id.setAttribute("disabled","true")
-        columna_id.appendChild(input_id)
-        //columna_id.innerHTML = id
+        //columna_id.appendChild(input_id)
+        columna_id.innerHTML = id
         fila.appendChild(columna_id)
-        
+
         let columna_rfcEmpresa = document.createElement("td")
         columna_rfcEmpresa.setAttribute("class","texto")
         let input_rfcEmpresa = document.createElement("input")
@@ -4668,8 +4671,8 @@ function paginador_ultima_empresasNo(arreglo_rutas,pagina_actual,cantidad_vistas
     input_id.setAttribute("value",id)
     input_id.setAttribute("class","input_paginador")
     input_id.setAttribute("disabled","true")
-    columna_id.appendChild(input_id)
-    //columna_id.innerHTML = id
+    //columna_id.appendChild(input_id)
+    columna_id.innerHTML = id
     fila.appendChild(columna_id)
     
     let columna_rfcEmpresa = document.createElement("td")
@@ -4996,8 +4999,8 @@ function paginador_empresasPendientes(arreglo_rutas,pagina_actual,cantidad_vista
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -5222,8 +5225,8 @@ function paginador_siguiente_empresasPendientes(arreglo_rutas,pagina_actual,cant
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -5445,8 +5448,8 @@ function paginador_anterior_empresasPendientes(arreglo_rutas,pagina_actual,canti
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -5669,8 +5672,8 @@ function paginador_primera_empresasPendientes(arreglo_rutas,pagina_actual,cantid
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -5893,8 +5896,8 @@ function paginador_ultima_empresasPendientes(arreglo_rutas,pagina_actual,cantida
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -6222,8 +6225,8 @@ function paginador_empresasPendientesDash(arreglo_rutas,pagina_actual,cantidad_v
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -6448,8 +6451,8 @@ function paginador_siguiente_empresasPendientesDash(arreglo_rutas,pagina_actual,
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -6671,8 +6674,8 @@ function paginador_anterior_empresasPendientesDash(arreglo_rutas,pagina_actual,c
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -6895,8 +6898,8 @@ function paginador_primera_empresasPendientesDash(arreglo_rutas,pagina_actual,ca
         input_id.setAttribute("value",id)
         input_id.setAttribute("class","input_paginador")
         input_id.setAttribute("disabled","true")
-        columna_id.appendChild(input_id)
-        //columna_id.innerHTML = id
+        //columna_id.appendChild(input_id)
+        columna_id.innerHTML = id
         fila.appendChild(columna_id)
         
         let columna_rfcEmpresa = document.createElement("td")
@@ -7119,8 +7122,8 @@ function paginador_ultima_empresasPendientesDash(arreglo_rutas,pagina_actual,can
                 input_id.setAttribute("value",id)
                 input_id.setAttribute("class","input_paginador")
                 input_id.setAttribute("disabled","true")
-                columna_id.appendChild(input_id)
-                //columna_id.innerHTML = id
+                //columna_id.appendChild(input_id)
+                columna_id.innerHTML = id
                 fila.appendChild(columna_id)
                 
                 let columna_rfcEmpresa = document.createElement("td")
@@ -7453,8 +7456,8 @@ function paginador_admin(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras,b
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        //columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -7669,8 +7672,8 @@ function paginador_siguiente_admin(arreglo_rutas,pagina_actual,cantidad_vistas,b
             input_id.setAttribute("value",id)
             input_id.setAttribute("class","input_paginador")
             input_id.setAttribute("disabled","true")
-            columna_id.appendChild(input_id)
-            // columna_id.innerHTML = id
+            //columna_id.appendChild(input_id)
+            columna_id.innerHTML = id
             fila.appendChild(columna_id)
 
             let columna_nombre = document.createElement("td")
@@ -7885,8 +7888,8 @@ if (arreglo_rutas[inicio]!=undefined)
     input_id.setAttribute("value",id)
     input_id.setAttribute("class","input_paginador")
     input_id.setAttribute("disabled","true")
-    columna_id.appendChild(input_id)
-    // columna_id.innerHTML = id
+    //columna_id.appendChild(input_id)
+    columna_id.innerHTML = id
     fila.appendChild(columna_id)
 
     let columna_nombre = document.createElement("td")
@@ -8101,8 +8104,8 @@ if (arreglo_rutas[inicio]!=undefined)
     input_id.setAttribute("value",id)
     input_id.setAttribute("class","input_paginador")
     input_id.setAttribute("disabled","true")
-    columna_id.appendChild(input_id)
-    // columna_id.innerHTML = id
+    //columna_id.appendChild(input_id)
+    columna_id.innerHTML = id
     fila.appendChild(columna_id)
 
     let columna_nombre = document.createElement("td")
@@ -8315,8 +8318,8 @@ if (arreglo_rutas[inicio]!=undefined)
     input_id.setAttribute("value",id)
     input_id.setAttribute("class","input_paginador")
     input_id.setAttribute("disabled","true")
-    columna_id.appendChild(input_id)
-    // columna_id.innerHTML = id
+    //columna_id.appendChild(input_id)
+    columna_id.innerHTML = id
     fila.appendChild(columna_id)
 
     let columna_nombre = document.createElement("td")
@@ -8637,8 +8640,8 @@ function paginador_adminNo(arreglo_rutas,pagina_actual,cantidad_vistas,btn_atras
                         input_id.setAttribute("value",id)
                         input_id.setAttribute("class","input_paginador")
                         input_id.setAttribute("disabled","true")
-                        columna_id.appendChild(input_id)
-                        // columna_id.innerHTML = id
+                        //columna_id.appendChild(input_id)
+                        columna_id.innerHTML = id
                         fila.appendChild(columna_id)
 
                         let columna_nombre = document.createElement("td")
@@ -8853,8 +8856,8 @@ function paginador_siguiente_adminNo(arreglo_rutas,pagina_actual,cantidad_vistas
             input_id.setAttribute("value",id)
             input_id.setAttribute("class","input_paginador")
             input_id.setAttribute("disabled","true")
-            columna_id.appendChild(input_id)
-            // columna_id.innerHTML = id
+            //columna_id.appendChild(input_id)
+            columna_id.innerHTML = id
             fila.appendChild(columna_id)
 
             let columna_nombre = document.createElement("td")
@@ -9069,10 +9072,10 @@ if (arreglo_rutas[inicio]!=undefined)
     input_id.setAttribute("value",id)
     input_id.setAttribute("class","input_paginador")
     input_id.setAttribute("disabled","true")
-    columna_id.appendChild(input_id)
-    // columna_id.innerHTML = id
+    //columna_id.appendChild(input_id)
+    columna_id.innerHTML = id
     fila.appendChild(columna_id)
-
+    
     let columna_nombre = document.createElement("td")
     columna_nombre.setAttribute("class","texto")
     let input_nombre = document.createElement("input")
@@ -9285,8 +9288,8 @@ if (arreglo_rutas[inicio]!=undefined)
     input_id.setAttribute("value",id)
     input_id.setAttribute("class","input_paginador")
     input_id.setAttribute("disabled","true")
-    columna_id.appendChild(input_id)
-    // columna_id.innerHTML = id
+    //columna_id.appendChild(input_id)
+    columna_id.innerHTML = id
     fila.appendChild(columna_id)
 
     let columna_nombre = document.createElement("td")
@@ -9499,8 +9502,8 @@ if (arreglo_rutas[inicio]!=undefined)
     input_id.setAttribute("value",id)
     input_id.setAttribute("class","input_paginador")
     input_id.setAttribute("disabled","true")
-    columna_id.appendChild(input_id)
-    // columna_id.innerHTML = id
+    //columna_id.appendChild(input_id)
+    columna_id.innerHTML = id
     fila.appendChild(columna_id)
 
     let columna_nombre = document.createElement("td")

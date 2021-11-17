@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="recursos/css/estilos.css">
     <link rel="stylesheet" href="recursos/css/inicio_sesion.css">
     <link rel="shortcut icon" href="recursos/img/logo.ico" type="image/x-icon">
-
 </head>
 <body>
     <div id="contenedor_inicio_sesion">

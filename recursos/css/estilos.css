@@ -475,7 +475,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
-    overflow-x:auto;
+    overflow-y: none;
 }
 #contenedor_empresas_noactivas
 {
@@ -592,7 +592,8 @@ Dashboard realizacion de prueba
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: 10px;
-    overflow-x:auto;
+    /* overflow-y: none; */
+    /* overflow-x:scroll; */
     flex-direction: column;
 }
 #contenedor_tabla_administradores_activo
@@ -604,7 +605,7 @@ Dashboard realizacion de prueba
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: 10px;
-    overflow-x:auto;
+    /* overflow-x:auto; */
     flex-direction: column;
 
 }
@@ -625,7 +626,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
-    overflow-x:auto;
+    /* overflow-x:auto; */
 }
 #contenedor_tabla_administradores_noactivo
 {
@@ -637,7 +638,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
-    overflow-x:auto;
+    /* overflow-x:auto; */
 }
 #contenedor_form_agregar_empleado
 {
@@ -705,7 +706,7 @@ Dashboard realizacion de prueba
 .contenedor_paginador
 {
     position: absolute;
-    bottom: 0;
+    bottom: -60px;
     display: flex;
     width: 100%;
     height: auto;
