@@ -3078,4 +3078,12 @@ function buscar_AdnNO(event)
 }
 
 
-
+function zoom_tabla(evento)
+{
+    let elemento_rango = evento.target
+    let valor = elemento_rango.value
+    let medida = valor+"px"
+    let elemento_zoom = document.getElementById("contenedor_tabla_empleado_activas")
+    console.log(medida)
+    elemento_zoom.style.width=medida
+}

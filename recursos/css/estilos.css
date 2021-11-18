@@ -37,29 +37,35 @@ gris 6E6D6A
 
     body
     {
+        position: relative;
         width: 100%;
         height: 100%;
     }
     th,td
     {
+        max-width:auto ;
         padding: 2px;
-        width: auto;
-        height: auto;
         border: solid 1px var(--colorNegro);
         font-size: 12px;
     }
     thead
     {
+        width: 100%;
         background-color: var(--colorAzulClaro);
         font-family: var(--tipografiaTitulo);
     }
     tbody
     {
+        width: 100%;
         font-family: var(--tipogrfiaTexto);
     }
     h1 
     {
         font-size: 20px;
+    }
+    option{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 15px;
     }
 #contenedor 
 {  
@@ -446,6 +452,7 @@ Dashboard realizacion de prueba
 }
 .boton
 {
+    cursor: pointer;
     padding: 10px;
     padding-left: 30px;   
     padding-right: 30px;   
@@ -455,8 +462,10 @@ Dashboard realizacion de prueba
 .boton:hover
 {
     border: solid 2px var(--colorAzul);
+    border-radius: 25px;
     background: var(--colorBlanco);
     color: var(--colorNegro);
+    transition: all .06s ease-in-out;
 }
 #contenedor_empresas_activas
 {
@@ -578,6 +587,7 @@ Dashboard realizacion de prueba
 }
 #contenedor_empleado_activas
 {
+    position: relative ;
     display: flex;
     width: 100%;
     height: 100%;
@@ -595,6 +605,15 @@ Dashboard realizacion de prueba
     /* overflow-y: none; */
     /* overflow-x:scroll; */
     flex-direction: column;
+    flex-wrap: wrap;
+}
+#tabla_empleado_activa
+{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 #contenedor_tabla_administradores_activo
 {
@@ -719,6 +738,7 @@ Dashboard realizacion de prueba
     cursor: pointer;
     display: flex;
     width: 10%;
+    min-width: 110px;
     height: auto;
     justify-content: center;
     align-items: center;
@@ -834,12 +854,121 @@ Dashboard realizacion de prueba
     display: none;
     width: 100%;
     height: 100%;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+}
+.contendor_from_tickets{
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding:10px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    
+}
+.contenedor_box{
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    padding:10px;
+    flex-direction: column;
+}
+.contenedor_botonTickets{
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+.input_time{
+    width: 60%;
+    height: 30px;
+    border: solid 1px var(--colorGris);
+    padding-left: 10px;
+    font-size: var(--tamanoTexto);
+    font-family: var(--tipogrfiaTexto);
+}
+.input_time:hover{
+    border: solid 1.5px var(--colorAzul);
+    border-radius: 10px;
+    background: var(--colorBlanco);
+    color: var(--colorNegro);
+    transition: all .06s ease-in-out;
+}
+.input_tickets{
+    width: 90%;
+    height: 30px;
+    border: solid 1px var(--colorGris);
+    padding-left: 10px;
+    font-size: var(--tamanoTexto);
+    font-family: var(--tipogrfiaTexto);
+}
+.input_tickets:hover{
+    border: solid 1.5px var(--colorAzul);
+    border-radius: 10px;
+    background: var(--colorBlanco);
+    color: var(--colorNegro);
+    transition: all .06s ease-in-out;
+}
+.agregarTickets{
+    display: flex;
+    width: 33%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.agregarTickets1{
+    display: flex;
+    width: 33%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.agregarTickets2{
+    display: flex;
+    width: 33%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.textarea_tickets{
+    width: 60%;
+    height: 100%;
+    border:solid 1.5px var(--colorGris);
+}
+.textarea_tickets:hover{
+    border: solid 1.5px var(--colorAzul);
+    border-radius: 7px;
+    background: var(--colorBlanco);
+    color: var(--colorNegro);
+    transition: all .06s ease-in-out;
+}
+.select_tickets{
+    width: auto;
+    height: 25px;
+    background-color: var(--colorBlanco);
+    border:solid 1.5px var(--colorNegro);
+    font-size: var(--tipogrfiaTexto);
+}
+.select_tickets:hover{
+    border: solid 2px var(--colorAzul);
+    border-radius: 10px;
+    background: var(--colorBlanco);
+    color: var(--colorNegro);
 }
 .input_paginador
 {
     background-color: var(--colorBlanco);
     width: 100px;
+    max-width: auto;
     height: auto;
     font-size: 12px;
     text-align: center;

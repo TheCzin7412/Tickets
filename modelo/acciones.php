@@ -894,6 +894,7 @@ class Acciones
                         $_SESSION['idUsuario'] = $datos_admin[0]['id'];
 
                         return json_encode($datos_admin);
+                        // return "listo";
                     }
                 }
             }

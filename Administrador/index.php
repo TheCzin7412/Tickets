@@ -242,6 +242,51 @@
                                </div>
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsAgregarTicket">
                                    <h1 class="titulo_seccion">Agregar ticket</h1>
+                                   <div class="contendor_from_tickets">
+                                       <div class="agregarTickets">
+                                           <p>RFC Empresa:</p>
+                                           <input type="text" class="input_tickets" placeholder="RFC Empresa">
+                                       </div>
+                                       <div class="agregarTickets1">
+                                           <p>Nombre empresa:</p>
+                                           <input type="text" class="input_tickets" placeholder="Nombre Empresa">
+                                       </div>
+                                   </div>
+                                   <div class="contendor_from_tickets">
+                                        <div class="agregarTickets">
+                                            <p>Fecha y Hora:</p>
+                                           <input type="datetime-local" class="input_time">
+                                       </div>
+                                        <div class="agregarTickets1">
+                                            <p>Tipo de servicio:</p>
+                                           <select name="" id="" class="select_tickets">
+                                               <option selected>Selecciona alguna opcion...</option>
+                                               <option value="SOPORTE TECNICO">Soporte tecnico</option>
+                                               <option value="CABLEADO">Cableado</option>
+                                               <option value="CAMARAS">Revision camaras</option>
+                                               <option value="POLIZA">Servicio por poliza</option>
+                                               <option value="TONERS">Toners</option>
+                                               <option value="COTIZACIONES">Cotizaciones</option>                                               
+                                           </select>
+                                       </div>
+                                       <div class="agregarTickets2">
+                                           <p>Prioridad del servicio:</p>
+                                            <select name="" id="" class="select_tickets">
+                                               <option selected>Selecciona alguna opcion...</option>
+                                               <option value="MUY ALTO" style="background-color: red; color: white;">Muy Alto</option>
+                                               <option value="ALTO" style="background-color: orange; color: black;">Alto</option>
+                                               <option value="MEDIO" style="background-color: yellow; color: black;">Medio</option>
+                                               <option value="BAJO" style="background-color: green; color: black;" >Bajo</option>                                             
+                                            </select>
+                                       </div>
+                                   </div>
+                                   <div class="contenedor_box">
+                                       <p>Descripcion del problema</p>
+                                       <textarea class="textarea_tickets" name="" id="" cols="10" rows="10" placeholder="Describa detalladamente la problematica presentada"></textarea>
+                                   </div>
+                                   <div class="contenedor_botonTickets">
+                                       <button class="boton">Dar de alta ticket</button>
+                                   </div>
                                </div>
                                    
                            </div>
@@ -551,6 +596,9 @@
                                                         <option value="15">20</option> 
                                                     </select>
                                                 </div>
+                                                <div class="lista2">
+                                                    <input type="range" name="" min="0" max="2000" id="zoom_empleados_activos" onchange="zoom_tabla(event);">
+                                                </div>
                                             </div>
                                             
                                             <div class="barra_buscadora">
@@ -565,7 +613,7 @@
                                         </div>
    
                                        <div id="contenedor_tabla_empleado_activas">
-                                           <table class="tablas">
+                                           <table class="tablas" id="tabla_empleado_activa">
                                                <thead>
                                                    <tr>
                                                     <th>ID</th>

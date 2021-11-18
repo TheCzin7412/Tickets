@@ -8,7 +8,7 @@ function inicio_sesion()
 
     if(input_correo.length ==0 || input_contra==0) 
     {
-        alert("Campos vacios")
+        dialogo("Campos vacios")
     }
     else
     {
@@ -32,27 +32,34 @@ function inicio_sesion()
                 {
                     // console.log("200 Respuesta Exitosa");
                     console.log(ajax.responseText)
-                    let datos = JSON.parse(ajax.responseText)
-                    let tipo_u = datos[0].tipo_usuario
+                    // console.log(tipo_u)
+                    if(ajax.responseText.includes("["))
+                    {
+                        let datos = JSON.parse(ajax.responseText)
+                        let tipo_u = datos[0].tipo_usuario
+                        if(tipo_u=="EMPLEADO")
+                        {
+                            window.location.href="empleado"
+                        }
+                        if(tipo_u=="ADMINISTRADOR")
+                        {
+                            window.location.href="administrador"
+                        }
+                        if(tipo_u=="OPERATIVO")
+                        {
+                            window.location.href="operativo"
+                        }
+                        
+                        if(tipo_u=="EMPRESA")
+                        {
+                            window.location.href="empresa"
+                        }
+                    }
+                    else
+                    {
+                        dialogo(ajax.responseText)
+                    }
                     
-                    console.log(tipo_u)
-                    if(tipo_u=="EMPLEADO")
-                    {
-                        window.location.href="empleado"
-                    }
-                    if(tipo_u=="ADMINISTRADOR")
-                    {
-                        window.location.href="administrador"
-                    }
-                    if(tipo_u=="OPERATIVO")
-                    {
-                        window.location.href="operativo"
-                    }
-                    
-                    if(tipo_u=="EMPRESA")
-                    {
-                        window.location.href="empresa"
-                    }
                 }
                 if (ajax.status == 400) 
                 {
@@ -114,7 +121,7 @@ function agregar_peticion_empresa()
         input_contrasenaEmpresa.length ==0 
     ) 
     {
-        alert("Los campos se encuentran vacio, favor de ingresar todos los datos...")
+        dialogo("Los campos se encuentran vacio, favor de ingresar todos los datos...")
     }
     else
     {
@@ -151,6 +158,7 @@ function agregar_peticion_empresa()
                     limpiar_formulario_agrega_peticion_login()
                     // console.log("200 Respuesta Exitosa");
                     console.log(ajax.responseText)
+                    dialogo(ajax.responseText)
                 }
                 if (ajax.status == 400) 
                 {
@@ -230,3 +238,36 @@ function limpiar_formulario_empresas_peticion_login()
 }
 
 
+function dialogo(mensaje)
+{
+    let dialogo_mensaje = document.createElement("div")
+    dialogo_mensaje.setAttribute("class","contenedor_dialogo")
+    dialogo_mensaje.innerHTML=mensaje
+
+    let boton  = document.createElement("div")
+    boton.setAttribute("class","boton")
+    boton.setAttribute("onclick","quitar_alerta(event);")
+    boton.innerHTML="Aceptar"
+
+    dialogo_mensaje.appendChild(boton)
+
+    let contenedor = document.getElementById("contenedor_inicio_sesion")
+    let fondo = document.createElement("div")
+    fondo.setAttribute("class","contenedor_alerta")
+    fondo.setAttribute("id","elemento_dialogo")
+
+    fondo.appendChild(dialogo_mensaje)
+    contenedor.appendChild(fondo)
+
+}
+function quitar_alerta(event)
+{
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_elemento = padre.id
+    let borrado = document.getElementById(id_elemento)
+    borrado.parentNode.removeChild(borrado)
+}
+
+
+// dialogo("losto senoras")
