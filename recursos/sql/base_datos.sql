@@ -48,4 +48,19 @@ CREATE TABLE administrador(
 	idSesion varchar(200),
 	activo varchar(200),
 	tipo_usuario varchar(200)
-)
+		)
+
+create table info_tickets(
+	id int(11) PRIMARY KEY AUTO_INCREMENT,
+	referencia varchar(200),
+	nombreEmpresa varchar(200),
+	rfcEmpresa varchar(200),
+	fechaRegistro varchar(11),
+	fechaCierre varchar(11),
+	horaRegistro varchar(11),
+	horaCierre varchar(11),
+	tipoServicio varchar(11),
+	prioridad int(1),
+	descripcion text,
+	estatus varchar(200)
+);	

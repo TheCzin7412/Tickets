@@ -1,0 +1,104 @@
+.contenedor_menu 
+{
+    display: flex;
+    width: 100%;
+    height: 10%;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    background: var(--colorAzul) ;
+}
+.contenedor_informacion
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
+}
+.boton_menu
+{
+    display: flex;
+    width: auto;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: var(--colorBlanco);
+}
+#tabla_estado 
+{
+    display: flex;
+    flex-direction: column;
+}
+#tabla_estado tr td
+{
+    border: none;
+    border-bottom: solid 1px var(--colorBlanco);
+    color: var(--colorBlanco);
+}
+#tabla_estado 
+{
+    border: solid 1px var(--colorBlanco);
+}
+.contenedor_titulo
+{
+    display: flex;
+    width: 100%;
+    height: 10%;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.contenedor_info_item
+{
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.info_item
+{
+    display: flex;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    flex-direction: column;
+    margin-right: 30px;
+}
+.titulo_item
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    padding-bottom: 5px;
+    border-bottom: solid 2px var(--colorAzul);
+}
+.text_item
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    margin-top: 15px;
+}
+.contenedor_division
+{
+    display: flex;
+    width: 100%;
+    height: 90%;
+}
+.lados_contenedor
+{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+}

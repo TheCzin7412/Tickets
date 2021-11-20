@@ -244,22 +244,23 @@
                                    <h1 class="titulo_seccion">Agregar ticket</h1>
                                    <div class="contendor_from_tickets">
                                        <div class="agregarTickets">
-                                           <p>RFC Empresa:</p>
-                                           <input type="text" class="input_tickets" placeholder="RFC Empresa">
+                                       <p>Nombre empresa:</p>
+                                           <input type="text" id="input_nombreTicket" class="input_tickets" placeholder="Nombre Empresa">
                                        </div>
                                        <div class="agregarTickets1">
-                                           <p>Nombre empresa:</p>
-                                           <input type="text" class="input_tickets" placeholder="Nombre Empresa">
-                                       </div>
+                                           <p>RFC Empresa:</p>
+                                           <input type="text" id="input_RFCTicket" class="input_tickets" placeholder="RFC Empresa">
+                                           </div>
+                                           
                                    </div>
                                    <div class="contendor_from_tickets">
                                         <div class="agregarTickets">
                                             <p>Fecha y Hora:</p>
-                                           <input type="datetime-local" class="input_time">
+                                           <input type="date" id="input_fecha" class="input_time">
                                        </div>
                                         <div class="agregarTickets1">
                                             <p>Tipo de servicio:</p>
-                                           <select name="" id="" class="select_tickets">
+                                           <select id="select_servicio" class="select_tickets">
                                                <option selected>Selecciona alguna opcion...</option>
                                                <option value="SOPORTE TECNICO">Soporte tecnico</option>
                                                <option value="CABLEADO">Cableado</option>
@@ -271,21 +272,21 @@
                                        </div>
                                        <div class="agregarTickets2">
                                            <p>Prioridad del servicio:</p>
-                                            <select name="" id="" class="select_tickets">
+                                            <select id="select_prioridad" class="select_tickets">
                                                <option selected>Selecciona alguna opcion...</option>
-                                               <option value="MUY ALTO" style="background-color: red; color: white;">Muy Alto</option>
-                                               <option value="ALTO" style="background-color: orange; color: black;">Alto</option>
-                                               <option value="MEDIO" style="background-color: yellow; color: black;">Medio</option>
-                                               <option value="BAJO" style="background-color: green; color: black;" >Bajo</option>                                             
+                                               <option value="4" style="background-color: red; color: white;">Muy Alto</option>
+                                               <option value="3" style="background-color: orange; color: black;">Alto</option>
+                                               <option value="2" style="background-color: yellow; color: black;">Medio</option>
+                                               <option value="1" style="background-color: green; color: black;" >Bajo</option>                                             
                                             </select>
                                        </div>
                                    </div>
                                    <div class="contenedor_box">
                                        <p>Descripcion del problema</p>
-                                       <textarea class="textarea_tickets" name="" id="" cols="10" rows="10" placeholder="Describa detalladamente la problematica presentada"></textarea>
+                                       <textarea class="textarea_tickets" id="txt_problematica" cols="10" rows="10" placeholder="Describa detalladamente la problematica presentada"></textarea>
                                    </div>
                                    <div class="contenedor_botonTickets">
-                                       <button class="boton">Dar de alta ticket</button>
+                                       <button class="boton" id="btn_agregar_ticket" onclick="agregar_ticket();">Dar de alta ticket</button>
                                    </div>
                                </div>
                                    

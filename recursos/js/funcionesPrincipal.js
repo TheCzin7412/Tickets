@@ -3087,3 +3087,75 @@ function zoom_tabla(evento)
     console.log(medida)
     elemento_zoom.style.width=medida
 }
+
+
+
+/////seccion tickets
+var btn_agregar_ticket= document.getElementById("btn_agregar_ticket")
+
+function agregar_ticket()
+{
+    
+    var input_RFCTicket = document.getElementById("input_RFCTicket").value.trim()
+    var input_nombreTicket = document.getElementById("input_nombreTicket").value.trim()
+    var input_fecha = document.getElementById("input_fecha").value.trim()
+    var select_servicio = document.getElementById("select_servicio").value
+    var select_prioridad = document.getElementById("select_prioridad").value
+    var txt_problematica = document.getElementById("txt_problematica").value
+   
+
+    if( 
+        input_RFCTicket.length ==0 ||
+        input_nombreTicket.length ==0 ||
+        input_fecha.length ==0 ||
+        select_servicio.length ==0 ||
+        select_prioridad.length ==0 ||
+        txt_problematica.length ==0 
+    ) 
+    {
+        alert("Los campos se encuentran vacio, favor de ingresar todos los datos...")
+    }
+    else
+    {
+    let datos = new FormData()
+
+    datos.append("nombreEmpresa",input_RFCTicket)
+    datos.append("rfcEmpresa",input_nombreTicket)
+    datos.append("fechaRegistro",input_fecha)
+    datos.append("tipoServicio",select_servicio)
+    datos.append("prioridad",select_prioridad)
+    datos.append("descripcion",txt_problematica)
+
+
+
+    console.log(datos)
+    let ajax = new XMLHttpRequest()
+
+    ajax.open("POST","../controlador/agregar_ticket.php")
+
+    ajax.send(datos)
+
+    ajax.onreadystatechange =function () 
+    {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
+                }
+                if (ajax.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+    }
+}

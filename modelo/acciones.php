@@ -4,13 +4,122 @@ include_once("conexion.php");
 class Acciones
 {
 
+    
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
     //////////////ACCIONES administradores////////////////
     //////////////////////////////////////////////////////
 
 
-    //////Agregar Empleado///////
+    //////Agregar administrador///////
+    public function agregar_ticket($nombreEmpresa,$rfcEmpresa,$fechaRegistro,$tipoServicio,$prioridad,$descripcion)
+    {
+        $servidor = new Servidor();
+        $conexion = $servidor->conectar();
+        $referencia = "1";
+        $sql_vericar = "SELECT referencia  FROM info_tickets WHERE referencia=:referencia";
+        $existe = $conexion->prepare($sql_vericar);
+        $existe->bindParam(":referencia",$referencia);
+        $existe->execute();
+        $estatus = "1";
+
+    
+
+        if($existe->rowCount()==0)
+        {
+
+
+            $sql = "INSERT INTO info_tickets
+            (referencia,
+            nombreEmpresa,
+            rfcEmpresa,
+            fechaRegistro,
+            tipoServicio,
+            prioridad,
+            descripcion,
+            estatus
+            ) 
+            VALUE(
+            :referencia,
+            :nombreEmpresa,
+            :rfcEmpresa,
+            :fechaRegistro,
+            :tipoServicio,
+            :prioridad,
+            :descripcion,
+            :estatus)";
+
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":referencia",$referencia);
+            $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
+            $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
+            $parametro->bindParam(":fechaRegistro",$fechaRegistro);
+            $parametro->bindParam(":tipoServicio",$tipoServicio);
+            $parametro->bindParam(":prioridad",$prioridad);
+            $parametro->bindParam(":descripcion",$descripcion);
+            $parametro->bindParam(":estatus",$estatus);
+
+            if($parametro->execute())
+            {
+                return "listo";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        else
+        {
+            return "ya existe el folio";
+        }
+    }
+
+        ///// Tomar empleados activos mostrar tabla
+        public function tomarTicketsActivos($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesion($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                referencia,
+                nombreEmpresa,
+                rfcEmpresa,
+                fechaRegistro,
+                tipoServicio,
+                prioridad,
+                descripcion,
+                estatus FROM info_tickets WHERE estatus=:actiestatusvo";
+                $estatus = "1";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":estatus",$estatus);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return "error 500";
+            } 
+        }
+
+    //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
+    //////////////ACCIONES administradores////////////////
+    //////////////////////////////////////////////////////
+
+
+    //////Agregar administrador///////
     public function agregar_Administrador($nombreAdministrador,$apellidopAdministrador,$apellidomAdministrador,$domicilioAdministrador,$numeroextAdministrador,$coloniaAdministrador,$telefonoAdministrador,$puestoAdministrador,$correoAdministrador,$contrasenaAdministrador)
     {
         $servidor = new Servidor();
@@ -1543,4 +1652,5 @@ class Acciones
         }
     }
 }
+
 ?>
