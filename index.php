@@ -28,10 +28,11 @@
             </h1>
             <input id="input_correo" type="email" class="input_text_login" placeholder="Ingrese el correo electronico..." value="">
             <input id="input_contra" type="password" class="input_text_login"  placeholder="Ingrese la contraseña...">
+            <p id="c_boton_recuperar" onclick="mostrarSeccionLogin(event);" >¿Olvidaste tu contraseña?</p>
             <button class="boton_login" id="boton_inicio" onclick="inicio_sesion();">INGRESAR</button>
         </div>
 
-        <div class="seccion_login" id="contenedor_formulario_registrar" >
+        <div class="seccion_login" id="contenedor_formulario_registrar">
         <h1 class="titulo">Registrar Petion Para Nueva Empresa</h1>
             <div class="contenedor_general_formulario">
                 <div class="contenedor_formulario1">
@@ -87,6 +88,19 @@
                 </div>
             </div>
                 <button class="boton_login" id="boton_registro_iniciosesion" onclick="agregar_peticion_empresa()">Dar de alta la peticion</button>
+        </div>
+
+        <div id="contenedor_recuperar_contrasena" class="seccion_login">
+            <div class="opciones_recuperar">
+                <h1>Recuperacion de contraseña</h1>
+            </div>
+            <div class="opciones_recuperar">
+                <input type="text" class="input_text_login" placeholder="Ingerese su correo electronico...">
+            </div>
+            <div class="opciones_recuperar">
+                <button class="boton_login">Buscar correo</button>
+            </div>
+
         </div>
     </div>
     <script src="recursos/js/funcionesInicio.js"></script>

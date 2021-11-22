@@ -18,11 +18,6 @@
                    <div id="contenedor_bienvenida" class="seccion_menu">
                        <p class="">Bienvenido a tu dashboard administrador</p>
                    </div>
-                   <div id="contenedor_control" class="seccion_menu">
-                       <img src="" alt="" class="imagenes_control">
-                       <img src="" alt="" class="imagenes_control">
-                       <img src="" alt="" class="imagenes_control">
-                   </div>
                </div>
                <div id="seccion_principal">
                    <div id="menu_control">
@@ -45,6 +40,14 @@
                        <div id="c_boton_administrador" class="boton_control" onclick="mostrarSeccion(event);">
                            <img id="imagen_administrador" src="../recursos/img/administrador.png" alt="" class="imagen_menu">
                            <p id="parrafo_administrador" class="texto_menu">Administrador</p>
+                       </div>
+                       <div id="c_boton_contrasena" class="boton_control" onclick="mostrarSeccion(event);">
+                           <img id="imagen_contrasena" src="../recursos/img/contrasena.png" alt="" class="imagen_menu">
+                           <p id="parrafo_contrasena" class="texto_menu">Cambiar Contraseña</p>
+                       </div>
+                       <div  class="boton_control">
+                           <img src="../recursos/img/salida.png" alt="" class="imagen_menu">
+                           <p class="texto_menu">Cerrar Seccion</p>
                        </div>
                    </div>
 
@@ -208,6 +211,7 @@
    
                             </div>
                            <!-- terminar seccion dasshboard -->
+                           
                            <!-- empieza seccion ticket -->
                            <div class="seccion" id="contenedor_tickets">
                                <h1>Tickets</h1>
@@ -233,6 +237,68 @@
    
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsPendientes">
                                    <h1 class="titulo_seccion">Listado de tickets pendientes</h1>
+                                   <div class="contenedor_busqueda">
+                                            <div class="Cantidad_lista">
+                                                <div class="lista1">
+                                                    <p>Cantidad de tickets</p>
+                                                </div>
+                                                <div class="lista2">
+                                                    <select name="" class="select_cantidad" id="cantidad_tickets_pendientes" onchange="tomar_datos_tickets_pendientes();"> 
+                                                        <option value="5">5</option> 
+                                                        <option value="10">10</option>
+                                                        <option value="15">15</option> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
+                                                    <p>Buscar:</p>
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_pendiente(event);">       
+                                                </div>      
+                                            </div>
+                                        </div>
+                                   <div id="contenedor_tabla_ticketsPendientes">
+                                       <div id="contenedor_informacion">
+                                           <p>Valor de la prioridad</p>
+                                       <table class="info_tablas">
+                                           <tr>
+                                               <td style="background-color: green;">Bajo = 1</td>
+                                               <td style="background-color: yellow;">Medio = 2</td>
+                                               <td style="background-color: orange;">Alto = 3</td>
+                                               <td style="background-color: red;">Muy alto = 4</td>
+                                           </tr>
+                                       </table>
+                                       </div>
+                                       <table class="tablas">
+                                           <thead>
+                                               <tr>
+                                                   <td>ID</td>
+                                                   <td>Folio</td>
+                                                   <td>Nombre empresa</td>
+                                                   <td>RFC</td>
+                                                   <td>Fecha de solicitud</td>
+                                                   <td>Hora de solicitud</td>
+                                                   <td>Servicio</td>
+                                                   <td>Prioridad</td>
+                                                   <td>Estatus</td>
+                                                   <td>Acciones</td>
+                                               </tr>
+                                           </thead>
+                                           <tbody id="tabla_tickets_pendientes">
+                                           </tbody>
+                                       </table>
+                                       <div class="contenedor_paginador">
+                                                <div class="controladores_paginador" id="boton_paginador_primero_tickets_pendientes">Primero</div>
+                                                <div class="controladores_paginador" id="boton_paginador_anterior_tickets_pendientes">Anterior</div>
+                                                <div class="controladores_paginador" id="boton_paginador_cantidad_tickets_pendientes">1 de 1</div>
+                                                <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_pendientes">Siguiente</div>
+                                                <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_pendientes">Ultimo</div>
+                                        </div>
+                                   </div>
+
                                </div>
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsNoResueltos">
                                    <h1 class="titulo_seccion">Listado de tickets no resueltos</h1>
@@ -243,9 +309,13 @@
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsAgregarTicket">
                                    <h1 class="titulo_seccion">Agregar ticket</h1>
                                    <div class="contendor_from_tickets">
-                                       <div class="agregarTickets">
-                                       <p>Nombre empresa:</p>
-                                           <input type="text" id="input_nombreTicket" class="input_tickets" placeholder="Nombre Empresa">
+                                       <div class="agregarTickets" id="contenedo_nombre_ticket">
+                                            <p>Nombre empresa:</p>
+                                           <input type="text" id="input_nombreTicket" class="input_tickets" placeholder="Nombre Empresa" onkeydown="mostrar_nombre(event);">
+                                           <div id="contendor_opciones_nombre">
+                                               <p class="opcion_nombre">Nombre empmresa</p>
+                                           </div>
+                                           
                                        </div>
                                        <div class="agregarTickets1">
                                            <p>RFC Empresa:</p>
@@ -254,10 +324,10 @@
                                            
                                    </div>
                                    <div class="contendor_from_tickets">
-                                        <div class="agregarTickets">
+                                        <!-- <div class="agregarTickets">
                                             <p>Fecha y Hora:</p>
                                            <input type="date" id="input_fecha" class="input_time">
-                                       </div>
+                                       </div> -->
                                         <div class="agregarTickets1">
                                             <p>Tipo de servicio:</p>
                                            <select id="select_servicio" class="select_tickets">
@@ -840,6 +910,7 @@
                                             </div>
                                        </div>
                                    </div>
+                                   
                                    <div class="seccion_administradores" id="contenedor_administradores_noactivos">
                                        <h1 class="titulo_seccion">Listado de administradores dados de baja</h1>
                                        <div class="contenedor_busqueda">
@@ -950,8 +1021,26 @@
                                            <div class="contenedor_formulario_agregar">
                                                <button class="boton" id="boton_agrega_administrador" onclick="agregar_administrador()">Agrega nuevo administrador</button>
                                            </div>
-
                                         </div>
+                                    </div>
+
+                                    <div id="contenedor_cambio_contrasena" class="seccion">
+                                        <h1>Cambio de contraseña</h1>
+                                        <div id="contenedor_formulario_cambio_contrasena">
+                                            <div class="cambio_contrasena">
+                                                <p>Ingrese su contrasena actual</p>
+                                                <input type="password" class="input_cambio_contrasena" placeholder="Ingrese su contraseña">
+                                            </div>
+                                            <div class="cambio_contrasena">
+                                                <p>Ingrese la nueva contrasena</p>
+                                                <input type="password" class="input_cambio_contrasena" placeholder="Ingrese su nueva contraseñan">
+                                            </div>
+                                            <div class="cambio_contrasena">
+                                                <p>Confirme la contraseña nueva</p>
+                                                <input type="password" class="input_cambio_contrasena" placeholder="Confirme su contraseña ">
+                                            </div>
+                                        </div>
+                                            
                                     </div>
                    </div>
                </div>

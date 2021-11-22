@@ -12,69 +12,113 @@ class Acciones
 
 
     //////Agregar administrador///////
-    public function agregar_ticket($nombreEmpresa,$rfcEmpresa,$fechaRegistro,$tipoServicio,$prioridad,$descripcion)
+    public function agregar_ticket($id,$idSesion,$nombreEmpresa,$rfcEmpresa,$tipoServicio,$prioridad,$descripcion)
     {
-        $servidor = new Servidor();
-        $conexion = $servidor->conectar();
-        $referencia = "1";
-        $sql_vericar = "SELECT referencia  FROM info_tickets WHERE referencia=:referencia";
-        $existe = $conexion->prepare($sql_vericar);
-        $existe->bindParam(":referencia",$referencia);
-        $existe->execute();
-        $estatus = "1";
-
-    
-
-        if($existe->rowCount()==0)
+        $verificacion  = $this->checarSesion($id,$idSesion);
+        if($verificacion==$idSesion)
         {
-
-
-            $sql = "INSERT INTO info_tickets
-            (referencia,
-            nombreEmpresa,
-            rfcEmpresa,
-            fechaRegistro,
-            tipoServicio,
-            prioridad,
-            descripcion,
-            estatus
-            ) 
-            VALUE(
-            :referencia,
-            :nombreEmpresa,
-            :rfcEmpresa,
-            :fechaRegistro,
-            :tipoServicio,
-            :prioridad,
-            :descripcion,
-            :estatus)";
-
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":referencia",$referencia);
-            $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
-            $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
-            $parametro->bindParam(":fechaRegistro",$fechaRegistro);
-            $parametro->bindParam(":tipoServicio",$tipoServicio);
-            $parametro->bindParam(":prioridad",$prioridad);
-            $parametro->bindParam(":descripcion",$descripcion);
-            $parametro->bindParam(":estatus",$estatus);
-
-            if($parametro->execute())
+            $strVacio= " ";
+            $fechaReg =date("d/m/Y");
+            $horaReg =date("H:i:s");
+            $servidor = new Servidor();
+            $conexion = $servidor->conectar();
+            $referencia = rand(100000,999999);
+            $sql_vericar = "SELECT referencia FROM info_tickets WHERE referencia=:referencia";
+            $existe = $conexion->prepare($sql_vericar);
+            $existe->bindParam(":referencia",$referencia);
+            $existe->execute();
+            $estatus = "1";
+            if($existe->rowCount()==0)
             {
-                return "listo";
+                $sql = "INSERT INTO info_tickets
+                (referencia,
+                nombreEmpresa,
+                rfcEmpresa,
+                fechaRegistro,
+                fechaCierre,
+                horaRegistro,
+                horaCierre,
+                tipoServicio,
+                prioridad,
+                descripcion,
+                estatus
+                ) 
+                VALUE(
+                :referencia,
+                :nombreEmpresa,
+                :rfcEmpresa,
+                :fechaRegistro,
+                :fechaCierre,
+                :horaRegistro,
+                :horaCierre,
+                :tipoServicio,
+                :prioridad,
+                :descripcion,
+                :estatus)";
+    
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":referencia",$referencia);
+                $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
+                $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
+                $parametro->bindParam(":fechaRegistro",$fechaReg);
+                $parametro->bindParam(":fechaCierre",$strVacio);
+                $parametro->bindParam(":horaRegistro",$horaReg);
+                $parametro->bindParam(":horaCierre",$strVacio);
+                $parametro->bindParam(":tipoServicio",$tipoServicio);
+                $parametro->bindParam(":prioridad",$prioridad);
+                $parametro->bindParam(":descripcion",$descripcion);
+                $parametro->bindParam(":estatus",$estatus);
+    
+                if($parametro->execute())
+                {
+                    return "listo ";
+                }
+                else
+                {
+                    return "error";
+                }
             }
             else
             {
-                return "error";
+                return "ya existe el folio";
             }
         }
         else
         {
-            return "ya existe el folio";
-        }
+            return "ERROR";
+        } 
     }
 
-        ///// Tomar empleados activos mostrar tabla
+    public function tomar_nombre_empresas($id,$sesion,$coincidencia)
+    {
+        $verificacion  = $this->checarSesion($id,$sesion);
+        if($verificacion==$sesion)
+        {
+            $coincidencia = $coincidencia."[a-zA-Z0-9 ]";
+            $sql ="SELECT nombreEmpresa,rfcEmpresa FROM empresas WHERE nombreEmpresa REGEXP :coincidencia";
+            $modelo = new Servidor();
+            $conn = $modelo->conectar();
+            $parametro = $conn->prepare($sql);
+            $parametro->bindParam(":coincidencia",$coincidencia);
+            $parametro->execute();
+            $rows = $parametro->rowCount();
+            if($rows==0)
+            {
+                return json_encode("sin coincidencias");
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);
+                return json_encode($datos);
+            }
+
+        }
+        else
+        {
+            return json_encode("ERROR");
+        }        
+    }
+
         public function tomarTicketsActivos($id,$idSesion)
         {
             $verificacion  = $this->checarSesion($id,$idSesion);
@@ -86,10 +130,10 @@ class Acciones
                 nombreEmpresa,
                 rfcEmpresa,
                 fechaRegistro,
+                horaRegistro,
                 tipoServicio,
                 prioridad,
-                descripcion,
-                estatus FROM info_tickets WHERE estatus=:actiestatusvo";
+                estatus FROM info_tickets WHERE estatus=:estatus";
                 $estatus = "1";
                 $modelo = new Servidor();
                 $conexion = $modelo->conectar();
@@ -109,9 +153,10 @@ class Acciones
             }  
             else
             {
-                return "error 500";
+                return json_encode("error 500");
             } 
         }
+
 
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
@@ -203,11 +248,442 @@ class Acciones
             // return $correoEmpleado;
         }
     }
+
+    public function  eliminar_adn($idUsuario,$idSesion,$id)
+    {
+
+        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "DELETE FROM administrador WHERE id=:id";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":id",$id);
+            if($parametro->execute())
+            {
+                return "listo";
+            }
+            else
+            {
+                return "error 400";
+            }
+        }
+        else
+        {
+            return "error";
+        }
+    }
+
+        ///// Tomar empleados activos mostrar tabla
+        public function tomarAndActivos($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesion($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                nombreAdministrador,
+                apellidopAdministrador,
+                apellidomAdministrador,
+                domicilioAdministrador,
+                numeroextAdministrador,
+                coloniaAdministrador,
+                telefonoAdministrador,
+                puestoAdministrador,
+                correoAdministrador,
+                idSesion,
+                tipo_usuario,
+                activo FROM administrador WHERE activo=:activo";
+                $activo = "1";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":activo",$activo);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return "error 500";
+            } 
+        }
+
+        ///// Tomar empleados activos mostrar tabla
+        public function tomarAdnNoActivos($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesion($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                nombreAdministrador,
+                apellidopAdministrador,
+                apellidomAdministrador,
+                domicilioAdministrador,
+                numeroextAdministrador,
+                coloniaAdministrador,
+                telefonoAdministrador,
+                puestoAdministrador,
+                correoAdministrador,
+                idSesion,
+                tipo_usuario,
+                activo FROM administrador WHERE activo=:activo";
+                $activo = "0";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":activo",$activo);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return "error 500";
+            } 
+        }
+
+
+        /////////Desactivar administradores//////////
+    public function desactivar_adn($id,$idSesion,$id_empleado, $estado)
+    {
+        $verificacion  = $this->checarSesion($id,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "UPDATE administrador SET activo=:activo WHERE id=:id";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":activo",$estado);
+            $parametro->bindParam(":id",$id_empleado);
+            if($parametro->execute())
+            {
+                return "listo";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        else
+        {
+            return "error 500";
+        }
+    }
+
+    ///////// Activar administradores///////
+
+    public function activar_adn($id,$idSesion,$id_empleado,$estado)
+    {
+        $verificacion  = $this->checarSesion($id,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "UPDATE administrador SET activo=:activo WHERE id=:id";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":activo",$estado);
+            $parametro->bindParam(":id",$id_empleado);
+            if($parametro->execute())
+            {
+                return json_encode("Listo");
+            }
+            else
+            {
+                return json_encode("error 400");
+            }
+        }
+        else
+        {
+            return json_encode("error 500");
+        }
+    }
+
+    
+    public function editar_adn($idUsuario,$idSesion,$id,$tipo,$valor)
+    {
+            $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro="";
+
+                if($tipo=="nombreAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET nombreAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="apellidoPAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET apellidoPAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="apellidoMAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET apellidoMAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="domicilioAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET domicilioAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="numExtAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET numeroextAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="coloniaAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET coloniaAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="telefonoAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET telefonoAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="puestoAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET puestoAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="correoAdministrador")
+                {
+                    $sql = "UPDATE administrador  SET correoAdministrador=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+            }
+            else
+            {
+                return "error";
+            }
+    }
+
+
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
     //////////////ACCIONES EMPLEADO///////////////////////
     //////////////////////////////////////////////////////
 
+
+
+    public function editar_empleado($idUsuario,$idSesion,$id,$tipo,$valor)
+    {
+            $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro="";
+
+                if($tipo=="nombre")
+                {
+                    $sql = "UPDATE empleado  SET nombreEmpleado=:nombre WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":nombre",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="apellidoP")
+                {
+                    $sql = "UPDATE empleado  SET apellidopEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="apellidoM")
+                {
+                    $sql = "UPDATE empleado  SET apellidomEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="domicilio")
+                {
+                    $sql = "UPDATE empleado  SET domicilioEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="numExt")
+                {
+                    $sql = "UPDATE empleado  SET numeroextEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                
+                if($tipo=="colonia")
+                {
+                    $sql = "UPDATE empleado  SET coloniaEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="telefono")
+                {
+                    $sql = "UPDATE empleado  SET telefonoEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="puesto")
+                {
+                    $sql = "UPDATE empleado  SET puestoEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="correo")
+                {
+                    $sql = "UPDATE empleado  SET correoEmpleado=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+            }
+            else
+            {
+                return "error";
+            }
+
+    }
+    public function  eliminar_usuario($idUsuario,$idSesion,$id)
+    {
+
+        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "DELETE FROM empleado WHERE id=:id";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":id",$id);
+            if($parametro->execute())
+            {
+                return "listo";
+            }
+            else
+            {
+                return "error 400";
+            }
+        }
+        else
+        {
+            return "error";
+        }
+    }
 
     //////Agregar Empleado///////
     public function agregar_empleado($nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado,$tipo_usuario)
@@ -428,12 +904,6 @@ class Acciones
             return json_encode("error 500");
         } 
     }
-
-
-
-
-
-
 
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
@@ -702,20 +1172,19 @@ class Acciones
             
             if($parametro->execute())
             {
-                return "listo";
+                return "La empresa se a regristrado satisfactoriamente<br>Espere un lapso de 12 a 24 hrs en lo que se acepta su peticion.";
             }
             else
             {
-                return "error";
+                return "Error";
             }
         }
         else
         {
-            return "ya existe la empresa";
-            // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
-            // return $correoEmpleado;
+            return "La empresa que se esta registrando ya se encuentra dada de alta<br>Favor de ingresar los datos correctamente.";
         }
     }
+    
 
 
     public function agregar_empresa_dashboard($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
@@ -806,6 +1275,172 @@ class Acciones
     }
 
 
+    public function editar_empresas($idUsuario,$idSesion,$id,$tipo,$valor)
+    {
+            $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro="";
+
+                if($tipo=="rfcEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET rfcEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="nombreEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET nombreEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="razonsocialEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET razonsocialEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="domicilioEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET domicilioEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="numerocalleEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET numerocalleEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="coloniaEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET coloniaEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="cpEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET cpEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo==" municipioEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET  municipioEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="estadoEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET estadoEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="telefonoEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET telefonoEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+                if($tipo=="correoEmpresa")
+                {
+                    $sql = "UPDATE empresas  SET correoEmpresa=:dato WHERE id=:id";
+                    $parametro = $conexion->prepare($sql);
+                    $parametro->bindParam(":dato",$valor);
+                    $parametro->bindParam(":id",$id);
+                    if($parametro->execute())
+                    {
+                        return "listo";
+                    }
+                }
+            }
+            else
+            {
+                return "error";
+            }
+    }
+
+    public function  eliminar_empresa($idUsuario,$idSesion,$id)
+    {
+
+        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "DELETE FROM empresas WHERE id=:id";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":id",$id);
+            if($parametro->execute())
+            {
+                return "listo";
+            }
+            else
+            {
+                return "error 400";
+            }
+        }
+        else
+        {
+            return "error";
+        }
+    }
+
+
+
 
 
 
@@ -894,7 +1529,7 @@ class Acciones
                             tipo_usuario FROM empresas WHERE correoEmpresa=:correoEmpresa AND contrasenaEmpresa=:contrasenaEmpresa";
                             $parametro8 = $conexion->prepare($sql8);
                             $parametro8->bindParam(":correoEmpresa",$correo);
-                            $parametro->bindParam(":contrasenaEmpresa",$contraCifrada);
+                            $parametro8->bindParam(":contrasenaEmpresa",$contraCifrada);
                             if($parametro8->execute())
                             {
                                 $datos1 = $parametro8->fetchAll(PDO::FETCH_ASSOC);
@@ -1044,598 +1679,6 @@ class Acciones
         }   
     }
     
-    public function editar_empleado($idUsuario,$idSesion,$id,$tipo,$valor)
-    {
-            $verificacion  = $this->checarSesion($idUsuario,$idSesion);
-            if($verificacion==$idSesion)
-            {
-                $modelo = new Servidor();
-                $conexion = $modelo->conectar();
-                $parametro="";
-
-                if($tipo=="nombre")
-                {
-                    $sql = "UPDATE empleado  SET nombreEmpleado=:nombre WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":nombre",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="apellidoP")
-                {
-                    $sql = "UPDATE empleado  SET apellidopEmpleado=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="apellidoM")
-                {
-                    $sql = "UPDATE empleado  SET apellidomEmpleado=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="domicilio")
-                {
-                    $sql = "UPDATE empleado  SET domicilioEmpleado=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="numExt")
-                {
-                    $sql = "UPDATE empleado  SET numeroextEmpleado=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="colonia")
-                {
-                    $sql = "UPDATE empleado  SET coloniaEmpleado=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="telefono")
-                {
-                    $sql = "UPDATE empleado  SET telefonoEmpleado=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="puesto")
-                {
-                    $sql = "UPDATE empleado  SET puestoEmpleado=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="correo")
-                {
-                    $sql = "UPDATE empleado  SET correoEmpleado=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-            }
-            else
-            {
-                return "error";
-            }
-
-    }
-
-    public function editar_adn($idUsuario,$idSesion,$id,$tipo,$valor)
-    {
-            $verificacion  = $this->checarSesion($idUsuario,$idSesion);
-            if($verificacion==$idSesion)
-            {
-                $modelo = new Servidor();
-                $conexion = $modelo->conectar();
-                $parametro="";
-
-                if($tipo=="nombreAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET nombreAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="apellidoPAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET apellidoPAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="apellidoMAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET apellidoMAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="domicilioAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET domicilioAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="numExtAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET numeroextAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="coloniaAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET coloniaAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="telefonoAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET telefonoAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="puestoAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET puestoAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="correoAdministrador")
-                {
-                    $sql = "UPDATE administrador  SET correoAdministrador=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-            }
-            else
-            {
-                return "error";
-            }
-
-    }
-
-    public function editar_empresas($idUsuario,$idSesion,$id,$tipo,$valor)
-    {
-            $verificacion  = $this->checarSesion($idUsuario,$idSesion);
-            if($verificacion==$idSesion)
-            {
-                $modelo = new Servidor();
-                $conexion = $modelo->conectar();
-                $parametro="";
-
-                if($tipo=="rfcEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET rfcEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="nombreEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET nombreEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="razonsocialEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET razonsocialEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="domicilioEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET domicilioEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="numerocalleEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET numerocalleEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="coloniaEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET coloniaEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="cpEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET cpEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo==" municipioEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET  municipioEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="estadoEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET estadoEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="telefonoEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET telefonoEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-                if($tipo=="correoEmpresa")
-                {
-                    $sql = "UPDATE empresas  SET correoEmpresa=:dato WHERE id=:id";
-                    $parametro = $conexion->prepare($sql);
-                    $parametro->bindParam(":dato",$valor);
-                    $parametro->bindParam(":id",$id);
-                    if($parametro->execute())
-                    {
-                        return "listo";
-                    }
-                }
-            }
-            else
-            {
-                return "error";
-            }
-    }
-
-    public function  eliminar_usuario($idUsuario,$idSesion,$id)
-    {
-
-        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
-        if($verificacion==$idSesion)
-        {
-            $sql = "DELETE FROM empleado WHERE id=:id";
-            $modelo = new Servidor();
-            $conexion = $modelo->conectar();
-            
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":id",$id);
-            if($parametro->execute())
-            {
-                return "listo";
-            }
-            else
-            {
-                return "error 400";
-            }
-        }
-        else
-        {
-            return "error";
-        }
-    }
-
-    public function  eliminar_empresa($idUsuario,$idSesion,$id)
-    {
-
-        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
-        if($verificacion==$idSesion)
-        {
-            $sql = "DELETE FROM empresas WHERE id=:id";
-            $modelo = new Servidor();
-            $conexion = $modelo->conectar();
-            
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":id",$id);
-            if($parametro->execute())
-            {
-                return "listo";
-            }
-            else
-            {
-                return "error 400";
-            }
-        }
-        else
-        {
-            return "error";
-        }
-    }
-
-    public function  eliminar_adn($idUsuario,$idSesion,$id)
-    {
-
-        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
-        if($verificacion==$idSesion)
-        {
-            $sql = "DELETE FROM administrador WHERE id=:id";
-            $modelo = new Servidor();
-            $conexion = $modelo->conectar();
-            
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":id",$id);
-            if($parametro->execute())
-            {
-                return "listo";
-            }
-            else
-            {
-                return "error 400";
-            }
-        }
-        else
-        {
-            return "error";
-        }
-    }
-
-        ///// Tomar empleados activos mostrar tabla
-        public function tomarAndActivos($id,$idSesion)
-        {
-            $verificacion  = $this->checarSesion($id,$idSesion);
-            if($verificacion==$idSesion)
-            {
-                $sql = "SELECT 
-                id,
-                nombreAdministrador,
-                apellidopAdministrador,
-                apellidomAdministrador,
-                domicilioAdministrador,
-                numeroextAdministrador,
-                coloniaAdministrador,
-                telefonoAdministrador,
-                puestoAdministrador,
-                correoAdministrador,
-                idSesion,
-                tipo_usuario,
-                activo FROM administrador WHERE activo=:activo";
-                $activo = "1";
-                $modelo = new Servidor();
-                $conexion = $modelo->conectar();
-                $parametro = $conexion->prepare($sql);
-                $parametro->bindParam(":activo",$activo);
-                $parametro->execute();
-                $columnas = $parametro->rowCount();
-                if($columnas==0)
-                {
-                    return json_encode("error 400");
-                }
-                else
-                {
-                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
-                    return json_encode($datos);       
-                }
-            }  
-            else
-            {
-                return "error 500";
-            } 
-        }
-
-        ///// Tomar empleados activos mostrar tabla
-        public function tomarAdnNoActivos($id,$idSesion)
-        {
-            $verificacion  = $this->checarSesion($id,$idSesion);
-            if($verificacion==$idSesion)
-            {
-                $sql = "SELECT 
-                id,
-                nombreAdministrador,
-                apellidopAdministrador,
-                apellidomAdministrador,
-                domicilioAdministrador,
-                numeroextAdministrador,
-                coloniaAdministrador,
-                telefonoAdministrador,
-                puestoAdministrador,
-                correoAdministrador,
-                idSesion,
-                tipo_usuario,
-                activo FROM administrador WHERE activo=:activo";
-                $activo = "0";
-                $modelo = new Servidor();
-                $conexion = $modelo->conectar();
-                $parametro = $conexion->prepare($sql);
-                $parametro->bindParam(":activo",$activo);
-                $parametro->execute();
-                $columnas = $parametro->rowCount();
-                if($columnas==0)
-                {
-                    return json_encode("error 400");
-                }
-                else
-                {
-                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
-                    return json_encode($datos);       
-                }
-            }  
-            else
-            {
-                return "error 500";
-            } 
-        }
-
-
-        /////////Desactivar administradores//////////
-    public function desactivar_adn($id,$idSesion,$id_empleado, $estado)
-    {
-        $verificacion  = $this->checarSesion($id,$idSesion);
-        if($verificacion==$idSesion)
-        {
-            $sql = "UPDATE administrador SET activo=:activo WHERE id=:id";
-            $modelo = new Servidor();
-            $conexion = $modelo->conectar();
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":activo",$estado);
-            $parametro->bindParam(":id",$id_empleado);
-            if($parametro->execute())
-            {
-                return "listo";
-            }
-            else
-            {
-                return "error";
-            }
-        }
-        else
-        {
-            return "error 500";
-        }
-    }
-
-    ///////// Activar administradores///////
-
-    public function activar_adn($id,$idSesion,$id_empleado,$estado)
-    {
-        $verificacion  = $this->checarSesion($id,$idSesion);
-        if($verificacion==$idSesion)
-        {
-            $sql = "UPDATE administrador SET activo=:activo WHERE id=:id";
-            $modelo = new Servidor();
-            $conexion = $modelo->conectar();
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":activo",$estado);
-            $parametro->bindParam(":id",$id_empleado);
-            if($parametro->execute())
-            {
-                return json_encode("Listo");
-            }
-            else
-            {
-                return json_encode("error 400");
-            }
-        }
-        else
-        {
-            return json_encode("error 500");
-        }
-    }
-
 
     public function crear_cookie_vista($idUsuario,$idSesion,$valor)
     {

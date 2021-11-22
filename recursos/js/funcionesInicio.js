@@ -8,7 +8,7 @@ function inicio_sesion()
 
     if(input_correo.length ==0 || input_contra==0) 
     {
-        dialogo("Campos vacios")
+        dialogo("Los campos se encuentran vacio, favor de ingresar el correo y la contraseña")
     }
     else
     {
@@ -157,7 +157,7 @@ function agregar_peticion_empresa()
                 {
                     limpiar_formulario_agrega_peticion_login()
                     // console.log("200 Respuesta Exitosa");
-                    console.log(ajax.responseText)
+                    //console.log(ajax.responseText)
                     dialogo(ajax.responseText)
                 }
                 if (ajax.status == 400) 
@@ -209,6 +209,7 @@ function mostrarSeccionLogin(event)
     let identificador = elemento.id
     let regexIncioSession = /login/
     let regexRegistrar = /inicioSesion/
+    let regexRecuperar = /recuperar/
     //console.log(identificador)
     if(regexIncioSession.test(identificador))
     {
@@ -222,8 +223,16 @@ function mostrarSeccionLogin(event)
         let nombre_elemento = "contenedor_formulario_registrar"
         mostrarVistaLogin(nombre_elemento)
     }
-    
+    if(regexRecuperar.test(identificador))
+    {
+    // console.log("coincide ticket")
+    let nombre_elemento = "contenedor_recuperar_contrasena"
+    mostrarVistaLogin(nombre_elemento)
+    }
 }
+    
+
+
 
 /////TERMINO DESPLAZAMIENTO ENTRE Inicio Session
 

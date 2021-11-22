@@ -95,6 +95,7 @@ let contenedores_inicio_sesion = document.querySelectorAll(".seccion_empleado")
 let contenedores_administradores = document.querySelectorAll(".seccion_administradores")
 
 
+
 //INICIO DESPLAZAMIENTO ENTRE MENUS
 //Ocultar secciones del menu 
 function ocultarSecciones()
@@ -161,6 +162,8 @@ function mostrarSeccion(event)
     let regexEmpresa = /empresas/
     let regexEmpleado = /empleado/
     let regexAdministrador = /administrador/
+    let regexContrasena = /contrasena/
+
 
     
     
@@ -191,6 +194,7 @@ function mostrarSeccion(event)
         // console.log("coincide ticket")
         let nombre_elemento = "contenedor_tickets"
         mostrarVista(nombre_elemento)
+        tomar_datos_tickets_pendientes()
         if(navegador.includes("Mozilla"))
         {
             // alert("Es mozilla")
@@ -265,8 +269,26 @@ function mostrarSeccion(event)
             datos.append("valor",nombre_elemento);
             crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
         }
-        
 
+    }
+    if(regexContrasena.test(identificador))
+    {
+        console.log("coincide peticiones")
+        let nombre_elemento = "contenedor_cambio_contrasena"
+        mostrarVista(nombre_elemento)
+
+        if(navegador.includes("Mozilla"))
+        {
+            // alert("Es mozilla")
+            setCookie("vista-actual",nombre_elemento,1)
+        }
+        if(navegador.includes("Google"))
+        {
+            // alert("Es Google")
+            let datos = new FormData()
+            datos.append("valor",nombre_elemento);
+            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        }
     }
 }
 
@@ -302,12 +324,14 @@ function mostrarSeccionDashboard(event)
     let regexNoResuelto = /noResuelto/
     let regexResuelto = /resuelto/
     let regexPeticion = /peticion/
+
     //console.log(identificador)
     if(regexPendiente.test(identificador))
     {
         //console.log("coincide pendiente")
         let nombre_elemento = "contenedor_tickets_pendientes"
         mostrarVistaDashboard(nombre_elemento)
+        tomar_datos_tickets_pendientes()
     }
     if(regexNoResuelto.test(identificador))
     {
@@ -327,10 +351,13 @@ function mostrarSeccionDashboard(event)
         let nombre_elemento = "contenedor_peticion"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_empresas_peticion_dashboard()
-
     }
+
 }
 ///TERMINO DESPLAZAMIENTO OPCIONES DEL DASHBOARD
+
+
+
 
 
 //INICIO DESPLAZAMIENTO ENTRE TICKETS
@@ -367,6 +394,7 @@ function mostrarSeccionTickets(event)
         //console.log("coincide dashboard")
         let nombre_elemento = "contenedor_contenido_ticketsPendientes"
         mostrarVistaTickets(nombre_elemento)
+        tomar_datos_tickets_pendientes()
     }
     if(regexTicketsNoResueltos.test(identificador))
     {
@@ -3098,16 +3126,14 @@ function agregar_ticket()
     
     var input_RFCTicket = document.getElementById("input_RFCTicket").value.trim()
     var input_nombreTicket = document.getElementById("input_nombreTicket").value.trim()
-    var input_fecha = document.getElementById("input_fecha").value.trim()
+    // var input_fecha = document.getElementById("input_fecha").value.trim()
     var select_servicio = document.getElementById("select_servicio").value
     var select_prioridad = document.getElementById("select_prioridad").value
     var txt_problematica = document.getElementById("txt_problematica").value
-   
 
     if( 
         input_RFCTicket.length ==0 ||
         input_nombreTicket.length ==0 ||
-        input_fecha.length ==0 ||
         select_servicio.length ==0 ||
         select_prioridad.length ==0 ||
         txt_problematica.length ==0 
@@ -3121,12 +3147,9 @@ function agregar_ticket()
 
     datos.append("nombreEmpresa",input_RFCTicket)
     datos.append("rfcEmpresa",input_nombreTicket)
-    datos.append("fechaRegistro",input_fecha)
     datos.append("tipoServicio",select_servicio)
     datos.append("prioridad",select_prioridad)
     datos.append("descripcion",txt_problematica)
-
-
 
     console.log(datos)
     let ajax = new XMLHttpRequest()
@@ -3158,4 +3181,216 @@ function agregar_ticket()
             }            
         }
     }
+}
+
+
+function mostrar_nombre(event)
+{
+    let contenedor_opciones = document.getElementById("contendor_opciones_nombre")
+    let valor = event.target.value.trim()
+    if(valor!="")
+    {
+        // console.log(valor)
+        let datos = new FormData();
+        datos.append("coincidencia",valor)
+        let peticion = new XMLHttpRequest();
+        peticion.open("POST","../controlador/tomar_nombres_empresas.php")
+        peticion.send(datos)
+
+        peticion.onreadystatechange =function () 
+        {
+            if (peticion.readyState == 4) 
+            {
+                if (peticion.status == 200) 
+                {
+                    // console.log("200 Respuesta Exitosa");
+                    // console.log(peticion.responseText)
+                    let datos = JSON.parse(peticion.responseText)
+                    contenedor_opciones.style.display="flex"
+                    contenedor_opciones.innerHTML=""                    
+                    if(!datos.includes("sin coincidencias"))
+                    {
+                        for (let objeto of datos)
+                        {
+                            let nombre = objeto.nombreEmpresa
+                            let rfc = objeto.rfcEmpresa
+                            console.log(rfc)
+
+                            let opcion = document.createElement("div")
+                            opcion.setAttribute("class","opcion_nombre")
+                            // opcion.setAttribute("onclick","agregar_nombres(event);")
+
+                            let texto = document.createElement("p")
+                            texto.setAttribute("class","opcion_texto")
+                            texto.setAttribute("onclick","agregar_nombres(event);")
+                            texto.innerHTML = nombre
+
+                            let input = document.createElement("input")
+                            input.setAttribute("type","hidden")
+                            input.value = rfc
+
+                            // opcion.setAttribute("value",rfc)
+                            opcion.appendChild(texto)
+                            opcion.appendChild(input)
+
+                            contenedor_opciones.appendChild(opcion)
+                        }
+                    }
+                    
+
+                }
+                if (peticion.status == 400) 
+                {
+                    console.log("400 El servidor no entendió la petición");
+                }
+                if (peticion.status == 404)
+                {
+                    console.log("404 Página no encontrada");
+                }
+                if (peticion.status == 500) {
+                    console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+        // contenedor_opciones.innerHTML='<p class="opcion_nombre" onclick="agregar_nombres(event);">'+valor+'</p>' 
+    }
+    else
+    {
+        contenedor_opciones.style.display="none"
+    }
+}
+
+function agregar_nombres(event)
+{ 
+    let contenedor_opciones = document.getElementById("contendor_opciones_nombre")
+    let contenedor_rfc = document.getElementById("input_RFCTicket")
+    let contenecor_nombre = document.getElementById("input_nombreTicket")
+
+    let elemento = event.target
+    let input = elemento.nextElementSibling
+    
+    let valor_nombre = elemento.innerHTML
+    let valor_rfc = input.value
+    // console.log(input.value)
+
+    contenedor_rfc.value=valor_rfc
+    contenecor_nombre.value= valor_nombre
+    contenedor_opciones.style.display="none"
+}
+
+
+
+////////// Alertas
+
+function dialogo(mensaje)
+{
+    let dialogo_mensaje = document.createElement("div")
+    dialogo_mensaje.setAttribute("class","contenedor_dialogo")
+    dialogo_mensaje.innerHTML=mensaje
+
+    let boton  = document.createElement("div")
+    boton.setAttribute("class","boton")
+    boton.setAttribute("onclick","quitar_alerta(event);")
+    boton.innerHTML="Aceptar"
+
+    dialogo_mensaje.appendChild(boton)
+
+    let contenedor = document.getElementById("contenedor_inicio_sesion")
+    let fondo = document.createElement("div")
+    fondo.setAttribute("class","contenedor_alerta")
+    fondo.setAttribute("id","elemento_dialogo")
+
+    fondo.appendChild(dialogo_mensaje)
+    contenedor.appendChild(fondo)
+
+}
+function quitar_alerta(event)
+{
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_elemento = padre.id
+    let borrado = document.getElementById(id_elemento)
+    borrado.parentNode.removeChild(borrado)
+}
+
+
+// dialogo("losto senoras")
+
+
+
+function buscar_ticket_pendiente(event)
+{
+    var datos_filtrados = []
+
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_tickets)
+                {
+
+                    console.log(objeto)
+                    let referenciaTicket = objeto.referencia.toLowerCase()
+                    let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
+                    let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
+                    let tipo = objeto.tipoServicio.toLowerCase()
+                    let prioridad_ticket = objeto.prioridad.toLowerCase()
+                    
+
+                    if(referenciaTicket.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(nombreEmpre.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(rfcEmpre.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }
+                    if(tipo.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(prioridad_ticket.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }
+                }
+
+                
+                if(datos_filtrados.length>0)
+                {
+                    datos_empleados = datos_filtrados
+                    pagina_actual_tickets_pendientes = 1
+                    paginador_tickets_pendientes(datos_empleados,pagina_actual_tickets_pendientes,cantidad_vistas_tickets_pendientes,boton_anterior_tickets_pendientes,boton_siguiente_tickets_pendientes,boton_primero_tickets_pendientes,boton_ultimo_tickets_pendientes,cuerpo_tickets_pendientes,indicador_pagina_tickets_pendientes)
+                }
+            }
+            else
+            {
+                tomar_datos_tickets_pendientes()
+            }
+        }
 }
