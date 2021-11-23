@@ -10,6 +10,87 @@ class Acciones
     //////////////ACCIONES administradores////////////////
     //////////////////////////////////////////////////////
 
+    public function tomar_informacion_ticket($id,$sesion,$idTicket)
+    {
+        $verificacion  = $this->checarSesion($id,$sesion);
+        if($verificacion==$sesion)
+        {
+            $sql = "SELECT * FROM info_tickets WHERE id=:id";
+            $modelo = new Servidor();
+            $conexion= $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":id",$idTicket);
+            $parametro->execute();
+            $rows = $parametro->rowCount();
+            if($rows==0)
+            {
+                return "no hay coincidencias";
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);
+                return $datos;
+            }
+        }
+        else
+        {
+            return "ERROR";
+        } 
+    }
+
+
+    // agregar comentario 
+
+    public function agregar_comentario($id,$idSesion,$id_ticket,$comentario)
+    {
+        $verificacion  = $this->checarSesion($id,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $modelo= new Servidor();
+            $conexion= $modelo->conectar();
+            $sql = "";
+            $parametro ="";
+            // seleccionar comentarios del ticket por pdo
+            $sql = "SELECT comentarios FROM info_tickets WHERE id=:id_ticket";
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":id_ticket",$id_ticket);
+            $parametro->execute();
+            $rows = $parametro->rowCount();
+            if($rows==0)
+            {
+                return "no hay coincidencias";
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);
+                $comentarios = $datos[0]["comentarios"];
+                $comentarios = $comentarios.$comentario;
+                $sql = "UPDATE info_tickets SET comentarios=:comentarios WHERE id=:id_ticket";
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":comentarios",$comentarios);
+                $parametro->bindParam(":id_ticket",$id_ticket);
+                $parametro->execute();
+                return "comentario agregado";
+            }
+
+
+            // $sql2 = "UPDATE info_tickets SET comentarios=:comentario WHERE id=:id";
+
+            // $parametro2 = $conexion->prepare($sql2);
+            // $parametro2->bindParam(":id",$id_ticket);
+            // $parametro2->bindParam(":comentario",$comentario);
+            
+            // if($parametro2->execute())
+            // {
+            //     return json_encode("LISTO");
+            // }
+        }
+        else
+        {
+            return json_encode("ERROR");
+        }
+    }
+
 
     //////Agregar administrador///////
     public function agregar_ticket($id,$idSesion,$nombreEmpresa,$rfcEmpresa,$tipoServicio,$prioridad,$descripcion)
@@ -41,7 +122,8 @@ class Acciones
                 tipoServicio,
                 prioridad,
                 descripcion,
-                estatus
+                estatus,
+                comentarios
                 ) 
                 VALUE(
                 :referencia,
@@ -54,7 +136,8 @@ class Acciones
                 :tipoServicio,
                 :prioridad,
                 :descripcion,
-                :estatus)";
+                :estatus,
+                :comentarios)";
     
                 $parametro = $conexion->prepare($sql);
                 $parametro->bindParam(":referencia",$referencia);
@@ -68,19 +151,20 @@ class Acciones
                 $parametro->bindParam(":prioridad",$prioridad);
                 $parametro->bindParam(":descripcion",$descripcion);
                 $parametro->bindParam(":estatus",$estatus);
+                $parametro->bindParam(":comentarios",$strVacio);
     
                 if($parametro->execute())
                 {
-                    return "listo ";
+                    return "Ticket dado de alta";
                 }
                 else
                 {
-                    return "error";
+                    return "ERROR";
                 }
             }
             else
             {
-                return "ya existe el folio";
+                return "Ya un ticket con el folio existente";
             }
         }
         else
@@ -165,87 +249,96 @@ class Acciones
 
 
     //////Agregar administrador///////
-    public function agregar_Administrador($nombreAdministrador,$apellidopAdministrador,$apellidomAdministrador,$domicilioAdministrador,$numeroextAdministrador,$coloniaAdministrador,$telefonoAdministrador,$puestoAdministrador,$correoAdministrador,$contrasenaAdministrador)
+    public function agregar_Administrador($idUsuario,$idSesion,$nombreAdministrador,$apellidopAdministrador,$apellidomAdministrador,$domicilioAdministrador,$numeroextAdministrador,$coloniaAdministrador,$telefonoAdministrador,$puestoAdministrador,$correoAdministrador,$contrasenaAdministrador)
     {
-        $servidor = new Servidor();
-        $conexion = $servidor->conectar();
-        $sql_vericar = "SELECT correoAdministrador  FROM administrador WHERE correoAdministrador=:correoAdministrador";
-        $existe = $conexion->prepare($sql_vericar);
-        $existe->bindParam(":correoAdministrador",$correoAdministrador);
-        $existe->execute();
-        $activo = "1";
-        $tipo_usuario = "ADMINISTRADOR";
-        $str_vacio = " ";
-        
-        $numero = rand(100000,999999);
-        $fecha = date("D/m/A H:i:s");
-        $cifrado = sha1($contrasenaAdministrador);
-        $cifrado = sha1($cifrado);
-
-        if($existe->rowCount()==0)
+        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        if($verificacion==$idSesion)
         {
 
-
-            $sql = "INSERT INTO administrador
-            (nombreAdministrador,
-            apellidopAdministrador,
-            apellidomAdministrador,
-            domicilioAdministrador,
-            numeroextAdministrador,
-            coloniaAdministrador,
-            telefonoAdministrador,
-            puestoAdministrador,
-            correoAdministrador,
-            contrasenaAdministrador,
-            idSesion,
-            activo,
-            tipo_usuario
-            ) 
-            VALUE(
-            :nombreAdministrador,
-            :apellidopAdministrador,
-            :apellidomAdministrador,
-            :domicilioAdministrador,
-            :numeroextAdministrador,
-            :coloniaAdministrador,
-            :telefonoAdministrador,
-            :puestoAdministrador,
-            :correoAdministrador,
-            :contrasenaAdministrador,
-            :idSesion,
-            :activo,
-            :tipo_usuario)";
-
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":nombreAdministrador",$nombreAdministrador);
-            $parametro->bindParam(":apellidopAdministrador",$apellidopAdministrador);
-            $parametro->bindParam(":apellidomAdministrador",$apellidomAdministrador);
-            $parametro->bindParam(":domicilioAdministrador",$domicilioAdministrador);
-            $parametro->bindParam(":numeroextAdministrador",$numeroextAdministrador);
-            $parametro->bindParam(":coloniaAdministrador",$coloniaAdministrador);
-            $parametro->bindParam(":telefonoAdministrador",$telefonoAdministrador);
-            $parametro->bindParam(":puestoAdministrador",$puestoAdministrador);
-            $parametro->bindParam(":correoAdministrador",$correoAdministrador);
-            $parametro->bindParam(":contrasenaAdministrador",$cifrado);
-            $parametro->bindParam(":idSesion",$str_vacio);
-            $parametro->bindParam(":activo",$activo);
-            $parametro->bindParam(":tipo_usuario",$tipo_usuario);
-
+            $servidor = new Servidor();
+            $conexion = $servidor->conectar();
+            $sql_vericar = "SELECT correoAdministrador  FROM administrador WHERE correoAdministrador=:correoAdministrador";
+            $existe = $conexion->prepare($sql_vericar);
+            $existe->bindParam(":correoAdministrador",$correoAdministrador);
+            $existe->execute();
+            $activo = "1";
+            $tipo_usuario = "ADMINISTRADOR";
+            $str_vacio = " ";
             
-            if($parametro->execute())
+            $numero = rand(100000,999999);
+            $fecha = date("D/m/A H:i:s");
+            $cifrado = sha1($contrasenaAdministrador);
+            $cifrado = sha1($cifrado);
+
+            if($existe->rowCount()==0)
             {
-                return "listo";
+
+
+                $sql = "INSERT INTO administrador
+                (nombreAdministrador,
+                apellidopAdministrador,
+                apellidomAdministrador,
+                domicilioAdministrador,
+                numeroextAdministrador,
+                coloniaAdministrador,
+                telefonoAdministrador,
+                puestoAdministrador,
+                correoAdministrador,
+                contrasenaAdministrador,
+                idSesion,
+                activo,
+                tipo_usuario
+                ) 
+                VALUE(
+                :nombreAdministrador,
+                :apellidopAdministrador,
+                :apellidomAdministrador,
+                :domicilioAdministrador,
+                :numeroextAdministrador,
+                :coloniaAdministrador,
+                :telefonoAdministrador,
+                :puestoAdministrador,
+                :correoAdministrador,
+                :contrasenaAdministrador,
+                :idSesion,
+                :activo,
+                :tipo_usuario)";
+
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":nombreAdministrador",$nombreAdministrador);
+                $parametro->bindParam(":apellidopAdministrador",$apellidopAdministrador);
+                $parametro->bindParam(":apellidomAdministrador",$apellidomAdministrador);
+                $parametro->bindParam(":domicilioAdministrador",$domicilioAdministrador);
+                $parametro->bindParam(":numeroextAdministrador",$numeroextAdministrador);
+                $parametro->bindParam(":coloniaAdministrador",$coloniaAdministrador);
+                $parametro->bindParam(":telefonoAdministrador",$telefonoAdministrador);
+                $parametro->bindParam(":puestoAdministrador",$puestoAdministrador);
+                $parametro->bindParam(":correoAdministrador",$correoAdministrador);
+                $parametro->bindParam(":contrasenaAdministrador",$cifrado);
+                $parametro->bindParam(":idSesion",$str_vacio);
+                $parametro->bindParam(":activo",$activo);
+                $parametro->bindParam(":tipo_usuario",$tipo_usuario);
+
+                
+                if($parametro->execute())
+                {
+                    return "Empleado registrado satisfactoriamente";
+                }
+                else
+                {
+                    return "ERROR";
+                }
             }
             else
             {
-                return "error";
+                return "El empleado registrado ya esta dado de alta";
+                // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
+                // return $correoEmpleado;
             }
         }
         else
         {
-            return "ya existe la usuario";
-            // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
-            // return $correoEmpleado;
+            return "ERROR";
         }
     }
 
@@ -263,16 +356,16 @@ class Acciones
             $parametro->bindParam(":id",$id);
             if($parametro->execute())
             {
-                return "listo";
+                return "Se a eliminado el empleado permanentemente";
             }
             else
             {
-                return "error 400";
+                return "ERROR 400";
             }
         }
         else
         {
-            return "error";
+            return "ERROR";
         }
     }
 
@@ -315,7 +408,7 @@ class Acciones
             }  
             else
             {
-                return "error 500";
+                return  json_encode("error 500");
             } 
         }
 
@@ -377,16 +470,16 @@ class Acciones
             $parametro->bindParam(":id",$id_empleado);
             if($parametro->execute())
             {
-                return "listo";
+                return "El empleado se a dado de baja";
             }
             else
             {
-                return "error";
+                return "ERROR";
             }
         }
         else
         {
-            return "error 500";
+            return "ERROR 500";
         }
     }
 
@@ -405,16 +498,16 @@ class Acciones
             $parametro->bindParam(":id",$id_empleado);
             if($parametro->execute())
             {
-                return json_encode("Listo");
+                return ("El empleado se a reactivado");
             }
             else
             {
-                return json_encode("error 400");
+                return ("ERROR 400");
             }
         }
         else
         {
-            return json_encode("error 500");
+            return ("ERROR 500");
         }
     }
 
@@ -436,7 +529,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="apellidoPAdministrador")
@@ -447,7 +540,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="apellidoMAdministrador")
@@ -458,7 +551,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="domicilioAdministrador")
@@ -469,7 +562,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="numExtAdministrador")
@@ -480,7 +573,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="coloniaAdministrador")
@@ -491,7 +584,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="telefonoAdministrador")
@@ -502,7 +595,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="puestoAdministrador")
@@ -513,7 +606,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="correoAdministrador")
@@ -524,7 +617,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
             }
@@ -559,7 +652,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="apellidoP")
@@ -570,7 +663,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="apellidoM")
@@ -581,7 +674,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="domicilio")
@@ -592,7 +685,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="numExt")
@@ -603,7 +696,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 
@@ -615,7 +708,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="telefono")
@@ -626,7 +719,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="puesto")
@@ -637,7 +730,7 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
                 if($tipo=="correo")
@@ -648,19 +741,18 @@ class Acciones
                     $parametro->bindParam(":id",$id);
                     if($parametro->execute())
                     {
-                        return "listo";
+                        return "Se a modificado los datos del empleado";
                     }
                 }
             }
             else
             {
-                return "error";
+                return "ERROR";
             }
 
     }
     public function  eliminar_usuario($idUsuario,$idSesion,$id)
     {
-
         $verificacion  = $this->checarSesion($idUsuario,$idSesion);
         if($verificacion==$idSesion)
         {
@@ -672,97 +764,105 @@ class Acciones
             $parametro->bindParam(":id",$id);
             if($parametro->execute())
             {
-                return "listo";
+                return "Se a eliminado el empleado permanentemente";
             }
             else
             {
-                return "error 400";
+                return "ERROR 400";
             }
         }
         else
         {
-            return "error";
+            return "ERROR";
         }
     }
 
     //////Agregar Empleado///////
-    public function agregar_empleado($nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado,$tipo_usuario)
+    public function agregar_empleado($idUsuario,$idSesion,$nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado,$tipo_usuario)
     {
-        $servidor = new Servidor();
-        $conexion = $servidor->conectar();
-        $sql_vericar = "SELECT correoEmpleado FROM empleado WHERE correoEmpleado=:correoEmpleado";
-        $existe = $conexion->prepare($sql_vericar);
-        $existe->bindParam(":correoEmpleado",$correoEmpleado);
-        $existe->execute();
-        $activo = "1";
-        $str_vacio = " ";
+        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        if($verificacion==$idSesion)
+        {   
+            $servidor = new Servidor();
+            $conexion = $servidor->conectar();
+            $sql_vericar = "SELECT correoEmpleado FROM empleado WHERE correoEmpleado=:correoEmpleado";
+            $existe = $conexion->prepare($sql_vericar);
+            $existe->bindParam(":correoEmpleado",$correoEmpleado);
+            $existe->execute();
+            $activo = "1";
+            $str_vacio = " ";
 
-        $numero = rand(100000,999999);
-        $fecha = date("D/m/A H:i:s");
-        $cifrado = sha1($contrasenaEmpleado);
-        $cifrado = sha1($cifrado);
+            $numero = rand(100000,999999);
+            $fecha = date("D/m/A H:i:s");
+            $cifrado = sha1($contrasenaEmpleado);
+            $cifrado = sha1($cifrado);
 
-        if($existe->rowCount()==0)
-        {
-            $sql = "INSERT INTO empleado
-            (nombreEmpleado,
-            apellidopEmpleado,
-            apellidomEmpleado,
-            domicilioEmpleado,
-            numeroextEmpleado,
-            coloniaEmpleado,
-            telefonoEmpleado,
-            puestoEmpleado,
-            correoEmpleado,
-            contrasenaEmpleado,
-            idSesion,
-            activo,
-            tipo_usuario
-            ) 
-            VALUE(:nombreEmpleado,
-            :apellidopEmpleado,
-            :apellidomEmpleado,
-            :domicilioEmpleado,
-            :numeroextEmpleado,
-            :coloniaEmpleado,
-            :telefonoEmpleado,
-            :puestoEmpleado,
-            :correoEmpleado,
-            :contrasenaEmpleado,
-            :idSesion,
-            :activo,
-            :tipo_usuario)";
-
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":nombreEmpleado",$nombreEmpleado);
-            $parametro->bindParam(":apellidopEmpleado",$apellidopEmpleado);
-            $parametro->bindParam(":apellidomEmpleado",$apellidomEmpleado);
-            $parametro->bindParam(":domicilioEmpleado",$domicilioEmpleado);
-            $parametro->bindParam(":numeroextEmpleado",$numeroextEmpleado);
-            $parametro->bindParam(":coloniaEmpleado",$coloniaEmpleado);
-            $parametro->bindParam(":telefonoEmpleado",$telefonoEmpleado);
-            $parametro->bindParam(":puestoEmpleado",$puestoEmpleado);
-            $parametro->bindParam(":correoEmpleado",$correoEmpleado);
-            $parametro->bindParam(":contrasenaEmpleado",$cifrado);
-            $parametro->bindParam(":idSesion",$str_vacio);
-            $parametro->bindParam(":activo",$activo);
-            $parametro->bindParam(":tipo_usuario",$tipo_usuario);
-            
-            if($parametro->execute())
+            if($existe->rowCount()==0)
             {
-                return "listo";
+                $sql = "INSERT INTO empleado
+                (nombreEmpleado,
+                apellidopEmpleado,
+                apellidomEmpleado,
+                domicilioEmpleado,
+                numeroextEmpleado,
+                coloniaEmpleado,
+                telefonoEmpleado,
+                puestoEmpleado,
+                correoEmpleado,
+                contrasenaEmpleado,
+                idSesion,
+                activo,
+                tipo_usuario
+                ) 
+                VALUE(:nombreEmpleado,
+                :apellidopEmpleado,
+                :apellidomEmpleado,
+                :domicilioEmpleado,
+                :numeroextEmpleado,
+                :coloniaEmpleado,
+                :telefonoEmpleado,
+                :puestoEmpleado,
+                :correoEmpleado,
+                :contrasenaEmpleado,
+                :idSesion,
+                :activo,
+                :tipo_usuario)";
+
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":nombreEmpleado",$nombreEmpleado);
+                $parametro->bindParam(":apellidopEmpleado",$apellidopEmpleado);
+                $parametro->bindParam(":apellidomEmpleado",$apellidomEmpleado);
+                $parametro->bindParam(":domicilioEmpleado",$domicilioEmpleado);
+                $parametro->bindParam(":numeroextEmpleado",$numeroextEmpleado);
+                $parametro->bindParam(":coloniaEmpleado",$coloniaEmpleado);
+                $parametro->bindParam(":telefonoEmpleado",$telefonoEmpleado);
+                $parametro->bindParam(":puestoEmpleado",$puestoEmpleado);
+                $parametro->bindParam(":correoEmpleado",$correoEmpleado);
+                $parametro->bindParam(":contrasenaEmpleado",$cifrado);
+                $parametro->bindParam(":idSesion",$str_vacio);
+                $parametro->bindParam(":activo",$activo);
+                $parametro->bindParam(":tipo_usuario",$tipo_usuario);
+                
+                if($parametro->execute())
+                {
+                    return "Empleado registrado satisfactoriamente";
+                }
+                else
+                {
+                    return "ERROR";
+                }
             }
             else
             {
-                return "error";
+                return "El empleado registrado ya esta dado de alta";
+                // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
+                // return $correoEmpleado;
             }
         }
         else
         {
-            return "ya existe el usuario";
-            // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
-            // return $correoEmpleado;
-        }
+            return "ERROR";
+        }    
     }
 
 
@@ -780,16 +880,16 @@ class Acciones
             $parametro->bindParam(":id",$id_empleado);
             if($parametro->execute())
             {
-                return "listo";
+                return "El empleado se a dado de baja";
             }
             else
             {
-                return "error";
+                return "ERROR";
             }
         }
         else
         {
-            return "error 500";
+            return "ERROR 500";
         }
     }
 
@@ -808,16 +908,16 @@ class Acciones
             $parametro->bindParam(":id",$id_empleado);
             if($parametro->execute())
             {
-                return json_encode("Listo");
+                return "El empleado se a reactivado";
             }
             else
             {
-                return json_encode("error 400");
+                return "ERROR 400";
             }
         }
         else
         {
-            return json_encode("error 500");
+            return "ERROR 500";
         }
     }
 
@@ -922,16 +1022,16 @@ class Acciones
             $parametro->bindParam(":id",$id_empleado);
             if($parametro->execute())
             {
-                return "listo";
+                return "La empresa se a dado de baja";
             }
             else
             {
-                return "error";
+                return "ERROR";
             }
         }
         else
         {
-            return "error 500";
+            return "ERROR 500";
         }
     }
 
@@ -949,16 +1049,16 @@ class Acciones
             $parametro->bindParam(":id",$id_empleado);
             if($parametro->execute())
             {
-                return json_encode("Listo");
+                return "La empresa se a reactivado";
             }
             else
             {
-                return json_encode("error 400");
+                return "Error 400";
             }
         }
         else
         {
-            return json_encode("error 500");
+            return "Error 500";
         }
     }
 
@@ -1100,177 +1200,193 @@ class Acciones
         }
 
 
-    public function agregar_peticion_empresa($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
+    public function agregar_peticion_empresa($idSesion,$idUsuario,$rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
     {
-        $servidor = new Servidor();
-        $conexion = $servidor->conectar();
-        $sql_vericar = "SELECT rfcEmpresa  FROM empresas WHERE rfcEmpresa=:rfcEmpresa";
-        $existe = $conexion->prepare($sql_vericar);
-        $existe->bindParam(":rfcEmpresa",$rfcEmpresa);
-        $existe->execute();
-        $activo = "2";
-        $tipo_usuario = "EMPRESA";
-        $str_vacio = " ";
-        $numero = rand(100000,999999);
-        $fecha = date("D/m/A H:i:s");
-        $cifrado = sha1($contrasenaEmpresa);
-        $cifrado = sha1($cifrado);
-
-
-        if($existe->rowCount()==0)
+        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        if($verificacion==$idSesion)
         {
-            $sql = "INSERT INTO empresas
-            (rfcEmpresa,
-            nombreEmpresa,
-            razonsocialEmpresa,
-            domicilioEmpresa,
-            numerocalleEmpresa,
-            coloniaEmpresa,
-            cpEmpresa,
-            municipioEmpresa,
-            estadoEmpresa,
-            telefonoEmpresa,
-            correoEmpresa,
-            contrasenaEmpresa,
-            idSesion,
-            activo,
-            tipo_usuario
-            ) 
-            VALUE(
-            :rfcEmpresa,
-            :nombreEmpresa,
-            :razonsocialEmpresa,
-            :domicilioEmpresa,
-            :numerocalleEmpresa,
-            :coloniaEmpresa,
-            :cpEmpresa,
-            :municipioEmpresa,
-            :estadoEmpresa,
-            :telefonoEmpresa,
-            :correoEmpresa,
-            :contrasenaEmpresa,
-            :idSesion,
-            :activo,
-            :tipo_usuario)";
+            $servidor = new Servidor();
+            $conexion = $servidor->conectar();
+            $sql_vericar = "SELECT rfcEmpresa  FROM empresas WHERE rfcEmpresa=:rfcEmpresa";
+            $existe = $conexion->prepare($sql_vericar);
+            $existe->bindParam(":rfcEmpresa",$rfcEmpresa);
+            $existe->execute();
+            $activo = "2";
+            $tipo_usuario = "EMPRESA";
+            $str_vacio = " ";
+            $numero = rand(100000,999999);
+            $fecha = date("D/m/A H:i:s");
+            $cifrado = sha1($contrasenaEmpresa);
+            $cifrado = sha1($cifrado);
 
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
-            $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
-            $parametro->bindParam(":razonsocialEmpresa",$razonsocialEmpresa);
-            $parametro->bindParam(":domicilioEmpresa",$domicilioEmpresa);
-            $parametro->bindParam(":numerocalleEmpresa",$numerocalleEmpresa);
-            $parametro->bindParam(":coloniaEmpresa",$coloniaEmpresa);
-            $parametro->bindParam(":cpEmpresa",$cpEmpresa);
-            $parametro->bindParam(":municipioEmpresa",$municipioEmpresa);
-            $parametro->bindParam(":estadoEmpresa",$estadoEmpresa);
-            $parametro->bindParam(":telefonoEmpresa",$telefonoEmpresa);
-            $parametro->bindParam(":correoEmpresa",$correoEmpresa);
-            $parametro->bindParam(":contrasenaEmpresa",$cifrado);
-            $parametro->bindParam(":idSesion",$str_vacio);
-            $parametro->bindParam(":activo",$activo);
-            $parametro->bindParam(":tipo_usuario",$tipo_usuario);
-            
-            if($parametro->execute())
+
+            if($existe->rowCount()==0)
             {
-                return "La empresa se a regristrado satisfactoriamente<br>Espere un lapso de 12 a 24 hrs en lo que se acepta su peticion.";
+                $sql = "INSERT INTO empresas
+                (rfcEmpresa,
+                nombreEmpresa,
+                razonsocialEmpresa,
+                domicilioEmpresa,
+                numerocalleEmpresa,
+                coloniaEmpresa,
+                cpEmpresa,
+                municipioEmpresa,
+                estadoEmpresa,
+                telefonoEmpresa,
+                correoEmpresa,
+                contrasenaEmpresa,
+                idSesion,
+                activo,
+                tipo_usuario
+                ) 
+                VALUE(
+                :rfcEmpresa,
+                :nombreEmpresa,
+                :razonsocialEmpresa,
+                :domicilioEmpresa,
+                :numerocalleEmpresa,
+                :coloniaEmpresa,
+                :cpEmpresa,
+                :municipioEmpresa,
+                :estadoEmpresa,
+                :telefonoEmpresa,
+                :correoEmpresa,
+                :contrasenaEmpresa,
+                :idSesion,
+                :activo,
+                :tipo_usuario)";
+
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
+                $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
+                $parametro->bindParam(":razonsocialEmpresa",$razonsocialEmpresa);
+                $parametro->bindParam(":domicilioEmpresa",$domicilioEmpresa);
+                $parametro->bindParam(":numerocalleEmpresa",$numerocalleEmpresa);
+                $parametro->bindParam(":coloniaEmpresa",$coloniaEmpresa);
+                $parametro->bindParam(":cpEmpresa",$cpEmpresa);
+                $parametro->bindParam(":municipioEmpresa",$municipioEmpresa);
+                $parametro->bindParam(":estadoEmpresa",$estadoEmpresa);
+                $parametro->bindParam(":telefonoEmpresa",$telefonoEmpresa);
+                $parametro->bindParam(":correoEmpresa",$correoEmpresa);
+                $parametro->bindParam(":contrasenaEmpresa",$cifrado);
+                $parametro->bindParam(":idSesion",$str_vacio);
+                $parametro->bindParam(":activo",$activo);
+                $parametro->bindParam(":tipo_usuario",$tipo_usuario);
+                
+                if($parametro->execute())
+                {
+                    return "La empresa se a regristrado satisfactoriamente<br>Espere un lapso de 12 a 24 hrs en lo que se acepta su peticion.";
+                }
+                else
+                {
+                    return "Error";
+                }
             }
             else
             {
-                return "Error";
+                return "La empresa que se esta registrando ya se encuentra dada de alta<br>Favor de ingresar los datos correctamente.";
             }
         }
         else
         {
-            return "La empresa que se esta registrando ya se encuentra dada de alta<br>Favor de ingresar los datos correctamente.";
-        }
+            return "ERROR";
+        }    
     }
     
 
 
-    public function agregar_empresa_dashboard($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
+    public function agregar_empresa_dashboard($sesion,$idUsuario,$rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
     {
-        $servidor = new Servidor();
-        $conexion = $servidor->conectar();
-        $sql_vericar = "SELECT rfcEmpresa  FROM empresas WHERE rfcEmpresa=:rfcEmpresa";
-        $existe = $conexion->prepare($sql_vericar);
-        $existe->bindParam(":rfcEmpresa",$rfcEmpresa);
-        $existe->execute();
-        $activo = "1";
-        $tipo_usuario = "EMPRESA";
-        $str_vacio = " ";
-        $numero = rand(100000,999999);
-        $fecha = date("D/m/A H:i:s");
-        $cifrado = sha1($contrasenaEmpresa);
-        $cifrado = sha1($cifrado);
-
-
-        if($existe->rowCount()==0)
+        $verificacion  = $this->checarSesion($idUsuario,$sesion);
+        if($verificacion==$sesion)
         {
-            $sql = "INSERT INTO empresas
-            (rfcEmpresa,
-            nombreEmpresa,
-            razonsocialEmpresa,
-            domicilioEmpresa,
-            numerocalleEmpresa,
-            coloniaEmpresa,
-            cpEmpresa,
-            municipioEmpresa,
-            estadoEmpresa,
-            telefonoEmpresa,
-            correoEmpresa,
-            contrasenaEmpresa,
-            idSesion,
-            activo,
-            tipo_usuario
-            ) 
-            VALUE(
-            :rfcEmpresa,
-            :nombreEmpresa,
-            :razonsocialEmpresa,
-            :domicilioEmpresa,
-            :numerocalleEmpresa,
-            :coloniaEmpresa,
-            :cpEmpresa,
-            :municipioEmpresa,
-            :estadoEmpresa,
-            :telefonoEmpresa,
-            :correoEmpresa,
-            :contrasenaEmpresa,
-            :idSesion,
-            :activo,
-            :tipo_usuario)";
+            $servidor = new Servidor();
+            $conexion = $servidor->conectar();
+            $sql_vericar = "SELECT rfcEmpresa  FROM empresas WHERE rfcEmpresa=:rfcEmpresa";
+            $existe = $conexion->prepare($sql_vericar);
+            $existe->bindParam(":rfcEmpresa",$rfcEmpresa);
+            $existe->execute();
+            $activo = "1";
+            $tipo_usuario = "EMPRESA";
+            $str_vacio = " ";
+            $numero = rand(100000,999999);
+            $fecha = date("D/m/A H:i:s");
+            $cifrado = sha1($contrasenaEmpresa);
+            $cifrado = sha1($cifrado);
 
-            $parametro = $conexion->prepare($sql);
-            $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
-            $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
-            $parametro->bindParam(":razonsocialEmpresa",$razonsocialEmpresa);
-            $parametro->bindParam(":domicilioEmpresa",$domicilioEmpresa);
-            $parametro->bindParam(":numerocalleEmpresa",$numerocalleEmpresa);
-            $parametro->bindParam(":coloniaEmpresa",$coloniaEmpresa);
-            $parametro->bindParam(":cpEmpresa",$cpEmpresa);
-            $parametro->bindParam(":municipioEmpresa",$municipioEmpresa);
-            $parametro->bindParam(":estadoEmpresa",$estadoEmpresa);
-            $parametro->bindParam(":telefonoEmpresa",$telefonoEmpresa);
-            $parametro->bindParam(":correoEmpresa",$correoEmpresa);
-            $parametro->bindParam(":contrasenaEmpresa",$cifrado);
-            $parametro->bindParam(":idSesion",$str_vacio);
-            $parametro->bindParam(":activo",$activo);
-            $parametro->bindParam(":tipo_usuario",$tipo_usuario);
-            
-            if($parametro->execute())
+
+            if($existe->rowCount()==0)
             {
-                return "listo";
+                $sql = "INSERT INTO empresas
+                (rfcEmpresa,
+                nombreEmpresa,
+                razonsocialEmpresa,
+                domicilioEmpresa,
+                numerocalleEmpresa,
+                coloniaEmpresa,
+                cpEmpresa,
+                municipioEmpresa,
+                estadoEmpresa,
+                telefonoEmpresa,
+                correoEmpresa,
+                contrasenaEmpresa,
+                idSesion,
+                activo,
+                tipo_usuario
+                ) 
+                VALUE(
+                :rfcEmpresa,
+                :nombreEmpresa,
+                :razonsocialEmpresa,
+                :domicilioEmpresa,
+                :numerocalleEmpresa,
+                :coloniaEmpresa,
+                :cpEmpresa,
+                :municipioEmpresa,
+                :estadoEmpresa,
+                :telefonoEmpresa,
+                :correoEmpresa,
+                :contrasenaEmpresa,
+                :idSesion,
+                :activo,
+                :tipo_usuario)";
+
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
+                $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
+                $parametro->bindParam(":razonsocialEmpresa",$razonsocialEmpresa);
+                $parametro->bindParam(":domicilioEmpresa",$domicilioEmpresa);
+                $parametro->bindParam(":numerocalleEmpresa",$numerocalleEmpresa);
+                $parametro->bindParam(":coloniaEmpresa",$coloniaEmpresa);
+                $parametro->bindParam(":cpEmpresa",$cpEmpresa);
+                $parametro->bindParam(":municipioEmpresa",$municipioEmpresa);
+                $parametro->bindParam(":estadoEmpresa",$estadoEmpresa);
+                $parametro->bindParam(":telefonoEmpresa",$telefonoEmpresa);
+                $parametro->bindParam(":correoEmpresa",$correoEmpresa);
+                $parametro->bindParam(":contrasenaEmpresa",$cifrado);
+                $parametro->bindParam(":idSesion",$str_vacio);
+                $parametro->bindParam(":activo",$activo);
+                $parametro->bindParam(":tipo_usuario",$tipo_usuario);
+                
+                if($parametro->execute())
+                {
+                    return "Empresa registrada satisfactoriamente";
+                }
+                else
+                {
+                    return "ERROR";
+                }
             }
             else
             {
-                return "error";
+                return "La empresa registrado ya esta dado de alta";
+                // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
+                // return $correoEmpleado;
             }
         }
         else
         {
-            return "ya existe la empresa";
-            // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
-            // return $correoEmpleado;
+            return "ERROR";
         }
     }
 
@@ -1426,16 +1542,16 @@ class Acciones
             $parametro->bindParam(":id",$id);
             if($parametro->execute())
             {
-                return "listo";
+                return "Se a eliminado la empresa permanentemente";
             }
             else
             {
-                return "error 400";
+                return "ERROR 400";
             }
         }
         else
         {
-            return "error";
+            return "ERROR";
         }
     }
 
@@ -1535,6 +1651,8 @@ class Acciones
                                 $datos1 = $parametro8->fetchAll(PDO::FETCH_ASSOC);
                                 $_SESSION['idSesion'] = $datos1[0]['idSesion'];
                                 $_SESSION['idUsuario'] = $datos1[0]['id'];
+                                $_SESSION['nombreUsuario'] = $datos1[0]['nombreEmpresa'];
+                                $_SESSION['tipoUsuario'] = $datos1[0]['tipo_usuario'];
         
                                 return json_encode($datos1);
                             }
@@ -1584,6 +1702,8 @@ class Acciones
                             $datos = $parametro5->fetchAll(PDO::FETCH_ASSOC);
                             $_SESSION['idSesion'] = $datos[0]['idSesion'];
                             $_SESSION['idUsuario'] = $datos[0]['id'];
+                            $_SESSION['nombreUsuario'] = $datos[0]['nombreEmpleado'];
+                            $_SESSION['tipoUsuario'] = $datos[0]['tipo_usuario'];
     
                             return json_encode($datos);
                         }
@@ -1636,6 +1756,9 @@ class Acciones
                         $datos_admin = $parametro_admin3->fetchAll(PDO::FETCH_ASSOC);
                         $_SESSION['idSesion'] = $datos_admin[0]['idSesion'];
                         $_SESSION['idUsuario'] = $datos_admin[0]['id'];
+                        $_SESSION['nombreUsuario'] = $datos_admin[0]['nombreAdministrador'];
+                        $_SESSION['tipoUsuario'] = $datos_admin[0]['tipo_usuario'];
+
 
                         return json_encode($datos_admin);
                         // return "listo";
@@ -1694,6 +1817,100 @@ class Acciones
             return "error";
         }
     }
+
+
+    ///////////////////////////////////
+    ///////////////////////////////////
+    //////Dashboard///////////////////
+    /////////////////////////////////
+
+    public function tomarTicketsActivosDashboard($id,$idSesion)
+    {
+        $verificacion  = $this->checarSesion($id,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "SELECT 
+            id,
+            referencia,
+            nombreEmpresa,
+            rfcEmpresa,
+            fechaRegistro,
+            horaRegistro,
+            tipoServicio,
+            prioridad,
+            estatus FROM info_tickets WHERE estatus=:estatus";
+            $estatus = "1";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":estatus",$estatus);
+            $parametro->execute();
+            $columnas = $parametro->rowCount();
+            if($columnas==0)
+            {
+                return json_encode("error 400");
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                return json_encode($datos);       
+            }
+        }  
+        else
+        {
+            return json_encode("error 500");
+        } 
+    }
+
+
+
+
+
+
+    ///////////////////////////////////
+    ///////////////////////////////////
+    //////Dashboard///////////////////
+    /////////////////////////////////
+
+    public function tomarTicketsActivosEmpresas($idUsuario,$idSesion)
+    {
+        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "SELECT 
+            id,
+            referencia,
+            nombreEmpresa,
+            rfcEmpresa,
+            fechaRegistro,
+            horaRegistro,
+            tipoServicio,
+            prioridad,
+            estatus FROM info_tickets WHERE estatus=:estatus AND nombreEmpresa=:nombreEmpresa";
+            $estatus = "1";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":estatus",$estatus);
+            $parametro->bindParam(":nombreEmpresa",$nombreUsuario);
+            $parametro->execute();
+            $columnas = $parametro->rowCount();
+            if($columnas==0)
+            {
+                return json_encode("error 400");
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                return json_encode($datos);       
+            }
+        }  
+        else
+        {
+            return json_encode("error 500");
+        } 
+    }
+
 }
 
 ?>

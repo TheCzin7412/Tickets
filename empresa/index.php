@@ -34,6 +34,14 @@
                         <img id="imagen_ticket" src="../recursos/img/hoja.png" alt="" class="imagen_menu">
                         <p id="parrafo_ticket" class="texto_menu">Tickets</p>
                     </div>
+                    <div id="c_boton_contrasena" class="boton_control" onclick="mostrarSeccion(event);">
+                           <img id="imagen_contrasena" src="../recursos/img/contrasena.png" alt="" class="imagen_menu">
+                           <p id="parrafo_contrasena" class="texto_menu">Cambiar Contraseña</p>
+                    </div>
+                    <div  class="boton_control">
+                        <img src="../recursos/img/salida.png" alt="" class="imagen_menu">
+                        <p class="texto_menu">Cerrar Seccion</p>
+                    </div>
                 </div>
                 <div class="contenedor_seccion" id="">
                         <!-- empoieza es la seccion de dashboar -->
@@ -62,49 +70,28 @@
                                     <table class="tablas">
                                         <thead>
                                             <tr>
-                                                <th>Folio</th>
-                                                <th>Nombre empresa</th>
-                                                <th>Hora y fecha de solicitud</th>
-                                                <th>Servicio</th>
-                                                <th>Prioridad</th>
-                                                <th>Descripcion del problema</th>
-                                                <th>Estatus</th>
-                                                <th>Acciones</th>
+                                                <td>ID</td>
+                                                <td>Folio</td>
+                                                <td>Nombre empresa</td>
+                                                <td>RFC</td>
+                                                <td>Fecha de solicitud</td>
+                                                <td>Hora de solicitud</td>
+                                                <td>Servicio</td>
+                                                <td>Prioridad</td>
+                                                <td>Estatus</td>
+                                                <td>Acciones</td>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
+                                        <tbody id="tabla_tickets_pendientes_empresas">
                                         </tbody>
                                     </table>
+                                    <div class="contenedor_paginador">
+                                                <div class="controladores_paginador" id="boton_paginador_primero_tickets_pendientes_empresas">Primero</div>
+                                                <div class="controladores_paginador" id="boton_paginador_anterior_tickets_pendientes_empresas">Anterior</div>
+                                                <div class="controladores_paginador" id="boton_paginador_cantidad_tickets_pendientes_empresas">1 de 1</div>
+                                                <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_pendientes_empresas">Siguiente</div>
+                                                <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_pendientes_empresas">Ultimo</div>
+                                        </div>
                                 </div>
                             </div>
                             
@@ -128,42 +115,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -190,45 +141,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -256,49 +168,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -344,12 +213,34 @@
                                 
                             </div>
                         <!-- terminar seccion tickets -->
+
+                        <div id="contenedor_cambio_contrasena" class="seccion">
+                            <div id="contenedor_formulario_cambio_contrasena">
+                                <h1>Cambio de contraseña</h1>
+                                <div class="cambio_contrasena">
+                                    <p>Ingrese la contrasena actual</p>
+                                    <input type="password" id="input_contrasena_actual" class="input_cambio_contrasena" placeholder="Contraseña actual">
+                                </div>
+                                <div class="cambio_contrasena">
+                                    <p>Ingrese la nueva contrasena</p>
+                                    <input type="password" id="input_contrasena_nueva" class="input_cambio_contrasena" placeholder="Nueva contraseña">
+                                </div>
+                                <div class="cambio_contrasena">
+                                    <p>Confirme la contraseña</p>
+                                    <input type="password" id="input_confirmacion_contrasena" class="input_cambio_contrasena" placeholder="Confirme la nueva contraseña">
+                                </div>
+                                <div class="cambio_contrasena">
+                                    <button class="boton">Cambiar contraseña</button>
+                                </div>
+                            </div>
                 </div>
             </div>
         </div>
 
-    <script src="../recursos/js/funcionesPrincipal.js">
+    <script src="../recursos/js/funcionesEmpresa.js">
     </script>
-
+    <script src="../recursos/js/paginadorEmpresa.js">
+    </script>
+    
     </body>
 </html>

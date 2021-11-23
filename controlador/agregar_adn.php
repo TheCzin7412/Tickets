@@ -2,6 +2,8 @@
 include_once("../modelo/acciones.php");
 
 
+$idUsuario = $_SESSION['idUsuario'];
+$idSesion = $_SESSION['idSesion'];
 $nombreAdministrador = $_POST['nombreAdministrador'];
 $apellidopAdministrador = $_POST['apellidopAdministrador'];
 $apellidomAdministrador = $_POST['apellidomAdministrador'];
@@ -14,7 +16,7 @@ $correoAdministrador = $_POST['correoAdministrador'];
 $contrasenaAdministrador = $_POST['contrasenaAdministrador'];
 
 $modelo = new Acciones();
-$registrar_Administrador = $modelo->agregar_Administrador($nombreAdministrador,$apellidopAdministrador,$apellidomAdministrador,$domicilioAdministrador,$numeroextAdministrador,$coloniaAdministrador,$telefonoAdministrador,$puestoAdministrador,$correoAdministrador,$contrasenaAdministrador);
+$registrar_Administrador = $modelo->agregar_Administrador($idUsuario,$idSesion,$nombreAdministrador,$apellidopAdministrador,$apellidomAdministrador,$domicilioAdministrador,$numeroextAdministrador,$coloniaAdministrador,$telefonoAdministrador,$puestoAdministrador,$correoAdministrador,$contrasenaAdministrador);
 echo $registrar_Administrador;
 //var_dump($registrar_empleado);
 

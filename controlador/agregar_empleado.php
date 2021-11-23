@@ -1,7 +1,8 @@
 <?php
 include_once("../modelo/acciones.php");
 
-
+$idUsuario = $_SESSION['idUsuario'];
+$idSesion = $_SESSION['idSesion'];
 $nombreEmpleado = $_POST['nombreEmpleado'];
 $apellidopEmpleado = $_POST['apellidopEmpleado'];
 $apellidomEmpleado = $_POST['apellidomEmpleado'];
@@ -15,7 +16,7 @@ $contrasenaEmpleado = $_POST['contrasenaEmpleado'];
 $tipo_usuario = $_POST['tipo_usuario'];
 
 $modelo = new Acciones();
-$registrar_empleado = $modelo->agregar_empleado($nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado,$tipo_usuario);
+$registrar_empleado = $modelo->agregar_empleado($idUsuario,$idSesion,$nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado,$tipo_usuario);
 echo $registrar_empleado;
 //var_dump($registrar_empleado);
 

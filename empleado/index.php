@@ -18,21 +18,12 @@
                 <div id="contenedor_bienvenida" class="seccion_menu">
                     <p class="texto">Bienvenido a tu dashboard empleado</p>
                 </div>
-                <div id="contenedor_control" class="seccion_menu">
-                    <img src="" alt="" class="imagenes_control">
-                    <img src="" alt="" class="imagenes_control">
-                    <img src="" alt="" class="imagenes_control">
-                </div>
             </div>
             <div id="seccion_principal">
                 <div id="menu_control">
-                    <div id="c_boton_dashboard" class="boton_control" onclick="mostrarSeccion(event);">
+                    <div id="c_boton_dashboard" class="boton_control">
                         <img src="../recursos/img/hogar.png" alt="" class="imagen_menu" id="imagen_dashboard">
                         <p class="texto_menu" id="parrafo_dashboard">Dashboard</p>
-                    </div>
-                    <div id="c_boton_ticket" class="boton_control" onclick="mostrarSeccion(event);">
-                        <img id="imagen_ticket" src="../recursos/img/hoja.png" alt="" class="imagen_menu">
-                        <p id="parrafo_ticket" class="texto_menu">Tickets</p>
                     </div>
                 </div>
                 <div class="contenedor_seccion" id="">
@@ -62,47 +53,19 @@
                                     <table class="tablas">
                                         <thead>
                                             <tr>
-                                                <th>Folio</th>
-                                                <th>Nombre empresa</th>
-                                                <th>Hora y fecha de solicitud</th>
-                                                <th>Servicio</th>
-                                                <th>Prioridad</th>
-                                                <th>Descripcion del problema</th>
-                                                <th>Estatus</th>
-                                                <th>Acciones</th>
+                                                <td>ID</td>
+                                                <td>Folio</td>
+                                                <td>Nombre empresa</td>
+                                                <td>RFC</td>
+                                                <td>Fecha de solicitud</td>
+                                                <td>Hora de solicitud</td>
+                                                <td>Servicio</td>
+                                                <td>Prioridad</td>
+                                                <td>Estatus</td>
+                                                <td>Acciones</td>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
-                                            <tr>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                                <td>dato</td>
-                                            </tr>
+                                        <tbody id="tabla_tickets_pendientes_empleado">
                                         </tbody>
                                     </table>
                                 </div>
@@ -306,50 +269,15 @@
 
                             </div>
                         <!-- terminar seccion dasshboard -->
-                        <!-- empieza seccion ticket -->
-                        <div class="seccion" id="contenedor_tickets">
-                                <h1>Tickets</h1>
-                                <div class="contador_seccion" id="contenedor_contador_tickets">
-                                    <div id="c_boton_ticketsPendientes" class="seccion_contador" onclick="mostrarSeccionTickets(event);">
-                                        <img src="../recursos/img/tickets_pendientes.png" id="imagen_ticketsPendientes" class="imagen_contador">
-                                        <p id="parrafo_ticketsPendientes" class="parrafo_contador">Tickets Pendientes</p>
-                                    </div>
-                                    <div id="c_boton_ticketsNoResuelto" class="seccion_contador" onclick="mostrarSeccionTickets(event);">
-                                        <img src="../recursos/img/tickets_cancelar.png" id="imagen_ticketsNoResuelto" class="imagen_contador">
-                                        <p id="parrafo_ticketsNoResuelto" class="parrafo_contador">Tickets No Resueltos</p>
-                                    </div>
-
-                                    <div id="c_boton_ticketsResuelto" class="seccion_contador" onclick="mostrarSeccionTickets(event);">
-                                        <img src="../recursos/img/ticket_resulto.png" id="imagen_ticketsResuelto" class="imagen_contador">
-                                        <p id="parrafo_ticketsResuelto" class="parrafo_contador">Tickets Resueltos</p>
-                                    </div>
-                                    <div id="c_boton_ticketsAgergar" class="seccion_contador" onclick="mostrarSeccionTickets(event);">
-                                        <img src="../recursos/img/agregar_tickets.png" id="imagen_ticketsAgergar" class="imagen_contador">
-                                        <p id="parrafo_ticketsAgergar" class="parrafo_contador">Agregar Ticket</p>
-                                    </div>
-                                </div>
-
-                                <div class="seccion_tickets" id="contenedor_contenido_ticketsPendientes">
-                                    <h1 class="titulo_seccion">Listado de tickets pendientes</h1>
-                                </div>
-                                <div class="seccion_tickets" id="contenedor_contenido_ticketsNoResueltos">
-                                    <h1 class="titulo_seccion">Listado de tickets no resueltos</h1>
-                                </div>
-                                <div class="seccion_tickets" id="contenedor_contenido_ticketsResueltos">
-                                    <h1 class="titulo_seccion">Listado de tickets resueltos</h1>
-                                </div>
-                                <div class="seccion_tickets" id="contenedor_contenido_ticketsAgregarTicket">
-                                    <h1 class="titulo_seccion">Agregar ticket</h1>
-                                </div>
-                                
-                            </div>
-                    <!-- terminar seccion tickets -->
+                        
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../recursos/js/funcionesPrincipal.js">
+    <script src="../recursos/js/funcionesEmpleado.js">
+    </script>
+    <script src="../recursos/js/paginadorEmpleado.js">
     </script>
 
     </body>

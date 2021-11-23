@@ -76,25 +76,69 @@
                                    </div>
                                <!--Contenedor tabla de tickets pendientes-->
                                <div class="seccion_tabla" id="contenedor_tickets_pendientes">
-                                   <h1>Tickets Pendientes</h1>
-                                   <div id="contenedor_tabla_pendientes">
+                                   <h1 class="titulo_seccion">Listado de tickets pendientes</h1>
+                                   <div class="contenedor_busqueda">
+                                            <div class="Cantidad_lista">
+                                                <div class="lista1">
+                                                    <p>Cantidad de tickets</p>
+                                                </div>
+                                                <div class="lista2">
+                                                    <select name="" class="select_cantidad" id="cantidad_tickets_pendientes_dashboard" onchange="tomar_datos_tickets_pendientes_dashboard();"> 
+                                                        <option value="5">5</option> 
+                                                        <option value="10">10</option>
+                                                        <option value="15">15</option> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
+                                                    <p>Buscar:</p>
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_pendiente_dashboard(event);">       
+                                                </div>      
+                                            </div>
+                                        </div>
+                                   <div class="contenedor_tabla_ticketsPendientes">
+                                       <div class="contenedor_informacion">
+                                           <p>Valor de la prioridad</p>
+                                       <table class="info_tablas">
+                                           <tr>
+                                               <td style="background-color: green;">Bajo = 1</td>
+                                               <td style="background-color: yellow;">Medio = 2</td>
+                                               <td style="background-color: orange;">Alto = 3</td>
+                                               <td style="background-color: red;">Muy alto = 4</td>
+                                           </tr>
+                                       </table>
+                                       </div>
                                        <table class="tablas">
                                            <thead>
                                                <tr>
-                                                   <th>Folio</th>
-                                                   <th>Nombre empresa</th>
-                                                   <th>Hora y fecha de solicitud</th>
-                                                   <th>Servicio</th>
-                                                   <th>Prioridad</th>
-                                                   <th>Descripcion del problema</th>
-                                                   <th>Estatus</th>
-                                                   <th>Acciones</th>
+                                                   <td>ID</td>
+                                                   <td>Folio</td>
+                                                   <td>Nombre empresa</td>
+                                                   <td>RFC</td>
+                                                   <td>Fecha de solicitud</td>
+                                                   <td>Hora de solicitud</td>
+                                                   <td>Servicio</td>
+                                                   <td>Prioridad</td>
+                                                   <td>Estatus</td>
+                                                   <td>Acciones</td>
                                                </tr>
                                            </thead>
-                                           <tbody>
+                                           <tbody id="tabla_tickets_pendientes_dashboard">
                                            </tbody>
                                        </table>
+                                       <div class="contenedor_paginador">
+                                                <div class="controladores_paginador" id="boton_paginador_primero_tickets_pendientes_dashboard">Primero</div>
+                                                <div class="controladores_paginador" id="boton_paginador_anterior_tickets_pendientes_dashboard">Anterior</div>
+                                                <div class="controladores_paginador" id="boton_paginador_cantidad_tickets_pendientes_dashboard">1 de 1</div>
+                                                <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_pendientes_dashboard">Siguiente</div>
+                                                <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_pendientes_dashboard">Ultimo</div>
+                                        </div>
                                    </div>
+
                                </div>
                                
                                <!--Contenedor tabla de tickets no resueltos-->
@@ -103,17 +147,19 @@
                                    <div id="contenedor_tabla_no_resueltos">
                                        <table class="tablas">
                                            <thead>
-                                               <tr>
-                                                   <th>Folio</th>
-                                                   <th>Nombre empresa</th>
-                                                   <th>Hora y fecha de solicitud</th>
-                                                   <th>Servicio</th>
-                                                   <th>Prioridad</th>
-                                                   <th>Descripcion del problema</th>
-                                                   <th>Empleado quien realizo el servicio</th>
-                                                   <th>Motivo por lo cual no se realizo</th>
-                                                   <th>Hora y fecha de termino</th>
-                                                   <th>Estatus</th>
+                                                <tr>
+                                                   <td>ID</td>
+                                                   <td>Folio</td>
+                                                   <td>Nombre empresa</td>
+                                                   <td>RFC</td>
+                                                   <td>Fecha de cierre</td>
+                                                   <td>Hora de cierre</td>
+                                                   <td>Servicio</td>
+                                                   <td>Prioridad</td>
+                                                   <td>Nombre del empleado</td>
+                                                   <td>Tipo de empleado</td>
+                                                   <td>Estatus</td>
+                                                   <td>Acciones</td>
                                                </tr>
                                            </thead>
                                            <tbody>
@@ -129,18 +175,18 @@
                                        <table class="tablas">
                                            <thead>
                                                <tr>
-                                                   <th>Folio</th>
-                                                   <th>Nombre empresa</th>
-                                                   <th>Hora y fecha de solicitud</th>
-                                                   <th>Servicio</th>
-                                                   <th>Prioridad</th>
-                                                   <th>Descripcion del problema</th>
-                                                   <th>Empleado quien realizo el servicio</th>
-                                                   <th>Descripcion detallada de la falla</th>
-                                                   <th>Solucion del problema</th>
-                                                   <th>Hora y fecha de termino</th>
-                                                   <th>Estatus</th>
-                                               </tr>
+                                                   <td>ID</td>
+                                                   <td>Folio</td>
+                                                   <td>Nombre empresa</td>
+                                                   <td>RFC</td>
+                                                   <td>Fecha de cierre</td>
+                                                   <td>Hora de cierre</td>
+                                                   <td>Servicio</td>
+                                                   <td>Prioridad</td>
+                                                   <td>Nombre del empleado</td>
+                                                   <td>Tipo de empleado</td>
+                                                   <td>Estatus</td>
+                                                   <td>Acciones</td>
                                            </thead>
                                            <tbody>
                                            </tbody>
@@ -260,8 +306,8 @@
                                                 </div>      
                                             </div>
                                         </div>
-                                   <div id="contenedor_tabla_ticketsPendientes">
-                                       <div id="contenedor_informacion">
+                                   <div class="contenedor_tabla_ticketsPendientes">
+                                       <div class="contenedor_informacion">
                                            <p>Valor de la prioridad</p>
                                        <table class="info_tablas">
                                            <tr>
@@ -330,7 +376,7 @@
                                        </div> -->
                                         <div class="agregarTickets1">
                                             <p>Tipo de servicio:</p>
-                                           <select id="select_servicio" class="select_tickets">
+                                           <select id="select_servicio" class="input_tickets">
                                                <option selected>Selecciona alguna opcion...</option>
                                                <option value="SOPORTE TECNICO">Soporte tecnico</option>
                                                <option value="CABLEADO">Cableado</option>
@@ -342,7 +388,7 @@
                                        </div>
                                        <div class="agregarTickets2">
                                            <p>Prioridad del servicio:</p>
-                                            <select id="select_prioridad" class="select_tickets">
+                                            <select id="select_prioridad" class="input_tickets">
                                                <option selected>Selecciona alguna opcion...</option>
                                                <option value="4" style="background-color: red; color: white;">Muy Alto</option>
                                                <option value="3" style="background-color: orange; color: black;">Alto</option>
@@ -353,7 +399,7 @@
                                    </div>
                                    <div class="contenedor_box">
                                        <p>Descripcion del problema</p>
-                                       <textarea class="textarea_tickets" id="txt_problematica" cols="10" rows="10" placeholder="Describa detalladamente la problematica presentada"></textarea>
+                                       <textarea class="input_tickets" id="txt_problematica" cols="10" rows="10" placeholder="Describa detalladamente la problematica presentada"></textarea>
                                    </div>
                                    <div class="contenedor_botonTickets">
                                        <button class="boton" id="btn_agregar_ticket" onclick="agregar_ticket();">Dar de alta ticket</button>
@@ -621,7 +667,7 @@
                                                     <input id="input_correoEmpresa" type="text" class="input_text_empresa" placeholder="Correo" value="">
                                                 </div>        
                                                 <div class="contenedor_formulario2">
-                                                    <input id="input_contrasenaEmpresa" type="password" class="input_text_empresa"  placeholder="Contraseña ">
+                                                    <input id="input_contrasenaEmpresa" type="text" class="input_text_empresa"  placeholder="Contraseña ">
                                                 </div>
                                             </div>
                                             
@@ -630,10 +676,7 @@
                                             </div>
                                    </div>
                                </div>
-                           <!-- terminar contenedor Empresas -->
-   
-   
-   
+                           <!-- terminar contenedor Empresas -->   
                            <!-- empieza contenedor Empleado -->
                            <div class="seccion" id="contenedor_empleado">
                                    <h1 class="titulo_seccion">Empleados</h1>
@@ -808,7 +851,14 @@
                                                 <input id="input_telefono_empleado" type="text" class="input_text_empleado" placeholder="Telefono Empleado" value="">
                                             </div>        
                                             <div class="contenedor_formulario2">
-                                                <input id="input_puesto_empleado" type="text" class="input_text_empleado" placeholder="Puesto Empleado" value="">
+                                                <select id="input_puesto_empleado" class="input_text_empleado">
+                                                    <option selected>Seleccione el puesto...</option>
+                                                    <option value="ADMINISTRACION">Administracion</option>
+                                                    <option value="GERENCIA">Gerencia</option>
+                                                    <option value="INFRAESTRUCTURA">Infraestructura</option>
+                                                    <option value="CONTABILIDAD">Contabilidad</option>
+                                                    <option value="SOPORTE TECNICO">Soporte Tenico</option>
+                                                </select>
                                             </div>
                                         </div> 
                                         
@@ -822,7 +872,7 @@
                                         </div>
 
                                            <div class="contenedor_formulario_agregar">
-                                               <select name="" id="select_tipo_empleado">
+                                               <select name="" id="select_tipo_empleado" class="input_text_empleado">
                                                    <option value="EMPLEADO">EMPLEADO</option>
                                                    <option value="OPERATIVO">OPERATIVO</option>
                                                </select>
@@ -973,76 +1023,85 @@
                                    
                                     <div class="seccion_administradores" id="contenedor_administradores_agregar">
                                        <h1 class="titulo_seccion">Agregar nuevo administrador</h1>
-                                       <div class="contenedor_general_formulario">
+                                       <div id="contenedor_general_agregar_administrador">
+                                            <div class="contenedor_general_formulario_administrador">
+                                                    <div class="contenedor_formulario_admin1">
+                                                        <input id="input_nombre_administrador" type="text" class="input_text_administrador" placeholder="Nombre" value="">
+                                                    </div>        
+                                                    <div class="contenedor_formulario_admin2">
+                                                        <input id="input_apellidoP_administrador" type="text" class="input_text_administrador" placeholder="Apellido Paterno" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="contenedor_general_formulario_administrador">
+                                                    <div class="contenedor_formulario_admin1">
+                                                        <input id="input_apellidoM_administrador" type="text" class="input_text_administrador" placeholder="Apellido Materno" value="">
+                                                    </div>
+                                                    <div class="contenedor_formulario_admin2">
+                                                        <input id="input_domicilo_administrador" type="text" class="input_text_administrador" placeholder="Domicilio" value="">
+                                                    </div>
+                                                </div>    
+                                                <div class="contenedor_general_formulario_administrador">  
+                                                    <div class="contenedor_formulario_admin1">
+                                                        <input id="input_numero_exterior_administrador" type="text" class="input_text_administrador" placeholder="N° exterior" value="">
+                                                    </div>
+                                                    <div class="contenedor_formulario_admin2">
+                                                        <input id="input_colonia_administrador" type="text" class="input_text_administrador" placeholder="Colonia" value="">
+                                                    </div>        
+                                                </div>
+                                                <div class="contenedor_general_formulario_administrador">
+                                                    <div class="contenedor_formulario_admin1">
+                                                        <input id="input_telefono_administrador" type="text" class="input_text_administrador" placeholder="Telefono" value="">
+                                                    </div>        
+                                                    <div class="contenedor_formulario_admin2">
+                                                        <select id="input_puesto_administrador" class="input_text_administrador">
+                                                            <option selected>Seleccione el puesto...</option>
+                                                            <option value="ADMINISTRACION">Administracion</option>
+                                                            <option value="GERENCIA">Gerencia</option>
+                                                            <option value="INFRAESTRUCTURA">Infraestructura</option>
+                                                            <option value="CONTABILIDAD">Contabilidad</option>
+                                                            <option value="SOPORTE TECNICO">Soporte Tenico</option>
+                                                        </select>
+                                                    </div>
+                                                </div> 
+                                                
+                                                <div class="contenedor_general_formulario_administrador">
+                                                    <div class="contenedor_formulario_admin1">
+                                                        <input id="input_correo_administrador" type="text" class="input_text_administrador" placeholder="Correo" value="">
+                                                    </div>        
+                                                    <div class="contenedor_formulario_admin2">
+                                                        <input id="input_contrasena_administrador" type="text" class="input_text_administrador" placeholder="Contraseña" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="contenedor_formulario_agregar">
+                                                    <button class="boton" id="boton_agrega_administrador" onclick="agregar_administrador()">Agrega nuevo administrador</button>
+                                                </div>
+                                            </div>
 
-                                        <div class="contenedor_formulario1">
-                                                <input id="input_nombre_administrador" type="text" class="input_text_administrador" placeholder="Nombre" value="">
-                                            </div>        
-                                            <div class="contenedor_formulario2">
-                                                <input id="input_apellidoP_administrador" type="text" class="input_text_administrador" placeholder="Apellido Paterno" value="">
-                                            </div>
-                                        </div>                                        
-                                        <div class="contenedor_general_formulario">
-                                        
-                                            <div class="contenedor_formulario1">
-                                                <input id="input_apellidoM_administrador" type="text" class="input_text_administrador" placeholder="Apellido Materno" value="">
-                                            </div>        
-                                            <div class="contenedor_formulario2">
-                                                <input id="input_domicilo_administrador" type="text" class="input_text_administrador" placeholder="Domicilio" value="">
-                                            </div>
-                                        </div>
-
-                                        <div class="contenedor_general_formulario">
-                                            <div class="contenedor_formulario1">
-                                                <input id="input_numero_exterior_administrador" type="text" class="input_text_administrador" placeholder="N° exterior" value="">
-                                            </div>        
-                                            <div class="contenedor_formulario2">
-                                                <input id="input_colonia_administrador" type="text" class="input_text_administrador" placeholder="Colonia" value="">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="contenedor_general_formulario">
-                                            <div class="contenedor_formulario1">
-                                                <input id="input_telefono_administrador" type="text" class="input_text_administrador" placeholder="Telefono" value="">
-                                            </div>        
-                                            <div class="contenedor_formulario2">
-                                                <input id="input_puesto_administrador" type="text" class="input_text_administrador" placeholder="Puesto" value="">
-                                            </div>
-                                        </div> 
-                                        
-                                        <div class="contenedor_general_formulario">
-                                            <div class="contenedor_formulario1">
-                                                <input id="input_correo_administrador" type="text" class="input_text_administrador" placeholder="Correo" value="">
-                                            </div>        
-                                            <div class="contenedor_formulario2">
-                                                <input id="input_contrasena_administrador" type="text" class="input_text_administrador" placeholder="Contraseña" value="">
-                                            </div>
-                                        </div>
-                                           <div class="contenedor_formulario_agregar">
-                                               <button class="boton" id="boton_agrega_administrador" onclick="agregar_administrador()">Agrega nuevo administrador</button>
-                                           </div>
-                                        </div>
+                                       </div>
                                     </div>
-
+                                                
                                     <div id="contenedor_cambio_contrasena" class="seccion">
-                                        <h1>Cambio de contraseña</h1>
                                         <div id="contenedor_formulario_cambio_contrasena">
+                                            <h1>Cambio de contraseña</h1>
                                             <div class="cambio_contrasena">
-                                                <p>Ingrese su contrasena actual</p>
-                                                <input type="password" class="input_cambio_contrasena" placeholder="Ingrese su contraseña">
+                                                <p>Ingrese la contrasena actual</p>
+                                                <input type="password" id="input_contrasena_actual" class="input_cambio_contrasena" placeholder="Contraseña actual">
                                             </div>
                                             <div class="cambio_contrasena">
                                                 <p>Ingrese la nueva contrasena</p>
-                                                <input type="password" class="input_cambio_contrasena" placeholder="Ingrese su nueva contraseñan">
+                                                <input type="password" id="input_contrasena_nueva" class="input_cambio_contrasena" placeholder="Nueva contraseña">
                                             </div>
                                             <div class="cambio_contrasena">
-                                                <p>Confirme la contraseña nueva</p>
-                                                <input type="password" class="input_cambio_contrasena" placeholder="Confirme su contraseña ">
+                                                <p>Confirme la contraseña</p>
+                                                <input type="password" id="input_confirmacion_contrasena" class="input_cambio_contrasena" placeholder="Confirme la nueva contraseña">
+                                            </div>
+                                            <div class="cambio_contrasena">
+                                                <button class="boton">Cambiar contraseña</button>
                                             </div>
                                         </div>
                                             
                                     </div>
-                   </div>
+                   
                </div>
            </div>
    

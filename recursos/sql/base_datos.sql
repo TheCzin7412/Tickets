@@ -62,5 +62,6 @@ create table info_tickets(
 	tipoServicio varchar(11),
 	prioridad int(1),
 	descripcion text,
-	estatus varchar(200)
+	estatus varchar(200),
+	comentarios text
 );	
