@@ -45,7 +45,7 @@
                            <img id="imagen_contrasena" src="../recursos/img/contrasena.png" alt="" class="imagen_menu">
                            <p id="parrafo_contrasena" class="texto_menu">Cambiar Contraseña</p>
                        </div>
-                       <div  class="boton_control">
+                       <div  class="boton_control"onclick="cerrar_sesion();" >
                            <img src="../recursos/img/salida.png" alt="" class="imagen_menu">
                            <p class="texto_menu">Cerrar Seccion</p>
                        </div>
@@ -1083,10 +1083,10 @@
                                     <div id="contenedor_cambio_contrasena" class="seccion">
                                         <div id="contenedor_formulario_cambio_contrasena">
                                             <h1>Cambio de contraseña</h1>
-                                            <div class="cambio_contrasena">
+                                            <!-- <div class="cambio_contrasena">
                                                 <p>Ingrese la contrasena actual</p>
                                                 <input type="password" id="input_contrasena_actual" class="input_cambio_contrasena" placeholder="Contraseña actual">
-                                            </div>
+                                            </div> -->
                                             <div class="cambio_contrasena">
                                                 <p>Ingrese la nueva contrasena</p>
                                                 <input type="password" id="input_contrasena_nueva" class="input_cambio_contrasena" placeholder="Nueva contraseña">
@@ -1096,7 +1096,7 @@
                                                 <input type="password" id="input_confirmacion_contrasena" class="input_cambio_contrasena" placeholder="Confirme la nueva contraseña">
                                             </div>
                                             <div class="cambio_contrasena">
-                                                <button class="boton">Cambiar contraseña</button>
+                                                <button class="boton" onclick="cambiar_contrasena();">Cambiar contraseña</button>
                                             </div>
                                         </div>
                                             

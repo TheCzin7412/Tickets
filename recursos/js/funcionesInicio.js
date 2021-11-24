@@ -278,5 +278,35 @@ function quitar_alerta(event)
     borrado.parentNode.removeChild(borrado)
 }
 
+var check_envio = true
+
+function enviar_correo()
+{
+    if(check_envio)
+    {
+    check_envio = false    
+    let input_correo = document.getElementById("input_correo_verificar").value.trim()
+
+    let datos = new FormData()
+    datos.append("correo_destino",input_correo)
+
+    let peticion = new XMLHttpRequest()
+    peticion.open("POST","controlador/enviar_confirmacion.php")
+    peticion.send(datos)
+
+    peticion.onreadystatechange = function ()
+    {
+        if(peticion.readyState == 4)
+        {
+            if(peticion.status == 200)
+            {
+                // console.log("200")
+                console.log(peticion.responseText)
+                dialogo(peticion.responseText)
+            }
+        }
+    }
+}
+}
 
 // dialogo("losto senoras")

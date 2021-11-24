@@ -95,10 +95,10 @@
                 <h1>Recuperacion de contraseña</h1>
             </div>
             <div class="opciones_recuperar">
-                <input type="text" class="input_text_login" placeholder="Ingerese su correo electronico...">
+                <input type="text" class="input_text_login" id="input_correo_verificar" placeholder="Ingerese su correo electronico...">
             </div>
             <div class="opciones_recuperar">
-                <button class="boton_login">Buscar correo</button>
+                <button class="boton_login" onclick="enviar_correo();">Buscar correo</button>
             </div>
 
         </div>

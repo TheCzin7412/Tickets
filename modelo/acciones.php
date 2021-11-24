@@ -342,6 +342,44 @@ class Acciones
         }
     }
 
+    public function cerrar_sesion($id,$idSesion,$tipo_usuario)
+    {
+        $verificacion  = $this->checarSesion($id,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $str_vacio = " ";
+            $servidor = new Servidor();
+            $conexion = $servidor->conectar();
+            $sql = "";
+            if($tipo_usuario=="ADMINISTRADOR")
+            {
+                $sql = "UPDATE administrador SET idSesion=:idSesion WHERE id=:id";
+            }
+            if($tipo_usuario=="EMPLEADO")
+            {
+                $sql = "UPDATE empleado SET idSesion=:idSesion WHERE id=:id";
+            }
+
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":idSesion",$str_vacio);
+            $parametro->bindParam(":id",$id);
+            if($parametro->execute())
+            {
+                session_destroy();
+                return "Sesion cerrada";
+            }
+            else
+            {
+                return "ERROR";
+            }
+                
+        }
+        else
+        {
+            return "ERROR";
+        }
+    }
+
     public function  eliminar_adn($idUsuario,$idSesion,$id)
     {
 
@@ -1801,6 +1839,35 @@ class Acciones
             }
         }   
     }
+
+    public function checarSesionEmpleado($id,$sesion)
+    {
+        $sql = "SELECT idSesion FROM empleado WHERE idSesion=:idSesion AND id=:id";
+        $modelo = new Servidor();
+        $conexion = $modelo->conectar();
+        $parametro = $conexion->prepare($sql);
+        $parametro->bindParam(":idSesion",$sesion);
+        $parametro->bindParam(":id",$id);
+        $parametro->execute();
+        $columnas = $parametro->rowCount();
+        if($columnas==0)
+        {
+            return "error";
+        }
+        else
+        {
+            $verificacion = $parametro->fetchAll(PDO::FETCH_ASSOC);
+            $id_verificacion = $verificacion[0]['idSesion'];
+            if($id_verificacion==$sesion)
+            {
+                return $id_verificacion;
+            }
+            else
+            {
+                return "error";
+            }
+        }   
+    }
     
 
     public function crear_cookie_vista($idUsuario,$idSesion,$valor)
@@ -1863,18 +1930,9 @@ class Acciones
     }
 
 
-
-
-
-
-    ///////////////////////////////////
-    ///////////////////////////////////
-    //////Dashboard///////////////////
-    /////////////////////////////////
-
-    public function tomarTicketsActivosEmpresas($idUsuario,$idSesion)
+    public function tomarTicketsActivosEmpleado($id,$idSesion)
     {
-        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        $verificacion  = $this->checarSesionEmpleado($id,$idSesion);
         if($verificacion==$idSesion)
         {
             $sql = "SELECT 
@@ -1886,13 +1944,12 @@ class Acciones
             horaRegistro,
             tipoServicio,
             prioridad,
-            estatus FROM info_tickets WHERE estatus=:estatus AND nombreEmpresa=:nombreEmpresa";
+            estatus FROM info_tickets WHERE estatus=:estatus";
             $estatus = "1";
             $modelo = new Servidor();
             $conexion = $modelo->conectar();
             $parametro = $conexion->prepare($sql);
             $parametro->bindParam(":estatus",$estatus);
-            $parametro->bindParam(":nombreEmpresa",$nombreUsuario);
             $parametro->execute();
             $columnas = $parametro->rowCount();
             if($columnas==0)
@@ -1911,6 +1968,45 @@ class Acciones
         } 
     }
 
+
+
+    public function cambiar_contrasena($id,$idSesion,$contrasena,$tipo_usuario)
+    {
+    $verificacion  = $this->checarSesion($id,$idSesion);
+    if($verificacion==$idSesion)
+    {
+        $sql = "";
+        $modelo = new Servidor();
+        $conexion = $modelo->conectar();
+
+        if($tipo_usuario=="ADMINISTRADOR")
+        {
+            $sql = "UPDATE administrador SET contrasenaAdministrador=:contrasena WHERE id=:id";
+        }
+        $contrasena = sha1($contrasena);
+        $contrasena = sha1($contrasena);
+        $parametro = $conexion->prepare($sql);
+        $parametro->bindParam(":contrasena",$contrasena);
+        $parametro->bindParam(":id",$id);
+        if($parametro->execute())
+        {
+            return "se cambio correctamente";
+        }
+        else
+        {
+            return "error";
+        }
+
+    }
+    else
+    {
+        return "ERROR";
+    }
+
 }
+
+}
+
+
 
 ?>
