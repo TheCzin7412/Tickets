@@ -4,9 +4,10 @@ if(isset($_GET['info']))
 {
     $idUsuario = $_SESSION['idUsuario'];
     $idSesion = $_SESSION['idSesion'];
+    $tipo = $_SESSION['tipoUsuario'];
     $id_informacion = $_GET['info'];
     $modelo = new Acciones();
-    $datos = $modelo->tomar_informacion_ticket($idUsuario,$idSesion,$id_informacion); 
+    $datos = $modelo->tomar_informacion_ticket($idUsuario,$idSesion,$id_informacion,$tipo); 
     $datos = $datos[0];
 }
 ?>

@@ -342,8 +342,7 @@ function mostrarSeccionDashboard(event)
     let elemento = event.target
     let identificador = elemento.id
     let regexPendiente = /pendiente/
-    let regexNoResuelto = /noResuelto/
-    let regexResuelto = /resuelto/
+
     let regexPeticion = /peticion/
 
     //console.log(identificador)
@@ -354,32 +353,18 @@ function mostrarSeccionDashboard(event)
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_tickets_pendientes_dashboard()
     }
-    if(regexNoResuelto.test(identificador))
-    {
-        //console.log("coincide no resuelto")
-        let nombre_elemento = "contenedor_tickets_no_resueltos"
-        mostrarVistaDashboard(nombre_elemento)
-    }
-    if(regexResuelto.test(identificador))
-    {
-        //console.log("coincide resuelto")
-        let nombre_elemento = "contenedor_tickets_resuelto"
-        mostrarVistaDashboard(nombre_elemento)
-    }
+    
     if(regexPeticion.test(identificador))
     {
         console.log("coincide peticiones")
         let nombre_elemento = "contenedor_peticion"
         mostrarVistaDashboard(nombre_elemento)
+        tomar_datos_empresas_peticion_dashboard()
         
     }
 
 }
 ///TERMINO DESPLAZAMIENTO OPCIONES DEL DASHBOARD
-
-
-
-
 
 //INICIO DESPLAZAMIENTO ENTRE TICKETS
 
@@ -422,12 +407,15 @@ function mostrarSeccionTickets(event)
         //console.log("coincide ticket")
         let nombre_elemento = "contenedor_contenido_ticketsNoResueltos"
         mostrarVistaTickets(nombre_elemento)
+        tomar_datos_tickets_NoResuelto()
     }
     if(regexTicketsResueltos.test(identificador))
     {
         //console.log("coincide empresa")
         let nombre_elemento = "contenedor_contenido_ticketsResueltos"
         mostrarVistaTickets(nombre_elemento)
+        tomar_datos_tickets_Resuelto()
+
     }
     if(regexTicketsAgregar.test(identificador))
     {
@@ -3413,6 +3401,161 @@ function buscar_ticket_pendiente(event)
         }
 }
 
+function buscar_ticket_NoResuelto(event)
+{
+    var datos_filtrados = []
+
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_tickets_NoResuelto)
+                {
+
+                    console.log(objeto)
+                    let referenciaTicket = objeto.referencia.toLowerCase()
+                    let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
+                    let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
+                    let tipo = objeto.tipoServicio.toLowerCase()
+                    let prioridad_ticket = objeto.prioridad.toLowerCase()
+                    
+
+                    if(referenciaTicket.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(nombreEmpre.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(rfcEmpre.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }
+                    if(tipo.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(prioridad_ticket.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }
+                }
+
+                
+                if(datos_filtrados.length>0)
+                {
+                    datos_empleados = datos_filtrados
+                    pagina_actual_tickets_NoResuelto = 1
+                    paginador_tickets_NoResuelto(datos_empleados,pagina_actual_tickets_NoResuelto,cantidad_vistas_tickets_NoResuelto,boton_anterior_tickets_NoResuelto,boton_siguiente_tickets_NoResuelto,boton_primero_tickets_NoResuelto,boton_ultimo_tickets_NoResuelto,cuerpo_tickets_NoResuelto,indicador_pagina_tickets_NoResuelto)
+                }
+            }
+            else
+            {
+                tomar_datos_tickets_NoResuelto()
+            }
+        }
+}
+
+
+function buscar_ticket_Resuelto(event)
+{
+    var datos_filtrados = []
+
+    let codigo_tecla = event.keyCode
+    // console.log(datos_empleados)
+        if(codigo_tecla==13)
+        {
+            let valor_buscar = event.target.value.trim()
+            valor_buscar.toLowerCase()
+            if(valor_buscar.length>0)
+            {
+                // alert("funciona")
+                // console.log(valor_buscar)
+                for (let objeto of datos_tickets_Resuelto)
+                {
+
+                    //console.log(objeto)
+                    let referenciaTicket = objeto.referencia.toLowerCase()
+                    let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
+                    let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
+                    let tipo = objeto.tipoServicio.toLowerCase()
+                    let prioridad_ticket = objeto.prioridad.toLowerCase()
+                    
+
+                    if(referenciaTicket.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(nombreEmpre.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(rfcEmpre.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }
+                    if(tipo.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    } 
+                    if(prioridad_ticket.includes(valor_buscar))
+                    {
+                        if(!datos_filtrados.includes(objeto))
+                        {
+                            datos_filtrados.push(objeto)
+                        }
+                    }
+                }
+
+                
+                if(datos_filtrados.length>0)
+                {
+                    datos_empleados = datos_filtrados
+                    pagina_actual_tickets_Resuelto = 1
+                    paginador_tickets_Resuelto(datos_empleados,pagina_actual_tickets_Resuelto,cantidad_vistas_tickets_Resuelto,boton_anterior_tickets_Resuelto,boton_siguiente_tickets_Resuelto,boton_primero_tickets_Resuelto,boton_ultimo_tickets_Resuelto,cuerpo_tickets_Resuelto,indicador_pagina_tickets_Resuelto)
+                }
+            }
+            else
+            {
+                tomar_datos_tickets_Resuelto()
+            }
+        }
+}
+
 
 function buscar_ticket_pendiente_dashboard(event)
 {
@@ -3480,7 +3623,7 @@ function buscar_ticket_pendiente_dashboard(event)
                 if(datos_filtrados.length>0)
                 {
                     datos_empleados = datos_filtrados
-                    pagina_actual_tickets_pendientes = 1
+                    pagina_actual_tickets_pendientes_dashboard = 1
                     paginador_tickets_pendientes_dashboard(datos_empleados,pagina_actual_tickets_pendientes_dashboard,cantidad_vistas_tickets_pendientes_dashboard,boton_anterior_tickets_pendientes_dashboard,boton_siguiente_tickets_pendientes_dashboard,boton_primero_tickets_pendientes_dashboard,boton_ultimo_tickets_pendientes_dashboard,cuerpo_tickets_pendientes_dashboard,indicador_pagina_tickets_pendientes_dashboard)
                 }
             }

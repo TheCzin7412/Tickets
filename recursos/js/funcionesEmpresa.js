@@ -85,8 +85,6 @@ function getCookie(nombreCookie)
 let contenedores = document.querySelectorAll(".seccion")
 let contenedor_dashboard= document.querySelectorAll(".seccion_tabla")
 
-//INICIO DESPLAZAMIENTO ENTRE MENUS
-//Ocultar secciones del menu 
 function ocultarSecciones()
 {
     for(let i = 0; i<contenedores.length;i++)
@@ -109,6 +107,7 @@ function mostrarSeccion(event)
     let elemento = event.target
     let identificador = elemento.id
     let regexDashboard = /dashboard/
+    let regexTicket = /ticket/
     let regexContrasena = /contrasena/
 
     // console.log(navegador)
@@ -119,7 +118,7 @@ function mostrarSeccion(event)
         // console.log("coincide dashboard")
         let nombre_elemento = "contenedor_dashboard"
         mostrarVista(nombre_elemento)
-        tomar_datos_tickets_pendientes_empleado()
+        tomar_datos_tickets_pendientes_empresa()
         if(navegador.includes("Mozilla"))
         {
             // alert("Es mozilla")
@@ -138,6 +137,25 @@ function mostrarSeccion(event)
     {
         //console.log("coincide contrasena")
         let nombre_elemento = "contenedor_cambio_contrasena"
+        mostrarVista(nombre_elemento) 
+        if(navegador.includes("Mozilla"))
+        {
+            // alert("Es mozilla")
+            setCookie("vista-actual",nombre_elemento,1)
+        }
+        if(navegador.includes("Google"))
+        {
+            // alert("Es Google")
+            let datos = new FormData()
+            datos.append("valor",nombre_elemento);
+            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        }
+    }
+
+    if(regexTicket.test(identificador))
+    {
+        //console.log("coincide contrasena")
+        let nombre_elemento = "contenedor_tickets"
         mostrarVista(nombre_elemento) 
         if(navegador.includes("Mozilla"))
         {
@@ -193,21 +211,21 @@ function mostrarSeccionDashboard(event)
         //console.log("coincide pendiente")
         let nombre_elemento = "contenedor_tickets_pendientes"
         mostrarVistaDashboard(nombre_elemento)
-        tomar_datos_tickets_pendientes_empleado()
+        tomar_datos_tickets_pendientes_empresa()
     }
     if(regexNoResuelto.test(identificador))
     {
         //console.log("coincide no resuelto")
         let nombre_elemento = "contenedor_tickets_no_resueltos"
         mostrarVistaDashboard(nombre_elemento)
-        tomar_datos_tickets_NoResuelto_empleado()
+        tomar_datos_tickets_NoResuelto_empresa()
     }
     if(regexResuelto.test(identificador))
     {
         //console.log("coincide resuelto")
         let nombre_elemento = "contenedor_tickets_resuelto"
         mostrarVistaDashboard(nombre_elemento)
-        tomar_datos_tickets_Resuelto_empleado()
+        tomar_datos_tickets_Resuelto_empresa()
     }
     
 
@@ -228,7 +246,7 @@ function editar_ticket(event)
 }
 
 
-function buscar_ticket_pendiente_empleado(event)
+function buscar_ticket_pendiente_empresa(event)
 {
     var datos_filtrados = []
 
@@ -242,7 +260,7 @@ function buscar_ticket_pendiente_empleado(event)
             {
                 // alert("funciona")
                 // console.log(valor_buscar)
-                for (let objeto of datos_tickets_empleado)
+                for (let objeto of datos_tickets_empresa)
                 {
 
                     console.log(objeto)
@@ -294,18 +312,18 @@ function buscar_ticket_pendiente_empleado(event)
                 if(datos_filtrados.length>0)
                 {
                     datos_empleados = datos_filtrados
-                    pagina_actual_tickets_pendientes_empleado = 1
-                    paginador_tickets_pendientes_empleado(datos_empleados,pagina_actual_tickets_pendientes_empleado,cantidad_vistas_tickets_pendientes_empleado,boton_anterior_tickets_pendientes_empleado,boton_siguiente_tickets_pendientes_empleado,boton_primero_tickets_pendientes_empleado,boton_ultimo_tickets_pendientes_empleado,cuerpo_tickets_pendientes_empleado,indicador_pagina_tickets_pendientes_empleado)
+                    pagina_actual_tickets_pendientes_empresa = 1
+                    paginador_tickets_pendientes_empresa(datos_empleados,pagina_actual_tickets_pendientes_empresa,cantidad_vistas_tickets_pendientes_empresa,boton_anterior_tickets_pendientes_empresa,boton_siguiente_tickets_pendientes_empresa,boton_primero_tickets_pendientes_empresa,boton_ultimo_tickets_pendientes_empresa,cuerpo_tickets_pendientes_empresa,indicador_pagina_tickets_pendientes_empresa)
                 }
             }
             else
             {
-                tomar_datos_tickets_pendientes_empleado()
+                tomar_datos_tickets_pendientes_empresa()
             }
         }
 }
 
-function buscar_ticket_NoResuelto_empleado(event)
+function buscar_ticket_NoResuelto_empresa(event)
 {
     var datos_filtrados = []
 
@@ -319,7 +337,7 @@ function buscar_ticket_NoResuelto_empleado(event)
             {
                 // alert("funciona")
                 // console.log(valor_buscar)
-                for (let objeto of datos_tickets_NoResuelto_empleado)
+                for (let objeto of datos_tickets_NoResuelto_empresa)
                 {
 
                     console.log(objeto)
@@ -371,19 +389,19 @@ function buscar_ticket_NoResuelto_empleado(event)
                 if(datos_filtrados.length>0)
                 {
                     datos_empleados = datos_filtrados
-                    pagina_actual_tickets_NoResuelto_empleado = 1
-                    paginador_tickets_NoResuelto_empleado(datos_empleados,pagina_actual_tickets_NoResuelto_empleado,cantidad_vistas_tickets_NoResuelto_empleado,boton_anterior_tickets_NoResuelto_empleado,boton_siguiente_tickets_NoResuelto_empleado,boton_primero_tickets_NoResuelto_empleado,boton_ultimo_tickets_NoResuelto_empleado,cuerpo_tickets_NoResuelto_empleado,indicador_pagina_tickets_NoResuelto_empleado)
+                    pagina_actual_tickets_NoResuelto_empresa = 1
+                    paginador_tickets_NoResuelto_empresa(datos_empleados,pagina_actual_tickets_NoResuelto_empresa,cantidad_vistas_tickets_NoResuelto_empresa,boton_anterior_tickets_NoResuelto_empresa,boton_siguiente_tickets_NoResuelto_empresa,boton_primero_tickets_NoResuelto_empresa,boton_ultimo_tickets_NoResuelto_empresa,cuerpo_tickets_NoResuelto_empresa,indicador_pagina_tickets_NoResuelto_empresa)
                 }
             }
             else
             {
-                tomar_datos_tickets_NoResuelto_empleado()
+                tomar_datos_tickets_NoResuelto_empresa()
             }
         }
 }
 
 
-function buscar_ticket_Resuelto_empleado(event)
+function buscar_ticket_Resuelto_empresa(event)
 {
     var datos_filtrados = []
 
@@ -397,7 +415,7 @@ function buscar_ticket_Resuelto_empleado(event)
             {
                 // alert("funciona")
                 // console.log(valor_buscar)
-                for (let objeto of datos_tickets_Resuelto_empleado)
+                for (let objeto of datos_tickets_Resuelto_empresa)
                 {
 
                     //console.log(objeto)
@@ -449,16 +467,17 @@ function buscar_ticket_Resuelto_empleado(event)
                 if(datos_filtrados.length>0)
                 {
                     datos_empleados = datos_filtrados
-                    pagina_actual_tickets_Resuelto_empleado = 1
-                    paginador_tickets_Resuelto_empleado(datos_empleados,pagina_actual_tickets_Resuelto_empleado,cantidad_vistas_tickets_Resuelto_empleado,boton_anterior_tickets_Resuelto_empleado,boton_siguiente_tickets_Resuelto_empleado,boton_primero_tickets_Resuelto_empleado,boton_ultimo_tickets_Resuelto_empleado,cuerpo_tickets_Resuelto_empleado,indicador_pagina_tickets_Resuelto_empleado)
+                    pagina_actual_tickets_Resuelto_empresa = 1
+                    paginador_tickets_Resuelto_empresa(datos_empleados,pagina_actual_tickets_Resuelto_empresa,cantidad_vistas_tickets_Resuelto_empresa,boton_anterior_tickets_Resuelto_empresa,boton_siguiente_tickets_Resuelto_empresa,boton_primero_tickets_Resuelto_empresa,boton_ultimo_tickets_Resuelto_empresa,cuerpo_tickets_Resuelto_empresa,indicador_pagina_tickets_Resuelto_empresa)
                 }
             }
             else
             {
-                tomar_datos_tickets_Resuelto_empleado()
+                tomar_datos_tickets_Resuelto_empresa()
             }
         }
 }
+
 
 var check_cerrar_sesion = true
 function cerrar_sesion()
@@ -484,3 +503,38 @@ function cerrar_sesion()
 
     }
 }
+
+////////// Alertas
+
+function dialogo(mensaje)
+{
+    let dialogo_mensaje = document.createElement("div")
+    dialogo_mensaje.setAttribute("class","contenedor_dialogo")
+    dialogo_mensaje.innerHTML=mensaje
+
+    let boton  = document.createElement("div")
+    boton.setAttribute("class","boton_alerta")
+    boton.setAttribute("onclick","quitar_alerta(event);")
+    boton.innerHTML="Aceptar"
+
+    dialogo_mensaje.appendChild(boton)
+
+    let contenedor = document.getElementById("contenedor")
+    let fondo = document.createElement("div")
+    fondo.setAttribute("class","contenedor_alerta")
+    fondo.setAttribute("id","elemento_dialogo")
+
+    fondo.appendChild(dialogo_mensaje)
+    contenedor.appendChild(fondo)
+
+}
+function quitar_alerta(event)
+{
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_elemento = padre.id
+    let borrado = document.getElementById(id_elemento)
+    borrado.parentNode.removeChild(borrado)
+}
+
+

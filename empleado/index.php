@@ -124,53 +124,110 @@
                             
                             <!--Contenedor tabla de tickets no resueltos-->
                             <div class="seccion_tabla" id="contenedor_tickets_no_resueltos">
-                                <h1>Tickets no resueltos</h1>
-                                <div id="contenedor_tabla_no_resueltos">
-                                    <table class="tablas">
-                                        <thead>
-                                            <tr>
-                                                <th>Folio</th>
-                                                <th>Nombre empresa</th>
-                                                <th>Hora y fecha de solicitud</th>
-                                                <th>Servicio</th>
-                                                <th>Prioridad</th>
-                                                <th>Descripcion del problema</th>
-                                                <th>Empleado quien realizo el servicio</th>
-                                                <th>Motivo por lo cual no se realizo</th>
-                                                <th>Hora y fecha de termino</th>
-                                                <th>Estatus</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <h1 class="titulo_seccion">Listado de tickets no resueltos</h1>
+                                   <div class="contenedor_busqueda">
+                                            <div class="Cantidad_lista">
+                                                <div class="lista1">
+                                                    <p>Cantidad de tickets</p>
+                                                </div>
+                                                <div class="lista2">
+                                                    <select name="" class="select_cantidad" id="cantidad_tickets_NoResuelto_empleado" onchange="tomar_datos_tickets_NoResuelto_empleado();"> 
+                                                        <option value="5">5</option> 
+                                                        <option value="10">10</option>
+                                                        <option value="15">15</option> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
+                                                    <p>Buscar:</p>
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_NoResuelto_empleado(event);">       
+                                                </div>      
+                                            </div>
+                                        </div>
+                                   
+                                       <table class="tablas">
+                                           <thead>
+                                               <tr>
+                                                   <td>ID</td>
+                                                   <td>Folio</td>
+                                                   <td>Nombre empresa</td>
+                                                   <td>RFC</td>
+                                                   <td>Fecha de cierre</td>
+                                                   <td>Hora de cierre</td>
+                                                   <td>Servicio</td>
+                                                   <td>Prioridad</td>
+                                                   <td>Estatus</td>
+                                                   <td>Acciones</td>
+                                               </tr>
+                                           </thead>
+                                           <tbody id="tabla_tickets_NoResuelto_empleado">
+                                           </tbody>
+                                       </table>
+                                       <div class="contenedor_paginador">
+                                                <div class="controladores_paginador" id="boton_paginador_primero_tickets_NoResuelto_empleado">Primero</div>
+                                                <div class="controladores_paginador" id="boton_paginador_anterior_tickets_NoResuelto_empleado">Anterior</div>
+                                                <div class="controladores_paginador" id="boton_paginador_cantidad_tickets_NoResuelto_empleado">1 de 1</div>
+                                                <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_NoResuelto_empleado">Siguiente</div>
+                                                <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_NoResuelto_empleado">Ultimo</div>
+                                        </div>
                             </div>
 
                             <!--Contenedor tabla de tickets no resueltos-->
                             <div class="seccion_tabla" id="contenedor_tickets_resuelto">
-                                <h1>Tickets resueltos</h1>
-                                <div id="contenedor_tabla_resuelto">
-                                    <table class="tablas">
-                                        <thead>
-                                            <tr>
-                                                <th>Folio</th>
-                                                <th>Nombre empresa</th>
-                                                <th>Hora y fecha de solicitud</th>
-                                                <th>Servicio</th>
-                                                <th>Prioridad</th>
-                                                <th>Descripcion del problema</th>
-                                                <th>Empleado quien realizo el servicio</th>
-                                                <th>Descripcion detallada de la falla</th>
-                                                <th>Solucion del problema</th>
-                                                <th>Hora y fecha de termino</th>
-                                                <th>Estatus</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <h1 class="titulo_seccion">Listado de tickets resueltos</h1>
+                                   <div class="contenedor_busqueda">
+                                            <div class="Cantidad_lista">
+                                                <div class="lista1">
+                                                    <p>Cantidad de tickets</p>
+                                                </div>
+                                                <div class="lista2">
+                                                    <select name="" class="select_cantidad" id="cantidad_tickets_Resuelto_empleado" onchange="tomar_datos_tickets_Resuelto_empleado();"> 
+                                                        <option value="5">5</option> 
+                                                        <option value="10">10</option>
+                                                        <option value="15">15</option> 
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="barra_buscadora">
+                                                <div class="buscador1">
+                                                    <p>Buscar:</p>
+                                                </div>
+                                                <div class="buscador2">
+                                                    <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_Resuelto_empleado(event);">       
+                                                </div>      
+                                            </div>
+                                        </div>
+                                   
+                                       <table class="tablas">
+                                           <thead>
+                                               <tr>
+                                                   <td>ID</td>
+                                                   <td>Folio</td>
+                                                   <td>Nombre empresa</td>
+                                                   <td>RFC</td>
+                                                   <td>Fecha de cierre</td>
+                                                   <td>Hora de cierre</td>
+                                                   <td>Servicio</td>
+                                                   <td>Prioridad</td>
+                                                   <td>Estatus</td>
+                                                   <td>Acciones</td>
+                                               </tr>
+                                           </thead>
+                                           <tbody id="tabla_tickets_Resuelto_empleado">
+                                           </tbody>
+                                       </table>
+                                       <div class="contenedor_paginador">
+                                            <div class="controladores_paginador" id="boton_paginador_primero_tickets_Resuelto_empleado">Primero</div>
+                                            <div class="controladores_paginador" id="boton_paginador_anterior_tickets_Resuelto_empleado">Anterior</div>
+                                            <div class="controladores_paginador" id="boton_paginador_cantidad_tickets_Resuelto_empleado">1 de 1</div>
+                                            <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_Resuelto_empleado">Siguiente</div>
+                                            <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_Resuelto_empleado">Ultimo</div>
+                                        </div>
                             </div>
 
                             <!--Contenedor tabla de tickets no resueltos-->

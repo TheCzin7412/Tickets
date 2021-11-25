@@ -3,17 +3,17 @@ session_start();
 include_once("conexion.php");
 class Acciones
 {
-
-    
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
     //////////////ACCIONES administradores////////////////
     //////////////////////////////////////////////////////
-
-    public function tomar_informacion_ticket($id,$sesion,$idTicket)
+    public function tomar_informacion_ticket($id,$sesion,$idTicket,$tipo_usuario)
     {
+
         $verificacion  = $this->checarSesion($id,$sesion);
-        if($verificacion==$sesion)
+        $verificacionEmpleado  = $this->checarSesionEmpleado($id,$sesion);
+        $verificacionEmpresa  = $this->checarSesionEmpresa($id,$sesion);
+        if($verificacion==$sesion || $verificacionEmpleado==$sesion || $verificacionEmpresa == $sesion)
         {
             $sql = "SELECT * FROM info_tickets WHERE id=:id";
             $modelo = new Servidor();
@@ -44,7 +44,9 @@ class Acciones
     public function agregar_comentario($id,$idSesion,$id_ticket,$comentario)
     {
         $verificacion  = $this->checarSesion($id,$idSesion);
-        if($verificacion==$idSesion)
+        $verificacionEmpleado  = $this->checarSesionEmpleado($id,$idSesion);
+        $verificacionEmpresa  = $this->checarSesionEmpresa($id,$idSesion);
+        if($verificacion==$idSesion || $verificacionEmpleado==$idSesion || $verificacionEmpresa==$idSesion)
         {
             $modelo= new Servidor();
             $conexion= $modelo->conectar();
@@ -241,6 +243,82 @@ class Acciones
             } 
         }
 
+        public function tomarTicketsNoResuelto($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesion($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                referencia,
+                nombreEmpresa,
+                rfcEmpresa,
+                fechaCierre,
+                horaCierre,
+                tipoServicio,
+                prioridad,
+                estatus FROM info_tickets WHERE estatus=:estatus";
+                $estatus = "0";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":estatus",$estatus);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return json_encode("error 500");
+            } 
+        }
+
+        public function tomarTicketsResuelto($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesion($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                referencia,
+                nombreEmpresa,
+                rfcEmpresa,
+                fechaCierre,
+                horaCierre,
+                tipoServicio,
+                prioridad,
+                estatus FROM info_tickets WHERE estatus=:estatus";
+                $estatus = "2";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":estatus",$estatus);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return json_encode("error 500");
+            } 
+        }
+
 
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
@@ -345,7 +423,9 @@ class Acciones
     public function cerrar_sesion($id,$idSesion,$tipo_usuario)
     {
         $verificacion  = $this->checarSesion($id,$idSesion);
-        if($verificacion==$idSesion)
+        $verificacionEmpleado  = $this->checarSesionEmpleado($id,$idSesion);
+        $verificacionEmpresa  = $this->checarSesionEmpresa($id,$idSesion);
+        if($verificacion==$idSesion || $verificacionEmpleado==$idSesion || $verificacionEmpresa==$idSesion)
         {
             $str_vacio = " ";
             $servidor = new Servidor();
@@ -359,7 +439,10 @@ class Acciones
             {
                 $sql = "UPDATE empleado SET idSesion=:idSesion WHERE id=:id";
             }
-
+            if($tipo_usuario=="EMPRESA")
+            {
+                $sql = "UPDATE empresas SET idSesion=:idSesion WHERE id=:id";
+            }
             $parametro = $conexion->prepare($sql);
             $parametro->bindParam(":idSesion",$str_vacio);
             $parametro->bindParam(":id",$id);
@@ -1868,6 +1951,35 @@ class Acciones
             }
         }   
     }
+
+    public function checarSesionEmpresa($id,$sesion)
+    {
+        $sql = "SELECT idSesion FROM empresas WHERE idSesion=:idSesion AND id=:id";
+        $modelo = new Servidor();
+        $conexion = $modelo->conectar();
+        $parametro = $conexion->prepare($sql);
+        $parametro->bindParam(":idSesion",$sesion);
+        $parametro->bindParam(":id",$id);
+        $parametro->execute();
+        $columnas = $parametro->rowCount();
+        if($columnas==0)
+        {
+            return "error";
+        }
+        else
+        {
+            $verificacion = $parametro->fetchAll(PDO::FETCH_ASSOC);
+            $id_verificacion = $verificacion[0]['idSesion'];
+            if($id_verificacion==$sesion)
+            {
+                return $id_verificacion;
+            }
+            else
+            {
+                return "error";
+            }
+        }   
+    }
     
 
     public function crear_cookie_vista($idUsuario,$idSesion,$valor)
@@ -1969,19 +2081,219 @@ class Acciones
     }
 
 
+    public function tomarTicketsNoResueltoEmpleado($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesionEmpleado($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                referencia,
+                nombreEmpresa,
+                rfcEmpresa,
+                fechaCierre,
+                horaCierre,
+                tipoServicio,
+                prioridad,
+                estatus FROM info_tickets WHERE estatus=:estatus";
+                $estatus = "0";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":estatus",$estatus);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return json_encode("error 500");
+            } 
+        }
+
+
+        public function tomarTicketsResueltoEmpleado($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesionEmpleado($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                referencia,
+                nombreEmpresa,
+                rfcEmpresa,
+                fechaCierre,
+                horaCierre,
+                tipoServicio,
+                prioridad,
+                estatus FROM info_tickets WHERE estatus=:estatus";
+                $estatus = "2";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":estatus",$estatus);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return json_encode("error 500");
+            } 
+        }
+
+
+        public function tomarTicketsActivosEmpresa($id,$idSesion)
+        {
+        $verificacion  = $this->checarSesionEmpresa($id,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "SELECT 
+            id,
+            referencia,
+            nombreEmpresa,
+            rfcEmpresa,
+            fechaRegistro,
+            horaRegistro,
+            tipoServicio,
+            prioridad,
+            estatus FROM info_tickets WHERE estatus=:estatus";
+            $estatus = "1";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":estatus",$estatus);
+            $parametro->execute();
+            $columnas = $parametro->rowCount();
+            if($columnas==0)
+            {
+                return json_encode("error 400");
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                return json_encode($datos);       
+            }
+        }  
+        else
+        {
+            return json_encode("error 500");
+        } 
+    }
+    
+    
+    public function tomarTicketsNoResueltoEmpresa($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesionEmpresa($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                referencia,
+                nombreEmpresa,
+                rfcEmpresa,
+                fechaCierre,
+                horaCierre,
+                tipoServicio,
+                prioridad,
+                estatus FROM info_tickets WHERE estatus=:estatus";
+                $estatus = "0";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":estatus",$estatus);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return json_encode("error 500");
+            } 
+        }
+        public function tomarTicketsResueltoEmpresa($id,$idSesion)
+        {
+            $verificacion  = $this->checarSesionEmpresa($id,$idSesion);
+            if($verificacion==$idSesion)
+            {
+                $sql = "SELECT 
+                id,
+                referencia,
+                nombreEmpresa,
+                rfcEmpresa,
+                fechaCierre,
+                horaCierre,
+                tipoServicio,
+                prioridad,
+                estatus FROM info_tickets WHERE estatus=:estatus";
+                $estatus = "2";
+                $modelo = new Servidor();
+                $conexion = $modelo->conectar();
+                $parametro = $conexion->prepare($sql);
+                $parametro->bindParam(":estatus",$estatus);
+                $parametro->execute();
+                $columnas = $parametro->rowCount();
+                if($columnas==0)
+                {
+                    return json_encode("error 400");
+                }
+                else
+                {
+                    $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                    return json_encode($datos);       
+                }
+            }  
+            else
+            {
+                return json_encode("error 500");
+            } 
+        }
 
     public function cambiar_contrasena($id,$idSesion,$contrasena,$tipo_usuario)
     {
     $verificacion  = $this->checarSesion($id,$idSesion);
-    if($verificacion==$idSesion)
+    $verificacionEmpleado  = $this->checarSesion($id,$idSesion);
+    $verificacionEmpresa  = $this->checarSesion($id,$idSesion);
+    if($verificacion==$idSesion || $verificacionEmpresa==$idSesion || $verificacionEmpleado==$idSesion)
     {
         $sql = "";
         $modelo = new Servidor();
         $conexion = $modelo->conectar();
-
         if($tipo_usuario=="ADMINISTRADOR")
         {
             $sql = "UPDATE administrador SET contrasenaAdministrador=:contrasena WHERE id=:id";
+        }
+        if($tipo_usuario=="EMPLEADO")
+        {
+            $sql = "UPDATE empleado SET contrasenaEmpleado=:contrasena WHERE id=:id";
+        }
+        if($tipo_usuario=="EMPRESA")
+        {
+            $sql = "UPDATE empresas SET contrasenaEmpresa=:contrasena WHERE id=:id";
         }
         $contrasena = sha1($contrasena);
         $contrasena = sha1($contrasena);
@@ -1996,17 +2308,154 @@ class Acciones
         {
             return "error";
         }
-
     }
     else
     {
         return "ERROR";
     }
+}
 
+public function comprobar_codigo($codigo,$tipo_usuario)
+{
+    $modelo = new Servidor();
+    $conexion = $modelo->conectar();
+    $sql = "";
+    if($tipo_usuario=="DM")
+    {
+        $sql = "SELECT idSesion FROM administrador WHERE idSesion=:codigo";
+    }
+    if($tipo_usuario=="EM")
+    {
+        $sql = "SELECT idSesion FROM empleado WHERE idSesion=:codigo";
+    }
+    if($tipo_usuario=="PS")
+    {
+        $sql = "SELECT idSesion FROM empresas WHERE idSesion=:codigo";
+    }
+
+    $parametro = $conexion->prepare($sql);
+    $parametro->bindParam(":codigo",$codigo);
+    $parametro->execute();
+    $columnas = $parametro->rowCount();
+    if($columnas==0)
+    {
+        return "error";
+    }
+    else
+    {
+        return $codigo;
+    }
+}
+
+public function comprobar_correo($correo)
+{
+    $columnas = "";
+    $cifrado = "";
+    $sql = "SELECT correoAdministrador FROM administrador WHERE correoAdministrador=:correo";
+    $modelo = new Servidor();
+    $conexion = $modelo->conectar();
+    $parametro = $conexion->prepare($sql);
+    $parametro->bindParam(":correo",$correo);
+    $parametro->execute();
+    $columnas = $parametro->rowCount();
+    if($columnas==0)
+    {
+        // return "no existe";
+        $sql2 = "SELECT correoEmpleado FROM empleado WHERE correoEmpleado=:correo";
+        $modelo = new Servidor();
+        $conexion = $modelo->conectar();
+        $parametro2 = $conexion->prepare($sql2);
+        $parametro2->bindParam(":correo",$correo);
+        $parametro2->execute();
+        $columnas = $parametro2->rowCount();
+        if($columnas==0)
+        {
+            $sql3 = "SELECT correoEmpresa FROM empresas WHERE correoEmpresa=:correo";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $parametro2 = $conexion->prepare($sql3);
+            $parametro2->bindParam(":correo",$correo);
+            $parametro2->execute();
+            $columnas = $parametro2->rowCount();
+            if($columnas==0)
+            {
+                return "no hay coincidencias";
+            }
+            else
+            {
+                $codigo_admin= "PS";
+                $fecha = date("Y-m-d H:i:s");
+                $cifrado = sha1($correo.$fecha);
+                // insertar codigo random en tabla idSesion
+                $sql_codigo = "UPDATE empresas SET idSesion=:cifrado WHERE correoEmpresa=:correo";
+                $parametro_codigos = $conexion->prepare($sql_codigo);
+                $parametro_codigos->bindParam(":correo",$correo);
+                $parametro_codigos->bindParam(":cifrado",$cifrado);
+                $parametro_codigos->execute();
+                return $cifrado."---".$codigo_admin."---".$correo;
+            }
+        }
+        else
+        {
+            $codigo_admin= "EM";
+            $fecha = date("Y-m-d H:i:s");
+            $cifrado = sha1($correo.$fecha);
+            // insertar codigo random en tabla idSesion
+            $sql_codigo = "UPDATE empleado SET idSesion=:cifrado WHERE correoEmpleado=:correo";
+            $parametro_codigos = $conexion->prepare($sql_codigo);
+            $parametro_codigos->bindParam(":correo",$correo);
+            $parametro_codigos->bindParam(":cifrado",$cifrado);
+            $parametro_codigos->execute();
+            return $cifrado."---".$codigo_admin."---".$correo;
+        }
+    }
+    else
+    {
+        $codigo_admin= "DM";
+        $fecha = date("Y-m-d H:i:s");
+        $cifrado = sha1($correo.$fecha);
+        // insertar codigo random en tabla idSesion
+        $sql_codigo = "UPDATE administrador SET idSesion=:cifrado WHERE correoAdministrador=:correo";
+        $parametro_codigos = $conexion->prepare($sql_codigo);
+        $parametro_codigos->bindParam(":correo",$correo);
+        $parametro_codigos->bindParam(":cifrado",$cifrado);
+        $parametro_codigos->execute();
+        return $cifrado."---".$codigo_admin."---".$correo;
+    }
+}
+
+public function reset_contrasena($correo,$codigo,$tipo_usuario,$nueva_contrasena)
+{
+    $sql = "";
+    $modelo = new Servidor();
+    $conexion = $modelo->conectar();
+    if($tipo_usuario=="DM")
+    {
+        $sql = "UPDATE administrador SET contrasenaAdministrador=:contrasena WHERE correoAdministrador=:correo AND idSesion=:sesion";
+    }
+    if($tipo_usuario=="EM")
+    {
+        $sql = "UPDATE empleado SET contrasenaEmpleado=:contrasena WHERE correoEmpleado=:correo AND idSesion=:sesion";
+    }
+    if($tipo_usuario=="PS")
+    {
+        $sql = "UPDATE empresas SET contrasenaEmpresa=:contrasena WHERE correoEmpresa=:correo AND idSesion=:sesion";
+    }
+    $nueva_contrasena = sha1($nueva_contrasena);
+    $nueva_contrasena = sha1($nueva_contrasena);
+    $parametro = $conexion->prepare($sql);
+    $parametro->bindParam(":contrasena",$nueva_contrasena);
+    $parametro->bindParam(":sesion",$codigo);
+    $parametro->bindParam(":correo",$correo);
+    if($parametro->execute())
+    {
+        return "se cambio correctamente";
+    }
+    else
+    {
+        return "error";
+    }
 }
 
 }
-
-
-
 ?>
