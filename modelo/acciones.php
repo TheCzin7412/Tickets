@@ -1695,8 +1695,6 @@ class Acciones
         $fecha = date("D/m/A H:i:s");
         $cifrado = sha1($correo.$fecha.$randos);
 
-
-
         $sql_admin = "SELECT correoAdministrador FROM administrador WHERE correoAdministrador=:correoAdministrador AND contrasenaAdministrador=:contrasenaAdministrador";
         $modelo = new Servidor();
         $conexion = $modelo->conectar();
@@ -1874,12 +1872,13 @@ class Acciones
                     $parametro_admin3->bindParam(":contrasenaAdministrador",$contraCifrada);
                     if($parametro_admin3->execute())
                     {
+                        $vista = "contenedor_dashboard";
                         $datos_admin = $parametro_admin3->fetchAll(PDO::FETCH_ASSOC);
                         $_SESSION['idSesion'] = $datos_admin[0]['idSesion'];
                         $_SESSION['idUsuario'] = $datos_admin[0]['id'];
                         $_SESSION['nombreUsuario'] = $datos_admin[0]['nombreAdministrador'];
                         $_SESSION['tipoUsuario'] = $datos_admin[0]['tipo_usuario'];
-
+                        setcookie("vista-actual",$vista , time()+40000,"/","localhost",true,true);
 
                         return json_encode($datos_admin);
                         // return "listo";
@@ -1981,13 +1980,11 @@ class Acciones
         }   
     }
     
-
     public function crear_cookie_vista($idUsuario,$idSesion,$valor)
     {
         $verificacion  = $this->checarSesion($idUsuario,$idSesion);
         if($verificacion==$idSesion)
         {
-            // return $valor;
             setcookie("vista-actual", $valor, time()+40000,"/","localhost",true,true);   
             return "listo";
         }

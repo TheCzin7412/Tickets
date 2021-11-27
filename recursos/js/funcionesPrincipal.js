@@ -50,19 +50,24 @@
 var navegador = window.navigator.vendor || window.navigator.userAgent
 
 
+var info_cookie
+
 window.onload= function()
 {
     if(navegador.includes("Mozilla"))
     {
         let elemento = getCookie("vista-actual")
+        console.log(elemento)
+        info_cookie = elemento
         mostrarVista(elemento)
     }
     if(navegador.includes("Google"))
     {
-        let cookies = document.cookie
-        // console.log(cookies)
-        datos_totales = cookies.split(";")
-        // console.log(datos_totales)
+        let elemento_cookie = document.getElementById("info-cookies")
+        let cookies = elemento_cookie.value
+        console.log(cookies)
+        info_cookie = cookies
+        mostrarVista(cookies)
     }
 }
 
@@ -160,12 +165,33 @@ function ocultarSecciones()
         contenedores[i].style.display="none";
     }
 }
+
 //Mostrar secciones del menu 
 function mostrarVista(elemento)
 {
     ocultarSecciones()
     let contenedor = document.getElementById(elemento)
     contenedor.style.display="flex"
+    if(elemento=="contenedor_tickets")
+    {
+        tomar_datos_tickets_pendientes();
+    }
+    if(elemento=="contenedor_empresas")
+    {
+        tomar_datos_empresas();
+    }
+    if(elemento=="contenedor_empleado")
+    {
+        tomar_datos_empleado();
+    }
+    if(elemento=="contenedor_administradores")
+    {
+        tomar_datos_administradores();
+    }
+    if(elemento=="contenedor_dashboard")
+    {
+        tomar_datos_tickets_pendientes_dashboard();
+    }
 }
 
 // mostrarVista(contenedores[0])
@@ -196,7 +222,7 @@ function mostrarSeccion(event)
         let nombre_elemento = "contenedor_dashboard"
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes_dashboard()
-        
+        info_cookie = nombre_elemento
         if(navegador.includes("Mozilla"))
         {
             // alert("Es mozilla")
@@ -216,6 +242,7 @@ function mostrarSeccion(event)
         let nombre_elemento = "contenedor_tickets"
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes()
+        info_cookie = nombre_elemento
         if(navegador.includes("Mozilla"))
         {
             // alert("Es mozilla")
@@ -236,6 +263,7 @@ function mostrarSeccion(event)
         let nombre_elemento = "contenedor_empresas"
         mostrarVista(nombre_elemento)
         tomar_datos_empresas()
+        info_cookie = nombre_elemento
         if(navegador.includes("Mozilla"))
         {
             // alert("Es mozilla")
@@ -257,6 +285,7 @@ function mostrarSeccion(event)
         mostrarVista(nombre_elemento)
         
         tomar_datos_empleado()
+        info_cookie = nombre_elemento
 
         if(navegador.includes("Mozilla"))
         {
@@ -277,6 +306,7 @@ function mostrarSeccion(event)
         let nombre_elemento = "contenedor_administradores"
         mostrarVista(nombre_elemento)
         tomar_datos_administradores()
+        info_cookie = nombre_elemento
 
         if(navegador.includes("Mozilla"))
         {
@@ -297,7 +327,8 @@ function mostrarSeccion(event)
         //console.log("coincide contrasena")
         let nombre_elemento = "contenedor_cambio_contrasena"
         mostrarVista(nombre_elemento)
-
+        info_cookie = nombre_elemento
+        
         if(navegador.includes("Mozilla"))
         {
             // alert("Es mozilla")

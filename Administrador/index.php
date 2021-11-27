@@ -9,10 +9,21 @@
            <link rel="shortcut icon" href="../recursos/img/logo.ico" type="image/x-icon">
        </head>
        <body>
+           <?php
+           if(isset($_COOKIE['vista-actual']))
+           {  
+                echo '<input type="hidden" id="info-cookies" value="'.$_COOKIE['vista-actual'].'">';
+           }
+           else
+           {
+                echo '<input type="hidden" id="info-cookies" value="no">';
+           }
+           ?>
            <div id="contenedor">
                <div id="menu">
                    <div id="contenedor_logo" class="seccion_menu">
                        <img src="../recursos/img/logo.png" alt="" id="logo_inicio">
+                       <img src="../recursos/img/logo_recorte.png" alt="" id="logo_inicio_menu">
                        <p class="texto"></p>
                    </div>
                    <div id="contenedor_bienvenida" class="seccion_menu">
@@ -69,9 +80,9 @@
                                <div class="seccion_tabla" id="contenedor_tickets_pendientes">
                                    <h1 class="titulo_seccion">Listado de tickets pendientes</h1>
                                    <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_pendientes_dashboard" onchange="tomar_datos_tickets_pendientes_dashboard();"> 
@@ -84,7 +95,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_pendiente_dashboard(event);">       
@@ -135,9 +146,9 @@
                                <div class="seccion_tabla" id="contenedor_peticion">
                                 <h1>Lista de peticiones de empresas</h1>
                                         <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de peticiones</p>
+                                                    <p class="titulo_cantidad">Cantidad de peticiones</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_peticiones_dashboard" onchange="tomar_datos_empresas_peticion_dashboard();"> 
@@ -150,7 +161,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..."onkeypress="buscar_empresas_peticion_dash(event);">       
@@ -197,7 +208,7 @@
                            
                            <!-- empieza seccion ticket -->
                            <div class="seccion" id="contenedor_tickets">
-                               <h1>Tickets</h1>
+                               <h1 class="titulo_seccion">Tickets</h1>
                                <div class="contador_seccion" id="contenedor_contador_tickets">
                                    <div id="c_boton_ticketsPendientes" class="seccion_contador" onclick="mostrarSeccionTickets(event);">
                                        <img src="../recursos/img/tickets_pendientes.png" id="imagen_ticketsPendientes" class="imagen_contador">
@@ -221,9 +232,9 @@
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsPendientes">
                                    <h1 class="titulo_seccion">Listado de tickets pendientes</h1>
                                    <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_pendientes" onchange="tomar_datos_tickets_pendientes();"> 
@@ -236,7 +247,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_pendiente(event);">       
@@ -285,9 +296,9 @@
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsNoResueltos">
                                    <h1 class="titulo_seccion">Listado de tickets no resueltos</h1>
                                    <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_NoResuelto" onchange="tomar_datos_tickets_NoResuelto();"> 
@@ -300,7 +311,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_NoResuelto(event);">       
@@ -337,9 +348,9 @@
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsResueltos">
                                    <h1 class="titulo_seccion">Listado de tickets resueltos</h1>
                                    <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_Resuelto" onchange="tomar_datos_tickets_Resuelto();"> 
@@ -352,7 +363,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_Resuelto(event);">       
@@ -471,9 +482,9 @@
                                        <h1 class="titulo_seccion">Listado de empresas activas</h1>
 
                                        <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de empresas</p>
+                                                    <p class="titulo_cantidad">Cantidad de empresas</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_activas" onchange="tomar_datos_empresas();"> 
@@ -486,7 +497,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empresas(event);">       
@@ -531,9 +542,9 @@
                                    <div class="seccion_empresa" id="contenedor_empresas_noactivas">
                                        <h1 class="titulo_seccion">Listado de empresas dadas de baja</h1>
                                         <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de empresas</p>
+                                                    <p class="titulo_cantidad">Cantidad de empresas</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_noactivos" onchange="tomar_datos_empresas_noactivas();"> 
@@ -546,7 +557,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empresasNo(event);">       
@@ -591,9 +602,9 @@
                                    <div class="seccion_empresa" id="contenedor_peticion_empresas">
                                        <h1 class="titulo_seccion">Peticion de empresas</h1>
                                         <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de peticiones</p>
+                                                    <p class="titulo_cantidad">Cantidad de peticiones</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_pendientes" onchange="tomar_datos_empresas_peticion();"> 
@@ -606,7 +617,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empresas_peticion(event);">       
@@ -733,9 +744,9 @@
                                    <div class="seccion_empleado" id="contenedor_empleado_activas">
                                        <h1 class="titulo_seccion">Listado de empleados activos</h1>
                                        <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de empleados</p>
+                                                    <p class="titulo_cantidad">Cantidad de empleados</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empleados_activos" onchange="tomar_datos_empleado();"> 
@@ -751,7 +762,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empleado(event);">       
@@ -794,9 +805,9 @@
                                    <div class="seccion_empleado" id="contenedor_empleado_noactivo">
                                        <h1 class="titulo_seccion">Listado de empleados dados de baja</h1>
                                        <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de empleados</p>
+                                                    <p class="titulo_cantidad">Cantidad de empleados</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_empleados_noactivos" onchange="tomar_datos_empleado_noactivos();"> 
@@ -809,7 +820,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_empleadoNO(event);">       
@@ -940,9 +951,9 @@
                                    <div class="seccion_administradores" id="contenedor_administradores_activos">
                                        <h1 class="titulo_seccion">Listado de administradores activos</h1>
                                        <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de administradores</p>
+                                                    <p class="titulo_cantidad">Cantidad de administradores</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_administradores_activos" onchange="tomar_datos_administradores();"> 
@@ -955,7 +966,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_adn(event);">       
@@ -998,9 +1009,9 @@
                                    <div class="seccion_administradores" id="contenedor_administradores_noactivos">
                                        <h1 class="titulo_seccion">Listado de administradores dados de baja</h1>
                                        <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de administradores</p>
+                                                    <p class="titulo_cantidad">Cantidad de administradores</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_administradores_noactivos" onchange="tomar_datos_administradores_noactivos();"> 
@@ -1013,7 +1024,7 @@
                                             
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..."  onkeypress="buscar_AdnNO(event);">       

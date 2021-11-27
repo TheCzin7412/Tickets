@@ -150,14 +150,15 @@ gris 6E6D6A
     padding: 10px;
     justify-content: flex-start;
     align-items: center;
-    
+    border-left: solid 10px transparent;
+    border-bottom: solid 3px transparent;
 }
 
 .boton_control:hover
 {
     border-left: solid 10px var(--colorAzul);
     border-bottom: solid 3px var(--colorAzul);
-    transition: all .04s ease-in-out;
+    transition: all .4s ease-in-out;
 }
 .imagen_menu
 {
@@ -759,14 +760,13 @@ Dashboard realizacion de prueba
     align-items: flex-end;
     flex-direction:row;
 }
-.Cantidad_lista{
+.cantidad_lista{
     display: flex;
     width: 100%;
     height: auto;
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: row;
-
 }
 .lista1{
     padding-right: 12px;
@@ -810,6 +810,7 @@ Dashboard realizacion de prueba
     font-size: var(--tamanoTexto);
     border: solid 1px var(--colorNegro);
     margin-right: 15px;
+    border-radius: 10px;
 }
 .input_barra_buscadora:focus{
     outline: none;
@@ -1193,4 +1194,62 @@ Dashboard realizacion de prueba
     background: var(--colorBlanco);
     color: var(--colorNegro);
     transition: all .06s ease-in-out;
+}
+#logo_inicio_menu
+{
+    display: none;
+    width:37px;
+    height: 37px;
+    object-fit: contain;
+}
+
+@media screen and (max-width: 980px)
+{
+    html,body
+    {
+        max-height: 100%;
+        overflow: scroll;
+    }
+    #logo_inicio_menu
+    {
+        display:flex;
+        margin-left: 7px;
+    }
+    #logo_inicio
+    {
+        display: none;
+    }
+    .texto_menu
+    {
+        display: none;
+    }
+    .boton_control
+    {
+        width: 100%;
+    }
+    .titulo_cantidad, .titulo_buscar,.parrafo_contador, #zoom_empleados_activos
+    {
+        display: none;
+    }
+    .input_barra_buscadora
+    {
+        width: 180px;
+    }
+    .titulo_seccion
+    {
+        display: flex;
+        width: 80%;
+        font-size: 15px;
+        justify-content: center;
+        align-items: center;
+    }
+    #contenedor_tabla_empresas_activas, .contenedor_tabla_ticketsPendientes, #tabla_tickets_pendientes,#contenedor_tabla_peticion
+    {
+        overflow-x: auto;
+    }
+    #menu_control
+    {
+        margin-right: 0;
+    }
+    
 }
