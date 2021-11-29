@@ -55,6 +55,7 @@ create table info_tickets(
 	referencia varchar(200),
 	nombreEmpresa varchar(200),
 	rfcEmpresa varchar(200),
+	empladoCierre varchar(200),
 	fechaRegistro varchar(11),
 	fechaCierre varchar(11),
 	horaRegistro varchar(11),

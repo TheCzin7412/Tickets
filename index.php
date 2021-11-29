@@ -14,9 +14,11 @@
 
         <div id="opciones_inicio_sesion">
             <div id="c_boton_login" class="opciones_login" onclick="mostrarSeccionLogin(event);">
+                <img id="imagen_login" src="recursos/img/ingreso.png" class="img_login" alt="">
                 <p id="parrafo_login" class="parrafo_contador">INICIAR SESION</p>
             </div>
             <div id="c_boton_inicioSesion_registrar" class="opciones_login" onclick="mostrarSeccionLogin(event);">
+                <img id="imagen_inicioSesion_registrar" src="recursos/img/Peticion.png" class="img_login" alt="">
                 <p id="parrafo_inicioSesion_registrar" class="parrafo_contador">REGISTRAR PETICION EMPRESAS</p>
             </div>
         </div>
@@ -28,7 +30,7 @@
             </h1>
             <input id="input_correo" type="email" class="input_text_login" placeholder="Ingrese el correo electronico..." value="">
             <input id="input_contra" type="password" class="input_text_login"  placeholder="Ingrese la contraseña...">
-            <p id="c_boton_recuperar" onclick="mostrarSeccionLogin(event);" >¿Olvidaste tu contraseña?</p>
+            <p id="c_boton_recuperar" class="titulo" onclick="mostrarSeccionLogin(event);" >¿Olvidaste tu contraseña?</p>
             <button class="boton_login" id="boton_inicio" onclick="inicio_sesion();">INGRESAR</button>
         </div>
 
@@ -92,7 +94,7 @@
 
         <div id="contenedor_recuperar_contrasena" class="seccion_login">
             <div class="opciones_recuperar">
-                <h1>Recuperacion de contraseña</h1>
+                <h1 class="titulo">Recuperacion de contraseña</h1>
             </div>
             <div class="opciones_recuperar">
                 <input type="text" class="input_text_login" id="input_correo_verificar" placeholder="Ingerese su correo electronico...">

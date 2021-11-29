@@ -209,10 +209,6 @@ function mostrarSeccion(event)
     let regexEmpleado = /empleado/
     let regexAdministrador = /administrador/
     let regexContrasena = /contrasena/
-
-
-    
-    
     // console.log(navegador)
 
     //console.log(identificador)
@@ -3158,9 +3154,6 @@ function zoom_tabla(evento)
 
 /////seccion tickets
 var btn_agregar_ticket= document.getElementById("btn_agregar_ticket")
-
-
-
 function agregar_ticket()
 {
     
@@ -3321,9 +3314,11 @@ function agregar_nombres(event)
 
 
 ////////// Alertas
-
+var check_boton = true
 function dialogo(mensaje)
 {
+    if(check_boton){
+    check_boton = false
     let dialogo_mensaje = document.createElement("div")
     dialogo_mensaje.setAttribute("class","contenedor_dialogo")
     dialogo_mensaje.innerHTML=mensaje
@@ -3343,6 +3338,7 @@ function dialogo(mensaje)
     fondo.appendChild(dialogo_mensaje)
     contenedor.appendChild(fondo)
 
+    }
 }
 function quitar_alerta(event)
 {
@@ -3745,4 +3741,37 @@ function cambiar_contrasena()
     {
         dialogo("Campos vacios")
     }
+}
+
+////////// Alertas
+
+function dialogo(mensaje)
+{
+    let dialogo_mensaje = document.createElement("div")
+    dialogo_mensaje.setAttribute("class","contenedor_dialogo")
+    dialogo_mensaje.innerHTML=mensaje
+
+    let boton  = document.createElement("div")
+    boton.setAttribute("class","boton_alerta")
+    boton.setAttribute("onclick","quitar_alerta(event);")
+    boton.innerHTML="Aceptar"
+
+    dialogo_mensaje.appendChild(boton)
+
+    let contenedor = document.getElementById("contenedor")
+    let fondo = document.createElement("div")
+    fondo.setAttribute("class","contenedor_alerta")
+    fondo.setAttribute("id","elemento_dialogo")
+
+    fondo.appendChild(dialogo_mensaje)
+    contenedor.appendChild(fondo)
+
+}
+function quitar_alerta(event)
+{
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_elemento = padre.id
+    let borrado = document.getElementById(id_elemento)
+    borrado.parentNode.removeChild(borrado)
 }

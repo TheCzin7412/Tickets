@@ -18,7 +18,6 @@ $PASSWORD = 'Switch250117';
 $PORT = 587;
 $host_name = 'http://localhost/Tickets/';
 
-
 if(isset($_POST['correo_destino'])){
     $correo_destino = $_POST['correo_destino'];
     $modelo = new Acciones();

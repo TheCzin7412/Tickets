@@ -6,7 +6,7 @@ class Acciones
     //////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
     //////////////ACCIONES administradores////////////////
-    //////////////////////////////////////////////////////
+
     public function tomar_informacion_ticket($id,$sesion,$idTicket,$tipo_usuario)
     {
 
@@ -117,6 +117,7 @@ class Acciones
                 (referencia,
                 nombreEmpresa,
                 rfcEmpresa,
+                empleadoCierre,
                 fechaRegistro,
                 fechaCierre,
                 horaRegistro,
@@ -131,6 +132,7 @@ class Acciones
                 :referencia,
                 :nombreEmpresa,
                 :rfcEmpresa,
+                :empleadoCierre,
                 :fechaRegistro,
                 :fechaCierre,
                 :horaRegistro,
@@ -145,6 +147,7 @@ class Acciones
                 $parametro->bindParam(":referencia",$referencia);
                 $parametro->bindParam(":nombreEmpresa",$nombreEmpresa);
                 $parametro->bindParam(":rfcEmpresa",$rfcEmpresa);
+                $parametro->bindParam(":empleadoCierre",$strVacio);
                 $parametro->bindParam(":fechaRegistro",$fechaReg);
                 $parametro->bindParam(":fechaCierre",$strVacio);
                 $parametro->bindParam(":horaRegistro",$horaReg);
@@ -1320,12 +1323,9 @@ class Acciones
             } 
         }
 
-
-    public function agregar_peticion_empresa($idSesion,$idUsuario,$rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
+    public function agregar_peticion_empresa($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa)
     {
-        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
-        if($verificacion==$idSesion)
-        {
+    
             $servidor = new Servidor();
             $conexion = $servidor->conectar();
             $sql_vericar = "SELECT rfcEmpresa  FROM empresas WHERE rfcEmpresa=:rfcEmpresa";
@@ -1406,12 +1406,7 @@ class Acciones
             else
             {
                 return "La empresa que se esta registrando ya se encuentra dada de alta<br>Favor de ingresar los datos correctamente.";
-            }
-        }
-        else
-        {
-            return "ERROR";
-        }    
+            }    
     }
     
 
@@ -1677,7 +1672,17 @@ class Acciones
     }
 
 
-
+    public function tomar_info_empresa($id,$sesion)
+    {
+        $sql = "SELECT nombreEmpresa,rfcEmpresa FROM empresas WHERE correoEmpresa=:correo";
+        $modelo = new Servidor();
+        $conexion = $modelo->conectar();
+        $parametro = $conexion->prepare($sql);
+        $parametro->bindParam(":correo",$id);
+        $parametro->execute();
+        $resultado = $parametro->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 
 
 
@@ -1772,7 +1777,8 @@ class Acciones
                                 $_SESSION['idUsuario'] = $datos1[0]['id'];
                                 $_SESSION['nombreUsuario'] = $datos1[0]['nombreEmpresa'];
                                 $_SESSION['tipoUsuario'] = $datos1[0]['tipo_usuario'];
-        
+                                $_SESSION['nombreEmpresa'] = $datos1[0]['nombreEmpresa'];
+                                $_SESSION['rfcEmpresa'] = $datos1[0]['rfcEmpresa'];     
                                 return json_encode($datos1);
                             }
                         }
@@ -2155,6 +2161,44 @@ class Acciones
             } 
         }
 
+        public function tomar_tickets_pendientes_empresas($id,$idSesion,$coincidencia)
+        {
+        $verificacion  = $this->checarSesionEmpresa($id,$idSesion);
+        if($verificacion==$idSesion)
+        {
+            $sql = "SELECT 
+            id,
+            referencia,
+            nombreEmpresa,
+            rfcEmpresa,
+            fechaRegistro,
+            horaRegistro,
+            tipoServicio,
+            prioridad,
+            estatus FROM info_tickets WHERE estatus=:estatus AND nombreEmpresa=:nombre";
+            $estatus = "1" ;
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":estatus",$estatus);
+            $parametro->bindParam(":nombre",$coincidencia);
+            $parametro->execute();
+            $columnas = $parametro->rowCount();
+            if($columnas==0)
+            {
+                return json_encode("error 400");
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);  
+                return json_encode($datos);       
+            }
+        }  
+        else
+        {
+            return json_encode("error 500");
+        } 
+    }
 
         public function tomarTicketsActivosEmpresa($id,$idSesion)
         {
@@ -2312,6 +2356,8 @@ class Acciones
     }
 }
 
+
+
 public function comprobar_codigo($codigo,$tipo_usuario)
 {
     $modelo = new Servidor();
@@ -2453,6 +2499,8 @@ public function reset_contrasena($correo,$codigo,$tipo_usuario,$nueva_contrasena
         return "error";
     }
 }
+
+
 
 }
 ?>

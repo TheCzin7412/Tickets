@@ -32,7 +32,7 @@
                        </div>
                        <div  class="boton_control"onclick="cerrar_sesion();" >
                            <img src="../recursos/img/salida.png" alt="" class="imagen_menu">
-                           <p class="texto_menu">Cerrar Seccion</p>
+                           <p class="texto_menu">Cerrar Sesion</p>
                        </div>
                 </div>
                 

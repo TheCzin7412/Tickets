@@ -1,8 +1,6 @@
 <?php
 include_once("../modelo/acciones.php");
 
-$idUsuario = $_SESSION['idUsuario'];
-$idSesion = $_SESSION['idSesion'];
 $rfcEmpresa = $_POST['rfcEmpresa'];
 $nombreEmpresa = $_POST['nombreEmpresa'];
 $razonsocialEmpresa = $_POST['razonsocialEmpresa'];
@@ -17,7 +15,7 @@ $correoEmpresa = $_POST['correoEmpresa'];
 $contrasenaEmpresa = $_POST['contrasenaEmpresa'];
 
 $modelo = new Acciones();
-$registrar_peticion_empresa = $modelo->agregar_peticion_empresa($idSesion,$idUsuario,$rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa);
+$registrar_peticion_empresa = $modelo->agregar_peticion_empresa($rfcEmpresa,$nombreEmpresa,$razonsocialEmpresa,$domicilioEmpresa,$numerocalleEmpresa,$coloniaEmpresa,$cpEmpresa,$municipioEmpresa,$estadoEmpresa,$telefonoEmpresa,$correoEmpresa,$contrasenaEmpresa);
 echo $registrar_peticion_empresa;
 //var_dump($registrar_empleado);
 

@@ -58,7 +58,7 @@
                        </div>
                        <div  class="boton_control" onclick="cerrar_sesion();" >
                            <img src="../recursos/img/salida.png" alt="" class="imagen_menu">
-                           <p class="texto_menu">Cerrar Seccion</p>
+                           <p class="texto_menu">Cerrar Sesion</p>
                        </div>
                    </div>
 
@@ -88,7 +88,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_pendientes_dashboard" onchange="tomar_datos_tickets_pendientes_dashboard();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -105,46 +104,47 @@
                                    <div class="contenedor_tabla_ticketsPendientes">
                                        <div class="contenedor_informacion">
                                            <p>Valor de la prioridad</p>
-                                       <table class="info_tablas">
-                                           <tr>
-                                               <td style="background-color: green;">Bajo = 1</td>
-                                               <td style="background-color: yellow;">Medio = 2</td>
-                                               <td style="background-color: orange;">Alto = 3</td>
-                                               <td style="background-color: red;">Muy alto = 4</td>
-                                           </tr>
-                                       </table>
+                                            <table class="info_tablas">
+                                                <tr>
+                                                    <td style="background-color: green;">Bajo = 1</td>
+                                                    <td style="background-color: yellow;">Medio = 2</td>
+                                                    <td style="background-color: orange;">Alto = 3</td>
+                                                    <td style="background-color: red;">Muy alto = 4</td>
+                                                </tr>
+                                            </table>
                                        </div>
-                                       <table class="tablas">
-                                           <thead>
-                                               <tr>
-                                                   <td>ID</td>
-                                                   <td>Folio</td>
-                                                   <td>Nombre empresa</td>
-                                                   <td>RFC</td>
-                                                   <td>Fecha de solicitud</td>
-                                                   <td>Hora de solicitud</td>
-                                                   <td>Servicio</td>
-                                                   <td>Prioridad</td>
-                                                   <td>Estatus</td>
-                                                   <td>Acciones</td>
-                                               </tr>
-                                           </thead>
-                                           <tbody id="tabla_tickets_pendientes_dashboard">
-                                           </tbody>
-                                       </table>
-                                       <div class="contenedor_paginador">
+                                       <div id ="contenedor_tablas_tickets_pendientes">
+                                            <table class="tablas">
+                                                <thead>
+                                                    <tr>
+                                                        <td>ID</td>
+                                                        <td>Folio</td>
+                                                        <td>Nombre empresa</td>
+                                                        <td>RFC</td>
+                                                        <td>Fecha de solicitud</td>
+                                                        <td>Hora de solicitud</td>
+                                                        <td>Servicio</td>
+                                                        <td>Prioridad</td>
+                                                        <td>Estatus</td>
+                                                        <td>Acciones</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tabla_tickets_pendientes_dashboard">
+                                                </tbody>
+                                            </table>
+                                            <div class="contenedor_paginador">
                                                 <div class="controladores_paginador" id="boton_paginador_primero_tickets_pendientes_dashboard">Primero</div>
                                                 <div class="controladores_paginador" id="boton_paginador_anterior_tickets_pendientes_dashboard">Anterior</div>
                                                 <div class="controladores_paginador" id="boton_paginador_cantidad_tickets_pendientes_dashboard">1 de 1</div>
                                                 <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_pendientes_dashboard">Siguiente</div>
                                                 <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_pendientes_dashboard">Ultimo</div>
-                                        </div>
-                                   </div>
-
+                                            </div>
+                                        </div> 
+                                    </div>    
                                </div>
                                <!--Contenedor tabla de tickets no resueltos-->
                                <div class="seccion_tabla" id="contenedor_peticion">
-                                <h1>Lista de peticiones de empresas</h1>
+                                <h1 class="titulo_seccion">Lista de peticiones de empresas</h1>
                                         <div class="contenedor_busqueda">
                                             <div class="cantidad_lista">
                                                 <div class="lista1">
@@ -154,7 +154,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_peticiones_dashboard" onchange="tomar_datos_empresas_peticion_dashboard();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">20</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -240,7 +239,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_pendientes" onchange="tomar_datos_tickets_pendientes();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -266,6 +264,7 @@
                                            </tr>
                                        </table>
                                        </div>
+                                       <div id="contenedor_tablas_peticiones">
                                        <table class="tablas">
                                            <thead>
                                                <tr>
@@ -284,12 +283,13 @@
                                            <tbody id="tabla_tickets_pendientes">
                                            </tbody>
                                        </table>
-                                       <div class="contenedor_paginador">
+                                            <div class="contenedor_paginador">
                                                 <div class="controladores_paginador" id="boton_paginador_primero_tickets_pendientes">Primero</div>
                                                 <div class="controladores_paginador" id="boton_paginador_anterior_tickets_pendientes">Anterior</div>
                                                 <div class="controladores_paginador" id="boton_paginador_cantidad_tickets_pendientes">1 de 1</div>
                                                 <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_pendientes">Siguiente</div>
                                                 <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_pendientes">Ultimo</div>
+                                            </div>
                                         </div>
                                    </div>
                                </div>
@@ -318,7 +318,8 @@
                                                 </div>      
                                             </div>
                                         </div>
-                                   
+
+                                   <div id="contenedor_tablas_tickets_seccion">
                                        <table class="tablas">
                                            <thead>
                                                <tr>
@@ -344,7 +345,8 @@
                                                 <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_NoResuelto">Siguiente</div>
                                                 <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_NoResuelto">Ultimo</div>
                                         </div>
-                                   </div>
+                                    </div>
+                                </div>
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsResueltos">
                                    <h1 class="titulo_seccion">Listado de tickets resueltos</h1>
                                    <div class="contenedor_busqueda">
@@ -370,7 +372,7 @@
                                                 </div>      
                                             </div>
                                         </div>
-                                   
+                                        <div id="contenedor_tablas_ticketsNo">
                                        <table class="tablas">
                                            <thead>
                                                <tr>
@@ -396,6 +398,7 @@
                                             <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_Resuelto">Siguiente</div>
                                             <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_Resuelto">Ultimo</div>
                                         </div>
+                                    </div>   
                                </div>
                                <div class="seccion_tickets" id="contenedor_contenido_ticketsAgregarTicket">
                                    <h1 class="titulo_seccion">Agregar ticket</h1>
@@ -959,7 +962,7 @@
                                                     <select name="" class="select_cantidad" id="cantidad_administradores_activos" onchange="tomar_datos_administradores();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">20</option> 
+                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -1017,7 +1020,7 @@
                                                     <select name="" class="select_cantidad" id="cantidad_administradores_noactivos" onchange="tomar_datos_administradores_noactivos();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">20</option> 
+                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>

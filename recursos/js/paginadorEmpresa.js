@@ -18,7 +18,7 @@ function tomar_datos_tickets_pendientes_empresa()
 
     contenedor.innerHTML = ""
     let ajax = new XMLHttpRequest()
-       ajax.open("POST","../controlador/tomar_datos_tickets_pendientes_empresa.php")
+       ajax.open("POST","../controlador/traer_datos_empresa_pendientes.php")
        ajax.send()
        ajax.onreadystatechange =function () 
        {
@@ -27,7 +27,7 @@ function tomar_datos_tickets_pendientes_empresa()
                 if (ajax.status == 200) 
                 {
                     //console.log("200 Respuesta Exitosa");
-                    //console.log(ajax.responseText)
+                    console.log(ajax.responseText)
                     datos_tickets_empresa = JSON.parse(ajax.responseText)
                     paginador_tickets_pendientes_empresa(datos_tickets_empresa,pagina_actual_tickets_pendientes_empresa,cantidad_vistas_tickets_pendientes_empresa,boton_anterior_tickets_pendientes_empresa,boton_siguiente_tickets_pendientes_empresa,boton_primero_tickets_pendientes_empresa,boton_ultimo_tickets_pendientes_empresa,cuerpo_tickets_pendientes_empresa,indicador_pagina_tickets_pendientes_empresa)
                 }

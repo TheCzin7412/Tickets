@@ -9,9 +9,12 @@ function inicio_sesion()
     if(input_correo.length ==0 || input_contra==0) 
     {
         dialogo("Los campos se encuentran vacio, favor de ingresar el correo y la contraseña")
+        location.reload() 
+
     }
     else
     {
+
        let datos = new FormData()
 
        datos.append("correo",input_correo)
@@ -58,6 +61,8 @@ function inicio_sesion()
                     else
                     {
                         dialogo(ajax.responseText)
+                        location.reload()    
+
                     }
                     
                 }
@@ -122,6 +127,7 @@ function agregar_peticion_empresa()
     ) 
     {
         dialogo("Los campos se encuentran vacio, favor de ingresar todos los datos...")
+        location.reload() 
     }
     else
     {
@@ -246,28 +252,30 @@ function limpiar_formulario_empresas_peticion_login()
     }
 }
 
-
+var check_botones_login = true
 function dialogo(mensaje)
 {
-    let dialogo_mensaje = document.createElement("div")
-    dialogo_mensaje.setAttribute("class","contenedor_dialogo")
-    dialogo_mensaje.innerHTML=mensaje
-
-    let boton  = document.createElement("div")
-    boton.setAttribute("class","boton")
-    boton.setAttribute("onclick","quitar_alerta(event);")
-    boton.innerHTML="Aceptar"
-
-    dialogo_mensaje.appendChild(boton)
-
-    let contenedor = document.getElementById("contenedor_inicio_sesion")
-    let fondo = document.createElement("div")
-    fondo.setAttribute("class","contenedor_alerta")
-    fondo.setAttribute("id","elemento_dialogo")
-
-    fondo.appendChild(dialogo_mensaje)
-    contenedor.appendChild(fondo)
-
+    if (check_botones_login){
+        check_botones_login = false
+        let dialogo_mensaje = document.createElement("div")
+        dialogo_mensaje.setAttribute("class","contenedor_dialogo")
+        dialogo_mensaje.innerHTML=mensaje
+    
+        let boton  = document.createElement("div")
+        boton.setAttribute("class","boton")
+        boton.setAttribute("onclick","quitar_alerta(event);")
+        boton.innerHTML="Aceptar"
+    
+        dialogo_mensaje.appendChild(boton)
+    
+        let contenedor = document.getElementById("contenedor_inicio_sesion")
+        let fondo = document.createElement("div")
+        fondo.setAttribute("class","contenedor_alerta")
+        fondo.setAttribute("id","elemento_dialogo")
+    
+        fondo.appendChild(dialogo_mensaje)
+        contenedor.appendChild(fondo)
+    }
 }
 function quitar_alerta(event)
 {
@@ -303,10 +311,10 @@ function enviar_correo()
                 // console.log("200")
                 console.log(peticion.responseText)
                 dialogo(peticion.responseText)
+                location.reload() 
             }
         }
     }
 }
 }
 
-// dialogo("losto senoras")

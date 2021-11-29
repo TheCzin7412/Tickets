@@ -100,7 +100,8 @@
     margin-bottom: 15px;
     background: var(--colorAzul);
     color: var(--colorBlanco);
-}.boton_login:hover
+}
+.boton_login:hover
 {
     border: solid 2px var(--colorAzul);
     border-radius: 25px;
@@ -159,4 +160,70 @@
     height: auto;
     justify-content: space-around;
     align-items: flex-start;
+}
+.img_login
+{
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+
+
+@media screen and (max-width: 980px)
+{
+    #contenedor_formulario_login{
+        display: flex;
+        width: 90%;
+        height: auto;
+        justify-content: space-around;
+        align-items: center;
+        
+    }
+    #logo_inicio_sesion{
+        width: 200px;
+        height: 100px;
+    }
+    .titulo{
+        font-size: 13px;
+    }
+    .input_text_login{
+        width: 250px;
+        margin-top: 5px;
+    }
+    #contenedor_formulario_registrar{
+        width: 90%;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+    }
+    #contenedor_inicio_sesion{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .input_text_empresa, .input_text_login
+    {
+        font-size:12px;
+    }
+    #contenedor_recuperar_contrasena{
+        width: 90%;
+        height: auto;
+        justify-content: flex-start;
+        align-self: center;
+    }
+    .p_reset{
+        font-size: 12px;
+    }
+    .input_cambio_contrasena{
+        font-size: 12px;
+    }
+    .boton_login
+    {
+        font-size: 12px;
+        width: 130px;
+        border-radius: 10px;
+    }    
 }

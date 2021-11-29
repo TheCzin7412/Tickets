@@ -342,7 +342,6 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column ;
-    overflow-x:auto;
 }
 .imagen_contador{
     width: 30px;
@@ -991,6 +990,17 @@ Dashboard realizacion de prueba
     flex-direction: column;
 }
 
+#contenedor_tablas_tickets_pendientes{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+}
+
 
 @font-face 
 {
@@ -1104,18 +1114,19 @@ Dashboard realizacion de prueba
     width: 100%;
     height: 100%;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
 }
 #contenedor_formulario_cambio_contrasena{
     display: flex;
     width: 100%;
     height: 30%;
-    margin-top:75px;
+    margin-top:40px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+
 .cambio_contrasena{
     display: flex;
     width: 70%;
@@ -1202,6 +1213,36 @@ Dashboard realizacion de prueba
     height: 37px;
     object-fit: contain;
 }
+#contenedor_tablas_peticiones{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+}
+#contenedor_tablas_tickets_seccion{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+}
+#contenedor_tablas_ticketsNo{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+}
 
 @media screen and (max-width: 980px)
 {
@@ -1227,29 +1268,48 @@ Dashboard realizacion de prueba
     {
         width: 100%;
     }
-    .titulo_cantidad, .titulo_buscar,.parrafo_contador, #zoom_empleados_activos
+    .titulo_cantidad, .titulo_buscar,.parrafo_contador, #zoom_empleados_activos,.buscador2
     {
         display: none;
     }
+    .cantidad_lista{
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
     .input_barra_buscadora
     {
         width: 180px;
     }
-    .titulo_seccion
+    .titulo_seccion, p
     {
         display: flex;
-        width: 80%;
-        font-size: 15px;
+        width: auto;
         justify-content: center;
         align-items: center;
+        font-size: 13px;
     }
-    #contenedor_tabla_empresas_activas, .contenedor_tabla_ticketsPendientes, #tabla_tickets_pendientes,#contenedor_tabla_peticion
+    .boton_control{
+        padding: 10px;
+    }
+    #contenedor_tablas_tickets_pendientes,#contenedor_tabla_peticion,#contenedor_tablas_peticiones,#contenedor_tablas_tickets_seccion,#contenedor_tablas_tickets_seccion,#contenedor_tablas_ticketsNo,#contenedor_tabla_empresas_activas,#contenedor_tabla_empresas_noactivas,#contenedor_tabla_peticion_empresas,#contenedor_tabla_empleado_activas,#contenedor_tabla_empleado_noactivo,#contenedor_tabla_administradores_activo,#contenedor_tabla_administradores_noactivo
     {
         overflow-x: auto;
     }
-    #menu_control
-    {
-        margin-right: 0;
+    .input_tickets{
+        width: 100px;
+        font-size: 12px;
     }
-    
+    .boton{
+        width: 200px;
+        border-radius: 20px;
+    }
+    .contenedor_general_formulario{
+        width: auto;
+    }
+    .input_text_empleado{
+        font-size: 10px;
+        text-align: start;
+    }
+
 }

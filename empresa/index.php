@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +44,7 @@
                     </div>
                     <div  class="boton_control" onclick="cerrar_sesion();">
                         <img src="../recursos/img/salida.png" alt="" class="imagen_menu">
-                        <p class="texto_menu">Cerrar Seccion</p>
+                        <p class="texto_menu">Cerrar Sesion</p>
                     </div>
                 </div>
                 <div class="contenedor_seccion" id="">
@@ -309,7 +313,7 @@
                                     <input type="password" id="input_confirmacion_contrasena_empresa" class="input_cambio_contrasena" placeholder="Confirme la nueva contraseña">
                                 </div>
                                 <div class="cambio_contrasena">
-                                    <button class="boton" onclick="cambiar_contrasena_empresa();">Cambiar contraseña</button>
+                                    <button class="boton" onclick="cambiar_contrasena();">Cambiar contraseña</button>
                                 </div>
                             </div>
                 </div>

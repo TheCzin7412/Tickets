@@ -537,4 +537,46 @@ function quitar_alerta(event)
     borrado.parentNode.removeChild(borrado)
 }
 
+function cambiar_contrasena()
+{
+    let nueva_contrasena = document.getElementById("input_contrasena_nueva").value
+    let confirmar_contrasena = document.getElementById("input_confirmacion_contrasena").value
+    console.log(nueva_contrasena.length)
+    console.log(confirmar_contrasena.length)
+    if(nueva_contrasena.length>0 && confirmar_contrasena.length>0)
+    {
+        if(nueva_contrasena == confirmar_contrasena)
+        {
+            let peticion = new XMLHttpRequest();
+            peticion.open("POST","../controlador/cambiar_contra.php",true)
+            peticion.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+            peticion.send("nueva_contrasena="+nueva_contrasena)
+            peticion.onreadystatechange = function()
+            {
+                if(peticion.readyState == 4 && peticion.status == 200)
+                {
+                    let respuesta = peticion.responseText
+                    console.log(respuesta)
+                    if(respuesta == "se cambio correctamente")
+                    {
+                        dialogo("Contraseña cambiada")
+                        window.location.href = "../index.php"
+                    }
+                    else
+                    {
+                        dialogo("Contraseña actual incorrecta")
+                    }
+                }
+            }
+        }
+        else
+        {
+            dialogo("Las contraseñas no coinciden")
+        }
+    }
+    else
+    {
+        dialogo("Campos vacios")
+    }
+}
 

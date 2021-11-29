@@ -1,22 +1,27 @@
+
 var navegador = window.navigator.vendor || window.navigator.userAgent
 
+
+var info_cookie
 
 window.onload= function()
 {
     if(navegador.includes("Mozilla"))
     {
         let elemento = getCookie("vista-actual")
+        console.log(elemento)
+        info_cookie = elemento
         mostrarVista(elemento)
     }
     if(navegador.includes("Google"))
     {
-        let cookies = document.cookie
-        // console.log(cookies)
-        datos_totales = cookies.split(";")
-        // console.log(datos_totales)
+        let elemento_cookie = document.getElementById("info-cookies")
+        let cookies = elemento_cookie.value
+        console.log(cookies)
+        info_cookie = cookies
+        mostrarVista(cookies)
     }
 }
-
 // crear cookie
 
 function crearCookie(metodo,url,datos)
@@ -100,7 +105,12 @@ function mostrarVista(elemento)
     ocultarSecciones()
     let contenedor = document.getElementById(elemento)
     contenedor.style.display="flex"
+    if(elemento=="contenedor_tickets")
+    {
+        tomar_datos_tickets_pendientes();
+    }
 }
+
 
 // mostrarVista(contenedores[0])
 //Desplazamiento secciones del menu en pagina principal 
@@ -120,6 +130,7 @@ function mostrarSeccion(event)
         let nombre_elemento = "contenedor_dashboard"
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes_empleado()
+        info_cookie = nombre_elemento
         if(navegador.includes("Mozilla"))
         {
             // alert("Es mozilla")
@@ -139,6 +150,7 @@ function mostrarSeccion(event)
         //console.log("coincide contrasena")
         let nombre_elemento = "contenedor_cambio_contrasena"
         mostrarVista(nombre_elemento) 
+        info_cookie = nombre_elemento
         if(navegador.includes("Mozilla"))
         {
             // alert("Es mozilla")
@@ -483,4 +495,80 @@ function cerrar_sesion()
         }
 
     }
+}
+function cambiar_contrasena()
+{
+    let nueva_contrasena = document.getElementById("input_contrasena_nueva").value
+    let confirmar_contrasena = document.getElementById("input_confirmacion_contrasena").value
+    console.log(nueva_contrasena)
+    console.log(confirmar_contrasena)
+    if(nueva_contrasena.length>0 && confirmar_contrasena.length>0)
+    {
+        if(nueva_contrasena == confirmar_contrasena)
+        {
+            let peticion = new XMLHttpRequest();
+            peticion.open("POST","../controlador/cambiar_contra.php",true)
+            peticion.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+            peticion.send("nueva_contrasena="+nueva_contrasena)
+            peticion.onreadystatechange = function()
+            {
+                if(peticion.readyState == 4 && peticion.status == 200)
+                {
+                    let respuesta = peticion.responseText
+                    console.log(respuesta)
+                    if(respuesta == "se cambio correctamente")
+                    {
+                        dialogo("Contraseña cambiada")
+                        window.location.href = "../index.php"
+                    }
+                    else
+                    {
+                        dialogo("Contraseña actual incorrecta")
+                    }
+                }
+            }
+        }
+        else
+        {
+            dialogo("Las contraseñas no coinciden")
+        }
+    }
+    else
+    {
+        dialogo("Campos vacios")
+    }
+}
+
+
+////////// Alertas
+
+function dialogo(mensaje)
+{
+    let dialogo_mensaje = document.createElement("div")
+    dialogo_mensaje.setAttribute("class","contenedor_dialogo")
+    dialogo_mensaje.innerHTML=mensaje
+
+    let boton  = document.createElement("div")
+    boton.setAttribute("class","boton_alerta")
+    boton.setAttribute("onclick","quitar_alerta(event);")
+    boton.innerHTML="Aceptar"
+
+    dialogo_mensaje.appendChild(boton)
+
+    let contenedor = document.getElementById("contenedor")
+    let fondo = document.createElement("div")
+    fondo.setAttribute("class","contenedor_alerta")
+    fondo.setAttribute("id","elemento_dialogo")
+
+    fondo.appendChild(dialogo_mensaje)
+    contenedor.appendChild(fondo)
+
+}
+function quitar_alerta(event)
+{
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_elemento = padre.id
+    let borrado = document.getElementById(id_elemento)
+    borrado.parentNode.removeChild(borrado)
 }
