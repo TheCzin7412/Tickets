@@ -27,9 +27,23 @@ if(isset($_GET['info']))
     <input type="hidden" id="id_ticket" value="<?php echo $id_informacion;?>">
     <input type="hidden" id="id_nombre" value="<?php echo $_SESSION['nombreUsuario'];?>">
     <input type="hidden" id="id_tipo" value="<?php echo $_SESSION['tipoUsuario'];?>">
+    
     <div class="contenedor_menu">
        <p class="boton_menu">Descargar Reporte</p>
-       <p class="boton_menu">Cerrar</p>
+       <?php
+            if($tipo == "EMPLEADO" || $tipo == "ADMINISTRADOR")
+            {
+                if($datos['estatus'] == "2" || $datos['estatus'] == "0")
+                {
+                    echo '<input type="hidden">';
+                }
+                else
+                {
+                    echo '<p class="boton_menu" onclick="dialogos_cerrar();">Cerrar</p>';
+
+                }
+            } 
+       ?>
        <table id="tabla_estado">
            <tr>
                <td>Estado</td>
@@ -90,9 +104,18 @@ if(isset($_GET['info']))
                     </div>
                     <div class="contenedor_info_item">
                             <div class="info_item">
-                                <p class="titulo_item"><strong> Crear Comentario</strong></p>
-                                <textarea name="" id="textarea_comentario" cols="30" rows="10"></textarea>
-                                <buttom class="boton" onclick="agregar_comentario();">Comentar</buttom>
+                                <?php
+                                    if ($datos['estatus'] == "1")
+                                    {
+                                        echo '
+                                        <p class="titulo_item"><strong> Crear Comentario</strong></p>
+                                        <textarea name="" id="textarea_comentario" cols="30" rows="10"></textarea>
+                                        <buttom class="boton" onclick="agregar_comentario();">Comentar</buttom>
+                                        ';
+                                    }
+
+                                ?>
+                                
                             </div>
                     </div>
 

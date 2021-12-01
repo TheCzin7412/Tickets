@@ -111,6 +111,7 @@ class Acciones
             $existe->bindParam(":referencia",$referencia);
             $existe->execute();
             $estatus = "1";
+            $cierrempleado = " ";
             if($existe->rowCount()==0)
             {
                 $sql = "INSERT INTO info_tickets
@@ -184,7 +185,7 @@ class Acciones
         if($verificacion==$sesion)
         {
             $coincidencia = $coincidencia."[a-zA-Z0-9 ]";
-            $sql ="SELECT nombreEmpresa,rfcEmpresa FROM empresas WHERE nombreEmpresa REGEXP :coincidencia";
+            $sql ="SELECT nombreEmpresa,rfcEmpresa FROM empresas WHERE nombreEmpresa REGEXP :coincidencia AND activo ='1'";
             $modelo = new Servidor();
             $conn = $modelo->conectar();
             $parametro = $conn->prepare($sql);
@@ -205,6 +206,36 @@ class Acciones
         else
         {
             return json_encode("ERROR");
+        }        
+    }
+
+
+    public function tomar_datos_ticket_empresa($id,$sesion)
+    {
+        $verificacion  = $this->checarSesionEmpresa($id,$sesion);
+        if($verificacion==$sesion)
+        {
+            $sql ="SELECT nombreEmpresa,rfcEmpresa FROM empresas WHERE  id=:coincidencia";
+            $modelo = new Servidor();
+            $conn = $modelo->conectar();
+            $parametro = $conn->prepare($sql);
+            $parametro->bindParam(":coincidencia",$id);
+            $parametro->execute();
+            $rows = $parametro->rowCount();
+            if($rows==0)
+            {
+                return "sin coincidencias";
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);
+                return $datos;
+            }
+
+        }
+        else
+        {
+            return "ERROR";
         }        
     }
 
@@ -1988,16 +2019,16 @@ class Acciones
     
     public function crear_cookie_vista($idUsuario,$idSesion,$valor)
     {
-        $verificacion  = $this->checarSesion($idUsuario,$idSesion);
-        if($verificacion==$idSesion)
-        {
+        //$verificacion  = $this->checarSesion($idUsuario,$idSesion);
+        //if($verificacion==$idSesion)
+        //{
             setcookie("vista-actual", $valor, time()+40000,"/","localhost",true,true);   
             return "listo";
-        }
-        else
-        {
-            return "error";
-        }
+        //}
+        //else
+        //{
+            //return "error";
+        //}
     }
 
 
@@ -2317,8 +2348,8 @@ class Acciones
     public function cambiar_contrasena($id,$idSesion,$contrasena,$tipo_usuario)
     {
     $verificacion  = $this->checarSesion($id,$idSesion);
-    $verificacionEmpleado  = $this->checarSesion($id,$idSesion);
-    $verificacionEmpresa  = $this->checarSesion($id,$idSesion);
+    $verificacionEmpleado  = $this->checarSesionEmpleado($id,$idSesion);
+    $verificacionEmpresa  = $this->checarSesionEmpresa($id,$idSesion);
     if($verificacion==$idSesion || $verificacionEmpresa==$idSesion || $verificacionEmpleado==$idSesion)
     {
         $sql = "";
@@ -2499,7 +2530,115 @@ public function reset_contrasena($correo,$codigo,$tipo_usuario,$nueva_contrasena
         return "error";
     }
 }
+    public function cierreTicket($idUsuario, $sesion, $tipoUsuario,$id_ticket,$comentario,$motivo){
+       
 
+        $verificacion = $this -> checarSesion($idUsuario,$sesion);
+        $verificacionEmpleado = $this -> checarSesionEmpleado($idUsuario,$sesion);
+        if($verificacion == $sesion || $verificacionEmpleado == $sesion){
+            $sql = "";
+            $modelo = new Servidor();
+            $conexion = $modelo->conectar();
+            $fechaCierre =date("d/m/Y");
+            $horaCierre =date("H:i:s");
+            $sql = "SELECT comentarios FROM info_tickets WHERE id=:id_ticket";
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":id_ticket",$id_ticket);
+            $parametro->execute();
+            $rows = $parametro->rowCount();
+            if($rows==0)
+            {
+                return "no hay coincidencias";
+            }
+            else
+            {
+                $estatus = " ";
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);
+                $comentarios = $datos[0]["comentarios"];
+                if ($motivo == "NO RESUELTO")
+                {
+                    $estatus = "0";
+                    $formato_comentario =  '<tr><td>TICKET NO RESUELTO <br> MOTIVO: '.$motivo.'<br>DESCRIPCION: '.$comentario.'</td></tr>';
+
+                }
+                if ($motivo == "RESUELTO")
+                {
+                    $estatus = "2";
+                    $formato_comentario =  '<tr><td>TICKET RESUELTO <br> MOTIVO: '.$motivo.'<br>DESCRIPCION: '.$comentario.'</td></tr>';
+
+                }
+                $comentarios = $formato_comentario.$comentarios;
+                $sql3 = " ";
+                $nombreCompleto = " ";
+
+                if($tipoUsuario == "ADMINISTRADOR")
+                {
+                    $sql3 = "SELECT nombreAdministrador,apellidopAdministrador, apellidomAdministrador FROM administrador WHERE id=:id";
+                    $parametro3 = $conexion->prepare($sql3);
+                    $parametro3->bindParam(":id", $idUsuario);
+                    $parametro3->execute();
+    
+                    if($parametro3->rowCount() == 0)
+                    {
+                        return "ERROR";
+                    }
+                    else
+                    {
+                        $datosUsuario = $parametro3->fetchAll(PDO::FETCH_ASSOC);
+                        $nombreUsuario = $datosUsuario[0]['nombreAdministrador'];
+                        $apellidoP = $datosUsuario[0]['apellidopAdministrador'];
+                        $apellidoM = $datosUsuario[0]['apellidomAdministrador'];
+                        $espacio = " ";
+
+                        $nombreCompleto = $nombreUsuario.$espacio.$apellidoP.$espacio.$apellidoM;
+                    }
+                }
+                if($tipoUsuario == "EMPLEADO")
+                {
+                    $sql3 = "SELECT nombreEmpleado,apellidopEmpleado, apellidomEmpleado FROM empleado WHERE id=:id";
+                    $parametro3 = $conexion->prepare($sql3);
+                    $parametro3->bindParam(":id", $idUsuario);
+                    $parametro3->execute();
+    
+                    if($parametro3->rowCount() == 0)
+                    {
+                        return "ERROR";
+                    }
+                    else
+                    {
+                        $datosUsuario = $parametro3->fetchAll(PDO::FETCH_ASSOC);
+                        $nombreUsuario = $datosUsuario[0]['nombreEmpleado'];
+                        $apellidoP = $datosUsuario[0]['apellidopEmpleado'];
+                        $apellidoM = $datosUsuario[0]['apellidomEmpleado'];
+                        $espacio = " ";
+                        $nombreCompleto = $nombreUsuario.$espacio.$apellidoP.$espacio.$apellidoM;
+                    }
+                }
+
+                
+                $sql2 = "UPDATE info_tickets SET empleadoCierre=:usuarioCierre, comentarios=:comentarios, estatus=:estatus, fechaCierre=:fechaCierre, horaCierre=:horaCierre WHERE id=:id_ticket";    
+                $parametro2 = $conexion->prepare($sql2);
+                $parametro2->bindParam(":usuarioCierre",$nombreCompleto);
+                $parametro2->bindParam(":comentarios",$comentarios);
+                $parametro2->bindParam(":id_ticket",$id_ticket);
+                $parametro2->bindParam(":estatus",$estatus);
+                $parametro2->bindParam(":fechaCierre",$fechaCierre);
+                $parametro2->bindParam(":horaCierre",$horaCierre);
+                $parametro2->execute();
+                return "Ticket Finalizado";
+            }
+
+     
+
+
+        }
+        else
+        {
+            return "ERROR";
+        }
+
+    }
+    
 
 
 }

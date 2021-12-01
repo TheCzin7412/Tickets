@@ -10,5 +10,4 @@ $accion = new Acciones();
 $respuesta= $accion->cambiar_contrasena($id,$idSesion,$nueva_contra,$tipo_usuario);
 
 echo $respuesta;
-
 ?>

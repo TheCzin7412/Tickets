@@ -498,8 +498,8 @@ function cerrar_sesion()
 }
 function cambiar_contrasena()
 {
-    let nueva_contrasena = document.getElementById("input_contrasena_nueva").value
-    let confirmar_contrasena = document.getElementById("input_confirmacion_contrasena").value
+    let nueva_contrasena = document.getElementById("input_contrasena_nueva").value.trim()
+    let confirmar_contrasena = document.getElementById("input_confirmacion_contrasena").value.trim()
     console.log(nueva_contrasena)
     console.log(confirmar_contrasena)
     if(nueva_contrasena.length>0 && confirmar_contrasena.length>0)

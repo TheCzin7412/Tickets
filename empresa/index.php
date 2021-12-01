@@ -1,4 +1,14 @@
 <?php
+    include_once("../modelo/acciones.php");
+
+    $sesion = $_SESSION['idSesion'];
+    $id_usuario = $_SESSION['idUsuario'];
+
+    $modelo = new Acciones();
+    $resultado = $modelo -> tomar_datos_ticket_empresa($id_usuario,$sesion);
+    $resultado = $resultado[0];
+    $nombreEmpresa = $resultado['nombreEmpresa'];
+    $rfcEmpresa = $resultado['rfcEmpresa'];
 
 ?>
 
@@ -250,7 +260,7 @@
                                    <div class="contendor_from_tickets">
                                        <div class="agregarTickets" id="contenedo_nombre_ticket">
                                             <p>Nombre empresa:</p>
-                                           <input type="text" id="input_nombreTicket" class="input_tickets" placeholder="Nombre Empresa" onkeydown="mostrar_nombre(event);">
+                                           <input type="text" id="input_nombreTicket" class="input_tickets" placeholder="Nombre Empresa" value="<?php echo $nombreEmpresa; ?>" onkeydown="mostrar_nombre(event);" disabled>
                                            <div id="contendor_opciones_nombre">
                                                <p class="opcion_nombre">Nombre empmresa</p>
                                            </div>
@@ -258,7 +268,7 @@
                                        </div>
                                        <div class="agregarTickets1">
                                            <p>RFC Empresa:</p>
-                                           <input type="text" id="input_RFCTicket" class="input_tickets" placeholder="RFC Empresa">
+                                           <input type="text" id="input_RFCTicket" class="input_tickets" value="<?php echo $rfcEmpresa; ?>" placeholder="RFC Empresa" disabled>
                                            </div>
                                            
                                    </div>

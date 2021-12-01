@@ -56,10 +56,11 @@ window.onload= function()
 {
     if(navegador.includes("Mozilla"))
     {
-        let elemento = getCookie("vista-actual")
-        console.log(elemento)
-        info_cookie = elemento
-        mostrarVista(elemento)
+        let elemento_cookie = document.getElementById("info-cookies")
+        let cookies = elemento_cookie.value
+        console.log(cookies)
+        info_cookie = cookies
+        mostrarVista(cookies)
     }
     if(navegador.includes("Google"))
     {
@@ -172,6 +173,11 @@ function mostrarVista(elemento)
     ocultarSecciones()
     let contenedor = document.getElementById(elemento)
     contenedor.style.display="flex"
+
+    if(elemento=="contenedor_dashboard")
+    {
+        tomar_datos_tickets_pendientes_dashboard();    
+    }
     if(elemento=="contenedor_tickets")
     {
         tomar_datos_tickets_pendientes();
@@ -188,10 +194,7 @@ function mostrarVista(elemento)
     {
         tomar_datos_administradores();
     }
-    if(elemento=="contenedor_dashboard")
-    {
-        tomar_datos_tickets_pendientes_dashboard();
-    }
+    
 }
 
 // mostrarVista(contenedores[0])
@@ -219,18 +222,14 @@ function mostrarSeccion(event)
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes_dashboard()
         info_cookie = nombre_elemento
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+
+        // alert("Es mozilla")
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+
+        
     }
     if(regexTicket.test(identificador))
     {
@@ -239,19 +238,10 @@ function mostrarSeccion(event)
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes()
         info_cookie = nombre_elemento
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
-
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
     }
     if(regexEmpresa.test(identificador))
     {
@@ -260,18 +250,10 @@ function mostrarSeccion(event)
         mostrarVista(nombre_elemento)
         tomar_datos_empresas()
         info_cookie = nombre_elemento
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
         
     }
     if(regexEmpleado.test(identificador))
@@ -283,18 +265,10 @@ function mostrarSeccion(event)
         tomar_datos_empleado()
         info_cookie = nombre_elemento
 
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
     }
     if(regexAdministrador.test(identificador))
     {
@@ -304,18 +278,10 @@ function mostrarSeccion(event)
         tomar_datos_administradores()
         info_cookie = nombre_elemento
 
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
 
     }
     if(regexContrasena.test(identificador))
@@ -325,18 +291,10 @@ function mostrarSeccion(event)
         mostrarVista(nombre_elemento)
         info_cookie = nombre_elemento
         
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
     }
 }
 
@@ -3140,17 +3098,6 @@ function buscar_AdnNO(event)
 }
 
 
-function zoom_tabla(evento)
-{
-    let elemento_rango = evento.target
-    let valor = elemento_rango.value
-    let medida = valor+"px"
-    let elemento_zoom = document.getElementById("contenedor_tabla_empleado_activas")
-    console.log(medida)
-    elemento_zoom.style.width=medida
-}
-
-
 
 /////seccion tickets
 var btn_agregar_ticket= document.getElementById("btn_agregar_ticket")
@@ -3334,7 +3281,6 @@ function dialogo(mensaje)
     let fondo = document.createElement("div")
     fondo.setAttribute("class","contenedor_alerta")
     fondo.setAttribute("id","elemento_dialogo")
-
     fondo.appendChild(dialogo_mensaje)
     contenedor.appendChild(fondo)
 
@@ -3347,6 +3293,7 @@ function quitar_alerta(event)
     let id_elemento = padre.id
     let borrado = document.getElementById(id_elemento)
     borrado.parentNode.removeChild(borrado)
+    window.location.reload()
 }
 
 
@@ -3745,33 +3692,3 @@ function cambiar_contrasena()
 
 ////////// Alertas
 
-function dialogo(mensaje)
-{
-    let dialogo_mensaje = document.createElement("div")
-    dialogo_mensaje.setAttribute("class","contenedor_dialogo")
-    dialogo_mensaje.innerHTML=mensaje
-
-    let boton  = document.createElement("div")
-    boton.setAttribute("class","boton_alerta")
-    boton.setAttribute("onclick","quitar_alerta(event);")
-    boton.innerHTML="Aceptar"
-
-    dialogo_mensaje.appendChild(boton)
-
-    let contenedor = document.getElementById("contenedor")
-    let fondo = document.createElement("div")
-    fondo.setAttribute("class","contenedor_alerta")
-    fondo.setAttribute("id","elemento_dialogo")
-
-    fondo.appendChild(dialogo_mensaje)
-    contenedor.appendChild(fondo)
-
-}
-function quitar_alerta(event)
-{
-    let elemento = event.target
-    let padre = elemento.parentNode.parentNode
-    let id_elemento = padre.id
-    let borrado = document.getElementById(id_elemento)
-    borrado.parentNode.removeChild(borrado)
-}

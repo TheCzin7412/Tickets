@@ -131,7 +131,6 @@ gris 6E6D6A
     display: flex;
     width: 15%;
     height: 100%;
-    margin-right: 15px;
     flex-direction: column;
 }
 
@@ -342,6 +341,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column ;
+    overflow: auto;
 }
 .imagen_contador{
     width: 30px;
@@ -471,6 +471,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
+    overflow: auto;
 }
 #contenedor_empresas_noactivas
 {
@@ -489,6 +490,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
+    overflow: auto;
 }
 #contenedor_peticion_empresas
 {
@@ -508,6 +510,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
+    overflow: auto;
 }
 #contenedor_agregar_empresas
 {
@@ -589,16 +592,11 @@ Dashboard realizacion de prueba
     /* overflow-y: none; */
     /* overflow-x:scroll; */
     flex-direction: column;
-    flex-wrap: wrap;
+    overflow: auto;
+    
+
 }
-#tabla_empleado_activa
-{
-    position: absolute;
-    top: 0;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-}
+
 #contenedor_tabla_administradores_activo
 {
     position: relative;
@@ -609,6 +607,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
+    overflow: auto;
 
 }
 #contenedor_empleado_noactivo
@@ -629,6 +628,7 @@ Dashboard realizacion de prueba
     margin-top: 10px;
     flex-direction: column;
     /* overflow-x:auto; */
+    overflow: auto;
 }
 #contenedor_tabla_administradores_noactivo
 {
@@ -640,7 +640,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
-    /* overflow-x:auto; */
+    overflow:auto; 
 }
 #contenedor_form_agregar_empleado
 {
@@ -808,7 +808,6 @@ Dashboard realizacion de prueba
     height: auto;
     font-size: var(--tamanoTexto);
     border: solid 1px var(--colorNegro);
-    margin-right: 15px;
     border-radius: 10px;
 }
 .input_barra_buscadora:focus{
@@ -925,9 +924,11 @@ Dashboard realizacion de prueba
     align-items: center;
     flex-direction: column;
 }
+
 #txt_problematica{
     width: 60%;
     height: 100%;
+    padding: 5px;
     border:solid 1.5px var(--colorGris);
 }
 #txt_problematica:hover{
@@ -936,7 +937,25 @@ Dashboard realizacion de prueba
     background: var(--colorBlanco);
     color: var(--colorNegro);
     transition: all .06s ease-in-out;
+    outline: none;
 }
+
+#txt_cerrar{
+    margin-top: 15px;
+    
+    width: 90%;
+    height: 100px;
+    border:solid 1.5px var(--colorGris);
+}
+#txt_cerrar:hover{
+    border: solid 1.5px var(--colorAzul);
+    border-radius: 4px;
+    background: var(--colorBlanco);
+    color: var(--colorNegro);
+    transition: all .06s ease-in-out;
+    outline: none;
+}
+
 .select_tickets{
     width: auto;
     height: 25px;
@@ -999,6 +1018,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
+    overflow: auto;
 }
 
 
@@ -1073,6 +1093,21 @@ Dashboard realizacion de prueba
 {
     min-width: 250px;
     min-height: 250px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 1px 1px 1px 1px rgba(255, 255, 255, .5);
+    border: solid 1px #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    flex-direction: column;
+}
+.contenedor_dialogo_cerrar
+{
+    min-width: 500px;
+    min-height: 300px;
     padding: 30px;
     display: flex;
     justify-content: space-around;
@@ -1222,6 +1257,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
+    overflow: auto;
 }
 #contenedor_tablas_tickets_seccion{
     position: relative;
@@ -1232,6 +1268,7 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
+    overflow: auto;
 }
 #contenedor_tablas_ticketsNo{
     position: relative;
@@ -1242,9 +1279,10 @@ Dashboard realizacion de prueba
     align-items: flex-start;
     margin-top: 10px;
     flex-direction: column;
+    overflow: auto;
 }
 
-@media screen and (max-width: 980px)
+@media screen and (max-width: 1000px)
 {
     html,body
     {
@@ -1292,6 +1330,7 @@ Dashboard realizacion de prueba
     .boton_control{
         padding: 10px;
     }
+
     #contenedor_tablas_tickets_pendientes,#contenedor_tabla_peticion,#contenedor_tablas_peticiones,#contenedor_tablas_tickets_seccion,#contenedor_tablas_tickets_seccion,#contenedor_tablas_ticketsNo,#contenedor_tabla_empresas_activas,#contenedor_tabla_empresas_noactivas,#contenedor_tabla_peticion_empresas,#contenedor_tabla_empleado_activas,#contenedor_tabla_empleado_noactivo,#contenedor_tabla_administradores_activo,#contenedor_tabla_administradores_noactivo
     {
         overflow-x: auto;
@@ -1311,5 +1350,6 @@ Dashboard realizacion de prueba
         font-size: 10px;
         text-align: start;
     }
+
 
 }

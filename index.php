@@ -30,12 +30,12 @@
             </h1>
             <input id="input_correo" type="email" class="input_text_login" placeholder="Ingrese el correo electronico..." value="">
             <input id="input_contra" type="password" class="input_text_login"  placeholder="Ingrese la contraseña...">
-            <p id="c_boton_recuperar" class="titulo" onclick="mostrarSeccionLogin(event);" >¿Olvidaste tu contraseña?</p>
+            <p id="c_boton_recuperar" class="titulo_recuperar" onclick="mostrarSeccionLogin(event);" >¿Olvidaste tu contraseña?</p>
             <button class="boton_login" id="boton_inicio" onclick="inicio_sesion();">INGRESAR</button>
         </div>
 
         <div class="seccion_login" id="contenedor_formulario_registrar">
-        <h1 class="titulo">Registrar Petion Para Nueva Empresa</h1>
+        <h1 class="titulo">Registro de peticion</h1>
             <div class="contenedor_general_formulario">
                 <div class="contenedor_formulario1">
                         <input id="input_rfcEmpresa" type="text" class="input_text_empresa" placeholder="RFC" value="">

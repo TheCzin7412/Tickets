@@ -9,7 +9,6 @@ function inicio_sesion()
     if(input_correo.length ==0 || input_contra==0) 
     {
         dialogo("Los campos se encuentran vacio, favor de ingresar el correo y la contraseña")
-        location.reload() 
 
     }
     else
@@ -61,8 +60,6 @@ function inicio_sesion()
                     else
                     {
                         dialogo(ajax.responseText)
-                        location.reload()    
-
                     }
                     
                 }
@@ -127,7 +124,6 @@ function agregar_peticion_empresa()
     ) 
     {
         dialogo("Los campos se encuentran vacio, favor de ingresar todos los datos...")
-        location.reload() 
     }
     else
     {
@@ -284,6 +280,7 @@ function quitar_alerta(event)
     let id_elemento = padre.id
     let borrado = document.getElementById(id_elemento)
     borrado.parentNode.removeChild(borrado)
+    window.location.reload()
 }
 
 var check_envio = true
@@ -292,29 +289,28 @@ function enviar_correo()
 {
     if(check_envio)
     {
-    check_envio = false    
-    let input_correo = document.getElementById("input_correo_verificar").value.trim()
+        check_envio = false    
+        let input_correo = document.getElementById("input_correo_verificar").value.trim()
 
-    let datos = new FormData()
-    datos.append("correo_destino",input_correo)
+        let datos = new FormData()
+        datos.append("correo_destino",input_correo)
 
-    let peticion = new XMLHttpRequest()
-    peticion.open("POST","controlador/enviar_confirmacion.php")
-    peticion.send(datos)
+        let peticion = new XMLHttpRequest()
+        peticion.open("POST","controlador/enviar_confirmacion.php")
+        peticion.send(datos)
 
-    peticion.onreadystatechange = function ()
-    {
-        if(peticion.readyState == 4)
+        peticion.onreadystatechange = function ()
         {
-            if(peticion.status == 200)
+            if(peticion.readyState == 4)
             {
-                // console.log("200")
-                console.log(peticion.responseText)
-                dialogo(peticion.responseText)
-                location.reload() 
+                if(peticion.status == 200)
+                {
+                    // console.log("200")
+                    console.log(peticion.responseText)
+                    dialogo(peticion.responseText)
+                }
             }
         }
     }
-}
 }
 

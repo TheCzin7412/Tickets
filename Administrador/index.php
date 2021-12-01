@@ -50,7 +50,7 @@
                        </div>
                        <div id="c_boton_administrador" class="boton_control" onclick="mostrarSeccion(event);">
                            <img id="imagen_administrador" src="../recursos/img/administrador.png" alt="" class="imagen_menu">
-                           <p id="parrafo_administrador" class="texto_menu">Administrador</p>
+                           <p id="parrafo_administrador" class="texto_menu">Admin</p>
                        </div>
                        <div id="c_boton_contrasena" class="boton_control" onclick="mostrarSeccion(event);">
                            <img id="imagen_contrasena" src="../recursos/img/contrasena.png" alt="" class="imagen_menu">
@@ -303,8 +303,7 @@
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_NoResuelto" onchange="tomar_datos_tickets_NoResuelto();"> 
                                                         <option value="5">5</option> 
-                                                        <option value="10">10</option>
-                                                        <option value="15">15</option> 
+                                                        <option value="10">10</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -358,7 +357,7 @@
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_Resuelto" onchange="tomar_datos_tickets_Resuelto();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
@@ -493,7 +492,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_activas" onchange="tomar_datos_empresas();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -553,7 +551,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_noactivos" onchange="tomar_datos_empresas_noactivas();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -613,7 +610,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_empresas_pendientes" onchange="tomar_datos_empresas_peticion();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">20</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -755,12 +751,9 @@
                                                     <select name="" class="select_cantidad" id="cantidad_empleados_activos" onchange="tomar_datos_empleado();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">20</option> 
                                                     </select>
                                                 </div>
-                                                <div class="lista2">
-                                                    <input type="range" name="" min="0" max="2000" id="zoom_empleados_activos" onchange="zoom_tabla(event);">
-                                                </div>
+                                                
                                             </div>
                                             
                                             <div class="barra_buscadora">
@@ -816,7 +809,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_empleados_noactivos" onchange="tomar_datos_empleado_noactivos();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">20</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -962,7 +954,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_administradores_activos" onchange="tomar_datos_administradores();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
@@ -1020,7 +1011,6 @@
                                                     <select name="" class="select_cantidad" id="cantidad_administradores_noactivos" onchange="tomar_datos_administradores_noactivos();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>

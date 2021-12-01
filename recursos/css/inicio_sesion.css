@@ -186,10 +186,15 @@
     }
     .titulo{
         font-size: 13px;
+        margin-top: 10px;
+    }
+    .titulo_recuperar{
+        margin-top: 15px;
+
     }
     .input_text_login{
         width: 250px;
-        margin-top: 5px;
+        margin-top: 15px;
     }
     #contenedor_formulario_registrar{
         width: 90%;
@@ -204,7 +209,11 @@
         justify-content: flex-start;
         align-items: center;
     }
-    .input_text_empresa, .input_text_login
+    .input_text_empresa{
+        text-align: start;
+        font-size: 10px;
+    }
+    .input_text_login
     {
         font-size:12px;
     }
@@ -225,5 +234,9 @@
         font-size: 12px;
         width: 130px;
         border-radius: 10px;
+        margin-top: 15px;
+    }
+    .contenedor_general_formulario{
+        margin-top: 10px;
     }    
 }
