@@ -62,14 +62,14 @@ if(isset($_GET['token']))
     //Empresa
     $pdf->Text(24.5,59.6,$nombreE);
 
-    //razon social
-    $pdf->Text(30.7,64.6,$rfc);
+    //rfc
+    $pdf->Text(17.5,64.8,$rfc);
 
-    // Domiciolio
-    $pdf->Text(25.7,69.8,$domicilioEmpresa);
+    // razon social
+    $pdf->Text(30,69.5,$razonsocialEmpresa);
 
-    //numero exterior
-    $pdf->Text(21.5,74.6,$numerocalleEmpresa);
+    //domicilio
+    $pdf->Text(25.5,74.6,$domicilioEmpresa.' '.$numerocalleEmpresa);
 
     //Colonia
     $pdf->Text(23,79.7,$coloniaEmpresa);

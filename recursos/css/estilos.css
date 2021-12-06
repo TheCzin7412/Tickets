@@ -808,7 +808,7 @@ Dashboard realizacion de prueba
     height: auto;
     font-size: var(--tamanoTexto);
     border: solid 1px var(--colorNegro);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .input_barra_buscadora:focus{
     outline: none;
@@ -1033,6 +1033,40 @@ Dashboard realizacion de prueba
     margin-top: 10px;
     flex-direction: column;
     overflow: auto;
+}
+#contenedor_tabla_tickets_empresa{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+    overflow: auto;
+}
+#contendor_tabla_noresuelto_empresa{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+    overflow: auto;
+}
+#contenedor_tabla_resuelto_empresa{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+    overflow: auto;
+
 }
 
 
@@ -1293,6 +1327,41 @@ Dashboard realizacion de prueba
     flex-direction: column;
     overflow: auto;
 }
+#contenedor_tabla_ticket_empleado{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+    overflow: auto;
+}
+#contenedor_tabla_ticketsNo_empleado{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+    overflow: auto;
+}
+#contendor_tabla_ticketResuelto_empleado{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    flex-direction: column;
+    overflow: auto;
+
+}
+
 
 @media screen and (max-width: 1000px)
 {
@@ -1313,6 +1382,11 @@ Dashboard realizacion de prueba
     .texto_menu
     {
         display: none;
+    }
+    #menu_control{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
     }
     .boton_control
     {
@@ -1343,12 +1417,12 @@ Dashboard realizacion de prueba
         padding: 10px;
     }
 
-    #contenedor_tablas_tickets_pendientes,#contenedor_tabla_peticion,#contenedor_tablas_peticiones, #contenedor_tablas_tickets_seccion, #contenedor_tablas_ticketsNo, #contenedor_tabla_empresas_activas,#contenedor_tabla_empresas_noactivas,#contenedor_tabla_peticion_empresas,#contenedor_tabla_empleado_activas,#contenedor_tabla_empleado_noactivo,#contenedor_tabla_administradores_activo,#contenedor_tabla_administradores_noactivo
+    #contenedor_tablas_tickets_pendientes,#contenedor_tabla_peticion,#contenedor_tablas_peticiones, #contenedor_tablas_tickets_seccion, #contenedor_tablas_ticketsNo, #contenedor_tabla_empresas_activas,#contenedor_tabla_empresas_noactivas,#contenedor_tabla_peticion_empresas,#contenedor_tabla_empleado_activas,#contenedor_tabla_empleado_noactivo,#contenedor_tabla_administradores_activo,#contenedor_tabla_administradores_noactivo,#contenedor_tabla_tickets_empresa,#contendor_tabla_noresuelto_empresa,#contenedor_tabla_resuelto_empresa,#contenedor_tabla_ticket_empleado,#contenedor_tabla_ticketsNo_empleado,#contendor_tabla_ticketResuelto_empleado
     {
         overflow-x: auto;
     }
     .input_tickets{
-        width: 270px;
+        width: 100%;
         font-size: 11px;
     }
     #id_comentario{

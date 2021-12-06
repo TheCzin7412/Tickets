@@ -19,7 +19,7 @@ function inicio_sesion()
        datos.append("correo",input_correo)
        datos.append("contra",input_contra)
 
-       console.log(datos)
+       //console.log(datos)
        let ajax = new XMLHttpRequest()
 
        ajax.open("POST","controlador/inicio_sesion.php")
@@ -32,9 +32,9 @@ function inicio_sesion()
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
-                    console.log(ajax.responseText)
-                    // console.log(tipo_u)
+                    // //console.log("200 Respuesta Exitosa");
+                    //console.log(ajax.responseText)
+                    // //console.log(tipo_u)
                     if(ajax.responseText.includes("["))
                     {
                         let datos = JSON.parse(ajax.responseText)
@@ -54,21 +54,21 @@ function inicio_sesion()
                     }
                     else
                     {
-                        dialogo(ajax.responseText)
+                        //dialogo(ajax.responseText)
                     }
                     
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) 
                 {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -139,7 +139,7 @@ function agregar_peticion_empresa()
 
 
 
-    console.log(datos)
+    //console.log(datos)
     let ajax = new XMLHttpRequest()
 
     ajax.open("POST","controlador/agregar_empresa_peticion.php")
@@ -153,20 +153,20 @@ function agregar_peticion_empresa()
                 if (ajax.status == 200) 
                 {
                     limpiar_formulario_agrega_peticion_login()
-                    // console.log("200 Respuesta Exitosa");
-                    //console.log(ajax.responseText)
+                    // //console.log("200 Respuesta Exitosa");
+                    ////console.log(ajax.responseText)
                     dialogo(ajax.responseText)
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -207,22 +207,22 @@ function mostrarSeccionLogin(event)
     let regexIncioSession = /login/
     let regexRegistrar = /inicioSesion/
     let regexRecuperar = /recuperar/
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexIncioSession.test(identificador))
     {
-        // console.log("coincide dashboard")
+        // //console.log("coincide dashboard")
         let nombre_elemento = "contenedor_formulario_login"
         mostrarVistaLogin(nombre_elemento)
     }
     if(regexRegistrar.test(identificador))
     {
-        // console.log("coincide ticket")
+        // //console.log("coincide ticket")
         let nombre_elemento = "contenedor_formulario_registrar"
         mostrarVistaLogin(nombre_elemento)
     }
     if(regexRecuperar.test(identificador))
     {
-    // console.log("coincide ticket")
+    // //console.log("coincide ticket")
     let nombre_elemento = "contenedor_recuperar_contrasena"
     mostrarVistaLogin(nombre_elemento)
     }
@@ -300,8 +300,8 @@ function enviar_correo()
             {
                 if(peticion.status == 200)
                 {
-                    // console.log("200")
-                    console.log(peticion.responseText)
+                    // //console.log("200")
+                    //console.log(peticion.responseText)
                     dialogo(peticion.responseText)
                 }
             }

@@ -12,11 +12,11 @@ require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 
-$HOST = 'smtp.gmail.com';
-$USERNAME = 'sistematicketswitchmx@gmail.com';
-$PASSWORD = 'Switch250117';
+$HOST = 'mail.tickets-switchmx.com';
+$USERNAME = 'recuperacion@tickets-switchmx.com';
+$PASSWORD = 'Termino250117.';
 $PORT = 587;
-$host_name = 'http://localhost/Tickets/';
+$host_name = 'https://tickets-switchmx.com/';
 
 if(isset($_POST['correo_destino'])){
     $correo_destino = $_POST['correo_destino'];

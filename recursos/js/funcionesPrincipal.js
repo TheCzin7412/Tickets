@@ -1,7 +1,7 @@
 // ########################################################
 // ignorar este fragmento de codigo hasta nuevo aviso
 // ########################################################
-// console.log(contenedores)
+// //console.log(contenedores)
 // class Ajax {
 //     constructor(url, metodo, data) {
 //         this.respuesta;
@@ -17,26 +17,26 @@
 //         ajax.onreadystatechange = function () {
 //             if (ajax.readyState == 4) {
 //                 if (ajax.status == 200) {
-//                     console.log("200 Respuesta Exitosa");
+//                     //console.log("200 Respuesta Exitosa");
 //                     this.respuesta = ajax.responseText
 //                 }
 //                 if (ajax.status == 400) {
-//                     console.log("400 El servidor no entendió la petición");
+//                     //console.log("400 El servidor no entendió la petición");
 //                 }
 //                 if (ajax.status == 404) {
-//                     console.log("404 Página no encontrada");
+//                     //console.log("404 Página no encontrada");
 //                 }
 //                 if (ajax.status == 500) {
-//                     console.log("500 Error interno de servidor");
+//                     //console.log("500 Error interno de servidor");
 //                 }
 //             }
 //             else {
-//                 console.log("conectando...");
+//                 //console.log("conectando...");
 //             }
 //         };
 //         this.listo = function ()
 //         {
-//             console.log( this.respuesta)
+//             //console.log( this.respuesta)
 //             return this.respuesta
 //         }
 //     }   
@@ -58,7 +58,7 @@ window.onload= function()
     {
         let elemento_cookie = document.getElementById("info-cookies")
         let cookies = elemento_cookie.value
-        console.log(cookies)
+        //console.log(cookies)
         info_cookie = cookies
         mostrarVista(cookies)
     }
@@ -66,7 +66,7 @@ window.onload= function()
     {
         let elemento_cookie = document.getElementById("info-cookies")
         let cookies = elemento_cookie.value
-        console.log(cookies)
+        //console.log(cookies)
         info_cookie = cookies
         mostrarVista(cookies)
     }
@@ -124,22 +124,22 @@ function crearCookie(metodo,url,datos)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
-                    console.log(ajax.responseText)
+                    // //console.log("200 Respuesta Exitosa");
+                    //console.log(ajax.responseText)
                     // respuesta = ajax.responseText
                     // return respuesta
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) 
                 {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -212,12 +212,12 @@ function mostrarSeccion(event)
     let regexEmpleado = /empleado/
     let regexAdministrador = /administrador/
     let regexContrasena = /contrasena/
-    // console.log(navegador)
+    // //console.log(navegador)
 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexDashboard.test(identificador))
     {
-        // console.log("coincide dashboard")
+        // //console.log("coincide dashboard")
         let nombre_elemento = "contenedor_dashboard"
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes_dashboard()
@@ -233,7 +233,7 @@ function mostrarSeccion(event)
     }
     if(regexTicket.test(identificador))
     {
-        // console.log("coincide ticket")
+        // //console.log("coincide ticket")
         let nombre_elemento = "contenedor_tickets"
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes()
@@ -245,7 +245,7 @@ function mostrarSeccion(event)
     }
     if(regexEmpresa.test(identificador))
     {
-        //console.log("coincide empresa")
+        ////console.log("coincide empresa")
         let nombre_elemento = "contenedor_empresas"
         mostrarVista(nombre_elemento)
         tomar_datos_empresas()
@@ -258,7 +258,7 @@ function mostrarSeccion(event)
     }
     if(regexEmpleado.test(identificador))
     {
-        //console.log("coincide empleado")
+        ////console.log("coincide empleado")
         let nombre_elemento = "contenedor_empleado"
         mostrarVista(nombre_elemento)
         
@@ -272,7 +272,7 @@ function mostrarSeccion(event)
     }
     if(regexAdministrador.test(identificador))
     {
-        //console.log("coincide empleado")
+        ////console.log("coincide empleado")
         let nombre_elemento = "contenedor_administradores"
         mostrarVista(nombre_elemento)
         tomar_datos_administradores()
@@ -286,7 +286,7 @@ function mostrarSeccion(event)
     }
     if(regexContrasena.test(identificador))
     {
-        //console.log("coincide contrasena")
+        ////console.log("coincide contrasena")
         let nombre_elemento = "contenedor_cambio_contrasena"
         mostrarVista(nombre_elemento)
         info_cookie = nombre_elemento
@@ -330,10 +330,10 @@ function mostrarSeccionDashboard(event)
 
     let regexPeticion = /peticion/
 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexPendiente.test(identificador))
     {
-        //console.log("coincide pendiente")
+        ////console.log("coincide pendiente")
         let nombre_elemento = "contenedor_tickets_pendientes"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_tickets_pendientes_dashboard()
@@ -341,7 +341,7 @@ function mostrarSeccionDashboard(event)
     
     if(regexPeticion.test(identificador))
     {
-        console.log("coincide peticiones")
+        //console.log("coincide peticiones")
         let nombre_elemento = "contenedor_peticion"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_empresas_peticion_dashboard()
@@ -379,24 +379,24 @@ function mostrarSeccionTickets(event)
     let regexTicketsNoResueltos = /ticketsNoResuelto/
     let regexTicketsResueltos = /ticketsResuelto/
     let regexTicketsAgregar = /ticketsAgergar/ 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexTicketsPendientes.test(identificador))
     {
-        //console.log("coincide dashboard")
+        ////console.log("coincide dashboard")
         let nombre_elemento = "contenedor_contenido_ticketsPendientes"
         mostrarVistaTickets(nombre_elemento)
         tomar_datos_tickets_pendientes()
     }
     if(regexTicketsNoResueltos.test(identificador))
     {
-        //console.log("coincide ticket")
+        ////console.log("coincide ticket")
         let nombre_elemento = "contenedor_contenido_ticketsNoResueltos"
         mostrarVistaTickets(nombre_elemento)
         tomar_datos_tickets_NoResuelto()
     }
     if(regexTicketsResueltos.test(identificador))
     {
-        //console.log("coincide empresa")
+        ////console.log("coincide empresa")
         let nombre_elemento = "contenedor_contenido_ticketsResueltos"
         mostrarVistaTickets(nombre_elemento)
         tomar_datos_tickets_Resuelto()
@@ -404,7 +404,7 @@ function mostrarSeccionTickets(event)
     }
     if(regexTicketsAgregar.test(identificador))
     {
-        //console.log("coincide empleado")
+        ////console.log("coincide empleado")
         let nombre_elemento = "contenedor_contenido_ticketsAgregarTicket"
         mostrarVistaTickets(nombre_elemento)
     }
@@ -442,31 +442,31 @@ function mostrarSeccionEmpresas(event)
     let regexEmpresaNoActiva = /noactiva/
     let regexPeticionEmpresa = /peticion/
     let regexEmpresaAgregar = /agregar/ 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexEmpresaActiva.test(identificador))
     {
-        // console.log("coincide dashboard")
+        // //console.log("coincide dashboard")
         let nombre_elemento = "contenedor_empresas_activas"
         mostrarVistaEmpresas(nombre_elemento)
         tomar_datos_empresas()
     }
     if(regexEmpresaNoActiva.test(identificador))
     {
-        // console.log("coincide ticket")
+        // //console.log("coincide ticket")
         let nombre_elemento = "contenedor_empresas_noactivas"
         mostrarVistaEmpresas(nombre_elemento)
         tomar_datos_empresas_noactivas()
     }
     if(regexPeticionEmpresa.test(identificador))
     {
-        //console.log("coincide empresa")
+        ////console.log("coincide empresa")
         let nombre_elemento = "contenedor_peticion_empresas"
         mostrarVistaEmpresas(nombre_elemento)
         tomar_datos_empresas_peticion()
     }
     if(regexEmpresaAgregar.test(identificador))
     {
-        //console.log("coincide empleado")
+        ////console.log("coincide empleado")
         let nombre_elemento = "contenedor_agregar_empresas"
         mostrarVistaEmpresas(nombre_elemento)
     }
@@ -504,24 +504,24 @@ function mostrarSeccionEmpleado(event)
     let regexEmpleadoActiva = /activo/
     let regexEmpleadoNoActiva = /noactivo/
     let regexEmpleadoAgregar = /agregar/ 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexEmpleadoActiva.test(identificador))
     {
-        // console.log("coincide dashboard")
+        // //console.log("coincide dashboard")
         let nombre_elemento = "contenedor_empleado_activas"
         mostrarVistaEmpleado(nombre_elemento)
         tomar_datos_empleado()
     }
     if(regexEmpleadoNoActiva.test(identificador))
     {
-        // console.log("coincide ticket")
+        // //console.log("coincide ticket")
         let nombre_elemento = "contenedor_empleado_noactivo"
         mostrarVistaEmpleado(nombre_elemento)
         tomar_datos_empleado_noactivos()
     }
     if(regexEmpleadoAgregar.test(identificador))
     {
-        //console.log("coincide empresa")
+        ////console.log("coincide empresa")
         let nombre_elemento = "contenedor_form_agregar_empleado"
         mostrarVistaEmpleado(nombre_elemento)
     }
@@ -556,24 +556,24 @@ function mostrarSeccionAdministradores(event)
     let regexAdministradoresActiva = /activo/
     let regexAdministradoresNoActiva = /noactivos/
     let regexAdministradoresAgregar = /agregar/ 
-    console.log(identificador)
+    //console.log(identificador)
     if(regexAdministradoresActiva.test(identificador))
     {
-        // console.log("coincide dashboard")
+        // //console.log("coincide dashboard")
         let nombre_elemento = "contenedor_administradores_activos"
         mostrarVistaAdministradores(nombre_elemento)
         tomar_datos_administradores()
     }
     if(regexAdministradoresNoActiva.test(identificador))
     {
-        // console.log("coincide ticket")
+        // //console.log("coincide ticket")
         let nombre_elemento = "contenedor_administradores_noactivos"
         mostrarVistaAdministradores(nombre_elemento)
         tomar_datos_administradores_noactivos()
     }
     if(regexAdministradoresAgregar.test(identificador))
     {
-        //console.log("coincide empresa")
+        ////console.log("coincide empresa")
         let nombre_elemento = "contenedor_administradores_agregar"
         mostrarVistaAdministradores(nombre_elemento)
     }
@@ -628,8 +628,8 @@ function agregar_empleado()
        datos.append("contrasenaEmpleado",input_contrasena_empleado)
 
 
-    //    console.log(select_tipo_empleado)
-    //    console.log("-------")
+    //    //console.log(select_tipo_empleado)
+    //    //console.log("-------")
 
        let ajax = new XMLHttpRequest()
 
@@ -643,20 +643,20 @@ function agregar_empleado()
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     limpiar_formulario_empleado()
                     dialogo(ajax.responseText)
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -710,8 +710,8 @@ function agregar_administrador()
        datos.append("contrasenaAdministrador",input_contrasena_administrador)
 
 
-    //    console.log(select_tipo_empleado)
-    //    console.log("-------")
+    //    //console.log(select_tipo_empleado)
+    //    //console.log("-------")
 
        let ajax = new XMLHttpRequest()
 
@@ -725,20 +725,20 @@ function agregar_administrador()
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     limpiar_formulario_adn()
                     dialogo(ajax.responseText)
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -753,7 +753,7 @@ function desactivar_adn(event)
     let padre = elemento.parentNode.parentNode
     let id_objetivo = padre.id
     // alert(padre)
-    // console.log(elemento)    
+    // //console.log(elemento)    
     let estado  = "0"
     let datos = new FormData()
     datos.append("id_empleado",id_objetivo)
@@ -775,7 +775,7 @@ function desactivar_adn(event)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     dialogo(ajax.responseText)
                     let elementId =id_objetivo
                     let node=document.getElementById(elementId);
@@ -783,20 +783,20 @@ function desactivar_adn(event)
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
     }
     
-    console.log(padre)
+    //console.log(padre)
 }
 /////// Activar Empleado
 function activar_adn(event)
@@ -825,7 +825,7 @@ function activar_adn(event)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     dialogo(ajax.responseText)
                     let elementId =id_objetivo
                     let node=document.getElementById(elementId);
@@ -833,20 +833,20 @@ function activar_adn(event)
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
     }
     
-    console.log(padre)
+    //console.log(padre)
 }
 
 //funcion para desactivar empleado
@@ -856,7 +856,7 @@ function desactivar_empleado(event)
     let padre = elemento.parentNode.parentNode
     let id_objetivo = padre.id
     // alert(padre)
-    // console.log(elemento)    
+    // //console.log(elemento)    
     let estado  = "0"
     let datos = new FormData()
     datos.append("id_empleado",id_objetivo)
@@ -878,7 +878,7 @@ function desactivar_empleado(event)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     dialogo(ajax.responseText)
                     let elementId =id_objetivo
                     let node=document.getElementById(elementId);
@@ -886,20 +886,20 @@ function desactivar_empleado(event)
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
     }
     
-    console.log(padre)
+    //console.log(padre)
 }
 /////// Activar Empleado
 function activar_empleado(event)
@@ -928,7 +928,7 @@ function activar_empleado(event)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     dialogo(ajax.responseText)
                     let elementId =id_objetivo
                     let node=document.getElementById(elementId);
@@ -936,20 +936,20 @@ function activar_empleado(event)
                 }
                 if (ajax.status == 400) 
                 {
-                    //console.log("400 El servidor no entendió la petición");
+                    ////console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    //console.log("404 Página no encontrada");
+                    ////console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    //console.log("500 Error interno de servidor");
+                    ////console.log("500 Error interno de servidor");
                 }
             }            
         }
     }
     
-    //console.log(padre)
+    ////console.log(padre)
 }
 
 
@@ -979,7 +979,7 @@ function desactivar_empresas(event)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     dialogo(ajax.responseText)
                     let elementId =id_objetivo
                     let node=document.getElementById(elementId);
@@ -987,20 +987,20 @@ function desactivar_empresas(event)
                 }
                 if (ajax.status == 400) 
                 {
-                    //console.log("400 El servidor no entendió la petición");
+                    ////console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    //console.log("404 Página no encontrada");
+                    ////console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    //console.log("500 Error interno de servidor");
+                    ////console.log("500 Error interno de servidor");
                 }
             }            
         }
     }
     
-    //console.log(padre)
+    ////console.log(padre)
 }
 /////// Activar empresas
 function activar_empresas(event)
@@ -1029,7 +1029,7 @@ function activar_empresas(event)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     dialogo(ajax.responseText)
                     let elementId =id_objetivo
                     let node=document.getElementById(elementId);
@@ -1037,20 +1037,20 @@ function activar_empresas(event)
                 }
                 if (ajax.status == 400) 
                 {
-                    //console.log("400 El servidor no entendió la petición");
+                    ////console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    //console.log("404 Página no encontrada");
+                    ////console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    //console.log("500 Error interno de servidor");
+                    ////console.log("500 Error interno de servidor");
                 }
             }            
         }
     }
     
-    //console.log(padre)
+    ////console.log(padre)
 }
 
 var boton_agrega_empresas_adn= document.getElementById("boton_agrega_empresa_dash")
@@ -1108,7 +1108,7 @@ function agregar_empresa_dashboard()
 
 
 
-    //console.log(datos)
+    ////console.log(datos)
     let ajax = new XMLHttpRequest()
 
     ajax.open("POST","../controlador/agregar_empresa.php")
@@ -1121,20 +1121,20 @@ function agregar_empresa_dashboard()
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     limpiar_formulario_empresas()
                     dialogo(ajax.responseText)
                 }
                 if (ajax.status == 400) 
                 {
-                    //console.log("400 El servidor no entendió la petición");
+                    ////console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    //console.log("404 Página no encontrada");
+                    ////console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    //console.log("500 Error interno de servidor");
+                    ////console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -1204,7 +1204,7 @@ function editar_empleado(event)
     let hijos = padre.children
 
     
-    // console.log(hijos)
+    // //console.log(hijos)
     if(checar_editar_usuarios)
     {
         // let nombre_input = hijos[1].children[0].value
@@ -1219,9 +1219,9 @@ function editar_empleado(event)
         puesto = hijos[8].children[0].value.trim()
         correo = hijos[9].children[0].value.trim()
 
-        //console.log("primera coincidencia")
-        //console.log(nombre)
-        //console.log("------------")
+        ////console.log("primera coincidencia")
+        ////console.log(nombre)
+        ////console.log("------------")
 
 
         for(let i=0; i<hijos.length;i++)
@@ -1234,14 +1234,14 @@ function editar_empleado(event)
                 // let valorNombre inputs[1]
                 inputs[0].style.border= "solid 2px red"
                 inputs[0].disabled=false
-                // console.log(inputs) 
+                // //console.log(inputs) 
                 // array_editar_empleados.push(valor)
             }
             if(numero_input==2)
             {
                 let hijos_editar = hijos[i].children
                 hijos_editar[1].src = "../recursos/img/alta.png"
-                //console.log(hijos_editar)
+                ////console.log(hijos_editar)
             }
         }
         checar_editar_usuarios=false
@@ -1258,9 +1258,9 @@ function editar_empleado(event)
         puesto2 = hijos[8].children[0].value.trim()
         correo2 = hijos[9].children[0].value.trim()
 
-        //console.log("Segunda coincidencia")
-        //console.log(nombre2)
-        //console.log("------------")
+        ////console.log("Segunda coincidencia")
+        ////console.log(nombre2)
+        ////console.log("------------")
 
         for(let i=0; i<hijos.length;i++)
         {
@@ -1271,20 +1271,20 @@ function editar_empleado(event)
                 let valor = inputs[0].value
                 inputs[0].style.border= "none"
                 inputs[0].disabled=true
-                // console.log(valor) 
+                // //console.log(valor) 
                 // array_editados_empleados.push(valor)
             }
             if(numero_input==2)
             {
                 let hijos_editar = hijos[i].children
                 hijos_editar[1].src = "../recursos/img/editar.png"
-                //console.log(hijos_editar)
+                ////console.log(hijos_editar)
             }
         }
 
         if(nombre!=nombre2)
         {
-            //console.log("se edito nombre")
+            ////console.log("se edito nombre")
 
             let info = new FormData()
 
@@ -1296,7 +1296,7 @@ function editar_empleado(event)
         }
         if(apellidoP!=apellidoP2)
         {
-            //console.log("se edito apellido P")
+            ////console.log("se edito apellido P")
             let info = new FormData()
 
             info.append("id",id_input)
@@ -1306,7 +1306,7 @@ function editar_empleado(event)
         }
         if(apellidoM!=apellidoM2)
         {
-            //console.log("se edito apellido M")
+            ////console.log("se edito apellido M")
             let info = new FormData()
 
             info.append("id",id_input)
@@ -1316,7 +1316,7 @@ function editar_empleado(event)
         }
         if(domicilio!=domicilio2)
         {
-            //console.log("se edito domicilio")
+            ////console.log("se edito domicilio")
 
             let info = new FormData()
 
@@ -1327,7 +1327,7 @@ function editar_empleado(event)
         }
         if(numExt!=numExt2)
         {
-            //console.log("se edito numExt")
+            ////console.log("se edito numExt")
             let info = new FormData()
 
             info.append("id",id_input)
@@ -1337,7 +1337,7 @@ function editar_empleado(event)
         }
         if(colonia!=colonia2)
         {
-            //console.log("se edito colonia")
+            ////console.log("se edito colonia")
             let info = new FormData()
 
             info.append("id",id_input)
@@ -1347,7 +1347,7 @@ function editar_empleado(event)
         }
         if(telefono!=telefono2)
         {
-            //console.log("se edito telefono")
+            ////console.log("se edito telefono")
             let info = new FormData()
 
             info.append("id",id_input)
@@ -1357,7 +1357,7 @@ function editar_empleado(event)
         }
         if(puesto!=puesto2)
         {
-            //console.log("se edito puesto")
+            ////console.log("se edito puesto")
             let info = new FormData()
 
             info.append("id",id_input)
@@ -1367,7 +1367,7 @@ function editar_empleado(event)
         }
         if(correo!=correo2)
         {
-            //console.log("se edito correo")
+            ////console.log("se edito correo")
             let info = new FormData()
 
             info.append("id",id_input)
@@ -1378,8 +1378,8 @@ function editar_empleado(event)
         tomar_datos_empleado()
         checar_editar_usuarios=true
     }
-    //console.log(array_editar_empleados)
-    //console.log(array_editados_empleados)
+    ////console.log(array_editar_empleados)
+    ////console.log(array_editados_empleados)
 }
 
 // var respuesta
@@ -1398,22 +1398,22 @@ function enviarDatos(metodo,url,datos)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
-                    //console.log(ajax.responseText)
+                    // //console.log("200 Respuesta Exitosa");
+                    ////console.log(ajax.responseText)
                     // respuesta = ajax.responseText
                     // return respuesta
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) 
                 {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -1458,7 +1458,7 @@ function editar_empresas(event)
     let padre = elemento.parentNode.parentNode
     let hijos = padre.children
 
-    // console.log(hijos)
+    // //console.log(hijos)
     if(checar_editar_empresas)
     {
 
@@ -1477,9 +1477,9 @@ function editar_empresas(event)
         correoEmpresa = hijos[11].children[0].value.trim()
 
 
-        //console.log("primera coincidencia")
-        //console.log(nombreEmpresa)
-        //console.log("------------")
+        ////console.log("primera coincidencia")
+        ////console.log(nombreEmpresa)
+        ////console.log("------------")
 
 
         for(let i=0; i<hijos.length;i++)
@@ -1492,14 +1492,14 @@ function editar_empresas(event)
                 // let valorNombre inputs[1]
                 inputs[0].style.border= "solid 2px red"
                 inputs[0].disabled=false
-                // console.log(inputs) 
+                // //console.log(inputs) 
                 // array_editar_empleados.push(valor)
             }
             if(numero_input==2)
             {
                 let hijos_editar = hijos[i].children
                 hijos_editar[1].src = "../recursos/img/alta.png"
-                //console.log(hijos_editar)
+                ////console.log(hijos_editar)
             }
         }
         checar_editar_empresas=false
@@ -1518,9 +1518,9 @@ function editar_empresas(event)
         telefonoEmpresa2 = hijos[10].children[0].value.trim()
         correoEmpresa2 = hijos[11].children[0].value.trim()
 
-        //console.log("Segunda coincidencia")
-        //console.log(nombreEmpresa)
-        //console.log("------------")
+        ////console.log("Segunda coincidencia")
+        ////console.log(nombreEmpresa)
+        ////console.log("------------")
 
         for(let i=0; i<hijos.length;i++)
         {
@@ -1531,20 +1531,20 @@ function editar_empresas(event)
                 let valor = inputs[0].value
                 inputs[0].style.border= "none"
                 inputs[0].disabled=true
-                // console.log(valor) 
+                // //console.log(valor) 
                 // array_editados_empleados.push(valor)
             }
             if(numero_input==2)
             {
                 let hijos_editar = hijos[i].children
                 hijos_editar[1].src = "../recursos/img/editar.png"
-                //console.log(hijos_editar)
+                ////console.log(hijos_editar)
             }
         }
 
         if(rfcEmpresa!=rfcEmpresa2)
         {
-            //console.log("se edito RFC")
+            ////console.log("se edito RFC")
 
             let info = new FormData()
 
@@ -1556,7 +1556,7 @@ function editar_empresas(event)
         }
         if(nombreEmpresa!=nombreEmpresa2)
         {
-            //console.log("se edito nombre empresa")
+            ////console.log("se edito nombre empresa")
             
             let info = new FormData()
             info.append("id",id_input_empresas)
@@ -1566,7 +1566,7 @@ function editar_empresas(event)
         }
         if(razonsocialEmpresa!=razonsocialEmpresa2)
         {
-            //console.log("se edito  razon social")
+            ////console.log("se edito  razon social")
             let info = new FormData()
 
             info.append("id",id_input_empresas)
@@ -1576,7 +1576,7 @@ function editar_empresas(event)
         }
         if(domicilioEmpresa!=domicilioEmpresa2)
         {
-            //console.log("se edito domicilio empresa")
+            ////console.log("se edito domicilio empresa")
 
             let info = new FormData()
 
@@ -1587,7 +1587,7 @@ function editar_empresas(event)
         }
         if(numerocalleEmpresa!=numerocalleEmpresa2)
         {
-            //console.log("se edito numExt empresa")
+            ////console.log("se edito numExt empresa")
             let info = new FormData()
 
             info.append("id",id_input_empresas)
@@ -1597,7 +1597,7 @@ function editar_empresas(event)
         }
         if(coloniaEmpresa!=coloniaEmpresa2)
         {
-            //console.log("se edito colonia empresa")
+            ////console.log("se edito colonia empresa")
             let info = new FormData()
 
             info.append("id",id_input_empresas)
@@ -1607,7 +1607,7 @@ function editar_empresas(event)
         }
         if(cpEmpresa!=cpEmpresa2)
         {
-            //console.log("se edito CP")
+            ////console.log("se edito CP")
 
             let info = new FormData()
 
@@ -1618,7 +1618,7 @@ function editar_empresas(event)
         }
         if(municipioEmpresa!=municipioEmpresa2)
         {
-            //console.log("se edito municipio")
+            ////console.log("se edito municipio")
             let info = new FormData()
 
             info.append("id",id_input_empresas)
@@ -1628,7 +1628,7 @@ function editar_empresas(event)
         }
         if(estadoEmpresa!=estadoEmpresa2)
         {
-            //console.log("se edito estado")
+            ////console.log("se edito estado")
             let info = new FormData()
 
             info.append("id",id_input_empresas)
@@ -1638,7 +1638,7 @@ function editar_empresas(event)
         }
         if(telefonoEmpresa!=telefonoEmpresa2)
         {
-            //console.log("se edito telefono empresa")
+            ////console.log("se edito telefono empresa")
             let info = new FormData()
 
             info.append("id",id_input_empresas)
@@ -1648,7 +1648,7 @@ function editar_empresas(event)
         }
         if(correoEmpresa!=correoEmpresa2)
         {
-            //console.log("se edito correo")
+            ////console.log("se edito correo")
             let info = new FormData()
 
             info.append("id",id_input_empresas)
@@ -1660,8 +1660,8 @@ function editar_empresas(event)
         checar_editar_empresas=true
 
     }
-    //console.log(array_editar_empresas)
-    //console.log(array_editados_empresas)
+    ////console.log(array_editar_empresas)
+    ////console.log(array_editados_empresas)
 }
 // var respuesta
 
@@ -1679,22 +1679,22 @@ function enviarDatosEmpresas(metodo,url,datos)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
-                    //console.log(ajax.responseText)
+                    // //console.log("200 Respuesta Exitosa");
+                    ////console.log(ajax.responseText)
                     // respuesta = ajax.responseText
                     // return respuesta
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) 
                 {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -1737,7 +1737,7 @@ function editar_adn(event)
     let hijos = padre.children
 
     
-    // console.log(hijos)
+    // //console.log(hijos)
     if(checar_editar_admin)
     {
         // let nombre_input = hijos[1].children[0].value
@@ -1752,9 +1752,9 @@ function editar_adn(event)
         puestoAdministrador = hijos[8].children[0].value.trim()
         correoAdministrador = hijos[9].children[0].value.trim()
 
-        //console.log("primera coincidencia")
-        //console.log(nombreAdministrador)
-        //console.log("------------")
+        ////console.log("primera coincidencia")
+        ////console.log(nombreAdministrador)
+        ////console.log("------------")
 
 
         for(let i=0; i<hijos.length;i++)
@@ -1767,14 +1767,14 @@ function editar_adn(event)
                 // let valorNombre inputs[1]
                 inputs[0].style.border= "solid 2px red"
                 inputs[0].disabled=false
-                // console.log(inputs) 
+                // //console.log(inputs) 
                 // array_editar_empleados.push(valor)
             }
             if(numero_input==2)
             {
                 let hijos_editar = hijos[i].children
                 hijos_editar[1].src = "../recursos/img/alta.png"
-                console.log(hijos_editar)
+                //console.log(hijos_editar)
             }
         }
         checar_editar_admin=false
@@ -1791,9 +1791,9 @@ function editar_adn(event)
         puestoAdministrador2 = hijos[8].children[0].value.trim()
         correoAdministrador2 = hijos[9].children[0].value.trim()
 
-        //console.log("Segunda coincidencia")
-        ///console.log(nombreAdministrador2)
-        //console.log("------------")
+        ////console.log("Segunda coincidencia")
+        /////console.log(nombreAdministrador2)
+        ////console.log("------------")
 
         for(let i=0; i<hijos.length;i++)
         {
@@ -1804,20 +1804,20 @@ function editar_adn(event)
                 let valor = inputs[0].value
                 inputs[0].style.border= "none"
                 inputs[0].disabled=true
-                // console.log(valor) 
+                // //console.log(valor) 
                 // array_editados_empleados.push(valor)
             }
             if(numero_input==2)
             {
                 let hijos_editar = hijos[i].children
                 hijos_editar[1].src = "../recursos/img/editar.png"
-                console.log(hijos_editar)
+                //console.log(hijos_editar)
             }
         }
 
         if(nombreAdministrador!=nombreAdministrador2)
         {
-            //console.log("se edito nombre")
+            ////console.log("se edito nombre")
 
             let info = new FormData()
 
@@ -1829,7 +1829,7 @@ function editar_adn(event)
         }
         if(apellidoPAdministrador!=apellidoPAdministrador2)
         {
-            //console.log("se edito apellido P")
+            ////console.log("se edito apellido P")
             let info = new FormData()
 
             info.append("id",id_input_administrador)
@@ -1839,7 +1839,7 @@ function editar_adn(event)
         }
         if(apellidoMAdministrador!=apellidoMAdministrador2)
         {
-            //console.log("se edito apellido M")
+            ////console.log("se edito apellido M")
             let info = new FormData()
 
             info.append("id",id_input_administrador)
@@ -1849,7 +1849,7 @@ function editar_adn(event)
         }
         if(domicilioAdministrador!=domicilioAdministrador2)
         {
-            //console.log("se edito domicilio")
+            ////console.log("se edito domicilio")
 
             let info = new FormData()
 
@@ -1860,7 +1860,7 @@ function editar_adn(event)
         }
         if(numExtAdministrador!=numExtAdministrador2)
         {
-            //console.log("se edito numExtAdministrador")
+            ////console.log("se edito numExtAdministrador")
             let info = new FormData()
 
             info.append("id",id_input_administrador)
@@ -1870,7 +1870,7 @@ function editar_adn(event)
         }
         if(coloniaAdministrador!=coloniaAdministrador2)
         {
-            //console.log("se edito coloniaAdministrador")
+            ////console.log("se edito coloniaAdministrador")
             let info = new FormData()
 
             info.append("id",id_input_administrador)
@@ -1880,7 +1880,7 @@ function editar_adn(event)
         }
         if(telefonoAdministrador!=telefonoAdministrador2)
         {
-            //console.log("se edito telefonoAdministrador")
+            ////console.log("se edito telefonoAdministrador")
 
             let info = new FormData()
 
@@ -1891,7 +1891,7 @@ function editar_adn(event)
         }
         if(puestoAdministrador!=puestoAdministrador2)
         {
-            //console.log("se edito puestoAdministrador")
+            ////console.log("se edito puestoAdministrador")
             let info = new FormData()
             info.append("id",id_input_administrador)
             info.append("tipo","puestoAdministrador")
@@ -1900,7 +1900,7 @@ function editar_adn(event)
         }
         if(correoAdministrador!=correoAdministrador2)
         {
-            //console.log("se edito correoAdministrador")
+            ////console.log("se edito correoAdministrador")
             let info = new FormData()
 
             info.append("id",id_input_administrador)
@@ -1911,8 +1911,8 @@ function editar_adn(event)
         tomar_datos_administradores()
         checar_editar_admin=true
     }
-    //console.log(array_editar_admin)
-    //console.log(array_editados_admin)
+    ////console.log(array_editar_admin)
+    ////console.log(array_editados_admin)
 }
 
 // var respuesta
@@ -1931,21 +1931,21 @@ function enviarDatosAdmin(metodo,url,datos)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     // respuesta = ajax.responseText
                     // return respuesta
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) 
                 {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -1960,7 +1960,7 @@ function eliminar_empresa(event)
     let padre = elemento.parentNode.parentNode
     let id_objetivo = padre.id
     // alert(padre)
-    // console.log(id_objetivo)    
+    // //console.log(id_objetivo)    
     // let estado  = "0"
     let datos = new FormData()
     datos.append("id_empresa",id_objetivo)
@@ -1981,7 +1981,7 @@ function eliminar_empresa(event)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     dialogo(ajax.responseText)
                     let elementId =id_objetivo
                     let node=document.getElementById(elementId);
@@ -1990,20 +1990,20 @@ function eliminar_empresa(event)
                 }
                 if (ajax.status == 400) 
                 {
-                    //console.log("400 El servidor no entendió la petición");
+                    ////console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    //console.log("404 Página no encontrada");
+                    ////console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    //console.log("500 Error interno de servidor");
+                    ////console.log("500 Error interno de servidor");
                 }
             }            
         }
     }
     
-    //console.log(padre)
+    ////console.log(padre)
 
 }
 
@@ -2013,7 +2013,7 @@ function eliminar_empleado(event)
     let padre = elemento.parentNode.parentNode
     let id_objetivo = padre.id
     // alert(padre)
-    // console.log(id_objetivo)    
+    // //console.log(id_objetivo)    
     // let estado  = "0"
     let datos = new FormData()
     datos.append("id_empleado",id_objetivo)
@@ -2034,7 +2034,60 @@ function eliminar_empleado(event)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
+                    dialogo(ajax.responseText)
+                    let elementId =id_objetivo
+                    let node=document.getElementById(elementId);
+                    node.parentNode.removeChild(node);  
+                    // tomar_datos_empleado_noactivos()      
+                }
+                if (ajax.status == 400) 
+                {
+                    ////console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    ////console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    ////console.log("500 Error interno de servidor");
+                }
+            }            
+        }
+    }
+    
+    ////console.log(padre)
+
+}
+
+function eliminar_adn(event)
+{   
+    let elemento = event.target
+    let padre = elemento.parentNode.parentNode
+    let id_objetivo = padre.id
+    // alert(padre)
+    // //console.log(id_objetivo)    
+    // let estado  = "0"
+    let datos = new FormData()
+    datos.append("id_adn",id_objetivo)
+    // datos.append("estado",estado)
+    let confirmacion = confirm("¿Esta seguro de elimiar a este administrador de la base de datos?"+"\nSe borrar toda la informacion deporvida!!!!" )
+    // confirmacion = false
+    if(confirmacion)
+    {
+        let ajax = new XMLHttpRequest()
+
+    ajax.open("POST","../controlador/eliminar_adn.php")
+
+    ajax.send(datos)
+
+    ajax.onreadystatechange =function () 
+    {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // //console.log("200 Respuesta Exitosa");
                     dialogo(ajax.responseText)
                     let elementId =id_objetivo
                     let node=document.getElementById(elementId);
@@ -2060,59 +2113,6 @@ function eliminar_empleado(event)
 
 }
 
-function eliminar_adn(event)
-{   
-    let elemento = event.target
-    let padre = elemento.parentNode.parentNode
-    let id_objetivo = padre.id
-    // alert(padre)
-    // console.log(id_objetivo)    
-    // let estado  = "0"
-    let datos = new FormData()
-    datos.append("id_adn",id_objetivo)
-    // datos.append("estado",estado)
-    let confirmacion = confirm("¿Esta seguro de elimiar a este administrador de la base de datos?"+"\nSe borrar toda la informacion deporvida!!!!" )
-    // confirmacion = false
-    if(confirmacion)
-    {
-        let ajax = new XMLHttpRequest()
-
-    ajax.open("POST","../controlador/eliminar_adn.php")
-
-    ajax.send(datos)
-
-    ajax.onreadystatechange =function () 
-    {
-            if (ajax.readyState == 4) 
-            {
-                if (ajax.status == 200) 
-                {
-                    // console.log("200 Respuesta Exitosa");
-                    dialogo(ajax.responseText)
-                    let elementId =id_objetivo
-                    let node=document.getElementById(elementId);
-                    node.parentNode.removeChild(node);  
-                    // tomar_datos_empleado_noactivos()      
-                }
-                if (ajax.status == 400) 
-                {
-                    console.log("400 El servidor no entendió la petición");
-                }
-                if (ajax.status == 404)
-                {
-                    console.log("404 Página no encontrada");
-                }
-                if (ajax.status == 500) {
-                    console.log("500 Error interno de servidor");
-                }
-            }            
-        }
-    }
-    
-    console.log(padre)
-
-}
-
 
 
 function buscar_empleado(event)
@@ -2120,7 +2120,7 @@ function buscar_empleado(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -2128,11 +2128,11 @@ function buscar_empleado(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_empleados)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let nombreE = objeto.nombreEmpleado.toLowerCase()
                     let apellidoM = objeto.apellidomEmpleado.toLowerCase()
                     let apellidoP = objeto.apellidopEmpleado.toLowerCase()
@@ -2234,7 +2234,7 @@ function buscar_empleadoNO(event)
 {
     var datos_filtradosNo = []
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -2242,11 +2242,11 @@ function buscar_empleadoNO(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_empleadosNO)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let nombreE = objeto.nombreEmpleado.toLowerCase()
                     let apellidoM = objeto.apellidomEmpleado.toLowerCase()
                     let apellidoP = objeto.apellidopEmpleado.toLowerCase()
@@ -2329,7 +2329,7 @@ function buscar_empleadoNO(event)
                         }
                     }  
                 }
-                console.log(datos_filtradosNo)
+                //console.log(datos_filtradosNo)
                 if(datos_filtradosNo.length>0)
                 {
                     datos_empleados = datos_filtradosNo
@@ -2348,7 +2348,7 @@ function buscar_empresas(event)
 {
     var datos_filtradosEmpresa = []
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -2356,11 +2356,11 @@ function buscar_empresas(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_empresas)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let rfcEmpresa = objeto.rfcEmpresa.toLowerCase()
                     let nombreEmpresa = objeto.nombreEmpresa.toLowerCase()
                     let razonsocialEmpresa = objeto.razonsocialEmpresa.toLowerCase()
@@ -2459,7 +2459,7 @@ function buscar_empresas(event)
                         }
                     }    
                 }
-                console.log(datos_filtradosEmpresa)
+                //console.log(datos_filtradosEmpresa)
                 if(datos_filtradosEmpresa.length>0)
                 {
                     datos_empleados = datos_filtradosEmpresa
@@ -2478,7 +2478,7 @@ function buscar_empresasNo(event)
 {
     var datos_filtradosEmpresaNo = []
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -2486,11 +2486,11 @@ function buscar_empresasNo(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_empresasNo)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let rfcEmpresa = objeto.rfcEmpresa.toLowerCase()
                     let nombreEmpresa = objeto.nombreEmpresa.toLowerCase()
                     let razonsocialEmpresa = objeto.razonsocialEmpresa.toLowerCase()
@@ -2589,7 +2589,7 @@ function buscar_empresasNo(event)
                         }
                     }    
                 }
-                console.log(datos_filtradosEmpresaNo)
+                //console.log(datos_filtradosEmpresaNo)
                 if(datos_filtradosEmpresaNo.length>0)
                 {
                     datos_empleados = datos_filtradosEmpresaNo
@@ -2609,7 +2609,7 @@ function buscar_empresas_peticion(event)
     var datos_filtradosPeticion= []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -2617,11 +2617,11 @@ function buscar_empresas_peticion(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_empresasPendientes)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let rfcEmpresa = objeto.rfcEmpresa.toLowerCase()
                     let nombreEmpresa = objeto.nombreEmpresa.toLowerCase()
                     let razonsocialEmpresa = objeto.razonsocialEmpresa.toLowerCase()
@@ -2720,7 +2720,7 @@ function buscar_empresas_peticion(event)
                         }
                     }    
                 }
-                console.log(datos_filtradosPeticion)
+                //console.log(datos_filtradosPeticion)
                 if(datos_filtradosPeticion.length>0)
                 {
                     datos_empleados = datos_filtradosPeticion
@@ -2739,7 +2739,7 @@ function buscar_empresas_peticion_dash(event)
 {
     var datos_filtradosPeticionDash = []
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -2747,11 +2747,11 @@ function buscar_empresas_peticion_dash(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_empresasPendientesDash)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let rfcEmpresa = objeto.rfcEmpresa.toLowerCase()
                     let nombreEmpresa = objeto.nombreEmpresa.toLowerCase()
                     let razonsocialEmpresa = objeto.razonsocialEmpresa.toLowerCase()
@@ -2850,7 +2850,7 @@ function buscar_empresas_peticion_dash(event)
                         }
                     }    
                 }
-                console.log(datos_filtradosPeticionDash)
+                //console.log(datos_filtradosPeticionDash)
                 if(datos_filtradosPeticionDash.length>0)
                 {
                     datos_empleados = datos_filtradosPeticionDash
@@ -2870,7 +2870,7 @@ function buscar_adn(event)
 {
     var datos_filtradosAdn = []
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -2878,11 +2878,11 @@ function buscar_adn(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_admin)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let nombreAdministrador = objeto.nombreAdministrador.toLowerCase()
                     let apellidomAdministrador = objeto.apellidomAdministrador.toLowerCase()
                     let apellidopAdministrador = objeto.apellidopAdministrador.toLowerCase()
@@ -2965,7 +2965,7 @@ function buscar_adn(event)
                         }
                     }  
                 }
-                console.log(datos_filtradosAdn)
+                //console.log(datos_filtradosAdn)
                 if(datos_filtradosAdn.length>0)
                 {
                     datos_empleados = datos_filtradosAdn
@@ -2984,7 +2984,7 @@ function buscar_AdnNO(event)
 {
     var datos_filtradosAdnNO = []
     let codigo_tecla = event.keyCode
-    //console.log(datos_adminNo)
+    ////console.log(datos_adminNo)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -2992,11 +2992,11 @@ function buscar_AdnNO(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_adminNo)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let nombreAdministrador = objeto.nombreAdministrador.toLowerCase()
                     let apellidomAdministrador = objeto.apellidomAdministrador.toLowerCase()
                     let apellidopAdministrador = objeto.apellidopAdministrador.toLowerCase()
@@ -3079,7 +3079,7 @@ function buscar_AdnNO(event)
                         }
                     }  
                 }
-                console.log(datos_filtradosAdnNO)
+                //console.log(datos_filtradosAdnNO)
                 if(datos_filtradosAdnNO.length>0)
                 {
                     datos_empleados = datos_filtradosAdnNO
@@ -3127,7 +3127,7 @@ function agregar_ticket()
     datos.append("prioridad",select_prioridad)
     datos.append("descripcion",txt_problematica)
 
-    //console.log(datos)
+    ////console.log(datos)
     let ajax = new XMLHttpRequest()
 
     ajax.open("POST","../controlador/agregar_ticket.php")
@@ -3140,20 +3140,20 @@ function agregar_ticket()
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
+                    // //console.log("200 Respuesta Exitosa");
                     limpiar_formulario_ticket()
                     dialogo(ajax.responseText)
                 }
                 if (ajax.status == 400) 
                 {
-                    //console.log("400 El servidor no entendió la petición");
+                    ////console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    //console.log("404 Página no encontrada");
+                    ////console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    //console.log("500 Error interno de servidor");
+                    ////console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -3167,7 +3167,7 @@ function mostrar_nombre(event)
     let valor = event.target.value.trim()
     if(valor!="")
     {
-        // //console.log(valor)
+        // ////console.log(valor)
         let datos = new FormData();
         datos.append("coincidencia",valor)
         let peticion = new XMLHttpRequest();
@@ -3180,8 +3180,8 @@ function mostrar_nombre(event)
             {
                 if (peticion.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
-                    // console.log(peticion.responseText)
+                    // //console.log("200 Respuesta Exitosa");
+                    // //console.log(peticion.responseText)
                     let datos = JSON.parse(peticion.responseText)
                     contenedor_opciones.style.display="flex"
                     contenedor_opciones.innerHTML=""                    
@@ -3191,7 +3191,7 @@ function mostrar_nombre(event)
                         {
                             let nombre = objeto.nombreEmpresa
                             let rfc = objeto.rfcEmpresa
-                            console.log(rfc)
+                            //console.log(rfc)
 
                             let opcion = document.createElement("div")
                             opcion.setAttribute("class","opcion_nombre")
@@ -3218,14 +3218,14 @@ function mostrar_nombre(event)
                 }
                 if (peticion.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (peticion.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (peticion.status == 500) {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
@@ -3248,7 +3248,7 @@ function agregar_nombres(event)
     
     let valor_nombre = elemento.innerHTML
     let valor_rfc = input.value
-    // console.log(input.value)
+    // //console.log(input.value)
 
     contenedor_rfc.value=valor_rfc
     contenecor_nombre.value= valor_nombre
@@ -3300,7 +3300,7 @@ function buscar_ticket_pendiente(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -3308,11 +3308,11 @@ function buscar_ticket_pendiente(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -3377,7 +3377,7 @@ function buscar_ticket_NoResuelto(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -3385,11 +3385,11 @@ function buscar_ticket_NoResuelto(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_NoResuelto)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -3455,7 +3455,7 @@ function buscar_ticket_Resuelto(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -3463,11 +3463,11 @@ function buscar_ticket_Resuelto(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_Resuelto)
                 {
 
-                    //console.log(objeto)
+                    ////console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -3533,7 +3533,7 @@ function buscar_ticket_pendiente_dashboard(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -3541,11 +3541,11 @@ function buscar_ticket_pendiente_dashboard(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_dashboard)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -3617,7 +3617,7 @@ function editar_ticket(event)
 
     window.open(enlace,"_blank")
 
-    //console.log(padre)
+    ////console.log(padre)
 }
 
 var check_cerrar_sesion = true
@@ -3633,7 +3633,7 @@ function cerrar_sesion()
             if(peticion.readyState == 4 && peticion.status == 200)
             {
                 let respuesta = peticion.responseText
-                console.log(respuesta)
+                //console.log(respuesta)
                 check_cerrar_sesion = false
                 if(respuesta == "Sesion cerrada")
                 {
@@ -3648,8 +3648,8 @@ function cambiar_contrasena()
 {
     let nueva_contrasena = document.getElementById("input_contrasena_nueva").value
     let confirmar_contrasena = document.getElementById("input_confirmacion_contrasena").value
-    console.log(nueva_contrasena.length)
-    console.log(confirmar_contrasena.length)
+    //console.log(nueva_contrasena.length)
+    //console.log(confirmar_contrasena.length)
     if(nueva_contrasena.length>0 && confirmar_contrasena.length>0)
     {
         if(nueva_contrasena == confirmar_contrasena)
@@ -3663,11 +3663,11 @@ function cambiar_contrasena()
                 if(peticion.readyState == 4 && peticion.status == 200)
                 {
                     let respuesta = peticion.responseText
-                    console.log(respuesta)
+                    //console.log(respuesta)
                     if(respuesta == "se cambio correctamente")
                     {
                         dialogo("Contraseña cambiada")
-                        window.location.href = "../index.php"
+                        window.location.href = "../"
                     }
                     else
                     {

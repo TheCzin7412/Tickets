@@ -10,6 +10,25 @@
     $nombreEmpresa = $resultado['nombreEmpresa'];
     $rfcEmpresa = $resultado['rfcEmpresa'];
 
+    if(isset($_SESSION['idSesion']))
+    {
+    $verificacion = $modelo->checarSesionEmpresa($_SESSION['idUsuario'],$_SESSION['idSesion']);
+    if($verificacion==$_SESSION['idSesion'])
+    {
+        echo '';
+    }
+    else
+    {
+        // header("Location: ../index.php");
+        echo "sin coincidencia";
+    }
+
+}
+else{
+    // header("Location: ../");
+    echo "no disponible";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -23,19 +42,25 @@
     <title>Empresa</title>
 </head>
 <body>
+    <?php 
+    if(isset($_COOKIE['vista-actual']))
+    {  
+         echo '<input type="hidden" id="info-cookies" value="'.$_COOKIE['vista-actual'].'">';
+    }
+    else
+    {
+         echo '<input type="hidden" id="info-cookies" value="no">';
+    }
+    ?>
 <div id="contenedor">
             <div id="menu">
                 <div id="contenedor_logo" class="seccion_menu">
                     <img src="../recursos/img/logo.png" alt="" id="logo_inicio">
+                    <img src="../recursos/img/logo_recorte.png" alt="" id="logo_inicio_menu">
                     <p class="texto"></p>
                 </div>
                 <div id="contenedor_bienvenida" class="seccion_menu">
-                    <p class="texto">Bienvenido a tu dashboard Empresa</p>
-                </div>
-                <div id="contenedor_control" class="seccion_menu">
-                    <img src="" alt="" class="imagenes_control">
-                    <img src="" alt="" class="imagenes_control">
-                    <img src="" alt="" class="imagenes_control">
+                    <p class="">Bienvenido a tu dashboard Empresa</p>
                 </div>
             </div>
             <div id="seccion_principal">
@@ -80,23 +105,22 @@
                             <!--Contenedor tabla de tickets pendientes-->
                             <div class="seccion_tabla" id="contenedor_tickets_pendientes">
                             <h1 class="titulo_seccion">Listado de tickets pendientes</h1>
-                                   <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                <div class="contenedor_busqueda">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_pendientes_empresa" onchange="tomar_datos_tickets_pendientes_empresa();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_pendiente_empresa(event);">       
@@ -115,6 +139,7 @@
                                            </tr>
                                        </table>
                                        </div>
+                                       <div id="contenedor_tabla_tickets_empresa">
                                        <table class="tablas">
                                            <thead>
                                                <tr>
@@ -141,35 +166,38 @@
                                                 <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_pendientes_empresa">Ultimo</div>
                                         </div>
                                    </div>
+                                </div>
+
                             </div>
                             
                             <!--Contenedor tabla de tickets no resueltos-->
                             <div class="seccion_tabla" id="contenedor_tickets_no_resueltos">
                             <h1 class="titulo_seccion">Listado de tickets no resueltos</h1>
-                                   <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+
+                                    <div class="contenedor_busqueda">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_NoResuelto_empresa" onchange="tomar_datos_tickets_NoResuelto_empresa();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_NoResuelto_empresa(event);">       
                                                 </div>      
                                             </div>
                                         </div>
-                                   
+
+                                    <div id="contendor_tabla_noresuelto_empresa">
                                        <table class="tablas">
                                            <thead>
                                                <tr>
@@ -195,35 +223,36 @@
                                                 <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_NoResuelto_empresa">Siguiente</div>
                                                 <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_NoResuelto_empresa">Ultimo</div>
                                         </div>
+                                    </div>
                             </div>
 
                             <!--Contenedor tabla de tickets no resueltos-->
                             <div class="seccion_tabla" id="contenedor_tickets_resuelto">
                             <h1 class="titulo_seccion">Listado de tickets resueltos</h1>
-                                   <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+
+                            <div class="contenedor_busqueda">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_Resuelto_empresa" onchange="tomar_datos_tickets_Resuelto_empresa();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
-                                            
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_Resuelto_empresa(event);">       
                                                 </div>      
                                             </div>
                                         </div>
-                                   
+
+                                    <div id="contenedor_tabla_resuelto_empresa">
                                        <table class="tablas">
                                            <thead>
                                                <tr>
@@ -249,10 +278,9 @@
                                             <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_Resuelto_empresa">Siguiente</div>
                                             <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_Resuelto_empresa">Ultimo</div>
                                         </div>
+                                </div>
                             </div>
-
-
-                            </div>
+                        </div>
                         <!-- terminar seccion dasshboard -->
                         <!-- empieza seccion ticket -->
                             <div class="seccion" id="contenedor_tickets">

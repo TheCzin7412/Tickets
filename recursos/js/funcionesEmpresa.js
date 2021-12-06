@@ -1,21 +1,29 @@
 var navegador = window.navigator.vendor || window.navigator.userAgent
 
 
+var info_cookie
+
 window.onload= function()
 {
     if(navegador.includes("Mozilla"))
     {
-        let elemento = getCookie("vista-actual")
-        mostrarVista(elemento)
+        let elemento_cookie = document.getElementById("info-cookies")
+        let cookies = elemento_cookie.value
+        //console.log(cookies)
+        info_cookie = cookies
+        mostrarVista(cookies)
     }
     if(navegador.includes("Google"))
     {
-        let cookies = document.cookie
-        // console.log(cookies)
-        datos_totales = cookies.split(";")
-        // console.log(datos_totales)
+        let elemento_cookie = document.getElementById("info-cookies")
+        let cookies = elemento_cookie.value
+        //console.log(cookies)
+        info_cookie = cookies
+        mostrarVista(cookies)
     }
 }
+
+// crear cookie
 
 // crear cookie
 
@@ -33,26 +41,27 @@ function crearCookie(metodo,url,datos)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
-                    console.log(ajax.responseText)
+                    // //console.log("200 Respuesta Exitosa");
+                    //console.log(ajax.responseText)
                     // respuesta = ajax.responseText
                     // return respuesta
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) 
                 {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
 }
+
 
 function setCookie(nombreCookie, contenido, fechaFinal) 
 {
@@ -82,6 +91,15 @@ function getCookie(nombreCookie)
 }
 
 
+function limpiar_formulario_ticket()
+{
+    let elementos = document.querySelectorAll(".input_tickets")
+    for(let i =0; i<elementos.length;i++)
+    {
+        elementos[i].value=""
+    }
+}
+
 let contenedores = document.querySelectorAll(".seccion")
 let contenedor_dashboard= document.querySelectorAll(".seccion_tabla")
 
@@ -98,6 +116,11 @@ function mostrarVista(elemento)
     ocultarSecciones()
     let contenedor = document.getElementById(elemento)
     contenedor.style.display="flex"
+
+    if(elemento=="contenedor_dashboard")
+    {
+        tomar_datos_tickets_pendientes_empresa();    
+    }
 }
 
 // mostrarVista(contenedores[0])
@@ -110,65 +133,52 @@ function mostrarSeccion(event)
     let regexTicket = /ticket/
     let regexContrasena = /contrasena/
 
-    // console.log(navegador)
+    // //console.log(navegador)
 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexDashboard.test(identificador))
     {
-        // console.log("coincide dashboard")
+        // //console.log("coincide dashboard")
         let nombre_elemento = "contenedor_dashboard"
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes_empresa()
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+        info_cookie = nombre_elemento
+
+        // alert("Es mozilla")
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
         
     }
     if(regexContrasena.test(identificador))
     {
-        //console.log("coincide contrasena")
+        ////console.log("coincide contrasena")
         let nombre_elemento = "contenedor_cambio_contrasena"
         mostrarVista(nombre_elemento) 
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+        info_cookie = nombre_elemento
+
+        // alert("Es mozilla")
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        
     }
 
     if(regexTicket.test(identificador))
     {
-        //console.log("coincide contrasena")
+        ////console.log("coincide contrasena")
         let nombre_elemento = "contenedor_tickets"
         mostrarVista(nombre_elemento) 
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+        info_cookie = nombre_elemento
+
+        // alert("Es mozilla")
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
+        
     }
 }
 
@@ -205,24 +215,24 @@ function mostrarSeccionDashboard(event)
     let regexResuelto = /resuelto/
 
 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexPendiente.test(identificador))
     {
-        //console.log("coincide pendiente")
+        ////console.log("coincide pendiente")
         let nombre_elemento = "contenedor_tickets_pendientes"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_tickets_pendientes_empresa()
     }
     if(regexNoResuelto.test(identificador))
     {
-        //console.log("coincide no resuelto")
+        ////console.log("coincide no resuelto")
         let nombre_elemento = "contenedor_tickets_no_resueltos"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_tickets_NoResuelto_empresa()
     }
     if(regexResuelto.test(identificador))
     {
-        //console.log("coincide resuelto")
+        ////console.log("coincide resuelto")
         let nombre_elemento = "contenedor_tickets_resuelto"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_tickets_Resuelto_empresa()
@@ -242,7 +252,7 @@ function editar_ticket(event)
 
     window.open(enlace,"_blank")
 
-    //console.log(padre)
+    ////console.log(padre)
 }
 
 
@@ -251,7 +261,7 @@ function buscar_ticket_pendiente_empresa(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -259,11 +269,11 @@ function buscar_ticket_pendiente_empresa(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_empresa)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -328,7 +338,7 @@ function buscar_ticket_NoResuelto_empresa(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -336,11 +346,11 @@ function buscar_ticket_NoResuelto_empresa(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_NoResuelto_empresa)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -406,7 +416,7 @@ function buscar_ticket_Resuelto_empresa(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -414,11 +424,11 @@ function buscar_ticket_Resuelto_empresa(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_Resuelto_empresa)
                 {
 
-                    //console.log(objeto)
+                    ////console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -492,7 +502,7 @@ function cerrar_sesion()
             if(peticion.readyState == 4 && peticion.status == 200)
             {
                 let respuesta = peticion.responseText
-                console.log(respuesta)
+                //console.log(respuesta)
                 check_cerrar_sesion = false
                 if(respuesta == "Sesion cerrada")
                 {
@@ -535,14 +545,15 @@ function quitar_alerta(event)
     let id_elemento = padre.id
     let borrado = document.getElementById(id_elemento)
     borrado.parentNode.removeChild(borrado)
+    window.location.reload()
 }
 
 function cambiar_contrasena()
 {
-    let nueva_contrasena = document.getElementById("input_contrasena_nueva").value
-    let confirmar_contrasena = document.getElementById("input_confirmacion_contrasena").value
-    console.log(nueva_contrasena.length)
-    console.log(confirmar_contrasena.length)
+    let nueva_contrasena = document.getElementById("input_contrasena_nueva_empresa").value.trim()
+    let confirmar_contrasena = document.getElementById("input_confirmacion_contrasena_empresa").value.trim()
+    //console.log(nueva_contrasena.length)
+    //console.log(confirmar_contrasena.length)
     if(nueva_contrasena.length>0 && confirmar_contrasena.length>0)
     {
         if(nueva_contrasena == confirmar_contrasena)
@@ -556,11 +567,11 @@ function cambiar_contrasena()
                 if(peticion.readyState == 4 && peticion.status == 200)
                 {
                     let respuesta = peticion.responseText
-                    console.log(respuesta)
+                    //console.log(respuesta)
                     if(respuesta == "se cambio correctamente")
                     {
                         dialogo("Contraseña cambiada")
-                        window.location.href = "../index.php"
+                        window.location.href = "../"
                     }
                     else
                     {
@@ -577,6 +588,70 @@ function cambiar_contrasena()
     else
     {
         dialogo("Campos vacios")
+    }
+}
+
+/////seccion tickets
+var btn_agregar_ticket= document.getElementById("btn_agregar_ticket")
+function agregar_ticket()
+{
+    
+    var input_RFCTicket = document.getElementById("input_RFCTicket").value.trim()
+    var input_nombreTicket = document.getElementById("input_nombreTicket").value.trim()
+    var select_servicio = document.getElementById("select_servicio").value
+    var select_prioridad = document.getElementById("select_prioridad").value
+    var txt_problematica = document.getElementById("txt_problematica").value
+
+    if( 
+        input_RFCTicket.length ==0 ||
+        input_nombreTicket.length ==0 ||
+        select_servicio.length ==0 ||
+        select_prioridad.length ==0 ||
+        txt_problematica.length ==0 
+    ) 
+    {
+        dialogo("Los campos se encuentran vacio, favor de ingresar todos los datos...")
+    }
+    else
+    {
+    let datos = new FormData()
+
+    datos.append("nombreEmpresa",input_nombreTicket)
+    datos.append("rfcEmpresa",input_RFCTicket)
+    datos.append("tipoServicio",select_servicio)
+    datos.append("prioridad",select_prioridad)
+    datos.append("descripcion",txt_problematica)
+
+    ////console.log(datos)
+    let ajax = new XMLHttpRequest()
+
+    ajax.open("POST","../controlador/agregar_ticket.php")
+
+    ajax.send(datos)
+
+    ajax.onreadystatechange =function () 
+    {
+            if (ajax.readyState == 4) 
+            {
+                if (ajax.status == 200) 
+                {
+                    // //console.log("200 Respuesta Exitosa");
+                    limpiar_formulario_ticket()
+                    dialogo(ajax.responseText)
+                }
+                if (ajax.status == 400) 
+                {
+                    ////console.log("400 El servidor no entendió la petición");
+                }
+                if (ajax.status == 404)
+                {
+                    ////console.log("404 Página no encontrada");
+                }
+                if (ajax.status == 500) {
+                    ////console.log("500 Error interno de servidor");
+                }
+            }            
+        }
     }
 }
 

@@ -42,7 +42,6 @@
             if(contrasena_nueva.length ==0 || contrasena_nueva2.length ==0) 
             {
                 dialogo("Los campos se encuentran vacio, favor de ingresar todos los datos...")
-                location.reload() 
             }
             else
             {

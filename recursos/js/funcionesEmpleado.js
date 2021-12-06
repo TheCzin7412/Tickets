@@ -1,4 +1,3 @@
-
 var navegador = window.navigator.vendor || window.navigator.userAgent
 
 
@@ -8,20 +7,24 @@ window.onload= function()
 {
     if(navegador.includes("Mozilla"))
     {
-        let elemento = getCookie("vista-actual")
-        console.log(elemento)
-        info_cookie = elemento
-        mostrarVista(elemento)
+        let elemento_cookie = document.getElementById("info-cookies")
+        let cookies = elemento_cookie.value
+        //console.log(cookies)
+        info_cookie = cookies
+        mostrarVista(cookies)
     }
     if(navegador.includes("Google"))
     {
         let elemento_cookie = document.getElementById("info-cookies")
         let cookies = elemento_cookie.value
-        console.log(cookies)
+        //console.log(cookies)
         info_cookie = cookies
         mostrarVista(cookies)
     }
 }
+
+// crear cookie
+
 // crear cookie
 
 function crearCookie(metodo,url,datos)
@@ -38,26 +41,27 @@ function crearCookie(metodo,url,datos)
             {
                 if (ajax.status == 200) 
                 {
-                    // console.log("200 Respuesta Exitosa");
-                    console.log(ajax.responseText)
+                    // //console.log("200 Respuesta Exitosa");
+                    //console.log(ajax.responseText)
                     // respuesta = ajax.responseText
                     // return respuesta
                 }
                 if (ajax.status == 400) 
                 {
-                    console.log("400 El servidor no entendió la petición");
+                    //console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    console.log("404 Página no encontrada");
+                    //console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) 
                 {
-                    console.log("500 Error interno de servidor");
+                    //console.log("500 Error interno de servidor");
                 }
             }            
         }
 }
+
 
 function setCookie(nombreCookie, contenido, fechaFinal) 
 {
@@ -87,6 +91,7 @@ function getCookie(nombreCookie)
 }
 
 
+
 let contenedores = document.querySelectorAll(".seccion")
 let contenedor_dashboard= document.querySelectorAll(".seccion_tabla")
 
@@ -105,9 +110,9 @@ function mostrarVista(elemento)
     ocultarSecciones()
     let contenedor = document.getElementById(elemento)
     contenedor.style.display="flex"
-    if(elemento=="contenedor_tickets")
+    if(elemento=="contenedor_dashboard")
     {
-        tomar_datos_tickets_pendientes();
+        tomar_datos_tickets_pendientes_empleado();    
     }
 }
 
@@ -121,48 +126,36 @@ function mostrarSeccion(event)
     let regexDashboard = /dashboard/
     let regexContrasena = /contrasena/
 
-    // console.log(navegador)
+    // //console.log(navegador)
 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexDashboard.test(identificador))
     {
-        // console.log("coincide dashboard")
+        // //console.log("coincide dashboard")
         let nombre_elemento = "contenedor_dashboard"
         mostrarVista(nombre_elemento)
         tomar_datos_tickets_pendientes_empleado()
         info_cookie = nombre_elemento
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+
+        // alert("Es mozilla")
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
         
     }
     if(regexContrasena.test(identificador))
     {
-        //console.log("coincide contrasena")
+        ////console.log("coincide contrasena")
         let nombre_elemento = "contenedor_cambio_contrasena"
         mostrarVista(nombre_elemento) 
         info_cookie = nombre_elemento
-        if(navegador.includes("Mozilla"))
-        {
-            // alert("Es mozilla")
-            setCookie("vista-actual",nombre_elemento,1)
-        }
-        if(navegador.includes("Google"))
-        {
-            // alert("Es Google")
-            let datos = new FormData()
-            datos.append("valor",nombre_elemento);
-            crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
-        }
+
+        // alert("Es mozilla")
+        let datos = new FormData()
+        datos.append("valor",nombre_elemento);
+        setCookie("vista-actual",nombre_elemento,1)
+        crearCookie("POST","../controlador/crear_cookie_vista.php",datos)
     }
 }
 
@@ -199,24 +192,24 @@ function mostrarSeccionDashboard(event)
     let regexResuelto = /resuelto/
 
 
-    //console.log(identificador)
+    ////console.log(identificador)
     if(regexPendiente.test(identificador))
     {
-        //console.log("coincide pendiente")
+        ////console.log("coincide pendiente")
         let nombre_elemento = "contenedor_tickets_pendientes"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_tickets_pendientes_empleado()
     }
     if(regexNoResuelto.test(identificador))
     {
-        //console.log("coincide no resuelto")
+        ////console.log("coincide no resuelto")
         let nombre_elemento = "contenedor_tickets_no_resueltos"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_tickets_NoResuelto_empleado()
     }
     if(regexResuelto.test(identificador))
     {
-        //console.log("coincide resuelto")
+        ////console.log("coincide resuelto")
         let nombre_elemento = "contenedor_tickets_resuelto"
         mostrarVistaDashboard(nombre_elemento)
         tomar_datos_tickets_Resuelto_empleado()
@@ -236,7 +229,7 @@ function editar_ticket(event)
 
     window.open(enlace,"_blank")
 
-    //console.log(padre)
+    ////console.log(padre)
 }
 
 
@@ -245,7 +238,7 @@ function buscar_ticket_pendiente_empleado(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -253,11 +246,11 @@ function buscar_ticket_pendiente_empleado(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_empleado)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -322,7 +315,7 @@ function buscar_ticket_NoResuelto_empleado(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -330,11 +323,11 @@ function buscar_ticket_NoResuelto_empleado(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_NoResuelto_empleado)
                 {
 
-                    console.log(objeto)
+                    //console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -400,7 +393,7 @@ function buscar_ticket_Resuelto_empleado(event)
     var datos_filtrados = []
 
     let codigo_tecla = event.keyCode
-    // console.log(datos_empleados)
+    // //console.log(datos_empleados)
         if(codigo_tecla==13)
         {
             let valor_buscar = event.target.value.trim()
@@ -408,11 +401,11 @@ function buscar_ticket_Resuelto_empleado(event)
             if(valor_buscar.length>0)
             {
                 // alert("funciona")
-                // console.log(valor_buscar)
+                // //console.log(valor_buscar)
                 for (let objeto of datos_tickets_Resuelto_empleado)
                 {
 
-                    //console.log(objeto)
+                    ////console.log(objeto)
                     let referenciaTicket = objeto.referencia.toLowerCase()
                     let nombreEmpre = objeto.nombreEmpresa.toLowerCase()
                     let rfcEmpre = objeto.rfcEmpresa.toLowerCase()
@@ -485,7 +478,7 @@ function cerrar_sesion()
             if(peticion.readyState == 4 && peticion.status == 200)
             {
                 let respuesta = peticion.responseText
-                console.log(respuesta)
+                //console.log(respuesta)
                 check_cerrar_sesion = false
                 if(respuesta == "Sesion cerrada")
                 {
@@ -500,8 +493,8 @@ function cambiar_contrasena()
 {
     let nueva_contrasena = document.getElementById("input_contrasena_nueva").value.trim()
     let confirmar_contrasena = document.getElementById("input_confirmacion_contrasena").value.trim()
-    console.log(nueva_contrasena)
-    console.log(confirmar_contrasena)
+    //console.log(nueva_contrasena)
+    //console.log(confirmar_contrasena)
     if(nueva_contrasena.length>0 && confirmar_contrasena.length>0)
     {
         if(nueva_contrasena == confirmar_contrasena)
@@ -515,7 +508,7 @@ function cambiar_contrasena()
                 if(peticion.readyState == 4 && peticion.status == 200)
                 {
                     let respuesta = peticion.responseText
-                    console.log(respuesta)
+                    //console.log(respuesta)
                     if(respuesta == "se cambio correctamente")
                     {
                         dialogo("Contraseña cambiada")
@@ -571,4 +564,5 @@ function quitar_alerta(event)
     let id_elemento = padre.id
     let borrado = document.getElementById(id_elemento)
     borrado.parentNode.removeChild(borrado)
+    window.location.reload()
 }

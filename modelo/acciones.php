@@ -129,7 +129,8 @@ class Acciones
     public function agregar_ticket($id,$idSesion,$nombreEmpresa,$rfcEmpresa,$tipoServicio,$prioridad,$descripcion)
     {
         $verificacion  = $this->checarSesion($id,$idSesion);
-        if($verificacion==$idSesion)
+        $verificacionEmpresa = $this -> checarSesionEmpresa($id,$idSesion);
+        if($verificacion==$idSesion || $verificacionEmpresa == $idSesion)
         {
             $strVacio= " ";
             $fechaReg =date("d/m/Y");

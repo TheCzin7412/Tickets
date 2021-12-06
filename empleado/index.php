@@ -1,22 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../recursos/css/estilos.css" type="text/css">
-    <link rel="shortcut icon" href="../recursos/img/logo.ico" type="image/x-icon">
-    <title>Empleado</title>
-</head>
-<body>
-<div id="contenedor">
+<?php
+include_once("../modelo/acciones.php");
+// session_start();
+if(isset($_SESSION['idSesion']))
+{
+    $modelo = new Acciones();
+    $verificacion = $modelo->checarSesionEmpleado($_SESSION['idUsuario'],$_SESSION['idSesion']);
+    if($verificacion==$_SESSION['idSesion'])
+    {
+        echo '
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="../recursos/css/estilos.css" type="text/css">
+            <link rel="shortcut icon" href="../recursos/img/logo.ico" type="image/x-icon">
+            <title>Empleado</title>
+        </head>
+        <body> ';
+
+    if(isset($_COOKIE['vista-actual']))
+    {  
+         echo '<input type="hidden" id="info-cookies" value="'.$_COOKIE['vista-actual'].'">';
+    }
+    else
+    {
+         echo '<input type="hidden" id="info-cookies" value="no">';
+    }
+    echo'
+        <div id="contenedor">
             <div id="menu">
                 <div id="contenedor_logo" class="seccion_menu">
                     <img src="../recursos/img/logo.png" alt="" id="logo_inicio">
-                    <p class="texto"></p>
+                    <img src="../recursos/img/logo_recorte.png" alt="" id="logo_inicio_menu">
                 </div>
                 <div id="contenedor_bienvenida" class="seccion_menu">
-                    <p class="texto">Bienvenido a tu dashboard empleado</p>
+                    <p>Bienvenido a tu dashboard empleado</p>
                 </div>
             </div>
             
@@ -60,22 +80,20 @@
                             <div class="seccion_tabla" id="contenedor_tickets_pendientes">
                                    <h1 class="titulo_seccion">Listado de tickets pendientes</h1>
                                    <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_pendientes_empleado" onchange="tomar_datos_tickets_pendientes_empleado();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
                                             </div>
-                                            
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_pendiente_empleado(event);">       
@@ -94,6 +112,7 @@
                                            </tr>
                                        </table>
                                        </div>
+                                       <div id="contenedor_tabla_ticket_empleado">
                                        <table class="tablas">
                                            <thead>
                                                <tr>
@@ -119,35 +138,38 @@
                                                 <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_pendientes_empleado">Siguiente</div>
                                                 <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_pendientes_empleado">Ultimo</div>
                                         </div>
-                                   </div>
-                               </div>
+                                    </div>
+
+                                </div>
+                            </div>
                             
                             <!--Contenedor tabla de tickets no resueltos-->
                             <div class="seccion_tabla" id="contenedor_tickets_no_resueltos">
                             <h1 class="titulo_seccion">Listado de tickets no resueltos</h1>
-                                   <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                <div class="contenedor_busqueda">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_NoResuelto_empleado" onchange="tomar_datos_tickets_NoResuelto_empleado();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
-                                            </div>
-                                            
+                                            </div>                                            
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_NoResuelto_empleado(event);">       
                                                 </div>      
                                             </div>
                                         </div>
+
+                                   <div id="contenedor_tabla_ticketsNo_empleado">
+
                                    
                                        <table class="tablas">
                                            <thead>
@@ -174,35 +196,35 @@
                                                 <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_NoResuelto_empleado">Siguiente</div>
                                                 <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_NoResuelto_empleado">Ultimo</div>
                                         </div>
+                                    </div>        
                             </div>
 
                             <!--Contenedor tabla de tickets no resueltos-->
                             <div class="seccion_tabla" id="contenedor_tickets_resuelto">
                             <h1 class="titulo_seccion">Listado de tickets resueltos</h1>
-                                   <div class="contenedor_busqueda">
-                                            <div class="Cantidad_lista">
+                                <div class="contenedor_busqueda">
+                                            <div class="cantidad_lista">
                                                 <div class="lista1">
-                                                    <p>Cantidad de tickets</p>
+                                                    <p class="titulo_cantidad">Cantidad de tickets</p>
                                                 </div>
                                                 <div class="lista2">
                                                     <select name="" class="select_cantidad" id="cantidad_tickets_Resuelto_empleado" onchange="tomar_datos_tickets_Resuelto_empleado();"> 
                                                         <option value="5">5</option> 
                                                         <option value="10">10</option>
-                                                        <option value="15">15</option> 
                                                     </select>
                                                 </div>
-                                            </div>
-                                            
+                                            </div>                                            
                                             <div class="barra_buscadora">
                                                 <div class="buscador1">
-                                                    <p>Buscar:</p>
+                                                    <p class="titulo_buscar">Buscar:</p>
                                                 </div>
                                                 <div class="buscador2">
                                                     <input type="text" class="input_barra_buscadora" placeholder="Buscar..." onkeypress="buscar_ticket_Resuelto_empleado(event);">       
                                                 </div>      
                                             </div>
                                         </div>
-                                   
+
+                                    <div id="contendor_tabla_ticketResuelto_empleado">
                                        <table class="tablas">
                                            <thead>
                                                <tr>
@@ -228,6 +250,7 @@
                                             <div class="controladores_paginador" id="boton_paginador_siguiente_tickets_Resuelto_empleado">Siguiente</div>
                                             <div class="controladores_paginador" id="boton_paginador_ultimo_tickets_Resuelto_empleado">Ultimo</div>
                                         </div>
+                                    </div>
                             </div>
 
                             <!--Contenedor tabla de tickets no resueltos-->
@@ -286,3 +309,19 @@
 
     </body>
 </html>
+        ';
+    }
+    else
+    {
+        header("Location: ../");
+        return ("sin coincidencia");
+    }
+
+}
+else{
+    header("Location: ../");
+    return("no disponible");
+}
+?>
+
+

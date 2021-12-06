@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+<?php
+include_once("../modelo/acciones.php");
+// session_start();
+if(isset($_SESSION['idSesion']))
+{
+    $modelo = new Acciones();
+    $verificacion = $modelo->checarSesion($_SESSION['idUsuario'],$_SESSION['idSesion']);
+    if($verificacion==$_SESSION['idSesion'])
+    {
+        echo '
+        <!DOCTYPE html>
    <html lang="es-Mx">
        <head>
            <meta charset="UTF-8">
@@ -8,8 +18,8 @@
            <link rel="stylesheet" href="../recursos/css/estilos.css" type="text/css">
            <link rel="shortcut icon" href="../recursos/img/logo.ico" type="image/x-icon">
        </head>
-       <body>
-           <?php
+       <body>';
+           
            if(isset($_COOKIE['vista-actual']))
            {  
                 echo '<input type="hidden" id="info-cookies" value="'.$_COOKIE['vista-actual'].'">';
@@ -18,7 +28,7 @@
            {
                 echo '<input type="hidden" id="info-cookies" value="no">';
            }
-           ?>
+        echo '
            <div id="contenedor">
                <div id="menu">
                    <div id="contenedor_logo" class="seccion_menu">
@@ -412,15 +422,11 @@
                                        </div>
                                        <div class="agregarTickets1">
                                            <p>RFC Empresa:</p>
-                                           <input type="text" id="input_RFCTicket" class="input_tickets" placeholder="RFC Empresa">
+                                           <input type="text" id="input_RFCTicket" class="input_tickets" placeholder="RFC Empresa" disabled>
                                            </div>
                                            
                                    </div>
                                    <div class="contendor_from_tickets">
-                                        <!-- <div class="agregarTickets">
-                                            <p>Fecha y Hora:</p>
-                                           <input type="date" id="input_fecha" class="input_time">
-                                       </div> -->
                                         <div class="agregarTickets1">
                                             <p>Tipo de servicio:</p>
                                            <select id="select_servicio" class="input_tickets">
@@ -1141,3 +1147,18 @@
 
     </body>
 </html>
+        ';
+    }
+    else
+    {
+        header("Location: ../");
+        echo "sin coincidencia";
+    }
+
+}
+else{
+    header("Location: ../");
+    echo "no disponible";
+}
+?>
+
