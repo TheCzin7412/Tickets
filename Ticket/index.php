@@ -27,9 +27,16 @@ if(isset($_GET['info']))
     <input type="hidden" id="id_ticket" value="<?php echo $id_informacion;?>">
     <input type="hidden" id="id_nombre" value="<?php echo $_SESSION['nombreUsuario'];?>">
     <input type="hidden" id="id_tipo" value="<?php echo $_SESSION['tipoUsuario'];?>">
+    <input type="hidden" id="id_referencia" value="<?php echo $datos['referencia'];?>">
     
     <div class="contenedor_menu">
-       <p class="boton_menu">Descargar Reporte</p>
+        <?php 
+            if($datos['estatus'] == "0" || $datos['estatus'] == "2")
+            {
+                echo '<p class="boton_menu" onclick="descargar_ticket();">Descargar Reporte</p>';
+            }
+        
+        ?>
        <?php
             if($tipo == "EMPLEADO" || $tipo == "ADMINISTRADOR")
             {
@@ -86,9 +93,23 @@ if(isset($_GET['info']))
                 <div class="contenedor_info_item">
                         <div class="info_item">
                             <p class="titulo_item"><strong>Descripcion del problema</strong></p>
-                            <p class="text_item"><?php echo $datos['descripcion'];?></p>
-                        </div>
+                            <p class="text_item1"><?php echo $datos['descripcion'];?></p>
+                        </div>     
                 </div>
+                <?php 
+                    if($datos['estatus'] == "0" || $datos['estatus'] == "2")
+                    {
+                        echo '<div class="contenedor_info_item">
+                        <div class="info_item">
+                            <p class="titulo_item"><strong>Empleado quien cerro el ticket</strong></p>
+                            <p class="text_item1">';
+                            echo $datos['empleadoCierre'];
+                            echo'</p>
+                        </div>
+                        </div>';
+                    }
+                ?> 
+                
                 </div>
                 <div class="lados_contenedor">
                     <div class="contenedor_info_item">
@@ -97,7 +118,24 @@ if(isset($_GET['info']))
                                 <!-- <p class="text_item">Comentario - Admin - 21.12.21</p> -->
                                 <table>
                                     <tr>
-                                        <?php echo $datos['comentarios'];?>
+                                        
+                                        <?php
+                                        $com =  $datos['comentarios'];
+                                        $arrayComentario = explode("<br>",$com);
+                                        $arrayComentario = array_filter($arrayComentario);
+                                        echo '<pre>';
+                                        //var_dump($arrayComentario);
+                                        echo '</pre>';
+                                        for($i = 0; $i < count($arrayComentario); $i++)
+                                        {
+                                            $cadenaComentario = '<p class="text_item1">'.str_replace("****"," ",$arrayComentario[$i]).'</p>';
+                                            echo $cadenaComentario;
+                                            
+                                        }
+                                        //echo count($arrayComentario);
+
+                                        //echo str_replace("****"," ",$com);
+                                        ?>
                                     </tr>
                                 </table>
                             </div>
@@ -110,10 +148,9 @@ if(isset($_GET['info']))
                                         echo '
                                         <p class="titulo_item"><strong> Crear Comentario</strong></p>
                                         <textarea name="" id="textarea_comentario" cols="30" rows="10"></textarea>
-                                        <buttom class="boton" onclick="agregar_comentario();">Comentar</buttom>
+                                        <buttom class="boton_alerta" onclick="agregar_comentario();">Comentar</buttom>
                                         ';
                                     }
-
                                 ?>
                                 
                             </div>

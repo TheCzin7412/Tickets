@@ -597,7 +597,6 @@ function agregar_empleado()
     var input_puesto_empleado = document.getElementById("input_puesto_empleado").value.trim()
     var input_correo_empleado = document.getElementById("input_correo_empleado").value.trim()
     var input_contrasena_empleado = document.getElementById("input_contrasena_empleado").value.trim()
-    var select_tipo_empleado = document.getElementById("select_tipo_empleado").value
 
 
     if( input_nombre_empleado.length==0 || 
@@ -609,8 +608,7 @@ function agregar_empleado()
         input_telefono_empleado.length==0 ||  
         input_puesto_empleado.length==0 ||
         input_correo_empleado.length==0 ||
-        input_contrasena_empleado.length==0 ||
-        select_tipo_empleado == 0) 
+        input_contrasena_empleado.length==0) 
     {
         dialogo("Los campos se encuentran vacio, favor de ingresar todos los datos...")
     }
@@ -628,7 +626,6 @@ function agregar_empleado()
        datos.append("puestoEmpleado",input_puesto_empleado)
        datos.append("correoEmpleado",input_correo_empleado)
        datos.append("contrasenaEmpleado",input_contrasena_empleado)
-       datos.append("tipo_usuario",select_tipo_empleado)
 
 
     //    console.log(select_tipo_empleado)

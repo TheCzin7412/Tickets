@@ -13,10 +13,9 @@ $telefonoEmpleado = $_POST['telefonoEmpleado'];
 $puestoEmpleado = $_POST['puestoEmpleado'];
 $correoEmpleado = $_POST['correoEmpleado'];
 $contrasenaEmpleado = $_POST['contrasenaEmpleado'];
-$tipo_usuario = $_POST['tipo_usuario'];
 
 $modelo = new Acciones();
-$registrar_empleado = $modelo->agregar_empleado($idUsuario,$idSesion,$nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado,$tipo_usuario);
+$registrar_empleado = $modelo->agregar_empleado($idUsuario,$idSesion,$nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado);
 echo $registrar_empleado;
 //var_dump($registrar_empleado);
 

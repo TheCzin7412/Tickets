@@ -47,7 +47,7 @@ function tomar_datos_empleado()
         }   
 }
 
-// agregar evento a botones de paginacion
+//agregar evento a botones de paginacion
 
 boton_siguiente.addEventListener("click", function(){
     pagina_actual_empleados_activos++

@@ -238,5 +238,9 @@
     }
     .contenedor_general_formulario{
         margin-top: 10px;
-    }    
+    }
+    #opciones_inicio_sesion{
+        margin-top: 10px;
+    }   
+    
 }

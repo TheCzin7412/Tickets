@@ -29,7 +29,7 @@ function agregar_comentario()
     let fecha_actual = dia+"/"+mes+"/"+anio+" "+hora+":"+minutos+":"+segundos
 
 
-    let cadena_comentario = '<tr><td class="text_item" style ="border:none;">'+valor+" || "+usuario+" "+tipo+" "+fecha_actual+'</td></tr>'
+    let cadena_comentario = valor+" ||****"+usuario+"****"+tipo+"****"+fecha_actual+'<br>'
 
     let datos= new FormData()
     datos.append("comentario",cadena_comentario);
@@ -82,7 +82,7 @@ function dialogo(mensaje)
     dialogo_mensaje.innerHTML=mensaje
 
     let boton  = document.createElement("div")
-    boton.setAttribute("class","boton")
+    boton.setAttribute("class","boton_alerta")
     boton.setAttribute("onclick","quitar_alerta(event);")
     boton.innerHTML="Aceptar"
 
@@ -157,7 +157,13 @@ function cerrar_alerta(event)
     console.log(input_selector)
     console.log(input_comentario)
     console.log(input_ticket)
-    
+
+    if(input_selector.length == 0 || input_comentario == 0)
+    {
+        dialogo("Ingrese el motivo del cierre de ticket y la justificacion del cierre.")
+    }
+    else
+    {
     let datos= new FormData()
     datos.append("id_ticket",input_ticket);
     datos.append("comentario",input_comentario);
@@ -194,12 +200,21 @@ function cerrar_alerta(event)
                 {
                     console.log("500 Error interno de servidor");
                 }
-            }            
-        }
+            }
+        }            
+    }
 
     let elemento = event.target
     let padre = elemento.parentNode.parentNode
     let id_elemento = padre.id
     let borrado = document.getElementById(id_elemento)
     borrado.parentNode.removeChild(borrado)
+}
+
+
+function descargar_ticket()
+{
+    let referencia = document.getElementById("id_ticket")
+    let valor = referencia.value
+    window.location.href = "../controlador/crear_pdf.php?token="+valor
 }

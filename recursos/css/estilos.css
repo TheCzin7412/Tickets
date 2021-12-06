@@ -94,19 +94,19 @@ gris 6E6D6A
 #contenedor_logo
 {
     display: flex;
-    width: 30%;
+    width: 20%;
     height: 100%;
     margin-left: 10px;
     justify-content:flex-start;
-    align-items: flex-start;
+    align-items: center;
 }
 #contenedor_bienvenida
 {
     display:flex;
-    width: 70%;
+    width: 80%;
     height: 100%;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     
 }
 
@@ -130,7 +130,7 @@ gris 6E6D6A
 {
     display: flex;
     width: 15%;
-    height: 100%;
+    height:100%;
     flex-direction: column;
 }
 
@@ -839,7 +839,7 @@ Dashboard realizacion de prueba
     display: none;
     width: 100%;
     height: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
 }
@@ -890,6 +890,7 @@ Dashboard realizacion de prueba
     height: 30px;
     border: solid 1px var(--colorGris);
     padding-left: 10px;
+    text-align: center;
     font-size: var(--tamanoTexto);
     font-family: var(--tipogrfiaTexto);
 }
@@ -924,9 +925,23 @@ Dashboard realizacion de prueba
     align-items: center;
     flex-direction: column;
 }
+#id_comentario{
+    width: 90%;
+    height: 100px;
+    padding: 5px;
+    border:solid 1.5px var(--colorGris);
+}
+#id_comentario:hover{
+    border: solid 1.5px var(--colorAzul);
+    border-radius: 7px;
+    background: var(--colorBlanco);
+    color: var(--colorNegro);
+    transition: all .06s ease-in-out;
+    outline: none;
+}
 
 #txt_problematica{
-    width: 60%;
+    width: 70%;
     height: 100%;
     padding: 5px;
     border:solid 1.5px var(--colorGris);
@@ -941,8 +956,7 @@ Dashboard realizacion de prueba
 }
 
 #txt_cerrar{
-    margin-top: 15px;
-    
+    margin-top: 15px;    
     width: 90%;
     height: 100px;
     border:solid 1.5px var(--colorGris);
@@ -1149,15 +1163,13 @@ Dashboard realizacion de prueba
     width: 100%;
     height: 100%;
     justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
+    align-items: flex-start;
 }
 #contenedor_formulario_cambio_contrasena{
     display: flex;
     width: 100%;
     height: 30%;
-    margin-top:40px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
 }
@@ -1218,7 +1230,7 @@ Dashboard realizacion de prueba
 #contenedor_general_agregar_administrador{
     display: flex;
     width: 100%;
-    height: 80%;
+    height: auto;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
@@ -1233,7 +1245,7 @@ Dashboard realizacion de prueba
     background: var(--colorAzul);
     color: var(--colorBlanco);
 }
-.boton_alerta:hover
+.boton_alerta:hover 
 {
     border: solid 2px var(--colorAzul);
     border-radius: 25px;
@@ -1306,7 +1318,7 @@ Dashboard realizacion de prueba
     {
         width: 100%;
     }
-    .titulo_cantidad, .titulo_buscar,.parrafo_contador, #zoom_empleados_activos,.buscador2
+    .titulo_cantidad, .titulo_buscar,.parrafo_contador,.buscador2
     {
         display: none;
     }
@@ -1331,25 +1343,27 @@ Dashboard realizacion de prueba
         padding: 10px;
     }
 
-    #contenedor_tablas_tickets_pendientes,#contenedor_tabla_peticion,#contenedor_tablas_peticiones,#contenedor_tablas_tickets_seccion,#contenedor_tablas_tickets_seccion,#contenedor_tablas_ticketsNo,#contenedor_tabla_empresas_activas,#contenedor_tabla_empresas_noactivas,#contenedor_tabla_peticion_empresas,#contenedor_tabla_empleado_activas,#contenedor_tabla_empleado_noactivo,#contenedor_tabla_administradores_activo,#contenedor_tabla_administradores_noactivo
+    #contenedor_tablas_tickets_pendientes,#contenedor_tabla_peticion,#contenedor_tablas_peticiones, #contenedor_tablas_tickets_seccion, #contenedor_tablas_ticketsNo, #contenedor_tabla_empresas_activas,#contenedor_tabla_empresas_noactivas,#contenedor_tabla_peticion_empresas,#contenedor_tabla_empleado_activas,#contenedor_tabla_empleado_noactivo,#contenedor_tabla_administradores_activo,#contenedor_tabla_administradores_noactivo
     {
         overflow-x: auto;
     }
     .input_tickets{
-        width: 100px;
-        font-size: 12px;
+        width: 270px;
+        font-size: 11px;
+    }
+    #id_comentario{
+        width: 270px;
     }
     .boton{
         width: 200px;
         border-radius: 20px;
+        font-size: 11px;
     }
-    .contenedor_general_formulario{
+    .contenedor_general_formulario,.contenedor_general_formulario_administrador{
         width: auto;
     }
-    .input_text_empleado{
-        font-size: 10px;
+    .input_text_empleado, .input_text_administrador,.input_cambio_contrasena,.input_tickets{
+        font-size: 11px;
         text-align: start;
     }
-
-
 }

@@ -64,13 +64,11 @@
                         }
                         else
                         {
-                            location.reload() 
                             dialogo(respuesta);
                         }
                     }
                     else
                     {
-                        location.reload() 
                         dialogo('Error ' + peticion.status);
                     }
 
@@ -81,7 +79,6 @@
                 {
                     dialogo("Las contraseñas no coinciden");
                     limpiar_formulario_empleado()
-                    location.reload() 
 
                 }
             }
@@ -121,6 +118,8 @@
             let id_elemento = padre.id
             let borrado = document.getElementById(id_elemento)
             borrado.parentNode.removeChild(borrado)
+            window.location.reload()
+
         }
     </script>
 </body>

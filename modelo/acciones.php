@@ -38,6 +38,37 @@ class Acciones
         } 
     }
 
+    public function tomar_informacion_factura($id,$sesion,$rfcEmpresa)
+    {
+
+        $verificacion  = $this->checarSesion($id,$sesion);
+        $verificacionEmpleado  = $this->checarSesionEmpleado($id,$sesion);
+        $verificacionEmpresa  = $this->checarSesionEmpresa($id,$sesion);
+        if($verificacion==$sesion || $verificacionEmpleado==$sesion || $verificacionEmpresa == $sesion)
+        {
+            $sql = "SELECT razonsocialEmpresa ,domicilioEmpresa, numerocalleEmpresa, coloniaEmpresa, telefonoEmpresa, correoEmpresa FROM empresas WHERE rfcEmpresa=:id";
+            $modelo = new Servidor();
+            $conexion= $modelo->conectar();
+            $parametro = $conexion->prepare($sql);
+            $parametro->bindParam(":id",$rfcEmpresa);
+            $parametro->execute();
+            $rows = $parametro->rowCount();
+            if($rows==0)
+            {
+                return "no hay coincidencias";
+            }
+            else
+            {
+                $datos = $parametro->fetchAll(PDO::FETCH_ASSOC);
+                return $datos;
+            }
+        }
+        else
+        {
+            return "ERROR";
+        } 
+    }
+
 
     // agregar comentario 
 
@@ -933,7 +964,7 @@ class Acciones
     }
 
     //////Agregar Empleado///////
-    public function agregar_empleado($idUsuario,$idSesion,$nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado,$tipo_usuario)
+    public function agregar_empleado($idUsuario,$idSesion,$nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado)
     {
         $verificacion  = $this->checarSesion($idUsuario,$idSesion);
         if($verificacion==$idSesion)
@@ -946,6 +977,7 @@ class Acciones
             $existe->execute();
             $activo = "1";
             $str_vacio = " ";
+            $tipo_empleado = "EMPLEADO";
 
             $numero = rand(100000,999999);
             $fecha = date("D/m/A H:i:s");
@@ -996,7 +1028,7 @@ class Acciones
                 $parametro->bindParam(":contrasenaEmpleado",$cifrado);
                 $parametro->bindParam(":idSesion",$str_vacio);
                 $parametro->bindParam(":activo",$activo);
-                $parametro->bindParam(":tipo_usuario",$tipo_usuario);
+                $parametro->bindParam(":tipo_usuario",$tipo_empleado);
                 
                 if($parametro->execute())
                 {
@@ -2558,14 +2590,12 @@ public function reset_contrasena($correo,$codigo,$tipo_usuario,$nueva_contrasena
                 if ($motivo == "NO RESUELTO")
                 {
                     $estatus = "0";
-                    $formato_comentario =  '<tr><td>TICKET NO RESUELTO <br> MOTIVO: '.$motivo.'<br>DESCRIPCION: '.$comentario.'</td></tr>';
-
+                    $formato_comentario =  'TICKET: NO RESUELTO **** MOTIVO: '.$motivo.'****DESCRIPCION: '.$comentario.'<br>';
                 }
                 if ($motivo == "RESUELTO")
                 {
                     $estatus = "2";
-                    $formato_comentario =  '<tr><td>TICKET RESUELTO <br> MOTIVO: '.$motivo.'<br>DESCRIPCION: '.$comentario.'</td></tr>';
-
+                    $formato_comentario =  'TICKET: RESUELTO **** MOTIVO: '.$motivo.'****DESCRIPCION: '.$comentario.'<br>';
                 }
                 $comentarios = $formato_comentario.$comentarios;
                 $sql3 = " ";
@@ -2627,10 +2657,6 @@ public function reset_contrasena($correo,$codigo,$tipo_usuario,$nueva_contrasena
                 $parametro2->execute();
                 return "Ticket Finalizado";
             }
-
-     
-
-
         }
         else
         {

@@ -46,12 +46,7 @@ function inicio_sesion()
                         if(tipo_u=="ADMINISTRADOR")
                         {
                             window.location.href="administrador"
-                        }
-                        if(tipo_u=="OPERATIVO")
-                        {
-                            window.location.href="operativo"
-                        }
-                        
+                        }                        
                         if(tipo_u=="EMPRESA")
                         {
                             window.location.href="empresa"
@@ -258,7 +253,7 @@ function dialogo(mensaje)
         dialogo_mensaje.innerHTML=mensaje
     
         let boton  = document.createElement("div")
-        boton.setAttribute("class","boton")
+        boton.setAttribute("class","boton_alerta")
         boton.setAttribute("onclick","quitar_alerta(event);")
         boton.innerHTML="Aceptar"
     

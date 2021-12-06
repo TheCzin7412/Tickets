@@ -23,7 +23,7 @@ if(isset($_POST['correo_destino'])){
     $modelo = new Acciones();
     $comprobacion =$modelo->comprobar_correo($correo_destino);
 
-    if($comprobacion=="no existe")
+    if($comprobacion=="no hay coincidencias")
     {
         echo "El correo no existe";
     }

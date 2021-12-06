@@ -910,13 +910,6 @@
                                                 <input id="input_contrasena_empleado" type="text" class="input_text_empleado" placeholder="Contraseña Empleado" value="">
                                             </div>
                                         </div>
-
-                                           <div class="contenedor_formulario_agregar">
-                                               <select name="" id="select_tipo_empleado" class="input_text_empleado">
-                                                   <option value="EMPLEADO">EMPLEADO</option>
-                                                   <option value="OPERATIVO">OPERATIVO</option>
-                                               </select>
-                                           </div>
                                            <div class="contenedor_formulario_agregar">
                                                <button class="boton" id="boton_agrega_empleado" onclick="agregar_empleado()">Agregar Empleado</button>
                                            </div>
