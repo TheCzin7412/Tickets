@@ -3637,7 +3637,7 @@ function cerrar_sesion()
                 check_cerrar_sesion = false
                 if(respuesta == "Sesion cerrada")
                 {
-                    window.location.href = "../index.php"
+                    window.location.href = "../"
                 }
             }
         }

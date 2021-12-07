@@ -172,13 +172,13 @@ if(isset($_SESSION['idSesion']))
     }
     else
     {
-        // header("Location: ../index.php");
+        header("Location: ../");
         echo "sin coincidencia";
     }
 
 }
 else{
-    // header("Location: ../");
+    header("Location: ../");
     echo "no disponible";
 }
 
