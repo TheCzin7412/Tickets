@@ -15,23 +15,8 @@
     $verificacion = $modelo->checarSesionEmpresa($_SESSION['idUsuario'],$_SESSION['idSesion']);
     if($verificacion==$_SESSION['idSesion'])
     {
-        echo '';
-    }
-    else
-    {
-        // header("Location: ../index.php");
-        echo "sin coincidencia";
-    }
-
-}
-else{
-    // header("Location: ../");
-    echo "no disponible";
-}
-
-?>
-
-<!DOCTYPE html>
+        echo '
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,8 +26,8 @@ else{
     <link rel="shortcut icon" href="../recursos/img/logo.ico" type="image/x-icon">
     <title>Empresa</title>
 </head>
-<body>
-    <?php 
+<body> ';
+     
     if(isset($_COOKIE['vista-actual']))
     {  
          echo '<input type="hidden" id="info-cookies" value="'.$_COOKIE['vista-actual'].'">';
@@ -51,8 +36,8 @@ else{
     {
          echo '<input type="hidden" id="info-cookies" value="no">';
     }
-    ?>
-<div id="contenedor">
+    echo'
+    <div id="contenedor">
             <div id="menu">
                 <div id="contenedor_logo" class="seccion_menu">
                     <img src="../recursos/img/logo.png" alt="" id="logo_inicio">
@@ -288,7 +273,7 @@ else{
                                    <div class="contendor_from_tickets">
                                        <div class="agregarTickets" id="contenedo_nombre_ticket">
                                             <p>Nombre empresa:</p>
-                                           <input type="text" id="input_nombreTicket" class="input_tickets" placeholder="Nombre Empresa" value="<?php echo $nombreEmpresa; ?>" onkeydown="mostrar_nombre(event);" disabled>
+                                           <input type="text" id="input_nombreTicket" class="input_tickets" placeholder="Nombre Empresa" value="'.$nombreEmpresa.'" onkeydown="mostrar_nombre(event);" disabled>
                                            <div id="contendor_opciones_nombre">
                                                <p class="opcion_nombre">Nombre empmresa</p>
                                            </div>
@@ -296,7 +281,7 @@ else{
                                        </div>
                                        <div class="agregarTickets1">
                                            <p>RFC Empresa:</p>
-                                           <input type="text" id="input_RFCTicket" class="input_tickets" value="<?php echo $rfcEmpresa; ?>" placeholder="RFC Empresa" disabled>
+                                           <input type="text" id="input_RFCTicket" class="input_tickets" value="'.$rfcEmpresa.'" placeholder="RFC Empresa" disabled>
                                            </div>
                                            
                                    </div>
@@ -365,3 +350,19 @@ else{
     
     </body>
 </html>
+        ';
+    }
+    else
+    {
+        // header("Location: ../index.php");
+        echo "sin coincidencia";
+    }
+
+}
+else{
+    // header("Location: ../");
+    echo "no disponible";
+}
+
+?>
+

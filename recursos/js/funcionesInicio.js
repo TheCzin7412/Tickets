@@ -153,20 +153,20 @@ function agregar_peticion_empresa()
                 if (ajax.status == 200) 
                 {
                     limpiar_formulario_agrega_peticion_login()
-                    // //console.log("200 Respuesta Exitosa");
-                    ////console.log(ajax.responseText)
+                    console.log("200 Respuesta Exitosa");
+                    console.log(ajax.responseText)
                     dialogo(ajax.responseText)
                 }
                 if (ajax.status == 400) 
                 {
-                    //console.log("400 El servidor no entendió la petición");
+                    console.log("400 El servidor no entendió la petición");
                 }
                 if (ajax.status == 404)
                 {
-                    //console.log("404 Página no encontrada");
+                    console.log("404 Página no encontrada");
                 }
                 if (ajax.status == 500) {
-                    //console.log("500 Error interno de servidor");
+                    console.log("500 Error interno de servidor");
                 }
             }            
         }

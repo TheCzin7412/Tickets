@@ -12,10 +12,10 @@ require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 
-$HOST = 'mail.tickets-switchmx.com';
+$HOST = 'tickets-switchmx.com';
 $USERNAME = 'recuperacion@tickets-switchmx.com';
-$PASSWORD = 'Termino250117.';
-$PORT = 587;
+$PASSWORD = 'Switch250117.';
+$PORT = 465;
 $host_name = 'https://tickets-switchmx.com/';
 
 if(isset($_POST['correo_destino'])){
@@ -40,8 +40,8 @@ if(isset($_POST['correo_destino'])){
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             $mail->Username   = $USERNAME;                     //SMTP username
             $mail->Password   = $PASSWORD;                               //SMTP password
-            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
             $mail->Port       = $PORT;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             //Recipients
             $mail->setFrom($USERNAME, 'Switch');
