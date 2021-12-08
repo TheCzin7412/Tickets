@@ -59,7 +59,7 @@
                         if(respuesta == 'se cambio correctamente')
                         {
                             dialogo(respuesta);
-                            window.location.href = 'index.php';
+                            window.location.href = '/';
                         }
                         else
                         {
@@ -118,7 +118,6 @@
             let borrado = document.getElementById(id_elemento)
             borrado.parentNode.removeChild(borrado)
             window.location.reload()
-
         }
     </script>
 </body>

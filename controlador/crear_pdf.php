@@ -60,42 +60,61 @@ if(isset($_GET['token']))
     $pdf->Text(157.2,62.5,$fechaCierre.' '.$HoraCierre);
 
     //Empresa
-    $pdf->Text(24.5,59.6,$nombreE);
+    //$pdf->Text(24.5,59.6,$nombreE);
+    $pdf->Text(24.5,59.6,utf8_decode($nombreE));
+
+
 
     //rfc
-    $pdf->Text(17.5,64.8,$rfc);
+    //$pdf->Text(17.5,64.8,$rfc);
+    $pdf->Text(17.5,64.8,utf8_decode($rfc));
+
 
     // razon social
-    $pdf->Text(30,69.5,$razonsocialEmpresa);
+    //$pdf->Text(30,69.5,$razonsocialEmpresa);
+    $pdf->Text(30,69.5,utf8_decode($razonsocialEmpresa));
+
 
     //domicilio
-    $pdf->Text(25.5,74.6,$domicilioEmpresa.' '.$numerocalleEmpresa);
+    //$pdf->Text(25.5,74.6,$domicilioEmpresa.' '.$numerocalleEmpresa);
+    $pdf->Text(25.5,74.6,utf8_decode($domicilioEmpresa).' '.$numerocalleEmpresa);
+
 
     //Colonia
-    $pdf->Text(23,79.7,$coloniaEmpresa);
+    //$pdf->Text(23,79.7,$coloniaEmpresa);
+    $pdf->Text(23,79.7,utf8_decode($coloniaEmpresa));
+
 
     //telefono
     $pdf->Text(24,84.6,$telefonoEmpresa);
 
     //correo
-    $pdf->Text(39,89.7,$correoEmpresa);
+    //$pdf->Text(39,89.7,$correoEmpresa);
+    $pdf->Text(39,89.7,utf8_decode($correoEmpresa));
+
 
     // Tipo servicio
-    $pdf->Text(36.5,98.4,$tipoServicio);
+    //$pdf->Text(36.5,98.4,$tipoServicio);
+    $pdf->Text(36.5,98.4,utf8_decode($tipoServicio));
+
+
 
     //prioridad
     $pdf->Text(124.5,98.4,$prioridad);
 
 
     //problematica 
-    $pdf->Text(48,105.8,$problematica);
-
-        
+    //$pdf->Text(48,105.8,$problematica);    
+    $pdf->Text(48,105.8,utf8_decode($problematica));    
     //firma empresa
-    $pdf->Text(53,217,$nombreE);
+    //$pdf->Text(53,217,$nombreE);
+    $pdf->Text(53,217,utf8_decode($nombreE));
+
 
     //firma empleado
-    $pdf->Text(140,217,$cierreEmpleado);
+    //$pdf->Text(140,217,$cierreEmpleado);
+    $pdf->Text(140,217,utf8_decode($cierreEmpleado));
+
 
 
 
@@ -117,7 +136,11 @@ if(isset($_GET['token']))
         {
             if(isset($cadena_filas[$i]))
             {
-                $pdf->Text(7.2,124+$i*5,str_replace("****"," ",$cadena_filas[$i]));
+                
+                $pdf->Text(7.2,124+$i*5,utf8_decode(str_replace("****"," ",$cadena_filas[$i])));
+                
+
+                
             }
         }
         $pdf->Output('D',$folio.".pdf",true);
@@ -126,13 +149,13 @@ if(isset($_GET['token']))
     {
         for($i=0;$i<9;$i++)
         {
-            $pdf->Text(7.2,126+$i*4,str_replace("****"," ",$cadena_filas[$i]));
+            $pdf->Text(7.2,126+$i*4,utf8_decode(str_replace("****"," ",$cadena_filas[$i])));
         }
         $pdf->AddPage();
         $pdf->Image("../recursos/img/pdf/formato_segunda_pagina.png",0,0,215.9,279.4,'PNG');
         for($i=9;$i<count($cadena_filas);$i++)
         {
-            $pdf->Text(7.2,-30+$i*10,str_replace("****"," ",$cadena_filas[$i]));
+            $pdf->Text(7.2,-30+$i*10,utf8_decode(str_replace("****"," ",$cadena_filas[$i])));
         }
         $pdf->Output('D',$folio.".pdf",true);
     }

@@ -1422,7 +1422,7 @@ Dashboard realizacion de prueba
         overflow-x: auto;
     }
     .input_tickets{
-        width: 100%;
+        width: 45%;
         font-size: 11px;
     }
     #id_comentario{
