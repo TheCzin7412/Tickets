@@ -936,7 +936,6 @@ class Acciones
             {
                 return "ERROR";
             }
-
     }
     public function  eliminar_usuario($idUsuario,$idSesion,$id)
     {
@@ -979,43 +978,15 @@ class Acciones
             $activo = "1";
             $str_vacio = " ";
             $tipo_empleado = "EMPLEADO";
-
             $numero = rand(100000,999999);
             $fecha = date("D/m/A H:i:s");
             $cifrado = sha1($contrasenaEmpleado);
             $cifrado = sha1($cifrado);
 
-            if($existe->rowCount()==0)
-            {
+            if($existe->rowCount()==0){
                 $sql = "INSERT INTO empleado
-                (nombreEmpleado,
-                apellidopEmpleado,
-                apellidomEmpleado,
-                domicilioEmpleado,
-                numeroextEmpleado,
-                coloniaEmpleado,
-                telefonoEmpleado,
-                puestoEmpleado,
-                correoEmpleado,
-                contrasenaEmpleado,
-                idSesion,
-                activo,
-                tipo_usuario
-                ) 
-                VALUE(:nombreEmpleado,
-                :apellidopEmpleado,
-                :apellidomEmpleado,
-                :domicilioEmpleado,
-                :numeroextEmpleado,
-                :coloniaEmpleado,
-                :telefonoEmpleado,
-                :puestoEmpleado,
-                :correoEmpleado,
-                :contrasenaEmpleado,
-                :idSesion,
-                :activo,
-                :tipo_usuario)";
-
+                (nombreEmpleado,apellidopEmpleado,apellidomEmpleado,domicilioEmpleado,numeroextEmpleado,coloniaEmpleado,telefonoEmpleado,puestoEmpleado,correoEmpleado,contrasenaEmpleado,idSesion,activo,tipo_usuario) 
+                VALUE(:nombreEmpleado,:apellidopEmpleado,:apellidomEmpleado,:domicilioEmpleado,:numeroextEmpleado,:coloniaEmpleado,:telefonoEmpleado,:puestoEmpleado,:correoEmpleado,:contrasenaEmpleado,:idSesion,:activo,:tipo_usuario)";
                 $parametro = $conexion->prepare($sql);
                 $parametro->bindParam(":nombreEmpleado",$nombreEmpleado);
                 $parametro->bindParam(":apellidopEmpleado",$apellidopEmpleado);
@@ -1030,25 +1001,15 @@ class Acciones
                 $parametro->bindParam(":idSesion",$str_vacio);
                 $parametro->bindParam(":activo",$activo);
                 $parametro->bindParam(":tipo_usuario",$tipo_empleado);
-                
-                if($parametro->execute())
-                {
+                if($parametro->execute()){
                     return "Empleado registrado satisfactoriamente";
-                }
-                else
-                {
+                }else{
                     return "ERROR";
                 }
-            }
-            else
-            {
+            }else{
                 return "El empleado registrado ya esta dado de alta";
-                // $correoEmpleado = $existe->fetchAll(PDO::FETCH_ASSOC);
-                // return $correoEmpleado;
             }
-        }
-        else
-        {
+        }else{
             return "ERROR";
         }    
     }
@@ -2264,7 +2225,7 @@ class Acciones
         } 
     }
 
-        public function tomarTicketsActivosEmpresa($id,$idSesion)
+        public function tomarTicketsActivosEmpresa($id,$idSesion,$coincidencia)
         {
         $verificacion  = $this->checarSesionEmpresa($id,$idSesion);
         if($verificacion==$idSesion)
@@ -2278,12 +2239,13 @@ class Acciones
             horaRegistro,
             tipoServicio,
             prioridad,
-            estatus FROM info_tickets WHERE estatus=:estatus";
+            estatus FROM info_tickets WHERE estatus=:estatus AND nombreEmpresa=:nombre";
             $estatus = "1";
             $modelo = new Servidor();
             $conexion = $modelo->conectar();
             $parametro = $conexion->prepare($sql);
             $parametro->bindParam(":estatus",$estatus);
+            $parametro->bindParam(":nombre",$coincidencia);
             $parametro->execute();
             $columnas = $parametro->rowCount();
             if($columnas==0)
@@ -2303,7 +2265,7 @@ class Acciones
     }
     
     
-    public function tomarTicketsNoResueltoEmpresa($id,$idSesion)
+    public function tomarTicketsNoResueltoEmpresa($id,$idSesion,$coincidencia)
         {
             $verificacion  = $this->checarSesionEmpresa($id,$idSesion);
             if($verificacion==$idSesion)
@@ -2317,12 +2279,13 @@ class Acciones
                 horaCierre,
                 tipoServicio,
                 prioridad,
-                estatus FROM info_tickets WHERE estatus=:estatus";
-                $estatus = "0";
+                estatus FROM info_tickets WHERE estatus=:estatus AND nombreEmpresa=:nombre";
+                $estatus = "0" ;
                 $modelo = new Servidor();
                 $conexion = $modelo->conectar();
                 $parametro = $conexion->prepare($sql);
                 $parametro->bindParam(":estatus",$estatus);
+                $parametro->bindParam(":nombre",$coincidencia);
                 $parametro->execute();
                 $columnas = $parametro->rowCount();
                 if($columnas==0)
@@ -2340,7 +2303,7 @@ class Acciones
                 return json_encode("error 500");
             } 
         }
-        public function tomarTicketsResueltoEmpresa($id,$idSesion)
+        public function tomarTicketsResueltoEmpresa($id,$idSesion,$coincidencia)
         {
             $verificacion  = $this->checarSesionEmpresa($id,$idSesion);
             if($verificacion==$idSesion)
@@ -2354,12 +2317,13 @@ class Acciones
                 horaCierre,
                 tipoServicio,
                 prioridad,
-                estatus FROM info_tickets WHERE estatus=:estatus";
-                $estatus = "2";
+                estatus FROM info_tickets WHERE estatus=:estatus AND nombreEmpresa=:nombre";
+                $estatus = "2" ;
                 $modelo = new Servidor();
                 $conexion = $modelo->conectar();
                 $parametro = $conexion->prepare($sql);
                 $parametro->bindParam(":estatus",$estatus);
+                $parametro->bindParam(":nombre",$coincidencia);
                 $parametro->execute();
                 $columnas = $parametro->rowCount();
                 if($columnas==0)

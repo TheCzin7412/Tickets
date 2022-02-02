@@ -89,7 +89,7 @@
                     <input id="input_contrasenaEmpresa" type="password" class="input_text_empresa"  placeholder="Contraseña ">
                 </div>
             </div>
-                <button class="boton_login" id="boton_registro_iniciosesion" onclick="agregar_peticion_empresa()">Dar de alta la peticion</button>
+                <button class="boton_login" id="boton_registro_iniciosesion" onclick="agregar_peticion_empresa()">Enviar petición</button>
         </div>
 
         <div id="contenedor_recuperar_contrasena" class="seccion_login">

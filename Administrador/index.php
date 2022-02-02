@@ -455,7 +455,7 @@ if(isset($_SESSION['idSesion']))
                                        <textarea class="input_tickets" id="txt_problematica" cols="10" rows="10" placeholder="Describa detalladamente la problematica presentada"></textarea>
                                    </div>
                                    <div class="contenedor_botonTickets">
-                                       <button class="boton" id="btn_agregar_ticket" onclick="agregar_ticket();">Dar de alta ticket</button>
+                                       <button class="boton" id="btn_agregar_ticket" onclick="agregar_ticket();">Dar de alta</button>
                                    </div>
                                </div>
                                    
@@ -722,7 +722,7 @@ if(isset($_SESSION['idSesion']))
                                             </div>
                                             
                                             <div class="contenedor_formulario_agregar">
-                                                <button class="boton" id="boton_agrega_empresa_dash" onclick="agregar_empresa_dashboard()">Dar de alta una nueva empresa</button>
+                                                <button class="boton" id="boton_agrega_empresa_dash" onclick="agregar_empresa_dashboard()">Agregar Empresa</button>
                                             </div>
                                    </div>
                                </div>
@@ -1119,7 +1119,7 @@ if(isset($_SESSION['idSesion']))
                                                 
                                     <div id="contenedor_cambio_contrasena" class="seccion">
                                         <div id="contenedor_formulario_cambio_contrasena">
-                                            <h1>Cambio de contraseña</h1>
+                                            <h1 class="titulo_seccion">Cambio de contraseña</h1>
                                             <!-- <div class="cambio_contrasena">
                                                 <p>Ingrese la contrasena actual</p>
                                                 <input type="password" id="input_contrasena_actual" class="input_cambio_contrasena" placeholder="Contraseña actual">

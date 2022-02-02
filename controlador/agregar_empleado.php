@@ -17,6 +17,5 @@ $contrasenaEmpleado = $_POST['contrasenaEmpleado'];
 $modelo = new Acciones();
 $registrar_empleado = $modelo->agregar_empleado($idUsuario,$idSesion,$nombreEmpleado,$apellidopEmpleado,$apellidomEmpleado,$domicilioEmpleado,$numeroextEmpleado,$coloniaEmpleado,$telefonoEmpleado,$puestoEmpleado,$correoEmpleado,$contrasenaEmpleado);
 echo $registrar_empleado;
-//var_dump($registrar_empleado);
-
 ?>
+

@@ -60,14 +60,14 @@ if(isset($_SESSION['idSesion']))
                         }
                     } 
                echo '
-               <table id="tabla_estado">
-                   <tr>
-                       <td>Estado</td>
-                   </tr>
-                   <tr>
-                       <td>'.$datos['estatus'].'</td>
-                   </tr>
-               </table>
+               <div id="tabla_estado">
+                   <p id="header_estado">
+                       Estado
+                   </p>
+                   <p id="contenedor_estado">
+                       '.$datos['estatus'].'
+                   </p>
+               </div>
             </div>
             <div class="contenedor_informacion">
                     <div class="contenedor_titulo">
@@ -155,7 +155,7 @@ if(isset($_SESSION['idSesion']))
                                                 echo '
                                                 <p class="titulo_item"><strong> Crear Comentario</strong></p>
                                                 <textarea name="" id="textarea_comentario" cols="30" rows="10"></textarea>
-                                                <buttom class="boton_alerta" onclick="agregar_comentario();">Comentar</buttom>
+                                                <button id="" class="boton_alerta" onclick="agregar_comentario();">Comentar</button>
                                                 ';
                                             }
                                         echo'

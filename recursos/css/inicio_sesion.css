@@ -15,7 +15,7 @@
     height: 60%;
     justify-content: space-around;
     border: solid 1px var(--colorAzul);
-    border-radius: 30px;
+    border-radius: 10px;
     align-items: center;
     flex-direction: column;
 }
@@ -44,7 +44,7 @@
     display: flex;
     width: 60%;
     height: auto;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 .opciones_login
@@ -57,10 +57,11 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    border-radius: 10px;
+    border: solid 1px transparent;
 }
 .opciones_login:hover{
-    border: solid 2px var(--colorAzul);
-    border-radius: 10px;
+    border: solid 1px var(--colorAzul);
     transition: all .04s ease-in-out;
 }
 .formulario_registro_inicio_sesion
@@ -73,12 +74,13 @@
 }
 .input_text_login{
     width: 90%;
-    height: 30px;
+    height: 35px;
     border: solid 1px var(--colorGris);
     padding-left: 10px;
     font-size: var(--tamanoTexto);
     font-family: var(--tipogrfiaTexto);
     text-align: center;
+    border-radius: 10px;
 }
 .input_text_login:focus{
     outline: none;
@@ -93,6 +95,7 @@
 }
 .boton_login
 {
+    cursor: pointer;
     width: 50%;
     height: auto;
     padding: 10px;
@@ -100,6 +103,9 @@
     margin-bottom: 15px;
     background: var(--colorAzul);
     color: var(--colorBlanco);
+    border-radius: 10px;
+    transition: all .3s ease-in-out;
+    border: solid 2px transparent;
 }
 .boton_login:hover
 {
@@ -107,7 +113,7 @@
     border-radius: 25px;
     background: var(--colorBlanco);
     color: var(--colorNegro);
-    transition: all .06s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 
 .contenedor_alerta
@@ -175,7 +181,7 @@
     #contenedor_formulario_login{
         display: flex;
         width: 90%;
-        height: auto;
+        height: 400px;
         justify-content: space-around;
         align-items: center;
         

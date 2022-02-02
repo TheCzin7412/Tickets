@@ -99,7 +99,7 @@ gris 6E6D6A
     margin-left: 10px;
     justify-content:flex-start;
     align-items: center;
-}
+}   
 #contenedor_bienvenida
 {
     display:flex;
@@ -213,7 +213,7 @@ gris 6E6D6A
 Dashboard realizacion de prueba
 */
 .seccion{
-    width: 100%;
+    width: 90%;
     height: auto;
     margin-top: 10px;
 }
@@ -271,6 +271,9 @@ Dashboard realizacion de prueba
     height: 100%;
     justify-content: space-around;
     align-items: center;
+    border-bottom: solid 3px transparent;
+    padding-bottom: 10px;
+    transition: all .4s ease-in-out;
 }
 
 
@@ -356,12 +359,14 @@ Dashboard realizacion de prueba
     justify-content: center;
     align-items: center;
 }
-.tablas{
+.tablas
+{
     width: 90%;
     height: auto;
     display: block;
     text-align: center;
     border-collapse: collapse;
+    border-radius: 10px;
 }
 
 .titulo_seccion
@@ -391,7 +396,9 @@ Dashboard realizacion de prueba
     font-size: var(--tamanoTexto);
     font-family: var(--tipogrfiaTexto);
     text-align: center;
+    border-radius: 10px;
 }
+
 .input_text_empleado
 {
     width: 90%;
@@ -401,50 +408,55 @@ Dashboard realizacion de prueba
     font-size: var(--tamanoTexto);
     font-family: var(--tipogrfiaTexto);
     text-align: center;
+    border-radius: 10px;
 }
 .input_text_administrador
 {
-    width: 100%;
+    width: 90%;
     height: 30px;
     border: solid 1px var(--colorGris);
     padding-left: 10px;
     font-size: var(--tamanoTexto);
     font-family: var(--tipogrfiaTexto);
     text-align: center;
+    border-radius: 10px;
 }
 .input_text_administrador:focus{
     outline: none;
     border-radius: 10px;
-    border: solid 2px var(--colorAzul);
+    /* border: solid 2px var(--colorAzul); */
     transition: all .3s ease-in-out;
 }
 .input_text:focus{
     outline: none;
     border-radius: 10px;
-    border: solid 2px var(--colorAzul);
+    /* border: solid 2px var(--colorAzul); */
     transition: all .3s ease-in-out;
 }
 .input_text_empresa:focus{
     outline: none;
     border-radius: 10px;
-    border: solid 2px var(--colorAzul);
+    /* border: solid 2px var(--colorAzul); */
     transition: all .3s ease-in-out;
 }
 .input_text_empleado:focus{
     outline: none;
     border-radius: 10px;
-    border: solid 2px var(--colorAzul);
+    /* border: solid 2px var(--colorAzul); */
     transition: all .3s ease-in-out;
 }
 .boton
 {
     cursor: pointer;
-    width: 70%;
+    width: auto;
     padding: 10px;
     padding-left: 30px;   
     padding-right: 30px;   
     background: var(--colorAzul);
     color: var(--colorBlanco);
+    border-radius: 10px;
+    transition: all .3s ease-in-out;
+    border: solid 2px transparent;
 }
 .boton:hover
 {
@@ -452,7 +464,7 @@ Dashboard realizacion de prueba
     border-radius: 25px;
     background: var(--colorBlanco);
     color: var(--colorNegro);
-    transition: all .06s ease-in-out;
+    transition: all .6s ease-in-out;
 }
 #contenedor_empresas_activas
 {
@@ -734,10 +746,9 @@ Dashboard realizacion de prueba
     color: var(--colorBlanco);
     padding: 10px;
     font-size: 80%;
-}
-.controladores_paginador:hover{
-    border: solid 2px var(--colorAzul);
     border-radius: 10px;
+}
+.controladores_paginador:hover{ 
     background: var(--colorBlanco);
     color: var(--colorNegro); 
 }
@@ -764,7 +775,7 @@ Dashboard realizacion de prueba
     width: 100%;
     height: auto;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: row;
 }
 .lista1{
@@ -777,21 +788,23 @@ Dashboard realizacion de prueba
     height: auto;
 }
 .select_cantidad{
-    width: 50px;
+    width: 70px;
+    height: 30px;
     font-size: var(--tamanoTexto);
     border-radius: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 .select_cantidad:hover{
     background-color: var(--colorAzulClaro);
-    color: var(--colorBlanco);
     transition: all .04s ease-in-out;
 }
 .barra_buscadora{
     display: flex;
     width: 100%;
     height: auto;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
     flex-direction: row;
 }
 .buscador1{
@@ -805,17 +818,18 @@ Dashboard realizacion de prueba
 }
 .input_barra_buscadora{
     width: 300px;
-    height: auto;
+    height: 30px;
     font-size: var(--tamanoTexto);
     border: solid 1px var(--colorNegro);
     border-radius: 5px;
+    transition: all .3s ease-in-out;
+    padding-left: 15px;
 }
 .input_barra_buscadora:focus{
     outline: none;
     border-radius: 10px;
     border: solid 2px var(--colorAzul);
     transition: all .3s ease-in-out;
-
 }
 #contenedor_contenido_ticketsPendientes{
     display: flex;
@@ -850,8 +864,7 @@ Dashboard realizacion de prueba
     padding:10px;
     justify-content: space-around;
     align-items: center;
-    flex-direction: row;
-    
+    flex-direction: row;   
 }
 .contenedor_box{
     display: flex;
@@ -893,13 +906,18 @@ Dashboard realizacion de prueba
     text-align: center;
     font-size: var(--tamanoTexto);
     font-family: var(--tipogrfiaTexto);
+    border-radius: 10px;
 }
 .input_tickets:hover{
-    border: solid 1.5px var(--colorAzul);
+    border: solid 1px var(--colorAzul);
     border-radius: 10px;
     background: var(--colorBlanco);
     color: var(--colorNegro);
     transition: all .06s ease-in-out;
+}
+.input_tickets:focus
+{
+    outline: none;
 }
 .agregarTickets{
     display: flex;
@@ -1225,6 +1243,7 @@ Dashboard realizacion de prueba
     font-size: var(--tamanoTexto);
     font-family: var(--tipogrfiaTexto);
     text-align: center;
+    border-radius: 10px;
 }
 .input_cambio_contrasena:focus{
     outline: none;
@@ -1272,20 +1291,24 @@ Dashboard realizacion de prueba
 
 .boton_alerta
 {
+    width: 200px;
     cursor: pointer;
     padding: 10px;
     padding-left: 30px;   
     padding-right: 30px;   
     background: var(--colorAzul);
     color: var(--colorBlanco);
+    border: solid 2px transparent;
+    border-radius: 10px;
+    text-align: center;
 }
 .boton_alerta:hover 
 {
     border: solid 2px var(--colorAzul);
-    border-radius: 25px;
+    border-radius: 10px;
     background: var(--colorBlanco);
     color: var(--colorNegro);
-    transition: all .06s ease-in-out;
+    transition: all .6s ease-in-out;
 }
 #logo_inicio_menu
 {
@@ -1412,6 +1435,7 @@ Dashboard realizacion de prueba
         justify-content: center;
         align-items: center;
         font-size: 13px;
+        padding-left: 15px;
     }
     .boton_control{
         padding: 10px;
@@ -1420,9 +1444,10 @@ Dashboard realizacion de prueba
     #contenedor_tablas_tickets_pendientes,#contenedor_tabla_peticion,#contenedor_tablas_peticiones, #contenedor_tablas_tickets_seccion, #contenedor_tablas_ticketsNo, #contenedor_tabla_empresas_activas,#contenedor_tabla_empresas_noactivas,#contenedor_tabla_peticion_empresas,#contenedor_tabla_empleado_activas,#contenedor_tabla_empleado_noactivo,#contenedor_tabla_administradores_activo,#contenedor_tabla_administradores_noactivo,#contenedor_tabla_tickets_empresa,#contendor_tabla_noresuelto_empresa,#contenedor_tabla_resuelto_empresa,#contenedor_tabla_ticket_empleado,#contenedor_tabla_ticketsNo_empleado,#contendor_tabla_ticketResuelto_empleado
     {
         overflow-x: auto;
+        padding-left: 15px;
     }
     .input_tickets{
-        width: 45%;
+        width: 75%;
         font-size: 11px;
     }
     #id_comentario{
@@ -1439,5 +1464,30 @@ Dashboard realizacion de prueba
     .input_text_empleado, .input_text_administrador,.input_cambio_contrasena,.input_tickets{
         font-size: 11px;
         text-align: start;
+    }
+
+
+    .contenedor_dialogo
+    {
+        width: 80%;
+    }
+
+    .imagen_menu
+    {
+        margin-right: 0;
+    }
+
+    .contendor_from_tickets
+
+    {
+        flex-direction: column;
+    }
+    .agregarTickets1,.agregarTickets,.agregarTickets2
+    {
+        width: 100%;
+    }
+    .input_text_empresa
+    {
+        font-size: 10px;
     }
 }
